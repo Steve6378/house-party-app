@@ -217,17 +217,12 @@ def filter_venues(input_file: str, output_json: str = "la_venues.json",
 
     # Print summary
     print("=" * 60)
-    print("FILTERING COMPLETE!")
+    print("FILTERING COMPLETE")
     print("=" * 60)
     print(f"Total businesses processed: {stats['total_processed']:,}")
     print(f"Final filtered venues: {stats['final_count']:,}")
     print(f"Open venues: {stats['open_count']:,}")
     print(f"Closed venues: {stats['closed_count']:,}")
-    print(f"\nFiles created:")
-    print(f"  - {output_json}")
-    print(f"  - {output_csv}")
-    print(f"  - {stats_file}")
-    print("\nNext step: Review la_venues.csv to verify results look good!")
 
 
 if __name__ == "__main__":
@@ -236,7 +231,6 @@ if __name__ == "__main__":
 
     if not Path(input_file).exists():
         print(f"ERROR: File not found: {input_file}")
-        print("\nPlease update line 233 with the correct path to your")
-        print("yelp_academic_dataset_business.json file")
+        print("Update the input_file path in this script.")
     else:
         filter_venues(input_file)
