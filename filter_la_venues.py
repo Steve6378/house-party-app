@@ -75,10 +75,15 @@ def is_la_area(business: Dict) -> bool:
         True if business is in LA area, False otherwise
     """
     city = business.get('city', '').lower().strip()
+    state = business.get('state', '').upper().strip()
     lat = business.get('latitude')
     lon = business.get('longitude')
 
-    # Check city name first
+    # Must be in California
+    if state != 'CA':
+        return False
+
+    # Check city name
     if city in LA_CITIES:
         return True
 
