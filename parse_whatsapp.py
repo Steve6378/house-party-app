@@ -34,39 +34,55 @@ def parse_whatsapp_chat(txt_file: str, output_json: str = "chat_export.json") ->
 
     print(f"Parsing {txt_file}...")
 
-    with open(txt_file, 'r', encoding='utf-8') as f:
-        for line_num, line in enumerate(f, 1):
-            line = line.rstrip('\n')
+    # Try multiple encodings to handle emojis and special characters
+    encodings = ['utf-8', 'utf-8-sig', 'latin-1', 'cp1252']
+    file_content = None
 
-            # Try to match a new message
-            match = message_pattern.match(line)
+    for encoding in encodings:
+        try:
+            with open(txt_file, 'r', encoding=encoding, errors='replace') as f:
+                file_content = f.readlines()
+            print(f"Successfully opened file with {encoding} encoding")
+            break
+        except (UnicodeDecodeError, UnicodeError):
+            continue
 
-            if match:
-                # Save previous message if exists
-                if current_message and current_message['content'].strip():
-                    # Skip "image omitted" and similar system messages
-                    if not should_skip_message(current_message['content']):
-                        messages.append(current_message)
+    if file_content is None:
+        print("ERROR: Could not decode file with any encoding")
+        return []
 
-                # Start new message
-                date_str = match.group(1)
-                time_str = match.group(2)
-                user = match.group(3).strip()
-                content = match.group(4).strip()
+    for line_num, line in enumerate(file_content, 1):
+        line = line.rstrip('\n')
 
-                # Parse timestamp
-                timestamp = parse_timestamp(date_str, time_str)
+        # Try to match a new message
+        match = message_pattern.match(line)
 
-                current_message = {
-                    'user': user,
-                    'content': content,
-                    'timestamp': timestamp
-                }
+        if match:
+            # Save previous message if exists
+            if current_message and current_message['content'].strip():
+                # Skip "image omitted" and similar system messages
+                if not should_skip_message(current_message['content']):
+                    messages.append(current_message)
 
-            else:
-                # Continuation of previous message (multi-line)
-                if current_message and line.strip():
-                    current_message['content'] += ' ' + line.strip()
+            # Start new message
+            date_str = match.group(1)
+            time_str = match.group(2)
+            user = match.group(3).strip()
+            content = match.group(4).strip()
+
+            # Parse timestamp
+            timestamp = parse_timestamp(date_str, time_str)
+
+            current_message = {
+                'user': user,
+                'content': content,
+                'timestamp': timestamp
+            }
+
+        else:
+            # Continuation of previous message (multi-line)
+            if current_message and line.strip():
+                current_message['content'] += ' ' + line.strip()
 
     # Don't forget last message
     if current_message and current_message['content'].strip():
