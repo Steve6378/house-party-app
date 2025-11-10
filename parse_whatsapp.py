@@ -93,9 +93,9 @@ def parse_whatsapp_chat(txt_file: str, output_json: str = "chat_export.json") ->
     for msg in messages:
         msg['content'] = clean_message(msg['content'])
 
-    # Save to JSON
+    # Save to JSON (with actual Unicode characters, not escaped)
     with open(output_json, 'w', encoding='utf-8') as f:
-        json.dump(messages, f, indent=2)
+        json.dump(messages, f, indent=2, ensure_ascii=False)
 
     print(f"\nParsed {len(messages)} messages")
     print(f"Saved to {output_json}")
