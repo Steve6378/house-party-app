@@ -38,31 +38,45 @@ def extract_facts_from_message(client: OpenAI, message: Dict) -> Dict:
         Dict with 'user_facts' and 'group_facts' lists
     """
     prompt = f"""
-You are analyzing a group chat message to extract useful facts about users and the group.
+You are analyzing a group chat to extract facts relevant to planning events, parties, and hangouts.
 
 Message from {message['user']}: "{message['content']}"
 
 Extract facts in JSON format:
 {{
   "user_facts": [
-    {{"fact": "prefers Python over R", "confidence": 0.90}},
-    {{"fact": "available on weekends", "confidence": 0.85}},
-    {{"fact": "experienced with RAG systems", "confidence": 0.95}}
+    {{"fact": "is vegan", "confidence": 0.95}},
+    {{"fact": "loves Taylor Swift", "confidence": 0.90}},
+    {{"fact": "prefers outdoor activities", "confidence": 0.85}},
+    {{"fact": "always running late", "confidence": 0.80}}
   ],
   "group_facts": [
-    {{"fact": "working on Yelp dataset project", "confidence": 0.90}},
-    {{"fact": "using PostgreSQL database", "confidence": 0.95}}
+    {{"fact": "usually meets on Saturday evenings", "confidence": 0.90}},
+    {{"fact": "last event was a beach bonfire", "confidence": 0.95}}
   ]
 }}
 
-Rules:
-- User facts: preferences, skills, availability, work habits, constraints, personal info
-- Group facts: project context, tools/tech used, deadlines, shared decisions, past events
-- Extract ANY useful context that could help future interactions
-- Be broad: technical skills, schedule, communication style, opinions, capabilities
-- Only extract clear, verifiable facts (not speculation)
-- Confidence should reflect certainty (0.0 to 1.0)
-- Return empty arrays if no facts found
+Rules for USER FACTS (about the person speaking):
+- Food/dietary: restrictions, allergies, cuisines they love/hate, budget per meal
+- Music: favorite artists, genres, songs they want at parties
+- Activities: outdoor vs indoor, active vs chill, group size preferences
+- Social style: introverted/extroverted, brings friends, punctuality
+- Logistics: has car, lives near X, availability (weekends/weeknights)
+- Photo habits: loves/hates being photographed, takes lots of photos
+- Constraints: budget limits, time constraints, accessibility needs
+- Preferences: casual vs fancy, loud vs quiet, theme preferences
+
+Rules for GROUP FACTS (about the collective):
+- Typical plans: usual day/time, locations, group size
+- Past events: what worked well, what didn't, venue history
+- Shared preferences: budget range, preferred areas, common interests
+- Decisions: agreed-upon plans, consensus on themes/activities
+- Tools/platforms: how they coordinate (Spotify playlists, photo sharing)
+
+Extract ANY detail that would help plan better events for this group.
+Only extract clear, verifiable facts (not speculation).
+Confidence should reflect certainty (0.0 to 1.0).
+Return empty arrays if no relevant facts found.
 
 Return ONLY valid JSON, no markdown or explanation.
 """
