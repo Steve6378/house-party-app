@@ -8,6 +8,10 @@ import psycopg2
 from openai import OpenAI
 from typing import List, Dict, Optional
 from tabulate import tabulate
+from dotenv import load_dotenv
+
+# Load environment variables from .env file
+load_dotenv()
 
 
 def get_db_connection():

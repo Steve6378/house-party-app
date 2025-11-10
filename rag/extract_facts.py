@@ -10,6 +10,10 @@ from psycopg2.extras import execute_values
 from openai import OpenAI
 from typing import List, Dict
 from datetime import datetime
+from dotenv import load_dotenv
+
+# Load environment variables from .env file
+load_dotenv()
 
 
 def get_db_connection():
