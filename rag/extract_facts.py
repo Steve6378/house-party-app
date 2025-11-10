@@ -38,25 +38,29 @@ def extract_facts_from_message(client: OpenAI, message: Dict) -> Dict:
         Dict with 'user_facts' and 'group_facts' lists
     """
     prompt = f"""
-You are analyzing a group chat message to extract facts about users and the group.
+You are analyzing a group chat message to extract useful facts about users and the group.
 
 Message from {message['user']}: "{message['content']}"
 
 Extract facts in JSON format:
 {{
   "user_facts": [
-    {{"fact": "is vegan", "confidence": 0.95}},
-    {{"fact": "allergic to nuts", "confidence": 0.90}}
+    {{"fact": "prefers Python over R", "confidence": 0.90}},
+    {{"fact": "available on weekends", "confidence": 0.85}},
+    {{"fact": "experienced with RAG systems", "confidence": 0.95}}
   ],
   "group_facts": [
-    {{"fact": "prefers Saturday evenings", "confidence": 0.85}}
+    {{"fact": "working on Yelp dataset project", "confidence": 0.90}},
+    {{"fact": "using PostgreSQL database", "confidence": 0.95}}
   ]
 }}
 
 Rules:
-- User facts are about the person speaking (dietary restrictions, preferences, habits)
-- Group facts are about the collective (budget, preferred locations, past events)
-- Only extract clear, actionable facts
+- User facts: preferences, skills, availability, work habits, constraints, personal info
+- Group facts: project context, tools/tech used, deadlines, shared decisions, past events
+- Extract ANY useful context that could help future interactions
+- Be broad: technical skills, schedule, communication style, opinions, capabilities
+- Only extract clear, verifiable facts (not speculation)
 - Confidence should reflect certainty (0.0 to 1.0)
 - Return empty arrays if no facts found
 
@@ -240,16 +244,22 @@ def process_messages(messages: List[Dict], group_id: str):
 
 
 if __name__ == "__main__":
-    # Load mock data
-    mock_data_file = "mock_chat.json"
+    import sys
 
-    if not os.path.exists(mock_data_file):
-        print(f"ERROR: {mock_data_file} not found")
-        print("Create a JSON file with structure:")
-        print('[{"user": "Sarah", "content": "I\'m vegan btw", "timestamp": "2024-11-01T14:30:00"}, ...]')
+    # Accept filename as command-line argument
+    if len(sys.argv) > 1:
+        input_file = sys.argv[1]
+    else:
+        input_file = "mock_chat.json"
+
+    if not os.path.exists(input_file):
+        print(f"ERROR: {input_file} not found")
+        print("\nUsage: python rag/extract_facts.py [chat_file.json]")
+        print("Example: python rag/extract_facts.py real_chat.json")
         exit(1)
 
-    with open(mock_data_file, 'r') as f:
+    print(f"Loading messages from: {input_file}")
+    with open(input_file, 'r') as f:
         messages = json.load(f)
 
     # Use a test group ID (in real app, this would come from request)
@@ -264,7 +274,7 @@ if __name__ == "__main__":
             VALUES (%s, %s)
             ON CONFLICT DO NOTHING
             """,
-            (test_group_id, "Test Group")
+            (test_group_id, "DSCI 560 Group")
         )
     conn.commit()
     conn.close()
