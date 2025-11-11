@@ -70,6 +70,9 @@ def parse_whatsapp_chat(txt_file: str, output_json: str = "chat_export.json") ->
             user = match.group(3).strip()
             content = match.group(4).strip()
 
+            # Clean username: remove leading ~ and special whitespace
+            user = user.lstrip('~').strip()
+
             # Parse timestamp
             timestamp = parse_timestamp(date_str, time_str)
 
