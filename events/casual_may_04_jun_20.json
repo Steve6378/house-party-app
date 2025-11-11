@@ -1,0 +1,602 @@
+[
+  {
+    "message_id": "msg_casual_001",
+    "user": "Nirali",
+    "content": "ugh finals week is killing me",
+    "timestamp": "2024-05-04T22:14:33"
+  },
+  {
+    "message_id": "msg_casual_002",
+    "user": "Maya",
+    "content": "same. im living in the library",
+    "timestamp": "2024-05-04T22:18:47"
+  },
+  {
+    "message_id": "msg_casual_003",
+    "user": "Tanya",
+    "content": "https://tiktok.com/chaotic-study-habits",
+    "timestamp": "2024-05-05T15:33:22"
+  },
+  {
+    "message_id": "msg_casual_004",
+    "user": "Tanya",
+    "content": "this is literally me rn",
+    "timestamp": "2024-05-05T15:33:29"
+  },
+  {
+    "message_id": "msg_casual_005",
+    "user": "Jake",
+    "content": "LMAO accurate",
+    "timestamp": "2024-05-05T15:41:08"
+  },
+  {
+    "message_id": "msg_casual_006",
+    "user": "Mahiru",
+    "content": "Good luck everyone! You've got this 💪",
+    "timestamp": "2024-05-06T09:22:14"
+  },
+  {
+    "message_id": "msg_casual_007",
+    "user": "Nirali",
+    "content": "thank you mahiru youre so sweet",
+    "timestamp": "2024-05-06T09:28:33"
+  },
+  {
+    "message_id": "msg_casual_008",
+    "user": "Jake",
+    "content": "anyone else procrastinating by organizing their desk",
+    "timestamp": "2024-05-07T16:44:22"
+  },
+  {
+    "message_id": "msg_casual_009",
+    "user": "Tanya",
+    "content": "im procrastinating by watching youtube",
+    "timestamp": "2024-05-07T16:52:18"
+  },
+  {
+    "message_id": "msg_casual_010",
+    "user": "Maya",
+    "content": "im procrastinating by being in this chat",
+    "timestamp": "2024-05-07T17:03:47"
+  },
+  {
+    "message_id": "msg_casual_011",
+    "user": "Amane",
+    "content": "just study",
+    "timestamp": "2024-05-07T17:12:04"
+  },
+  {
+    "message_id": "msg_casual_012",
+    "user": "Nirali",
+    "content": "amane with the hard truths",
+    "timestamp": "2024-05-07T17:14:22"
+  },
+  {
+    "message_id": "msg_casual_013",
+    "user": "Mahiru",
+    "content": "[image: Homemade study snacks]",
+    "timestamp": "2024-05-08T14:22:08"
+  },
+  {
+    "message_id": "msg_casual_014",
+    "user": "Mahiru",
+    "content": "Made some onigiri if anyone wants to come by and study together!",
+    "timestamp": "2024-05-08T14:22:19"
+  },
+  {
+    "message_id": "msg_casual_015",
+    "user": "Jake",
+    "content": "yo that looks so good",
+    "timestamp": "2024-05-08T14:28:33"
+  },
+  {
+    "message_id": "msg_casual_016",
+    "user": "Tanya",
+    "content": "mahiru youre literally the best",
+    "timestamp": "2024-05-08T14:31:47"
+  },
+  {
+    "message_id": "msg_casual_017",
+    "user": "Amane",
+    "content": "ill come by",
+    "timestamp": "2024-05-08T14:35:12"
+  },
+  {
+    "message_id": "msg_casual_018",
+    "user": "Mahiru",
+    "content": "Great! See you soon 😊",
+    "timestamp": "2024-05-08T14:36:44"
+  },
+  {
+    "message_id": "msg_casual_019",
+    "user": "Nirali",
+    "content": "FINALS ARE OVER",
+    "timestamp": "2024-05-10T18:47:22"
+  },
+  {
+    "message_id": "msg_casual_020",
+    "user": "Tanya",
+    "content": "FREEDOM",
+    "timestamp": "2024-05-10T18:48:14"
+  },
+  {
+    "message_id": "msg_casual_021",
+    "user": "Jake",
+    "content": "that last exam destroyed me but whatever its summer now",
+    "timestamp": "2024-05-10T18:52:33"
+  },
+  {
+    "message_id": "msg_casual_022",
+    "user": "Maya",
+    "content": "dont have to think about school for 3 months",
+    "timestamp": "2024-05-10T18:58:07"
+  },
+  {
+    "message_id": "msg_casual_023",
+    "user": "Mahiru",
+    "content": "Congrats everyone! We survived another semester 🎉",
+    "timestamp": "2024-05-10T19:14:22"
+  },
+  {
+    "message_id": "msg_casual_024",
+    "user": "Tanya",
+    "content": "we should celebrate",
+    "timestamp": "2024-05-10T19:18:44"
+  },
+  {
+    "message_id": "msg_casual_025",
+    "user": "Nirali",
+    "content": "yes!! beach day?",
+    "timestamp": "2024-05-10T19:22:08"
+  },
+  {
+    "message_id": "msg_casual_026",
+    "user": "Jake",
+    "content": "im down but maybe next weekend? need to recover first lol",
+    "timestamp": "2024-05-10T19:27:33"
+  },
+  {
+    "message_id": "msg_casual_027",
+    "user": "Amane",
+    "content": "same. need sleep",
+    "timestamp": "2024-05-10T19:31:14"
+  },
+  {
+    "message_id": "msg_casual_028",
+    "user": "Tanya",
+    "content": "mood",
+    "timestamp": "2024-05-10T19:34:47"
+  },
+  {
+    "message_id": "msg_casual_029",
+    "user": "Jake",
+    "content": "[image: Sunset from his window]",
+    "timestamp": "2024-05-12T19:47:22"
+  },
+  {
+    "message_id": "msg_casual_030",
+    "user": "Jake",
+    "content": "golden hour hitting different today",
+    "timestamp": "2024-05-12T19:47:34"
+  },
+  {
+    "message_id": "msg_casual_031",
+    "user": "Nirali",
+    "content": "pretty!!",
+    "timestamp": "2024-05-12T19:52:08"
+  },
+  {
+    "message_id": "msg_casual_032",
+    "user": "Mahiru",
+    "content": "Beautiful photo Jake! 📸",
+    "timestamp": "2024-05-12T19:58:44"
+  },
+  {
+    "message_id": "msg_casual_033",
+    "user": "Tanya",
+    "content": "ok but has anyone seen the new season of that show",
+    "timestamp": "2024-05-14T21:33:18"
+  },
+  {
+    "message_id": "msg_casual_034",
+    "user": "Maya",
+    "content": "which show",
+    "timestamp": "2024-05-14T21:38:47"
+  },
+  {
+    "message_id": "msg_casual_035",
+    "user": "Tanya",
+    "content": "the one with the thing",
+    "timestamp": "2024-05-14T21:42:14"
+  },
+  {
+    "message_id": "msg_casual_036",
+    "user": "Jake",
+    "content": "very helpful tanya",
+    "timestamp": "2024-05-14T21:44:33"
+  },
+  {
+    "message_id": "msg_casual_037",
+    "user": "Tanya",
+    "content": "LMAO i cant remember the name",
+    "timestamp": "2024-05-14T21:45:22"
+  },
+  {
+    "message_id": "msg_casual_038",
+    "user": "Nirali",
+    "content": "truly on brand",
+    "timestamp": "2024-05-14T21:47:08"
+  },
+  {
+    "message_id": "msg_casual_039",
+    "user": "Maya",
+    "content": "its hot today",
+    "timestamp": "2024-05-17T15:22:44"
+  },
+  {
+    "message_id": "msg_casual_040",
+    "user": "Nirali",
+    "content": "yeah like 90 degrees",
+    "timestamp": "2024-05-17T15:28:17"
+  },
+  {
+    "message_id": "msg_casual_041",
+    "user": "Tanya",
+    "content": "im melting",
+    "timestamp": "2024-05-17T15:33:52"
+  },
+  {
+    "message_id": "msg_casual_042",
+    "user": "Jake",
+    "content": "ac or die",
+    "timestamp": "2024-05-17T15:41:28"
+  },
+  {
+    "message_id": "msg_casual_043",
+    "user": "Mahiru",
+    "content": "Stay hydrated everyone! 💧",
+    "timestamp": "2024-05-17T16:14:33"
+  },
+  {
+    "message_id": "msg_casual_044",
+    "user": "Amane",
+    "content": "good advice",
+    "timestamp": "2024-05-17T16:22:08"
+  },
+  {
+    "message_id": "msg_casual_045",
+    "user": "Nirali",
+    "content": "mahiru is everyones mom friend",
+    "timestamp": "2024-05-17T16:28:44"
+  },
+  {
+    "message_id": "msg_casual_046",
+    "user": "Mahiru",
+    "content": "I just care about you all! 😊",
+    "timestamp": "2024-05-17T16:33:17"
+  },
+  {
+    "message_id": "msg_casual_047",
+    "user": "Tanya",
+    "content": "and we love you for it 💕",
+    "timestamp": "2024-05-17T16:38:52"
+  },
+  {
+    "message_id": "msg_casual_048",
+    "user": "Jake",
+    "content": "anyone free tonight?",
+    "timestamp": "2024-05-19T17:44:22"
+  },
+  {
+    "message_id": "msg_casual_049",
+    "user": "Maya",
+    "content": "i have work",
+    "timestamp": "2024-05-19T17:52:18"
+  },
+  {
+    "message_id": "msg_casual_050",
+    "user": "Nirali",
+    "content": "family dinner sorry",
+    "timestamp": "2024-05-19T17:58:44"
+  },
+  {
+    "message_id": "msg_casual_051",
+    "user": "Tanya",
+    "content": "what were you thinking?",
+    "timestamp": "2024-05-19T18:03:33"
+  },
+  {
+    "message_id": "msg_casual_052",
+    "user": "Jake",
+    "content": "just bored lol nvm",
+    "timestamp": "2024-05-19T18:11:47"
+  },
+  {
+    "message_id": "msg_casual_053",
+    "user": "Amane",
+    "content": "i can hang",
+    "timestamp": "2024-05-19T18:14:22"
+  },
+  {
+    "message_id": "msg_casual_054",
+    "user": "Jake",
+    "content": "bet wanna grab food?",
+    "timestamp": "2024-05-19T18:18:08"
+  },
+  {
+    "message_id": "msg_casual_055",
+    "user": "Amane",
+    "content": "sure",
+    "timestamp": "2024-05-19T18:19:44"
+  },
+  {
+    "message_id": "msg_casual_056",
+    "user": "Nirali",
+    "content": "https://instagram.com/reel/spicy-food-challenge",
+    "timestamp": "2024-05-21T20:14:33"
+  },
+  {
+    "message_id": "msg_casual_057",
+    "user": "Nirali",
+    "content": "i could do this easily",
+    "timestamp": "2024-05-21T20:14:42"
+  },
+  {
+    "message_id": "msg_casual_058",
+    "user": "Tanya",
+    "content": "LMAO nirali we know",
+    "timestamp": "2024-05-21T20:22:18"
+  },
+  {
+    "message_id": "msg_casual_059",
+    "user": "Jake",
+    "content": "you would probably ask for more spice",
+    "timestamp": "2024-05-21T20:28:44"
+  },
+  {
+    "message_id": "msg_casual_060",
+    "user": "Nirali",
+    "content": "EXACTLY",
+    "timestamp": "2024-05-21T20:31:07"
+  },
+  {
+    "message_id": "msg_casual_061",
+    "user": "Mahiru",
+    "content": "Good morning everyone! ☀️",
+    "timestamp": "2024-05-23T09:22:14"
+  },
+  {
+    "message_id": "msg_casual_062",
+    "user": "Nirali",
+    "content": "morning!!",
+    "timestamp": "2024-05-23T09:44:33"
+  },
+  {
+    "message_id": "msg_casual_063",
+    "user": "Maya",
+    "content": "morning",
+    "timestamp": "2024-05-23T10:18:47"
+  },
+  {
+    "message_id": "msg_casual_064",
+    "user": "Tanya",
+    "content": "ugh too early",
+    "timestamp": "2024-05-23T11:33:22"
+  },
+  {
+    "message_id": "msg_casual_065",
+    "user": "Jake",
+    "content": "tanya its literally 11:30",
+    "timestamp": "2024-05-23T11:38:08"
+  },
+  {
+    "message_id": "msg_casual_066",
+    "user": "Tanya",
+    "content": "your point?",
+    "timestamp": "2024-05-23T11:42:44"
+  },
+  {
+    "message_id": "msg_casual_067",
+    "user": "Amane",
+    "content": "some of us have been up since 7",
+    "timestamp": "2024-05-23T11:47:18"
+  },
+  {
+    "message_id": "msg_casual_068",
+    "user": "Tanya",
+    "content": "sounds fake but ok",
+    "timestamp": "2024-05-23T11:52:33"
+  },
+  {
+    "message_id": "msg_casual_069",
+    "user": "Nirali",
+    "content": "😂😂😂",
+    "timestamp": "2024-05-23T11:54:07"
+  },
+  {
+    "message_id": "msg_casual_070",
+    "user": "Jake",
+    "content": "random but i found a new coffee spot",
+    "timestamp": "2024-05-26T14:33:22"
+  },
+  {
+    "message_id": "msg_casual_071",
+    "user": "Jake",
+    "content": "really good iced lattes",
+    "timestamp": "2024-05-26T14:33:31"
+  },
+  {
+    "message_id": "msg_casual_072",
+    "user": "Maya",
+    "content": "where at",
+    "timestamp": "2024-05-26T14:41:18"
+  },
+  {
+    "message_id": "msg_casual_073",
+    "user": "Jake",
+    "content": "near campus on vermont",
+    "timestamp": "2024-05-26T14:47:44"
+  },
+  {
+    "message_id": "msg_casual_074",
+    "user": "Nirali",
+    "content": "ooh we should check it out",
+    "timestamp": "2024-05-26T14:52:08"
+  },
+  {
+    "message_id": "msg_casual_075",
+    "user": "Mahiru",
+    "content": "That sounds lovely! Maybe this week?",
+    "timestamp": "2024-05-26T15:14:33"
+  },
+  {
+    "message_id": "msg_casual_076",
+    "user": "Tanya",
+    "content": "im down",
+    "timestamp": "2024-05-26T15:22:47"
+  },
+  {
+    "message_id": "msg_casual_077",
+    "user": "Amane",
+    "content": "works for me",
+    "timestamp": "2024-05-26T15:31:14"
+  },
+  {
+    "message_id": "msg_casual_078",
+    "user": "Nirali",
+    "content": "wait guys",
+    "timestamp": "2024-05-28T19:44:22"
+  },
+  {
+    "message_id": "msg_casual_079",
+    "user": "Nirali",
+    "content": "i just remembered",
+    "timestamp": "2024-05-28T19:44:29"
+  },
+  {
+    "message_id": "msg_casual_080",
+    "user": "Nirali",
+    "content": "we never went to that coffee place jake mentioned",
+    "timestamp": "2024-05-28T19:44:38"
+  },
+  {
+    "message_id": "msg_casual_081",
+    "user": "Jake",
+    "content": "lmao true",
+    "timestamp": "2024-05-28T19:52:14"
+  },
+  {
+    "message_id": "msg_casual_082",
+    "user": "Maya",
+    "content": "we get distracted easily",
+    "timestamp": "2024-05-28T19:58:33"
+  },
+  {
+    "message_id": "msg_casual_083",
+    "user": "Tanya",
+    "content": "literally always",
+    "timestamp": "2024-05-28T20:03:47"
+  },
+  {
+    "message_id": "msg_casual_084",
+    "user": "Mahiru",
+    "content": "We'll get there eventually! 😊",
+    "timestamp": "2024-05-28T20:14:22"
+  },
+  {
+    "message_id": "msg_casual_085",
+    "user": "Jake",
+    "content": "[image: Street art mural downtown]",
+    "timestamp": "2024-05-30T16:22:44"
+  },
+  {
+    "message_id": "msg_casual_086",
+    "user": "Jake",
+    "content": "found this cool mural",
+    "timestamp": "2024-05-30T16:22:53"
+  },
+  {
+    "message_id": "msg_casual_087",
+    "user": "Tanya",
+    "content": "omg thats so aesthetic",
+    "timestamp": "2024-05-30T16:33:18"
+  },
+  {
+    "message_id": "msg_casual_088",
+    "user": "Nirali",
+    "content": "we should go take pics there",
+    "timestamp": "2024-05-30T16:41:44"
+  },
+  {
+    "message_id": "msg_casual_089",
+    "user": "Jake",
+    "content": "im down. good lighting in the afternoon",
+    "timestamp": "2024-05-30T16:47:22"
+  },
+  {
+    "message_id": "msg_casual_090",
+    "user": "Maya",
+    "content": "as long as its free",
+    "timestamp": "2024-05-30T16:54:08"
+  },
+  {
+    "message_id": "msg_casual_091",
+    "user": "Jake",
+    "content": "its literally just a wall lol",
+    "timestamp": "2024-05-30T16:58:33"
+  },
+  {
+    "message_id": "msg_casual_092",
+    "user": "Maya",
+    "content": "perfect",
+    "timestamp": "2024-05-30T17:03:14"
+  },
+  {
+    "message_id": "msg_casual_093",
+    "user": "Tanya",
+    "content": "ok but memorial day weekend tho",
+    "timestamp": "2024-06-01T13:22:44"
+  },
+  {
+    "message_id": "msg_casual_094",
+    "user": "Tanya",
+    "content": "anyone doing anything",
+    "timestamp": "2024-06-01T13:22:53"
+  },
+  {
+    "message_id": "msg_casual_095",
+    "user": "Nirali",
+    "content": "not really",
+    "timestamp": "2024-06-01T13:33:18"
+  },
+  {
+    "message_id": "msg_casual_096",
+    "user": "Maya",
+    "content": "working unfortunately",
+    "timestamp": "2024-05-01T13:44:07"
+  },
+  {
+    "message_id": "msg_casual_097",
+    "user": "Jake",
+    "content": "might visit family",
+    "timestamp": "2024-06-01T13:52:33"
+  },
+  {
+    "message_id": "msg_casual_098",
+    "user": "Mahiru",
+    "content": "I'll be around! No big plans",
+    "timestamp": "2024-06-01T14:14:22"
+  },
+  {
+    "message_id": "msg_casual_099",
+    "user": "Amane",
+    "content": "same",
+    "timestamp": "2024-06-01T14:22:08"
+  },
+  {
+    "message_id": "msg_casual_100",
+    "user": "Tanya",
+    "content": "maybe we can do something",
+    "timestamp": "2024-06-01T14:33:44"
+  }
+]
