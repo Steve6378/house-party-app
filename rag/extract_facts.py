@@ -259,24 +259,40 @@ def process_messages(messages: List[Dict], group_id: str):
 
 if __name__ == "__main__":
     import sys
+    from pathlib import Path
 
-    # Accept filename as command-line argument
-    if len(sys.argv) > 1:
-        input_file = sys.argv[1]
+    # Parse command-line arguments
+    if len(sys.argv) < 2:
+        print("Usage: python rag/extract_facts.py <chat_file.json> [group_name]")
+        print("\nExamples:")
+        print("  python rag/extract_facts.py real_chat.json")
+        print('  python rag/extract_facts.py real_chat.json "My Friend Group"')
+        print("\nIf group_name not provided, uses filename (e.g., 'real_chat' → 'Real Chat Group')")
+        exit(1)
+
+    input_file = sys.argv[1]
+
+    # Determine group name
+    if len(sys.argv) > 2:
+        # User provided group name
+        group_name = sys.argv[2]
     else:
-        input_file = "mock_chat.json"
+        # Auto-derive from filename
+        filename = Path(input_file).stem  # 'real_chat.json' → 'real_chat'
+        # Convert underscores/dashes to spaces and title case
+        group_name = filename.replace('_', ' ').replace('-', ' ').title() + " Group"
 
     if not os.path.exists(input_file):
         print(f"ERROR: {input_file} not found")
-        print("\nUsage: python rag/extract_facts.py [chat_file.json]")
-        print("Example: python rag/extract_facts.py real_chat.json")
         exit(1)
 
     print(f"Loading messages from: {input_file}")
+    print(f"Group name: {group_name}")
+
     with open(input_file, 'r') as f:
         messages = json.load(f)
 
-    # Use a test group ID (in real app, this would come from request)
+    # Use a consistent group ID (in real app, this would come from request)
     test_group_id = "00000000-0000-0000-0000-000000000001"
 
     # Ensure group exists
@@ -286,9 +302,9 @@ if __name__ == "__main__":
             """
             INSERT INTO groups (group_id, group_name)
             VALUES (%s, %s)
-            ON CONFLICT DO NOTHING
+            ON CONFLICT (group_id) DO UPDATE SET group_name = EXCLUDED.group_name
             """,
-            (test_group_id, "DSCI 560 Group")
+            (test_group_id, group_name)
         )
     conn.commit()
     conn.close()

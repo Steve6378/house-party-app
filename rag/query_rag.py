@@ -260,12 +260,13 @@ def interactive_demo():
     print("HOUSE PARTY RAG QUERY SYSTEM - Interactive Demo")
     print("="*80)
     print("\nCommands:")
-    print("  user <name> <query>   - Query user facts")
-    print("  group <name> <query>  - Query group facts")
-    print("  list <name>           - List all facts for user")
-    print("  listgroup <name>      - List all facts for group")
     print("  users                 - Show all users")
     print("  groups                - Show all groups")
+    print("  list <name>           - List all facts for user")
+    print("  listgroup <name>      - List all facts for group")
+    print("  user <name> <query>   - Query user facts")
+    print("  group <name> <query>  - Query group facts")
+    print("  help                  - Show detailed help")
     print("  quit                  - Exit")
     print("="*80 + "\n")
 
@@ -278,6 +279,27 @@ def interactive_demo():
 
             if command == "quit":
                 break
+
+            # Show help
+            elif command == "help":
+                print("\n" + "="*80)
+                print("AVAILABLE COMMANDS")
+                print("="*80)
+                print("  users                  - Show all users in database")
+                print("  groups                 - Show all groups in database")
+                print("  list <username>        - List all facts for a user")
+                print("  listgroup <groupname>  - List all facts for a group")
+                print("  user <name> <query>    - Semantic search user facts")
+                print("  group <name> <query>   - Semantic search group facts")
+                print("  help                   - Show this help message")
+                print("  quit                   - Exit the program")
+                print("="*80)
+                print("\nExamples:")
+                print('  list Tanya Charan')
+                print('  user "Tanya Charan" food preferences')
+                print('  listgroup DSCI 560 Group')
+                print('  group "DSCI 560 Group" project deadlines')
+                print("="*80 + "\n")
 
             # Show all users
             elif command == "users":
