@@ -264,6 +264,8 @@ def interactive_demo():
     print("  group <name> <query>  - Query group facts")
     print("  list <name>           - List all facts for user")
     print("  listgroup <name>      - List all facts for group")
+    print("  users                 - Show all users")
+    print("  groups                - Show all groups")
     print("  quit                  - Exit")
     print("="*80 + "\n")
 
@@ -277,8 +279,36 @@ def interactive_demo():
             if command == "quit":
                 break
 
+            # Show all users
+            elif command == "users":
+                conn = get_db_connection()
+                with conn.cursor() as cur:
+                    cur.execute("SELECT name FROM users ORDER BY name")
+                    users = [row[0] for row in cur.fetchall()]
+                conn.close()
+                print("\n" + "="*80)
+                print(f"ALL USERS ({len(users)})")
+                print("="*80)
+                for i, user in enumerate(users, 1):
+                    print(f"{i}. {user}")
+                print()
+
+            # Show all groups
+            elif command == "groups":
+                conn = get_db_connection()
+                with conn.cursor() as cur:
+                    cur.execute("SELECT group_name FROM groups ORDER BY group_name")
+                    groups = [row[0] for row in cur.fetchall()]
+                conn.close()
+                print("\n" + "="*80)
+                print(f"ALL GROUPS ({len(groups)})")
+                print("="*80)
+                for i, group in enumerate(groups, 1):
+                    print(f"{i}. {group}")
+                print()
+
             # Parse command - handle multi-word names
-            if command.startswith("listgroup "):
+            elif command.startswith("listgroup "):
                 group_name = command[10:].strip()  # Everything after "listgroup "
                 if group_name:
                     results = get_all_group_facts(group_name)
