@@ -1,0 +1,506 @@
+[
+  {
+    "message_id": "msg_000861",
+    "user": "Amane",
+    "content": "anyone want to do a malibu day trip this weekend",
+    "timestamp": "2024-10-03T19:33:17"
+  },
+  {
+    "message_id": "msg_000862",
+    "user": "Amane",
+    "content": "nice weather forecast",
+    "timestamp": "2024-10-03T19:33:25"
+  },
+  {
+    "message_id": "msg_000863",
+    "user": "Tanya",
+    "content": "YES beach day!!",
+    "timestamp": "2024-10-03T19:34:02"
+  },
+  {
+    "message_id": "msg_000864",
+    "user": "Jake",
+    "content": "malibu has great photo spots",
+    "timestamp": "2024-10-03T19:34:38"
+  },
+  {
+    "message_id": "msg_000865",
+    "user": "Jake",
+    "content": "im so down",
+    "timestamp": "2024-10-03T19:34:43"
+  },
+  {
+    "message_id": "msg_000866",
+    "user": "Mahiru",
+    "content": "That sounds lovely! We could pack a picnic 😊",
+    "timestamp": "2024-10-03T19:35:22"
+  },
+  {
+    "message_id": "msg_000867",
+    "user": "Nirali",
+    "content": "yes!! im in",
+    "timestamp": "2024-10-03T19:35:47"
+  },
+  {
+    "message_id": "msg_000868",
+    "user": "Maya",
+    "content": "how are we getting there",
+    "timestamp": "2024-10-03T19:36:14"
+  },
+  {
+    "message_id": "msg_000869",
+    "user": "Amane",
+    "content": "i can drive. car fits 4",
+    "timestamp": "2024-10-03T19:36:42"
+  },
+  {
+    "message_id": "msg_000870",
+    "user": "Jake",
+    "content": "i can take 2 more if someone wants to split uber cost with me",
+    "timestamp": "2024-10-03T19:37:18"
+  },
+  {
+    "message_id": "msg_000871",
+    "user": "Maya",
+    "content": "ubers to malibu are like $60+ each way",
+    "timestamp": "2024-10-03T19:37:52"
+  },
+  {
+    "message_id": "msg_000872",
+    "user": "Maya",
+    "content": "thats $120 total. too much for me",
+    "timestamp": "2024-10-03T19:38:02"
+  },
+  {
+    "message_id": "msg_000873",
+    "user": "Tanya",
+    "content": "oof yeah thats expensive",
+    "timestamp": "2024-10-03T19:38:31"
+  },
+  {
+    "message_id": "msg_000874",
+    "user": "Amane",
+    "content": "maya you can come in my car",
+    "timestamp": "2024-10-03T19:39:02"
+  },
+  {
+    "message_id": "msg_000875",
+    "user": "Mahiru",
+    "content": "Yes! We'll make room",
+    "timestamp": "2024-10-03T19:39:24"
+  },
+  {
+    "message_id": "msg_000876",
+    "user": "Maya",
+    "content": "you sure? i can chip in for gas",
+    "timestamp": "2024-10-03T19:39:53"
+  },
+  {
+    "message_id": "msg_000877",
+    "user": "Amane",
+    "content": "dont worry about it",
+    "timestamp": "2024-10-03T19:40:08"
+  },
+  {
+    "message_id": "msg_000878",
+    "user": "Maya",
+    "content": "thanks. i appreciate it",
+    "timestamp": "2024-10-03T19:40:34"
+  },
+  {
+    "message_id": "msg_000879",
+    "user": "Nirali",
+    "content": "so whos in which car?",
+    "timestamp": "2024-10-03T19:41:07"
+  },
+  {
+    "message_id": "msg_000880",
+    "user": "Amane",
+    "content": "me, mahiru, maya, nirali",
+    "timestamp": "2024-10-03T19:41:38"
+  },
+  {
+    "message_id": "msg_000881",
+    "user": "Jake",
+    "content": "me and tanya uber together then",
+    "timestamp": "2024-10-03T19:42:02"
+  },
+  {
+    "message_id": "msg_000882",
+    "user": "Tanya",
+    "content": "works for me! split is like $60 each which is better than $120",
+    "timestamp": "2024-10-03T19:42:37"
+  },
+  {
+    "message_id": "msg_000883",
+    "user": "Mahiru",
+    "content": "What time should we leave? 10am?",
+    "timestamp": "2024-10-03T19:43:22"
+  },
+  {
+    "message_id": "msg_000884",
+    "user": "Maya",
+    "content": "parking in malibu is expensive. let me look for free spots",
+    "timestamp": "2024-10-03T19:44:07"
+  },
+  {
+    "message_id": "msg_000885",
+    "user": "Jake",
+    "content": "maya the real mvp",
+    "timestamp": "2024-10-03T19:44:31"
+  },
+  {
+    "message_id": "msg_000886",
+    "user": "Maya",
+    "content": "ok found it. theres free street parking near Point Dume if we get there before 11am",
+    "timestamp": "2024-10-03T19:48:14"
+  },
+  {
+    "message_id": "msg_000887",
+    "user": "Maya",
+    "content": "after that it fills up",
+    "timestamp": "2024-10-03T19:48:21"
+  },
+  {
+    "message_id": "msg_000888",
+    "user": "Amane",
+    "content": "so leave at 9:30",
+    "timestamp": "2024-10-03T19:48:47"
+  },
+  {
+    "message_id": "msg_000889",
+    "user": "Tanya",
+    "content": "ughhh 9:30 on a saturday",
+    "timestamp": "2024-10-03T19:49:14"
+  },
+  {
+    "message_id": "msg_000890",
+    "user": "Nirali",
+    "content": "tanya you can sleep in the car lol",
+    "timestamp": "2024-10-03T19:49:41"
+  },
+  {
+    "message_id": "msg_000891",
+    "user": "Tanya",
+    "content": "true true ok im in",
+    "timestamp": "2024-10-03T19:50:03"
+  },
+  {
+    "message_id": "msg_000892",
+    "user": "Mahiru",
+    "content": "I'll make sandwiches and bring snacks!",
+    "timestamp": "2024-10-03T19:50:44"
+  },
+  {
+    "message_id": "msg_000893",
+    "user": "Nirali",
+    "content": "ill bring drinks and fruit",
+    "timestamp": "2024-10-03T19:51:12"
+  },
+  {
+    "message_id": "msg_000894",
+    "user": "Jake",
+    "content": "bringing my camera obviously",
+    "timestamp": "2024-10-03T19:51:38"
+  },
+  {
+    "message_id": "msg_000895",
+    "user": "Amane",
+    "content": "i have beach chairs and an umbrella",
+    "timestamp": "2024-10-03T19:52:07"
+  },
+  {
+    "message_id": "msg_000896",
+    "user": "Tanya",
+    "content": "ill bring my speaker for beach vibes",
+    "timestamp": "2024-10-03T19:52:34"
+  },
+  {
+    "message_id": "msg_000897",
+    "user": "Mahiru",
+    "content": "[calendar: Malibu Day Trip - Sat Oct 5, 9:30 AM departure]",
+    "timestamp": "2024-10-03T19:53:22"
+  },
+  {
+    "message_id": "msg_000898",
+    "user": "Amane",
+    "content": "leaving in 5. everyone ready?",
+    "timestamp": "2024-10-05T09:24:33"
+  },
+  {
+    "message_id": "msg_000899",
+    "user": "Mahiru",
+    "content": "Yes! Picnic basket is packed 😊",
+    "timestamp": "2024-10-05T09:25:08"
+  },
+  {
+    "message_id": "msg_000900",
+    "user": "Nirali",
+    "content": "ready!!",
+    "timestamp": "2024-10-05T09:25:24"
+  },
+  {
+    "message_id": "msg_000901",
+    "user": "Maya",
+    "content": "be there in 2 min",
+    "timestamp": "2024-10-05T09:25:47"
+  },
+  {
+    "message_id": "msg_000902",
+    "user": "Jake",
+    "content": "requesting uber now",
+    "timestamp": "2024-10-05T09:26:18"
+  },
+  {
+    "message_id": "msg_000903",
+    "user": "Tanya",
+    "content": "omw to jakes place",
+    "timestamp": "2024-10-05T09:27:03"
+  },
+  {
+    "message_id": "msg_000904",
+    "user": "Amane",
+    "content": "on the road",
+    "timestamp": "2024-10-05T09:33:47"
+  },
+  {
+    "message_id": "msg_000905",
+    "user": "Nirali",
+    "content": "pch is so pretty",
+    "timestamp": "2024-10-05T10:12:24"
+  },
+  {
+    "message_id": "msg_000906",
+    "user": "Mahiru",
+    "content": "The ocean view is beautiful!",
+    "timestamp": "2024-10-05T10:12:51"
+  },
+  {
+    "message_id": "msg_000907",
+    "user": "Jake",
+    "content": "we just hit pch",
+    "timestamp": "2024-10-05T10:14:33"
+  },
+  {
+    "message_id": "msg_000908",
+    "user": "Tanya",
+    "content": "the vibes are immaculate",
+    "timestamp": "2024-10-05T10:15:07"
+  },
+  {
+    "message_id": "msg_000909",
+    "user": "Maya",
+    "content": "ok parking spot is up ahead on the right",
+    "timestamp": "2024-10-05T10:38:14"
+  },
+  {
+    "message_id": "msg_000910",
+    "user": "Amane",
+    "content": "see it",
+    "timestamp": "2024-10-05T10:38:29"
+  },
+  {
+    "message_id": "msg_000911",
+    "user": "Maya",
+    "content": "told you guys. free parking 👍",
+    "timestamp": "2024-10-05T10:42:33"
+  },
+  {
+    "message_id": "msg_000912",
+    "user": "Nirali",
+    "content": "maya saves the day again",
+    "timestamp": "2024-10-05T10:43:04"
+  },
+  {
+    "message_id": "msg_000913",
+    "user": "Jake",
+    "content": "our uber just pulled up",
+    "timestamp": "2024-10-05T10:44:17"
+  },
+  {
+    "message_id": "msg_000914",
+    "user": "Mahiru",
+    "content": "We're by the blue lifeguard tower!",
+    "timestamp": "2024-10-05T10:47:52"
+  },
+  {
+    "message_id": "msg_000915",
+    "user": "Jake",
+    "content": "[image: Beautiful Malibu beach with clear blue water]",
+    "timestamp": "2024-10-05T11:02:44"
+  },
+  {
+    "message_id": "msg_000916",
+    "user": "Jake",
+    "content": "this is paradise",
+    "timestamp": "2024-10-05T11:02:53"
+  },
+  {
+    "message_id": "msg_000917",
+    "user": "Tanya",
+    "content": "the water is SO clear",
+    "timestamp": "2024-10-05T11:03:21"
+  },
+  {
+    "message_id": "msg_000918",
+    "user": "Nirali",
+    "content": "im going in!",
+    "timestamp": "2024-10-05T11:14:37"
+  },
+  {
+    "message_id": "msg_000919",
+    "user": "Tanya",
+    "content": "wait for me!!",
+    "timestamp": "2024-10-05T11:14:52"
+  },
+  {
+    "message_id": "msg_000920",
+    "user": "Mahiru",
+    "content": "[image: Group setup with umbrella and beach chairs]",
+    "timestamp": "2024-10-05T11:28:18"
+  },
+  {
+    "message_id": "msg_000921",
+    "user": "Mahiru",
+    "content": "Our little beach spot! 🏖️",
+    "timestamp": "2024-10-05T11:28:29"
+  },
+  {
+    "message_id": "msg_000922",
+    "user": "Jake",
+    "content": "[image: Candid shot of Nirali and Tanya in the water]",
+    "timestamp": "2024-10-05T12:47:33"
+  },
+  {
+    "message_id": "msg_000923",
+    "user": "Tanya",
+    "content": "SEND ME THAT",
+    "timestamp": "2024-10-05T12:48:07"
+  },
+  {
+    "message_id": "msg_000924",
+    "user": "Mahiru",
+    "content": "Lunch time! Sandwiches are ready 🥪",
+    "timestamp": "2024-10-05T13:15:22"
+  },
+  {
+    "message_id": "msg_000925",
+    "user": "Nirali",
+    "content": "perfect timing im starving",
+    "timestamp": "2024-10-05T13:15:51"
+  },
+  {
+    "message_id": "msg_000926",
+    "user": "Maya",
+    "content": "these sandwiches are really good mahiru",
+    "timestamp": "2024-10-05T13:22:44"
+  },
+  {
+    "message_id": "msg_000927",
+    "user": "Jake",
+    "content": "eating lunch with this view hits different",
+    "timestamp": "2024-10-05T13:23:18"
+  },
+  {
+    "message_id": "msg_000928",
+    "user": "Amane",
+    "content": "this was a good idea",
+    "timestamp": "2024-10-05T13:23:47"
+  },
+  {
+    "message_id": "msg_000929",
+    "user": "Jake",
+    "content": "[image: Golden hour sunset over the ocean]",
+    "timestamp": "2024-10-05T18:33:12"
+  },
+  {
+    "message_id": "msg_000930",
+    "user": "Jake",
+    "content": "guys look at this sunset",
+    "timestamp": "2024-10-05T18:33:21"
+  },
+  {
+    "message_id": "msg_000931",
+    "user": "Mahiru",
+    "content": "It's breathtaking!",
+    "timestamp": "2024-10-05T18:33:47"
+  },
+  {
+    "message_id": "msg_000932",
+    "user": "Tanya",
+    "content": "ok this was worth waking up early for",
+    "timestamp": "2024-10-05T18:34:19"
+  },
+  {
+    "message_id": "msg_000933",
+    "user": "Nirali",
+    "content": "best day ever",
+    "timestamp": "2024-10-05T18:34:44"
+  },
+  {
+    "message_id": "msg_000934",
+    "user": "Jake",
+    "content": "[image: Group silhouette photo against the sunset]",
+    "timestamp": "2024-10-05T18:42:27"
+  },
+  {
+    "message_id": "msg_000935",
+    "user": "Tanya",
+    "content": "JAKE THIS IS BEAUTIFUL",
+    "timestamp": "2024-10-05T18:43:02"
+  },
+  {
+    "message_id": "msg_000936",
+    "user": "Nirali",
+    "content": "frame worthy",
+    "timestamp": "2024-10-05T18:43:28"
+  },
+  {
+    "message_id": "msg_000937",
+    "user": "Amane",
+    "content": "we should head back. traffic will get bad",
+    "timestamp": "2024-10-05T18:51:14"
+  },
+  {
+    "message_id": "msg_000938",
+    "user": "Maya",
+    "content": "good call",
+    "timestamp": "2024-10-05T18:51:33"
+  },
+  {
+    "message_id": "msg_000939",
+    "user": "Jake",
+    "content": "requesting uber",
+    "timestamp": "2024-10-05T18:52:08"
+  },
+  {
+    "message_id": "msg_000940",
+    "user": "Mahiru",
+    "content": "Today was perfect! Thank you for planning this Amane 💕",
+    "timestamp": "2024-10-05T19:47:22"
+  },
+  {
+    "message_id": "msg_000941",
+    "user": "Nirali",
+    "content": "yes!! and thank you maya for finding free parking",
+    "timestamp": "2024-10-05T19:48:03"
+  },
+  {
+    "message_id": "msg_000942",
+    "user": "Maya",
+    "content": "always gotta save where we can lol",
+    "timestamp": "2024-10-05T19:48:37"
+  },
+  {
+    "message_id": "msg_000943",
+    "user": "Tanya",
+    "content": "we need to do more day trips",
+    "timestamp": "2024-10-05T19:49:14"
+  },
+  {
+    "message_id": "msg_000944",
+    "user": "Amane",
+    "content": "agreed",
+    "timestamp": "2024-10-05T19:49:31"
+  }
+]

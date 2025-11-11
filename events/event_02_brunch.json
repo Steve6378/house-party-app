@@ -1,0 +1,392 @@
+[
+  {
+    "message_id": "msg_000100",
+    "user": "Tanya",
+    "content": "ok so i saw this cute brunch spot on tiktok",
+    "timestamp": "2024-05-09T10:47:22"
+  },
+  {
+    "message_id": "msg_000101",
+    "user": "Tanya",
+    "content": "they have bottomless mimosas and the place looks SO aesthetic",
+    "timestamp": "2024-05-09T10:47:31"
+  },
+  {
+    "message_id": "msg_000102",
+    "user": "Tanya",
+    "content": "https://tiktok.com/@labrunch/brunch-spot-downtown",
+    "timestamp": "2024-05-09T10:47:38"
+  },
+  {
+    "message_id": "msg_000103",
+    "user": "Jake",
+    "content": "yooo those pancakes look fire",
+    "timestamp": "2024-05-09T10:52:14"
+  },
+  {
+    "message_id": "msg_000104",
+    "user": "Nirali",
+    "content": "OMG YES",
+    "timestamp": "2024-05-09T10:53:02"
+  },
+  {
+    "message_id": "msg_000105",
+    "user": "Mahiru",
+    "content": "That looks amazing! When were you thinking?",
+    "timestamp": "2024-05-09T10:54:28"
+  },
+  {
+    "message_id": "msg_000106",
+    "user": "Tanya",
+    "content": "this weekend maybe? saturday or sunday?",
+    "timestamp": "2024-05-09T10:55:17"
+  },
+  {
+    "message_id": "msg_000107",
+    "user": "Maya",
+    "content": "hold on let me check prices",
+    "timestamp": "2024-05-09T10:56:43"
+  },
+  {
+    "message_id": "msg_000108",
+    "user": "Maya",
+    "content": "okay so entrees are $18-25, bottomless mimosas are an extra $20",
+    "timestamp": "2024-05-09T10:58:12"
+  },
+  {
+    "message_id": "msg_000109",
+    "user": "Maya",
+    "content": "that's like $40-45 per person",
+    "timestamp": "2024-05-09T10:58:24"
+  },
+  {
+    "message_id": "msg_000110",
+    "user": "Nirali",
+    "content": "oof thats steep",
+    "timestamp": "2024-05-09T10:58:51"
+  },
+  {
+    "message_id": "msg_000111",
+    "user": "Jake",
+    "content": "i mean its a special occasion vibe tho",
+    "timestamp": "2024-05-09T10:59:18"
+  },
+  {
+    "message_id": "msg_000112",
+    "user": "Jake",
+    "content": "we dont do this every week",
+    "timestamp": "2024-05-09T10:59:24"
+  },
+  {
+    "message_id": "msg_000113",
+    "user": "Maya",
+    "content": "true but $45 is more than i usually spend on a meal",
+    "timestamp": "2024-05-09T11:00:07"
+  },
+  {
+    "message_id": "msg_000114",
+    "user": "Amane",
+    "content": "could skip the bottomless mimosas",
+    "timestamp": "2024-05-09T11:00:42"
+  },
+  {
+    "message_id": "msg_000115",
+    "user": "Tanya",
+    "content": "but thats like the whole point 😭",
+    "timestamp": "2024-05-09T11:01:03"
+  },
+  {
+    "message_id": "msg_000116",
+    "user": "Mahiru",
+    "content": "What if some people get mimosas and some don't? Everyone can just do what fits their budget 😊",
+    "timestamp": "2024-05-09T11:01:54"
+  },
+  {
+    "message_id": "msg_000117",
+    "user": "Maya",
+    "content": "that works for me. i can do $25 for food",
+    "timestamp": "2024-05-09T11:02:31"
+  },
+  {
+    "message_id": "msg_000118",
+    "user": "Nirali",
+    "content": "same im fine without the mimosas honestly",
+    "timestamp": "2024-05-09T11:02:49"
+  },
+  {
+    "message_id": "msg_000119",
+    "user": "Tanya",
+    "content": "ok cool!! im getting the mimosas tho lol",
+    "timestamp": "2024-05-09T11:03:12"
+  },
+  {
+    "message_id": "msg_000120",
+    "user": "Jake",
+    "content": "same here",
+    "timestamp": "2024-05-09T11:03:27"
+  },
+  {
+    "message_id": "msg_000121",
+    "user": "Amane",
+    "content": "ill pass. driving",
+    "timestamp": "2024-05-09T11:03:48"
+  },
+  {
+    "message_id": "msg_000122",
+    "user": "Mahiru",
+    "content": "I'll probably skip too. Not a big drinker anyway!",
+    "timestamp": "2024-05-09T11:04:16"
+  },
+  {
+    "message_id": "msg_000123",
+    "user": "Tanya",
+    "content": "ok so saturday or sunday? im free both days",
+    "timestamp": "2024-05-09T11:05:33"
+  },
+  {
+    "message_id": "msg_000124",
+    "user": "Maya",
+    "content": "saturday works better for me. i have work sunday afternoon",
+    "timestamp": "2024-05-09T11:06:14"
+  },
+  {
+    "message_id": "msg_000125",
+    "user": "Jake",
+    "content": "saturdays good",
+    "timestamp": "2024-05-09T11:06:28"
+  },
+  {
+    "message_id": "msg_000126",
+    "user": "Nirali",
+    "content": "works for me!",
+    "timestamp": "2024-05-09T11:06:41"
+  },
+  {
+    "message_id": "msg_000127",
+    "user": "Amane",
+    "content": "saturday is fine",
+    "timestamp": "2024-05-09T11:06:55"
+  },
+  {
+    "message_id": "msg_000128",
+    "user": "Mahiru",
+    "content": "Saturday it is! What time? 11am?",
+    "timestamp": "2024-05-09T11:07:22"
+  },
+  {
+    "message_id": "msg_000129",
+    "user": "Tanya",
+    "content": "can we do like 12 lol im not a morning person",
+    "timestamp": "2024-05-09T11:08:03"
+  },
+  {
+    "message_id": "msg_000130",
+    "user": "Jake",
+    "content": "😂 classic",
+    "timestamp": "2024-05-09T11:08:17"
+  },
+  {
+    "message_id": "msg_000131",
+    "user": "Mahiru",
+    "content": "12 works! Gives everyone time to sleep in",
+    "timestamp": "2024-05-09T11:08:44"
+  },
+  {
+    "message_id": "msg_000132",
+    "user": "Maya",
+    "content": "should we make a reservation? looks like a popular spot",
+    "timestamp": "2024-05-09T11:09:31"
+  },
+  {
+    "message_id": "msg_000133",
+    "user": "Tanya",
+    "content": "oh good idea",
+    "timestamp": "2024-05-09T11:09:48"
+  },
+  {
+    "message_id": "msg_000134",
+    "user": "Mahiru",
+    "content": "I can make one! Party of 6 for Saturday at noon?",
+    "timestamp": "2024-05-09T11:10:15"
+  },
+  {
+    "message_id": "msg_000135",
+    "user": "Nirali",
+    "content": "perfect!!",
+    "timestamp": "2024-05-09T11:10:28"
+  },
+  {
+    "message_id": "msg_000136",
+    "user": "Mahiru",
+    "content": "Done! Reservation confirmed for this Saturday at 12pm",
+    "timestamp": "2024-05-09T11:17:42"
+  },
+  {
+    "message_id": "msg_000137",
+    "user": "Mahiru",
+    "content": "[calendar: Brunch at The Ivy Room - Sat May 11, 12:00 PM]",
+    "timestamp": "2024-05-09T11:17:51"
+  },
+  {
+    "message_id": "msg_000138",
+    "user": "Tanya",
+    "content": "yay!! cant wait",
+    "timestamp": "2024-05-09T11:18:14"
+  },
+  {
+    "message_id": "msg_000139",
+    "user": "Jake",
+    "content": "this is gonna be sick",
+    "timestamp": "2024-05-09T11:18:29"
+  },
+  {
+    "message_id": "msg_000140",
+    "user": "Tanya",
+    "content": "ok but real talk im running like 10 min late 😭",
+    "timestamp": "2024-05-11T12:03:17"
+  },
+  {
+    "message_id": "msg_000141",
+    "user": "Maya",
+    "content": "shocker",
+    "timestamp": "2024-05-11T12:03:34"
+  },
+  {
+    "message_id": "msg_000142",
+    "user": "Nirali",
+    "content": "lmaooo we're already here",
+    "timestamp": "2024-05-11T12:03:51"
+  },
+  {
+    "message_id": "msg_000143",
+    "user": "Jake",
+    "content": "we got a table outside",
+    "timestamp": "2024-05-11T12:04:08"
+  },
+  {
+    "message_id": "msg_000144",
+    "user": "Mahiru",
+    "content": "No rush! The weather is beautiful so we're just enjoying the patio 😊",
+    "timestamp": "2024-05-11T12:04:37"
+  },
+  {
+    "message_id": "msg_000145",
+    "user": "Tanya",
+    "content": "omw!! like 5 min away",
+    "timestamp": "2024-05-11T12:09:22"
+  },
+  {
+    "message_id": "msg_000146",
+    "user": "Jake",
+    "content": "[image: The aesthetically plated avocado toast and pancakes on the table]",
+    "timestamp": "2024-05-11T12:34:18"
+  },
+  {
+    "message_id": "msg_000147",
+    "user": "Jake",
+    "content": "this presentation is insane",
+    "timestamp": "2024-05-11T12:34:27"
+  },
+  {
+    "message_id": "msg_000148",
+    "user": "Tanya",
+    "content": "[image: Boomerang of mimosa being poured]",
+    "timestamp": "2024-05-11T12:35:11"
+  },
+  {
+    "message_id": "msg_000149",
+    "user": "Tanya",
+    "content": "this is going on the story for SURE",
+    "timestamp": "2024-05-11T12:35:19"
+  },
+  {
+    "message_id": "msg_000150",
+    "user": "Nirali",
+    "content": "wait mahiru what did you get?",
+    "timestamp": "2024-05-11T12:36:42"
+  },
+  {
+    "message_id": "msg_000151",
+    "user": "Mahiru",
+    "content": "The japanese souffle pancakes! They're so fluffy 😊",
+    "timestamp": "2024-05-11T12:37:03"
+  },
+  {
+    "message_id": "msg_000152",
+    "user": "Nirali",
+    "content": "omg those look amazing",
+    "timestamp": "2024-05-11T12:37:21"
+  },
+  {
+    "message_id": "msg_000153",
+    "user": "Maya",
+    "content": "the vegan hash is really good",
+    "timestamp": "2024-05-11T12:38:14"
+  },
+  {
+    "message_id": "msg_000154",
+    "user": "Maya",
+    "content": "actually impressed",
+    "timestamp": "2024-05-11T12:38:20"
+  },
+  {
+    "message_id": "msg_000155",
+    "user": "Amane",
+    "content": "this eggs benedict is solid",
+    "timestamp": "2024-05-11T12:39:07"
+  },
+  {
+    "message_id": "msg_000156",
+    "user": "Jake",
+    "content": "yo tanya how many mimosas are you on",
+    "timestamp": "2024-05-11T13:18:44"
+  },
+  {
+    "message_id": "msg_000157",
+    "user": "Tanya",
+    "content": "dont worry about it lmaooo",
+    "timestamp": "2024-05-11T13:19:02"
+  },
+  {
+    "message_id": "msg_000158",
+    "user": "Nirali",
+    "content": "shes getting her moneys worth 😂",
+    "timestamp": "2024-05-11T13:19:24"
+  },
+  {
+    "message_id": "msg_000159",
+    "user": "Mahiru",
+    "content": "[image: Group photo on the patio with the brunch spread]",
+    "timestamp": "2024-05-11T13:42:37"
+  },
+  {
+    "message_id": "msg_000160",
+    "user": "Mahiru",
+    "content": "Such a lovely morning with you all! 💕",
+    "timestamp": "2024-05-11T13:42:48"
+  },
+  {
+    "message_id": "msg_000161",
+    "user": "Jake",
+    "content": "send me that pic its so good",
+    "timestamp": "2024-05-11T13:43:15"
+  },
+  {
+    "message_id": "msg_000162",
+    "user": "Tanya",
+    "content": "same!! need that for insta",
+    "timestamp": "2024-05-11T13:43:31"
+  },
+  {
+    "message_id": "msg_000163",
+    "user": "Maya",
+    "content": "good vibes today. worth the price tbh",
+    "timestamp": "2024-05-11T14:52:18"
+  },
+  {
+    "message_id": "msg_000164",
+    "user": "Nirali",
+    "content": "agreed!! we should do this again sometime",
+    "timestamp": "2024-05-11T14:53:04"
+  }
+]

@@ -1,0 +1,434 @@
+[
+  {
+    "message_id": "msg_000028",
+    "user": "Maya",
+    "content": "anyone down for a study sesh at that coffee place near campus? midterms are killing me",
+    "timestamp": "2024-05-03T14:23:15"
+  },
+  {
+    "message_id": "msg_000029",
+    "user": "Mahiru",
+    "content": "Oh I'd love to! Which place? The one on Figueroa?",
+    "timestamp": "2024-05-03T14:24:01"
+  },
+  {
+    "message_id": "msg_000030",
+    "user": "Maya",
+    "content": "yeah that one. they have good wifi and the coffee is like $3",
+    "timestamp": "2024-05-03T14:24:18"
+  },
+  {
+    "message_id": "msg_000031",
+    "user": "Amane",
+    "content": "works for me",
+    "timestamp": "2024-05-03T14:25:03"
+  },
+  {
+    "message_id": "msg_000032",
+    "user": "Jake",
+    "content": "yooo i'm down but also im starving can we grab food after?",
+    "timestamp": "2024-05-03T14:25:47"
+  },
+  {
+    "message_id": "msg_000033",
+    "user": "Nirali",
+    "content": "YESSS food after sounds perfect",
+    "timestamp": "2024-05-03T14:26:02"
+  },
+  {
+    "message_id": "msg_000034",
+    "user": "Nirali",
+    "content": "also i need caffeine or i will die",
+    "timestamp": "2024-05-03T14:26:09"
+  },
+  {
+    "message_id": "msg_000035",
+    "user": "Tanya",
+    "content": "omggg yes but i have lab until 4 so ill be like 20 min late is that ok 😭",
+    "timestamp": "2024-05-03T14:27:33"
+  },
+  {
+    "message_id": "msg_000036",
+    "user": "Mahiru",
+    "content": "That's totally fine! We'll save you a seat 😊",
+    "timestamp": "2024-05-03T14:28:12"
+  },
+  {
+    "message_id": "msg_000037",
+    "user": "Maya",
+    "content": "cool so like 3pm?",
+    "timestamp": "2024-05-03T14:29:01"
+  },
+  {
+    "message_id": "msg_000038",
+    "user": "Amane",
+    "content": "works",
+    "timestamp": "2024-05-03T14:29:15"
+  },
+  {
+    "message_id": "msg_000039",
+    "user": "Jake",
+    "content": "bet see yall there",
+    "timestamp": "2024-05-03T14:29:48"
+  },
+  {
+    "message_id": "msg_000040",
+    "user": "Mahiru",
+    "content": "[location: Caffeinated on Figueroa]",
+    "timestamp": "2024-05-03T14:30:22"
+  },
+  {
+    "message_id": "msg_000041",
+    "user": "Mahiru",
+    "content": "https://maps.google.com/caffeinated-figueroa",
+    "timestamp": "2024-05-03T14:30:28"
+  },
+  {
+    "message_id": "msg_000042",
+    "user": "Maya",
+    "content": "[👍: Amane, Jake, Nirali]",
+    "timestamp": "2024-05-03T14:30:45"
+  },
+  {
+    "message_id": "msg_000043",
+    "user": "Jake",
+    "content": "yo im here already lmao grabbed the big table by the window",
+    "timestamp": "2024-05-03T14:52:33"
+  },
+  {
+    "message_id": "msg_000044",
+    "user": "Nirali",
+    "content": "omw!",
+    "timestamp": "2024-05-03T14:54:12"
+  },
+  {
+    "message_id": "msg_000045",
+    "user": "Maya",
+    "content": "be there in 5",
+    "timestamp": "2024-05-03T14:56:47"
+  },
+  {
+    "message_id": "msg_000046",
+    "user": "Amane",
+    "content": "walking over now",
+    "timestamp": "2024-05-03T14:58:21"
+  },
+  {
+    "message_id": "msg_000047",
+    "user": "Mahiru",
+    "content": "Just got my drink! Be right there",
+    "timestamp": "2024-05-03T15:01:38"
+  },
+  {
+    "message_id": "msg_000048",
+    "user": "Mahiru",
+    "content": "[image: Iced matcha latte with latte art]",
+    "timestamp": "2024-05-03T15:43:19"
+  },
+  {
+    "message_id": "msg_000049",
+    "user": "Jake",
+    "content": "yooo that looks clean",
+    "timestamp": "2024-05-03T15:43:52"
+  },
+  {
+    "message_id": "msg_000050",
+    "user": "Jake",
+    "content": "the barista here is talented fr",
+    "timestamp": "2024-05-03T15:44:01"
+  },
+  {
+    "message_id": "msg_000051",
+    "user": "Nirali",
+    "content": "im on my third espresso shot send help",
+    "timestamp": "2024-05-03T16:02:44"
+  },
+  {
+    "message_id": "msg_000052",
+    "user": "Maya",
+    "content": "that explains why you've been typing so fast",
+    "timestamp": "2024-05-03T16:03:12"
+  },
+  {
+    "message_id": "msg_000053",
+    "user": "Amane",
+    "content": "maybe switch to water",
+    "timestamp": "2024-05-03T16:03:28"
+  },
+  {
+    "message_id": "msg_000054",
+    "user": "Nirali",
+    "content": "you're probably right lol",
+    "timestamp": "2024-05-03T16:03:47"
+  },
+  {
+    "message_id": "msg_000055",
+    "user": "Tanya",
+    "content": "omw finally lab ran over ughhh",
+    "timestamp": "2024-05-03T16:18:03"
+  },
+  {
+    "message_id": "msg_000056",
+    "user": "Tanya",
+    "content": "wait r u guys still there",
+    "timestamp": "2024-05-03T16:18:11"
+  },
+  {
+    "message_id": "msg_000057",
+    "user": "Amane",
+    "content": "yeah",
+    "timestamp": "2024-05-03T16:18:24"
+  },
+  {
+    "message_id": "msg_000058",
+    "user": "Jake",
+    "content": "we're about to wrap up studying tho",
+    "timestamp": "2024-05-03T16:19:01"
+  },
+  {
+    "message_id": "msg_000059",
+    "user": "Jake",
+    "content": "wanna just meet for dinner?",
+    "timestamp": "2024-05-03T16:19:08"
+  },
+  {
+    "message_id": "msg_000060",
+    "user": "Tanya",
+    "content": "yesss honestly im too tired to study anyway",
+    "timestamp": "2024-05-03T16:19:34"
+  },
+  {
+    "message_id": "msg_000061",
+    "user": "Mahiru",
+    "content": "Oh yes! Where should we go? I'm craving something warm",
+    "timestamp": "2024-05-03T16:20:15"
+  },
+  {
+    "message_id": "msg_000062",
+    "user": "Nirali",
+    "content": "INDIAN FOOD",
+    "timestamp": "2024-05-03T16:20:28"
+  },
+  {
+    "message_id": "msg_000063",
+    "user": "Nirali",
+    "content": "theres that place on vermont",
+    "timestamp": "2024-05-03T16:20:35"
+  },
+  {
+    "message_id": "msg_000064",
+    "user": "Jake",
+    "content": "oh yeah indias grill?",
+    "timestamp": "2024-05-03T16:20:51"
+  },
+  {
+    "message_id": "msg_000065",
+    "user": "Nirali",
+    "content": "YES that one",
+    "timestamp": "2024-05-03T16:20:58"
+  },
+  {
+    "message_id": "msg_000066",
+    "user": "Maya",
+    "content": "let me check the menu real quick",
+    "timestamp": "2024-05-03T16:21:22"
+  },
+  {
+    "message_id": "msg_000067",
+    "user": "Maya",
+    "content": "checked the menu, they have vegan options. prices look reasonable",
+    "timestamp": "2024-05-03T16:21:47"
+  },
+  {
+    "message_id": "msg_000068",
+    "user": "Maya",
+    "content": "entrees are like $12-15",
+    "timestamp": "2024-05-03T16:21:54"
+  },
+  {
+    "message_id": "msg_000069",
+    "user": "Tanya",
+    "content": "yesss i saw a reel about that place the naan looks insane",
+    "timestamp": "2024-05-03T16:22:03"
+  },
+  {
+    "message_id": "msg_000070",
+    "user": "Tanya",
+    "content": "https://instagram.com/reel/indias-grill-naan",
+    "timestamp": "2024-05-03T16:22:11"
+  },
+  {
+    "message_id": "msg_000071",
+    "user": "Jake",
+    "content": "[voice message: 0:08]",
+    "timestamp": "2024-05-03T16:22:41"
+  },
+  {
+    "message_id": "msg_000072",
+    "user": "Amane",
+    "content": "noted",
+    "timestamp": "2024-05-03T16:23:02"
+  },
+  {
+    "message_id": "msg_000073",
+    "user": "Mahiru",
+    "content": "Perfect! What time works for everyone?",
+    "timestamp": "2024-05-03T16:23:28"
+  },
+  {
+    "message_id": "msg_000074",
+    "user": "Maya",
+    "content": "6:30?",
+    "timestamp": "2024-05-03T16:23:51"
+  },
+  {
+    "message_id": "msg_000075",
+    "user": "Nirali",
+    "content": "works for me!!",
+    "timestamp": "2024-05-03T16:24:03"
+  },
+  {
+    "message_id": "msg_000076",
+    "user": "Jake",
+    "content": "yeah im down",
+    "timestamp": "2024-05-03T16:24:17"
+  },
+  {
+    "message_id": "msg_000077",
+    "user": "Amane",
+    "content": "works",
+    "timestamp": "2024-05-03T16:24:21"
+  },
+  {
+    "message_id": "msg_000078",
+    "user": "Tanya",
+    "content": "yep ill actually be on time for once lmaooo",
+    "timestamp": "2024-05-03T16:24:29"
+  },
+  {
+    "message_id": "msg_000079",
+    "user": "Jake",
+    "content": "😂",
+    "timestamp": "2024-05-03T16:24:41"
+  },
+  {
+    "message_id": "msg_000080",
+    "user": "Nirali",
+    "content": "we'll see about that lol",
+    "timestamp": "2024-05-03T16:24:52"
+  },
+  {
+    "message_id": "msg_000081",
+    "user": "Mahiru",
+    "content": "[location: India's Grill on Vermont]",
+    "timestamp": "2024-05-03T16:25:14"
+  },
+  {
+    "message_id": "msg_000082",
+    "user": "Mahiru",
+    "content": "See everyone at 6:30! 😊",
+    "timestamp": "2024-05-03T16:25:22"
+  },
+  {
+    "message_id": "msg_000083",
+    "user": "Nirali",
+    "content": "[image: Screenshot of the restaurant's spice level menu]",
+    "timestamp": "2024-05-03T18:47:22"
+  },
+  {
+    "message_id": "msg_000084",
+    "user": "Nirali",
+    "content": "this vindaloo is PERFECT 🌶️🌶️🌶️",
+    "timestamp": "2024-05-03T18:47:31"
+  },
+  {
+    "message_id": "msg_000085",
+    "user": "Nirali",
+    "content": "finally a place that doesnt hold back on spice",
+    "timestamp": "2024-05-03T18:47:42"
+  },
+  {
+    "message_id": "msg_000086",
+    "user": "Jake",
+    "content": "meanwhile im dying over here with the medium curry lmao",
+    "timestamp": "2024-05-03T18:48:03"
+  },
+  {
+    "message_id": "msg_000087",
+    "user": "Amane",
+    "content": "same",
+    "timestamp": "2024-05-03T18:48:14"
+  },
+  {
+    "message_id": "msg_000088",
+    "user": "Mahiru",
+    "content": "The korma is really good! Nice and mild 😊",
+    "timestamp": "2024-05-03T18:48:37"
+  },
+  {
+    "message_id": "msg_000089",
+    "user": "Maya",
+    "content": "the chana masala is excellent",
+    "timestamp": "2024-05-03T18:49:12"
+  },
+  {
+    "message_id": "msg_000090",
+    "user": "Tanya",
+    "content": "[image: Selfie with the group at the table]",
+    "timestamp": "2024-05-03T19:02:28"
+  },
+  {
+    "message_id": "msg_000091",
+    "user": "Tanya",
+    "content": "first official group dinner!! 💕",
+    "timestamp": "2024-05-03T19:02:35"
+  },
+  {
+    "message_id": "msg_000092",
+    "user": "Jake",
+    "content": "[image: Group photo at the restaurant table]",
+    "timestamp": "2024-05-03T19:12:54"
+  },
+  {
+    "message_id": "msg_000093",
+    "user": "Jake",
+    "content": "got a better angle lol",
+    "timestamp": "2024-05-03T19:13:02"
+  },
+  {
+    "message_id": "msg_000094",
+    "user": "Tanya",
+    "content": "yooo send me that i need it for the gram",
+    "timestamp": "2024-05-03T19:13:18"
+  },
+  {
+    "message_id": "msg_000095",
+    "user": "Jake",
+    "content": "check your dms",
+    "timestamp": "2024-05-03T19:13:41"
+  },
+  {
+    "message_id": "msg_000096",
+    "user": "Mahiru",
+    "content": "This was so fun! We should make this a regular thing",
+    "timestamp": "2024-05-03T20:34:52"
+  },
+  {
+    "message_id": "msg_000097",
+    "user": "Nirali",
+    "content": "YES!! im so down",
+    "timestamp": "2024-05-03T20:35:18"
+  },
+  {
+    "message_id": "msg_000098",
+    "user": "Maya",
+    "content": "agreed. good food, good company",
+    "timestamp": "2024-05-03T20:35:44"
+  },
+  {
+    "message_id": "msg_000099",
+    "user": "Amane",
+    "content": "👍",
+    "timestamp": "2024-05-03T20:36:02"
+  }
+]

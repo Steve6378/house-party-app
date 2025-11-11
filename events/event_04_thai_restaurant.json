@@ -1,0 +1,422 @@
+[
+  {
+    "message_id": "msg_000255",
+    "user": "Nirali",
+    "content": "guys theres a new thai place that opened near campus",
+    "timestamp": "2024-05-24T16:33:12"
+  },
+  {
+    "message_id": "msg_000256",
+    "user": "Nirali",
+    "content": "they claim to have \"authentic spice levels\"",
+    "timestamp": "2024-05-24T16:33:21"
+  },
+  {
+    "message_id": "msg_000257",
+    "user": "Jake",
+    "content": "oh no",
+    "timestamp": "2024-05-24T16:33:44"
+  },
+  {
+    "message_id": "msg_000258",
+    "user": "Jake",
+    "content": "niralisisgonna test them lmao",
+    "timestamp": "2024-05-24T16:33:52"
+  },
+  {
+    "message_id": "msg_000259",
+    "user": "Jake",
+    "content": "nirali is gonna*",
+    "timestamp": "2024-05-24T16:34:01"
+  },
+  {
+    "message_id": "msg_000260",
+    "user": "Nirali",
+    "content": "YOU BET I AM",
+    "timestamp": "2024-05-24T16:34:18"
+  },
+  {
+    "message_id": "msg_000261",
+    "user": "Tanya",
+    "content": "yesss thai food sounds good",
+    "timestamp": "2024-05-24T16:34:47"
+  },
+  {
+    "message_id": "msg_000262",
+    "user": "Mahiru",
+    "content": "I love Thai food! When should we go?",
+    "timestamp": "2024-05-24T16:35:22"
+  },
+  {
+    "message_id": "msg_000263",
+    "user": "Nirali",
+    "content": "tonight? tomorrow?",
+    "timestamp": "2024-05-24T16:35:51"
+  },
+  {
+    "message_id": "msg_000264",
+    "user": "Maya",
+    "content": "i have a paper due tomorrow so tonight doesnt work for me",
+    "timestamp": "2024-05-24T16:36:29"
+  },
+  {
+    "message_id": "msg_000265",
+    "user": "Maya",
+    "content": "saturday?",
+    "timestamp": "2024-05-24T16:36:34"
+  },
+  {
+    "message_id": "msg_000266",
+    "user": "Amane",
+    "content": "saturday works",
+    "timestamp": "2024-05-24T16:36:52"
+  },
+  {
+    "message_id": "msg_000267",
+    "user": "Jake",
+    "content": "im down",
+    "timestamp": "2024-05-24T16:37:04"
+  },
+  {
+    "message_id": "msg_000268",
+    "user": "Tanya",
+    "content": "works for me!!",
+    "timestamp": "2024-05-24T16:37:23"
+  },
+  {
+    "message_id": "msg_000269",
+    "user": "Mahiru",
+    "content": "Perfect! Saturday dinner 😊",
+    "timestamp": "2024-05-24T16:37:48"
+  },
+  {
+    "message_id": "msg_000270",
+    "user": "Nirali",
+    "content": "https://yelp.com/biz/spice-thai-kitchen-los-angeles",
+    "timestamp": "2024-05-24T16:38:14"
+  },
+  {
+    "message_id": "msg_000271",
+    "user": "Nirali",
+    "content": "its called Spice Thai Kitchen",
+    "timestamp": "2024-05-24T16:38:22"
+  },
+  {
+    "message_id": "msg_000272",
+    "user": "Jake",
+    "content": "4.5 stars thats promising",
+    "timestamp": "2024-05-24T16:39:07"
+  },
+  {
+    "message_id": "msg_000273",
+    "user": "Maya",
+    "content": "prices look reasonable. $12-18 for entrees",
+    "timestamp": "2024-05-24T16:39:44"
+  },
+  {
+    "message_id": "msg_000274",
+    "user": "Tanya",
+    "content": "ok but their pad thai looks AMAZING in these pics",
+    "timestamp": "2024-05-24T16:40:12"
+  },
+  {
+    "message_id": "msg_000275",
+    "user": "Mahiru",
+    "content": "What time? 7pm?",
+    "timestamp": "2024-05-24T16:41:03"
+  },
+  {
+    "message_id": "msg_000276",
+    "user": "Nirali",
+    "content": "perfect!",
+    "timestamp": "2024-05-24T16:41:21"
+  },
+  {
+    "message_id": "msg_000277",
+    "user": "Mahiru",
+    "content": "I'll make a reservation for 6 people 😊",
+    "timestamp": "2024-05-24T16:41:47"
+  },
+  {
+    "message_id": "msg_000278",
+    "user": "Mahiru",
+    "content": "[calendar: Dinner at Spice Thai Kitchen - Sat May 25, 7:00 PM]",
+    "timestamp": "2024-05-24T16:48:33"
+  },
+  {
+    "message_id": "msg_000279",
+    "user": "Mahiru",
+    "content": "All set! See you all Saturday",
+    "timestamp": "2024-05-24T16:48:42"
+  },
+  {
+    "message_id": "msg_000280",
+    "user": "Tanya",
+    "content": "guys im gonna be like 10 min late",
+    "timestamp": "2024-05-25T18:54:17"
+  },
+  {
+    "message_id": "msg_000281",
+    "user": "Tanya",
+    "content": "metro is delayed smh",
+    "timestamp": "2024-05-25T18:54:25"
+  },
+  {
+    "message_id": "msg_000282",
+    "user": "Mahiru",
+    "content": "No worries! We'll wait for you to order",
+    "timestamp": "2024-05-25T18:55:03"
+  },
+  {
+    "message_id": "msg_000283",
+    "user": "Amane",
+    "content": "were here already",
+    "timestamp": "2024-05-25T18:57:41"
+  },
+  {
+    "message_id": "msg_000284",
+    "user": "Jake",
+    "content": "same just walked in",
+    "timestamp": "2024-05-25T18:58:14"
+  },
+  {
+    "message_id": "msg_000285",
+    "user": "Nirali",
+    "content": "IM SO EXCITED",
+    "timestamp": "2024-05-25T18:59:22"
+  },
+  {
+    "message_id": "msg_000286",
+    "user": "Maya",
+    "content": "the menu has a lot of vegan options which is nice",
+    "timestamp": "2024-05-25T19:02:38"
+  },
+  {
+    "message_id": "msg_000287",
+    "user": "Tanya",
+    "content": "here!! where r u guys sitting",
+    "timestamp": "2024-05-25T19:08:41"
+  },
+  {
+    "message_id": "msg_000288",
+    "user": "Mahiru",
+    "content": "Back left corner by the window!",
+    "timestamp": "2024-05-25T19:08:59"
+  },
+  {
+    "message_id": "msg_000289",
+    "user": "Nirali",
+    "content": "ok so i asked the waiter about spice levels",
+    "timestamp": "2024-05-25T19:17:44"
+  },
+  {
+    "message_id": "msg_000290",
+    "user": "Nirali",
+    "content": "they have 1-5 stars and he said most people do 2-3",
+    "timestamp": "2024-05-25T19:17:53"
+  },
+  {
+    "message_id": "msg_000291",
+    "user": "Nirali",
+    "content": "obviously im getting 5 stars",
+    "timestamp": "2024-05-25T19:18:01"
+  },
+  {
+    "message_id": "msg_000292",
+    "user": "Jake",
+    "content": "im doing 2 stars lol",
+    "timestamp": "2024-05-25T19:18:24"
+  },
+  {
+    "message_id": "msg_000293",
+    "user": "Amane",
+    "content": "same",
+    "timestamp": "2024-05-25T19:18:32"
+  },
+  {
+    "message_id": "msg_000294",
+    "user": "Mahiru",
+    "content": "I'll do 1 star. I don't handle spice well 😅",
+    "timestamp": "2024-05-25T19:18:51"
+  },
+  {
+    "message_id": "msg_000295",
+    "user": "Tanya",
+    "content": "3 stars for me lets gooo",
+    "timestamp": "2024-05-25T19:19:14"
+  },
+  {
+    "message_id": "msg_000296",
+    "user": "Maya",
+    "content": "2 stars is probably safe",
+    "timestamp": "2024-05-25T19:19:33"
+  },
+  {
+    "message_id": "msg_000297",
+    "user": "Nirali",
+    "content": "[image: Menu page showing spice level options]",
+    "timestamp": "2024-05-25T19:42:18"
+  },
+  {
+    "message_id": "msg_000298",
+    "user": "Nirali",
+    "content": "ok this is disappointing",
+    "timestamp": "2024-05-25T19:42:28"
+  },
+  {
+    "message_id": "msg_000299",
+    "user": "Nirali",
+    "content": "5 stars is barely spicy",
+    "timestamp": "2024-05-25T19:42:35"
+  },
+  {
+    "message_id": "msg_000300",
+    "user": "Jake",
+    "content": "lmaooo called it",
+    "timestamp": "2024-05-25T19:42:51"
+  },
+  {
+    "message_id": "msg_000301",
+    "user": "Amane",
+    "content": "they always tone it down",
+    "timestamp": "2024-05-25T19:43:07"
+  },
+  {
+    "message_id": "msg_000302",
+    "user": "Nirali",
+    "content": "this is why i bring my own chili oil everywhere",
+    "timestamp": "2024-05-25T19:43:29"
+  },
+  {
+    "message_id": "msg_000303",
+    "user": "Nirali",
+    "content": "[image: Small bottle of homemade chili oil]",
+    "timestamp": "2024-05-25T19:43:44"
+  },
+  {
+    "message_id": "msg_000304",
+    "user": "Tanya",
+    "content": "you actually brought it lmaooo",
+    "timestamp": "2024-05-25T19:44:03"
+  },
+  {
+    "message_id": "msg_000305",
+    "user": "Nirali",
+    "content": "ALWAYS PREPARED",
+    "timestamp": "2024-05-25T19:44:17"
+  },
+  {
+    "message_id": "msg_000306",
+    "user": "Mahiru",
+    "content": "Haha I love your dedication Nirali 🌶️",
+    "timestamp": "2024-05-25T19:44:42"
+  },
+  {
+    "message_id": "msg_000307",
+    "user": "Maya",
+    "content": "the drunken noodles are really good though",
+    "timestamp": "2024-05-25T19:51:33"
+  },
+  {
+    "message_id": "msg_000308",
+    "user": "Mahiru",
+    "content": "The panang curry is delicious! Even at 1 star it has nice flavor",
+    "timestamp": "2024-05-25T19:52:08"
+  },
+  {
+    "message_id": "msg_000309",
+    "user": "Jake",
+    "content": "this pad thai is legit",
+    "timestamp": "2024-05-25T19:52:41"
+  },
+  {
+    "message_id": "msg_000310",
+    "user": "Amane",
+    "content": "basil fried rice is solid",
+    "timestamp": "2024-05-25T19:53:12"
+  },
+  {
+    "message_id": "msg_000311",
+    "user": "Tanya",
+    "content": "ok but these spring rolls are SO GOOD",
+    "timestamp": "2024-05-25T19:53:47"
+  },
+  {
+    "message_id": "msg_000312",
+    "user": "Nirali",
+    "content": "ok after adding my chili oil this is perfect",
+    "timestamp": "2024-05-25T19:54:23"
+  },
+  {
+    "message_id": "msg_000313",
+    "user": "Nirali",
+    "content": "the food is actually really good",
+    "timestamp": "2024-05-25T19:54:31"
+  },
+  {
+    "message_id": "msg_000314",
+    "user": "Jake",
+    "content": "[image: Everyone's dishes arranged on the table]",
+    "timestamp": "2024-05-25T20:08:17"
+  },
+  {
+    "message_id": "msg_000315",
+    "user": "Jake",
+    "content": "food spread looking good 📸",
+    "timestamp": "2024-05-25T20:08:28"
+  },
+  {
+    "message_id": "msg_000316",
+    "user": "Maya",
+    "content": "with tip it came out to like $22 per person",
+    "timestamp": "2024-05-25T20:34:51"
+  },
+  {
+    "message_id": "msg_000317",
+    "user": "Maya",
+    "content": "pretty reasonable",
+    "timestamp": "2024-05-25T20:34:57"
+  },
+  {
+    "message_id": "msg_000318",
+    "user": "Tanya",
+    "content": "[Venmo payment link]",
+    "timestamp": "2024-05-25T20:35:24"
+  },
+  {
+    "message_id": "msg_000319",
+    "user": "Tanya",
+    "content": "sent my share!",
+    "timestamp": "2024-05-25T20:35:29"
+  },
+  {
+    "message_id": "msg_000320",
+    "user": "Nirali",
+    "content": "same just venmod mahiru",
+    "timestamp": "2024-05-25T20:36:03"
+  },
+  {
+    "message_id": "msg_000321",
+    "user": "Mahiru",
+    "content": "Got it! Thanks everyone 😊",
+    "timestamp": "2024-05-25T20:36:28"
+  },
+  {
+    "message_id": "msg_000322",
+    "user": "Jake",
+    "content": "we should come back here",
+    "timestamp": "2024-05-25T20:47:15"
+  },
+  {
+    "message_id": "msg_000323",
+    "user": "Nirali",
+    "content": "agreed! as long as i can bring my chili oil lol",
+    "timestamp": "2024-05-25T20:47:44"
+  },
+  {
+    "message_id": "msg_000324",
+    "user": "Maya",
+    "content": "good food, good price. im in",
+    "timestamp": "2024-05-25T20:48:12"
+  }
+]

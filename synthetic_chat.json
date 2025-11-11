@@ -1,0 +1,7370 @@
+[
+  {
+    "message_id": "msg_000001",
+    "user": "System",
+    "content": "Mahiru created the group",
+    "timestamp": "2024-05-01T19:34:12"
+  },
+  {
+    "message_id": "msg_000002",
+    "user": "System",
+    "content": "Mahiru added Amane, Maya, Jake, Nirali, Tanya",
+    "timestamp": "2024-05-01T19:34:15"
+  },
+  {
+    "message_id": "msg_000003",
+    "user": "Mahiru",
+    "content": "Hi everyone! 😊 I made a group chat for all of us since we've been hanging out so much lately!",
+    "timestamp": "2024-05-01T19:34:28"
+  },
+  {
+    "message_id": "msg_000004",
+    "user": "Amane",
+    "content": "makes sense",
+    "timestamp": "2024-05-01T19:35:03"
+  },
+  {
+    "message_id": "msg_000005",
+    "user": "Maya",
+    "content": "Good idea! Easier than texting multiple people separately",
+    "timestamp": "2024-05-01T19:35:47"
+  },
+  {
+    "message_id": "msg_000006",
+    "user": "Jake",
+    "content": "yooo this is sick",
+    "timestamp": "2024-05-01T19:36:12"
+  },
+  {
+    "message_id": "msg_000007",
+    "user": "Nirali",
+    "content": "YESSS finally we have a group chat!!",
+    "timestamp": "2024-05-01T19:36:28"
+  },
+  {
+    "message_id": "msg_000008",
+    "user": "Tanya",
+    "content": "omgg yay hi everyone 👋",
+    "timestamp": "2024-05-01T19:37:15"
+  },
+  {
+    "message_id": "msg_000009",
+    "user": "Mahiru",
+    "content": "Should we name the group something fun? Or just keep it simple?",
+    "timestamp": "2024-05-01T19:38:02"
+  },
+  {
+    "message_id": "msg_000010",
+    "user": "Jake",
+    "content": "what about like food squad or something lmao",
+    "timestamp": "2024-05-01T19:38:34"
+  },
+  {
+    "message_id": "msg_000011",
+    "user": "Nirali",
+    "content": "THE SPICE BRIGADE",
+    "timestamp": "2024-05-01T19:38:51"
+  },
+  {
+    "message_id": "msg_000012",
+    "user": "Maya",
+    "content": "...do we really need a name",
+    "timestamp": "2024-05-01T19:39:08"
+  },
+  {
+    "message_id": "msg_000013",
+    "user": "Tanya",
+    "content": "omg what about chaos crew bc we're all kinda chaotic lol",
+    "timestamp": "2024-05-01T19:39:42"
+  },
+  {
+    "message_id": "msg_000014",
+    "user": "Amane",
+    "content": "speak for yourself",
+    "timestamp": "2024-05-01T19:40:01"
+  },
+  {
+    "message_id": "msg_000015",
+    "user": "Jake",
+    "content": "😂😂😂",
+    "timestamp": "2024-05-01T19:40:09"
+  },
+  {
+    "message_id": "msg_000016",
+    "user": "Mahiru",
+    "content": "Haha how about we just keep it as our names for now? We can always change it later!",
+    "timestamp": "2024-05-01T19:40:38"
+  },
+  {
+    "message_id": "msg_000017",
+    "user": "Maya",
+    "content": "works for me",
+    "timestamp": "2024-05-01T19:40:52"
+  },
+  {
+    "message_id": "msg_000018",
+    "user": "Mahiru",
+    "content": "Perfect! So glad we all connected this semester. Today's lunch was really fun 😊",
+    "timestamp": "2024-05-01T19:41:24"
+  },
+  {
+    "message_id": "msg_000019",
+    "user": "Nirali",
+    "content": "yes!! that thai place was so good",
+    "timestamp": "2024-05-01T19:41:48"
+  },
+  {
+    "message_id": "msg_000020",
+    "user": "Jake",
+    "content": "the pad see ew was fire 🔥",
+    "timestamp": "2024-05-01T19:42:03"
+  },
+  {
+    "message_id": "msg_000021",
+    "user": "Tanya",
+    "content": "yesss and the mango sticky rice omggg",
+    "timestamp": "2024-05-01T19:42:31"
+  },
+  {
+    "message_id": "msg_000022",
+    "user": "Maya",
+    "content": "Their vegan curry was actually really good. And only $12",
+    "timestamp": "2024-05-01T19:43:11"
+  },
+  {
+    "message_id": "msg_000023",
+    "user": "Mahiru",
+    "content": "We should definitely do more hangouts like this! It's nice having a group to explore LA with",
+    "timestamp": "2024-05-01T19:43:54"
+  },
+  {
+    "message_id": "msg_000024",
+    "user": "Amane",
+    "content": "agreed",
+    "timestamp": "2024-05-01T19:44:08"
+  },
+  {
+    "message_id": "msg_000025",
+    "user": "Jake",
+    "content": "bet im down for whatever",
+    "timestamp": "2024-05-01T19:44:29"
+  },
+  {
+    "message_id": "msg_000026",
+    "user": "Nirali",
+    "content": "same!! this is gonna be fun",
+    "timestamp": "2024-05-01T19:44:47"
+  },
+  {
+    "message_id": "msg_000027",
+    "user": "Tanya",
+    "content": "yesss i love this for us",
+    "timestamp": "2024-05-01T19:45:12"
+  },
+  {
+    "message_id": "msg_000028",
+    "user": "Maya",
+    "content": "anyone down for a study sesh at that coffee place near campus? midterms are killing me",
+    "timestamp": "2024-05-03T14:23:15"
+  },
+  {
+    "message_id": "msg_000029",
+    "user": "Mahiru",
+    "content": "Oh I'd love to! Which place? The one on Figueroa?",
+    "timestamp": "2024-05-03T14:24:01"
+  },
+  {
+    "message_id": "msg_000030",
+    "user": "Maya",
+    "content": "yeah that one. they have good wifi and the coffee is like $3",
+    "timestamp": "2024-05-03T14:24:18"
+  },
+  {
+    "message_id": "msg_000031",
+    "user": "Amane",
+    "content": "works for me",
+    "timestamp": "2024-05-03T14:25:03"
+  },
+  {
+    "message_id": "msg_000032",
+    "user": "Jake",
+    "content": "yooo i'm down but also im starving can we grab food after?",
+    "timestamp": "2024-05-03T14:25:47"
+  },
+  {
+    "message_id": "msg_000033",
+    "user": "Nirali",
+    "content": "YESSS food after sounds perfect",
+    "timestamp": "2024-05-03T14:26:02"
+  },
+  {
+    "message_id": "msg_000034",
+    "user": "Nirali",
+    "content": "also i need caffeine or i will die",
+    "timestamp": "2024-05-03T14:26:09"
+  },
+  {
+    "message_id": "msg_000035",
+    "user": "Tanya",
+    "content": "omggg yes but i have lab until 4 so ill be like 20 min late is that ok 😭",
+    "timestamp": "2024-05-03T14:27:33"
+  },
+  {
+    "message_id": "msg_000036",
+    "user": "Mahiru",
+    "content": "That's totally fine! We'll save you a seat 😊",
+    "timestamp": "2024-05-03T14:28:12"
+  },
+  {
+    "message_id": "msg_000037",
+    "user": "Maya",
+    "content": "cool so like 3pm?",
+    "timestamp": "2024-05-03T14:29:01"
+  },
+  {
+    "message_id": "msg_000038",
+    "user": "Amane",
+    "content": "works",
+    "timestamp": "2024-05-03T14:29:15"
+  },
+  {
+    "message_id": "msg_000039",
+    "user": "Jake",
+    "content": "bet see yall there",
+    "timestamp": "2024-05-03T14:29:48"
+  },
+  {
+    "message_id": "msg_000040",
+    "user": "Mahiru",
+    "content": "[location: Caffeinated on Figueroa]",
+    "timestamp": "2024-05-03T14:30:22"
+  },
+  {
+    "message_id": "msg_000041",
+    "user": "Mahiru",
+    "content": "https://maps.google.com/caffeinated-figueroa",
+    "timestamp": "2024-05-03T14:30:28"
+  },
+  {
+    "message_id": "msg_000042",
+    "user": "Maya",
+    "content": "[👍: Amane, Jake, Nirali]",
+    "timestamp": "2024-05-03T14:30:45"
+  },
+  {
+    "message_id": "msg_000043",
+    "user": "Jake",
+    "content": "yo im here already lmao grabbed the big table by the window",
+    "timestamp": "2024-05-03T14:52:33"
+  },
+  {
+    "message_id": "msg_000044",
+    "user": "Nirali",
+    "content": "omw!",
+    "timestamp": "2024-05-03T14:54:12"
+  },
+  {
+    "message_id": "msg_000045",
+    "user": "Maya",
+    "content": "be there in 5",
+    "timestamp": "2024-05-03T14:56:47"
+  },
+  {
+    "message_id": "msg_000046",
+    "user": "Amane",
+    "content": "walking over now",
+    "timestamp": "2024-05-03T14:58:21"
+  },
+  {
+    "message_id": "msg_000047",
+    "user": "Mahiru",
+    "content": "Just got my drink! Be right there",
+    "timestamp": "2024-05-03T15:01:38"
+  },
+  {
+    "message_id": "msg_000048",
+    "user": "Mahiru",
+    "content": "[image: Iced matcha latte with latte art]",
+    "timestamp": "2024-05-03T15:43:19"
+  },
+  {
+    "message_id": "msg_000049",
+    "user": "Jake",
+    "content": "yooo that looks clean",
+    "timestamp": "2024-05-03T15:43:52"
+  },
+  {
+    "message_id": "msg_000050",
+    "user": "Jake",
+    "content": "the barista here is talented fr",
+    "timestamp": "2024-05-03T15:44:01"
+  },
+  {
+    "message_id": "msg_000051",
+    "user": "Nirali",
+    "content": "im on my third espresso shot send help",
+    "timestamp": "2024-05-03T16:02:44"
+  },
+  {
+    "message_id": "msg_000052",
+    "user": "Maya",
+    "content": "that explains why you've been typing so fast",
+    "timestamp": "2024-05-03T16:03:12"
+  },
+  {
+    "message_id": "msg_000053",
+    "user": "Amane",
+    "content": "maybe switch to water",
+    "timestamp": "2024-05-03T16:03:28"
+  },
+  {
+    "message_id": "msg_000054",
+    "user": "Nirali",
+    "content": "you're probably right lol",
+    "timestamp": "2024-05-03T16:03:47"
+  },
+  {
+    "message_id": "msg_000055",
+    "user": "Tanya",
+    "content": "omw finally lab ran over ughhh",
+    "timestamp": "2024-05-03T16:18:03"
+  },
+  {
+    "message_id": "msg_000056",
+    "user": "Tanya",
+    "content": "wait r u guys still there",
+    "timestamp": "2024-05-03T16:18:11"
+  },
+  {
+    "message_id": "msg_000057",
+    "user": "Amane",
+    "content": "yeah",
+    "timestamp": "2024-05-03T16:18:24"
+  },
+  {
+    "message_id": "msg_000058",
+    "user": "Jake",
+    "content": "we're about to wrap up studying tho",
+    "timestamp": "2024-05-03T16:19:01"
+  },
+  {
+    "message_id": "msg_000059",
+    "user": "Jake",
+    "content": "wanna just meet for dinner?",
+    "timestamp": "2024-05-03T16:19:08"
+  },
+  {
+    "message_id": "msg_000060",
+    "user": "Tanya",
+    "content": "yesss honestly im too tired to study anyway",
+    "timestamp": "2024-05-03T16:19:34"
+  },
+  {
+    "message_id": "msg_000061",
+    "user": "Mahiru",
+    "content": "Oh yes! Where should we go? I'm craving something warm",
+    "timestamp": "2024-05-03T16:20:15"
+  },
+  {
+    "message_id": "msg_000062",
+    "user": "Nirali",
+    "content": "INDIAN FOOD",
+    "timestamp": "2024-05-03T16:20:28"
+  },
+  {
+    "message_id": "msg_000063",
+    "user": "Nirali",
+    "content": "theres that place on vermont",
+    "timestamp": "2024-05-03T16:20:35"
+  },
+  {
+    "message_id": "msg_000064",
+    "user": "Jake",
+    "content": "oh yeah indias grill?",
+    "timestamp": "2024-05-03T16:20:51"
+  },
+  {
+    "message_id": "msg_000065",
+    "user": "Nirali",
+    "content": "YES that one",
+    "timestamp": "2024-05-03T16:20:58"
+  },
+  {
+    "message_id": "msg_000066",
+    "user": "Maya",
+    "content": "let me check the menu real quick",
+    "timestamp": "2024-05-03T16:21:22"
+  },
+  {
+    "message_id": "msg_000067",
+    "user": "Maya",
+    "content": "checked the menu, they have vegan options. prices look reasonable",
+    "timestamp": "2024-05-03T16:21:47"
+  },
+  {
+    "message_id": "msg_000068",
+    "user": "Maya",
+    "content": "entrees are like $12-15",
+    "timestamp": "2024-05-03T16:21:54"
+  },
+  {
+    "message_id": "msg_000069",
+    "user": "Tanya",
+    "content": "yesss i saw a reel about that place the naan looks insane",
+    "timestamp": "2024-05-03T16:22:03"
+  },
+  {
+    "message_id": "msg_000070",
+    "user": "Tanya",
+    "content": "https://instagram.com/reel/indias-grill-naan",
+    "timestamp": "2024-05-03T16:22:11"
+  },
+  {
+    "message_id": "msg_000071",
+    "user": "Jake",
+    "content": "[voice message: 0:08]",
+    "timestamp": "2024-05-03T16:22:41"
+  },
+  {
+    "message_id": "msg_000072",
+    "user": "Amane",
+    "content": "noted",
+    "timestamp": "2024-05-03T16:23:02"
+  },
+  {
+    "message_id": "msg_000073",
+    "user": "Mahiru",
+    "content": "Perfect! What time works for everyone?",
+    "timestamp": "2024-05-03T16:23:28"
+  },
+  {
+    "message_id": "msg_000074",
+    "user": "Maya",
+    "content": "6:30?",
+    "timestamp": "2024-05-03T16:23:51"
+  },
+  {
+    "message_id": "msg_000075",
+    "user": "Nirali",
+    "content": "works for me!!",
+    "timestamp": "2024-05-03T16:24:03"
+  },
+  {
+    "message_id": "msg_000076",
+    "user": "Jake",
+    "content": "yeah im down",
+    "timestamp": "2024-05-03T16:24:17"
+  },
+  {
+    "message_id": "msg_000077",
+    "user": "Amane",
+    "content": "works",
+    "timestamp": "2024-05-03T16:24:21"
+  },
+  {
+    "message_id": "msg_000078",
+    "user": "Tanya",
+    "content": "yep ill actually be on time for once lmaooo",
+    "timestamp": "2024-05-03T16:24:29"
+  },
+  {
+    "message_id": "msg_000079",
+    "user": "Jake",
+    "content": "😂",
+    "timestamp": "2024-05-03T16:24:41"
+  },
+  {
+    "message_id": "msg_000080",
+    "user": "Nirali",
+    "content": "we'll see about that lol",
+    "timestamp": "2024-05-03T16:24:52"
+  },
+  {
+    "message_id": "msg_000081",
+    "user": "Mahiru",
+    "content": "[location: India's Grill on Vermont]",
+    "timestamp": "2024-05-03T16:25:14"
+  },
+  {
+    "message_id": "msg_000082",
+    "user": "Mahiru",
+    "content": "See everyone at 6:30! 😊",
+    "timestamp": "2024-05-03T16:25:22"
+  },
+  {
+    "message_id": "msg_000083",
+    "user": "Nirali",
+    "content": "[image: Screenshot of the restaurant's spice level menu]",
+    "timestamp": "2024-05-03T18:47:22"
+  },
+  {
+    "message_id": "msg_000084",
+    "user": "Nirali",
+    "content": "this vindaloo is PERFECT 🌶️🌶️🌶️",
+    "timestamp": "2024-05-03T18:47:31"
+  },
+  {
+    "message_id": "msg_000085",
+    "user": "Nirali",
+    "content": "finally a place that doesnt hold back on spice",
+    "timestamp": "2024-05-03T18:47:42"
+  },
+  {
+    "message_id": "msg_000086",
+    "user": "Jake",
+    "content": "meanwhile im dying over here with the medium curry lmao",
+    "timestamp": "2024-05-03T18:48:03"
+  },
+  {
+    "message_id": "msg_000087",
+    "user": "Amane",
+    "content": "same",
+    "timestamp": "2024-05-03T18:48:14"
+  },
+  {
+    "message_id": "msg_000088",
+    "user": "Mahiru",
+    "content": "The korma is really good! Nice and mild 😊",
+    "timestamp": "2024-05-03T18:48:37"
+  },
+  {
+    "message_id": "msg_000089",
+    "user": "Maya",
+    "content": "the chana masala is excellent",
+    "timestamp": "2024-05-03T18:49:12"
+  },
+  {
+    "message_id": "msg_000090",
+    "user": "Tanya",
+    "content": "[image: Selfie with the group at the table]",
+    "timestamp": "2024-05-03T19:02:28"
+  },
+  {
+    "message_id": "msg_000091",
+    "user": "Tanya",
+    "content": "first official group dinner!! 💕",
+    "timestamp": "2024-05-03T19:02:35"
+  },
+  {
+    "message_id": "msg_000092",
+    "user": "Jake",
+    "content": "[image: Group photo at the restaurant table]",
+    "timestamp": "2024-05-03T19:12:54"
+  },
+  {
+    "message_id": "msg_000093",
+    "user": "Jake",
+    "content": "got a better angle lol",
+    "timestamp": "2024-05-03T19:13:02"
+  },
+  {
+    "message_id": "msg_000094",
+    "user": "Tanya",
+    "content": "yooo send me that i need it for the gram",
+    "timestamp": "2024-05-03T19:13:18"
+  },
+  {
+    "message_id": "msg_000095",
+    "user": "Jake",
+    "content": "check your dms",
+    "timestamp": "2024-05-03T19:13:41"
+  },
+  {
+    "message_id": "msg_000096",
+    "user": "Mahiru",
+    "content": "This was so fun! We should make this a regular thing",
+    "timestamp": "2024-05-03T20:34:52"
+  },
+  {
+    "message_id": "msg_000097",
+    "user": "Nirali",
+    "content": "YES!! im so down",
+    "timestamp": "2024-05-03T20:35:18"
+  },
+  {
+    "message_id": "msg_000098",
+    "user": "Maya",
+    "content": "agreed. good food, good company",
+    "timestamp": "2024-05-03T20:35:44"
+  },
+  {
+    "message_id": "msg_000099",
+    "user": "Amane",
+    "content": "👍",
+    "timestamp": "2024-05-03T20:36:02"
+  },
+  {
+    "message_id": "msg_000100",
+    "user": "Tanya",
+    "content": "ok so i saw this cute brunch spot on tiktok",
+    "timestamp": "2024-05-09T10:47:22"
+  },
+  {
+    "message_id": "msg_000101",
+    "user": "Tanya",
+    "content": "they have bottomless mimosas and the place looks SO aesthetic",
+    "timestamp": "2024-05-09T10:47:31"
+  },
+  {
+    "message_id": "msg_000102",
+    "user": "Tanya",
+    "content": "https://tiktok.com/@labrunch/brunch-spot-downtown",
+    "timestamp": "2024-05-09T10:47:38"
+  },
+  {
+    "message_id": "msg_000103",
+    "user": "Jake",
+    "content": "yooo those pancakes look fire",
+    "timestamp": "2024-05-09T10:52:14"
+  },
+  {
+    "message_id": "msg_000104",
+    "user": "Nirali",
+    "content": "OMG YES",
+    "timestamp": "2024-05-09T10:53:02"
+  },
+  {
+    "message_id": "msg_000105",
+    "user": "Mahiru",
+    "content": "That looks amazing! When were you thinking?",
+    "timestamp": "2024-05-09T10:54:28"
+  },
+  {
+    "message_id": "msg_000106",
+    "user": "Tanya",
+    "content": "this weekend maybe? saturday or sunday?",
+    "timestamp": "2024-05-09T10:55:17"
+  },
+  {
+    "message_id": "msg_000107",
+    "user": "Maya",
+    "content": "hold on let me check prices",
+    "timestamp": "2024-05-09T10:56:43"
+  },
+  {
+    "message_id": "msg_000108",
+    "user": "Maya",
+    "content": "okay so entrees are $18-25, bottomless mimosas are an extra $20",
+    "timestamp": "2024-05-09T10:58:12"
+  },
+  {
+    "message_id": "msg_000109",
+    "user": "Maya",
+    "content": "that's like $40-45 per person",
+    "timestamp": "2024-05-09T10:58:24"
+  },
+  {
+    "message_id": "msg_000110",
+    "user": "Nirali",
+    "content": "oof thats steep",
+    "timestamp": "2024-05-09T10:58:51"
+  },
+  {
+    "message_id": "msg_000111",
+    "user": "Jake",
+    "content": "i mean its a special occasion vibe tho",
+    "timestamp": "2024-05-09T10:59:18"
+  },
+  {
+    "message_id": "msg_000112",
+    "user": "Jake",
+    "content": "we dont do this every week",
+    "timestamp": "2024-05-09T10:59:24"
+  },
+  {
+    "message_id": "msg_000113",
+    "user": "Maya",
+    "content": "true but $45 is more than i usually spend on a meal",
+    "timestamp": "2024-05-09T11:00:07"
+  },
+  {
+    "message_id": "msg_000114",
+    "user": "Amane",
+    "content": "could skip the bottomless mimosas",
+    "timestamp": "2024-05-09T11:00:42"
+  },
+  {
+    "message_id": "msg_000115",
+    "user": "Tanya",
+    "content": "but thats like the whole point 😭",
+    "timestamp": "2024-05-09T11:01:03"
+  },
+  {
+    "message_id": "msg_000116",
+    "user": "Mahiru",
+    "content": "What if some people get mimosas and some don't? Everyone can just do what fits their budget 😊",
+    "timestamp": "2024-05-09T11:01:54"
+  },
+  {
+    "message_id": "msg_000117",
+    "user": "Maya",
+    "content": "that works for me. i can do $25 for food",
+    "timestamp": "2024-05-09T11:02:31"
+  },
+  {
+    "message_id": "msg_000118",
+    "user": "Nirali",
+    "content": "same im fine without the mimosas honestly",
+    "timestamp": "2024-05-09T11:02:49"
+  },
+  {
+    "message_id": "msg_000119",
+    "user": "Tanya",
+    "content": "ok cool!! im getting the mimosas tho lol",
+    "timestamp": "2024-05-09T11:03:12"
+  },
+  {
+    "message_id": "msg_000120",
+    "user": "Jake",
+    "content": "same here",
+    "timestamp": "2024-05-09T11:03:27"
+  },
+  {
+    "message_id": "msg_000121",
+    "user": "Amane",
+    "content": "ill pass. driving",
+    "timestamp": "2024-05-09T11:03:48"
+  },
+  {
+    "message_id": "msg_000122",
+    "user": "Mahiru",
+    "content": "I'll probably skip too. Not a big drinker anyway!",
+    "timestamp": "2024-05-09T11:04:16"
+  },
+  {
+    "message_id": "msg_000123",
+    "user": "Tanya",
+    "content": "ok so saturday or sunday? im free both days",
+    "timestamp": "2024-05-09T11:05:33"
+  },
+  {
+    "message_id": "msg_000124",
+    "user": "Maya",
+    "content": "saturday works better for me. i have work sunday afternoon",
+    "timestamp": "2024-05-09T11:06:14"
+  },
+  {
+    "message_id": "msg_000125",
+    "user": "Jake",
+    "content": "saturdays good",
+    "timestamp": "2024-05-09T11:06:28"
+  },
+  {
+    "message_id": "msg_000126",
+    "user": "Nirali",
+    "content": "works for me!",
+    "timestamp": "2024-05-09T11:06:41"
+  },
+  {
+    "message_id": "msg_000127",
+    "user": "Amane",
+    "content": "saturday is fine",
+    "timestamp": "2024-05-09T11:06:55"
+  },
+  {
+    "message_id": "msg_000128",
+    "user": "Mahiru",
+    "content": "Saturday it is! What time? 11am?",
+    "timestamp": "2024-05-09T11:07:22"
+  },
+  {
+    "message_id": "msg_000129",
+    "user": "Tanya",
+    "content": "can we do like 12 lol im not a morning person",
+    "timestamp": "2024-05-09T11:08:03"
+  },
+  {
+    "message_id": "msg_000130",
+    "user": "Jake",
+    "content": "😂 classic",
+    "timestamp": "2024-05-09T11:08:17"
+  },
+  {
+    "message_id": "msg_000131",
+    "user": "Mahiru",
+    "content": "12 works! Gives everyone time to sleep in",
+    "timestamp": "2024-05-09T11:08:44"
+  },
+  {
+    "message_id": "msg_000132",
+    "user": "Maya",
+    "content": "should we make a reservation? looks like a popular spot",
+    "timestamp": "2024-05-09T11:09:31"
+  },
+  {
+    "message_id": "msg_000133",
+    "user": "Tanya",
+    "content": "oh good idea",
+    "timestamp": "2024-05-09T11:09:48"
+  },
+  {
+    "message_id": "msg_000134",
+    "user": "Mahiru",
+    "content": "I can make one! Party of 6 for Saturday at noon?",
+    "timestamp": "2024-05-09T11:10:15"
+  },
+  {
+    "message_id": "msg_000135",
+    "user": "Nirali",
+    "content": "perfect!!",
+    "timestamp": "2024-05-09T11:10:28"
+  },
+  {
+    "message_id": "msg_000136",
+    "user": "Mahiru",
+    "content": "Done! Reservation confirmed for this Saturday at 12pm",
+    "timestamp": "2024-05-09T11:17:42"
+  },
+  {
+    "message_id": "msg_000137",
+    "user": "Mahiru",
+    "content": "[calendar: Brunch at The Ivy Room - Sat May 11, 12:00 PM]",
+    "timestamp": "2024-05-09T11:17:51"
+  },
+  {
+    "message_id": "msg_000138",
+    "user": "Tanya",
+    "content": "yay!! cant wait",
+    "timestamp": "2024-05-09T11:18:14"
+  },
+  {
+    "message_id": "msg_000139",
+    "user": "Jake",
+    "content": "this is gonna be sick",
+    "timestamp": "2024-05-09T11:18:29"
+  },
+  {
+    "message_id": "msg_000140",
+    "user": "Tanya",
+    "content": "ok but real talk im running like 10 min late 😭",
+    "timestamp": "2024-05-11T12:03:17"
+  },
+  {
+    "message_id": "msg_000141",
+    "user": "Maya",
+    "content": "shocker",
+    "timestamp": "2024-05-11T12:03:34"
+  },
+  {
+    "message_id": "msg_000142",
+    "user": "Nirali",
+    "content": "lmaooo we're already here",
+    "timestamp": "2024-05-11T12:03:51"
+  },
+  {
+    "message_id": "msg_000143",
+    "user": "Jake",
+    "content": "we got a table outside",
+    "timestamp": "2024-05-11T12:04:08"
+  },
+  {
+    "message_id": "msg_000144",
+    "user": "Mahiru",
+    "content": "No rush! The weather is beautiful so we're just enjoying the patio 😊",
+    "timestamp": "2024-05-11T12:04:37"
+  },
+  {
+    "message_id": "msg_000145",
+    "user": "Tanya",
+    "content": "omw!! like 5 min away",
+    "timestamp": "2024-05-11T12:09:22"
+  },
+  {
+    "message_id": "msg_000146",
+    "user": "Jake",
+    "content": "[image: The aesthetically plated avocado toast and pancakes on the table]",
+    "timestamp": "2024-05-11T12:34:18"
+  },
+  {
+    "message_id": "msg_000147",
+    "user": "Jake",
+    "content": "this presentation is insane",
+    "timestamp": "2024-05-11T12:34:27"
+  },
+  {
+    "message_id": "msg_000148",
+    "user": "Tanya",
+    "content": "[image: Boomerang of mimosa being poured]",
+    "timestamp": "2024-05-11T12:35:11"
+  },
+  {
+    "message_id": "msg_000149",
+    "user": "Tanya",
+    "content": "this is going on the story for SURE",
+    "timestamp": "2024-05-11T12:35:19"
+  },
+  {
+    "message_id": "msg_000150",
+    "user": "Nirali",
+    "content": "wait mahiru what did you get?",
+    "timestamp": "2024-05-11T12:36:42"
+  },
+  {
+    "message_id": "msg_000151",
+    "user": "Mahiru",
+    "content": "The japanese souffle pancakes! They're so fluffy 😊",
+    "timestamp": "2024-05-11T12:37:03"
+  },
+  {
+    "message_id": "msg_000152",
+    "user": "Nirali",
+    "content": "omg those look amazing",
+    "timestamp": "2024-05-11T12:37:21"
+  },
+  {
+    "message_id": "msg_000153",
+    "user": "Maya",
+    "content": "the vegan hash is really good",
+    "timestamp": "2024-05-11T12:38:14"
+  },
+  {
+    "message_id": "msg_000154",
+    "user": "Maya",
+    "content": "actually impressed",
+    "timestamp": "2024-05-11T12:38:20"
+  },
+  {
+    "message_id": "msg_000155",
+    "user": "Amane",
+    "content": "this eggs benedict is solid",
+    "timestamp": "2024-05-11T12:39:07"
+  },
+  {
+    "message_id": "msg_000156",
+    "user": "Jake",
+    "content": "yo tanya how many mimosas are you on",
+    "timestamp": "2024-05-11T13:18:44"
+  },
+  {
+    "message_id": "msg_000157",
+    "user": "Tanya",
+    "content": "dont worry about it lmaooo",
+    "timestamp": "2024-05-11T13:19:02"
+  },
+  {
+    "message_id": "msg_000158",
+    "user": "Nirali",
+    "content": "shes getting her moneys worth 😂",
+    "timestamp": "2024-05-11T13:19:24"
+  },
+  {
+    "message_id": "msg_000159",
+    "user": "Mahiru",
+    "content": "[image: Group photo on the patio with the brunch spread]",
+    "timestamp": "2024-05-11T13:42:37"
+  },
+  {
+    "message_id": "msg_000160",
+    "user": "Mahiru",
+    "content": "Such a lovely morning with you all! 💕",
+    "timestamp": "2024-05-11T13:42:48"
+  },
+  {
+    "message_id": "msg_000161",
+    "user": "Jake",
+    "content": "send me that pic its so good",
+    "timestamp": "2024-05-11T13:43:15"
+  },
+  {
+    "message_id": "msg_000162",
+    "user": "Tanya",
+    "content": "same!! need that for insta",
+    "timestamp": "2024-05-11T13:43:31"
+  },
+  {
+    "message_id": "msg_000163",
+    "user": "Maya",
+    "content": "good vibes today. worth the price tbh",
+    "timestamp": "2024-05-11T14:52:18"
+  },
+  {
+    "message_id": "msg_000164",
+    "user": "Nirali",
+    "content": "agreed!! we should do this again sometime",
+    "timestamp": "2024-05-11T14:53:04"
+  },
+  {
+    "message_id": "msg_000165",
+    "user": "Jake",
+    "content": "yo its supposed to be like 80 degrees this weekend",
+    "timestamp": "2024-05-15T15:22:41"
+  },
+  {
+    "message_id": "msg_000166",
+    "user": "Jake",
+    "content": "beach day?",
+    "timestamp": "2024-05-15T15:22:47"
+  },
+  {
+    "message_id": "msg_000167",
+    "user": "Nirali",
+    "content": "YESSSS",
+    "timestamp": "2024-05-15T15:23:12"
+  },
+  {
+    "message_id": "msg_000168",
+    "user": "Tanya",
+    "content": "omg yes i need to tan",
+    "timestamp": "2024-05-15T15:23:54"
+  },
+  {
+    "message_id": "msg_000169",
+    "user": "Mahiru",
+    "content": "That sounds perfect! Santa Monica or Venice?",
+    "timestamp": "2024-05-15T15:24:37"
+  },
+  {
+    "message_id": "msg_000170",
+    "user": "Jake",
+    "content": "santa monica has better parking",
+    "timestamp": "2024-05-15T15:25:03"
+  },
+  {
+    "message_id": "msg_000171",
+    "user": "Maya",
+    "content": "parking costs money though",
+    "timestamp": "2024-05-15T15:25:41"
+  },
+  {
+    "message_id": "msg_000172",
+    "user": "Amane",
+    "content": "we can split it",
+    "timestamp": "2024-05-15T15:26:02"
+  },
+  {
+    "message_id": "msg_000173",
+    "user": "Maya",
+    "content": "ok that works. probably like $3-4 per person",
+    "timestamp": "2024-05-15T15:26:38"
+  },
+  {
+    "message_id": "msg_000174",
+    "user": "Mahiru",
+    "content": "Saturday or Sunday?",
+    "timestamp": "2024-05-15T15:27:14"
+  },
+  {
+    "message_id": "msg_000175",
+    "user": "Tanya",
+    "content": "saturday!! sunday i have plans",
+    "timestamp": "2024-05-15T15:27:52"
+  },
+  {
+    "message_id": "msg_000176",
+    "user": "Nirali",
+    "content": "saturdays good for me",
+    "timestamp": "2024-05-15T15:28:09"
+  },
+  {
+    "message_id": "msg_000177",
+    "user": "Jake",
+    "content": "works",
+    "timestamp": "2024-05-15T15:28:21"
+  },
+  {
+    "message_id": "msg_000178",
+    "user": "Amane",
+    "content": "i can drive. fits 4 people",
+    "timestamp": "2024-05-15T15:28:54"
+  },
+  {
+    "message_id": "msg_000179",
+    "user": "Maya",
+    "content": "i can take the metro if needed",
+    "timestamp": "2024-05-15T15:29:27"
+  },
+  {
+    "message_id": "msg_000180",
+    "user": "Mahiru",
+    "content": "No need! We can figure out the logistics. Maybe someone can carpool?",
+    "timestamp": "2024-05-15T15:30:11"
+  },
+  {
+    "message_id": "msg_000181",
+    "user": "Nirali",
+    "content": "i dont have a car but i can chip in extra for gas!",
+    "timestamp": "2024-05-15T15:30:48"
+  },
+  {
+    "message_id": "msg_000182",
+    "user": "Amane",
+    "content": "dont worry about it",
+    "timestamp": "2024-05-15T15:31:03"
+  },
+  {
+    "message_id": "msg_000183",
+    "user": "Jake",
+    "content": "actually wait i might need to uber",
+    "timestamp": "2024-05-15T15:31:42"
+  },
+  {
+    "message_id": "msg_000184",
+    "user": "Jake",
+    "content": "im bringing my camera and i dont want it getting damaged in a packed car",
+    "timestamp": "2024-05-15T15:31:51"
+  },
+  {
+    "message_id": "msg_000185",
+    "user": "Tanya",
+    "content": "jake and his camera lmaooo",
+    "timestamp": "2024-05-15T15:32:18"
+  },
+  {
+    "message_id": "msg_000186",
+    "user": "Jake",
+    "content": "its expensive ok 😭",
+    "timestamp": "2024-05-15T15:32:34"
+  },
+  {
+    "message_id": "msg_000187",
+    "user": "Nirali",
+    "content": "\"just a hobby\" he says",
+    "timestamp": "2024-05-15T15:32:51"
+  },
+  {
+    "message_id": "msg_000188",
+    "user": "Jake",
+    "content": "IT IS",
+    "timestamp": "2024-05-15T15:33:02"
+  },
+  {
+    "message_id": "msg_000189",
+    "user": "Mahiru",
+    "content": "Haha okay so Amane can take 3 people and Jake will meet us there?",
+    "timestamp": "2024-05-15T15:33:44"
+  },
+  {
+    "message_id": "msg_000190",
+    "user": "Jake",
+    "content": "yeah that works",
+    "timestamp": "2024-05-15T15:33:58"
+  },
+  {
+    "message_id": "msg_000191",
+    "user": "Amane",
+    "content": "ill take mahiru, maya, nirali",
+    "timestamp": "2024-05-15T15:34:21"
+  },
+  {
+    "message_id": "msg_000192",
+    "user": "Tanya",
+    "content": "wait what about me",
+    "timestamp": "2024-05-15T15:34:39"
+  },
+  {
+    "message_id": "msg_000193",
+    "user": "Amane",
+    "content": "you said you have plans",
+    "timestamp": "2024-05-15T15:34:52"
+  },
+  {
+    "message_id": "msg_000194",
+    "user": "Tanya",
+    "content": "OH i thought you meant sunday not saturday lol",
+    "timestamp": "2024-05-15T15:35:11"
+  },
+  {
+    "message_id": "msg_000195",
+    "user": "Tanya",
+    "content": "im free saturday!!",
+    "timestamp": "2024-05-15T15:35:17"
+  },
+  {
+    "message_id": "msg_000196",
+    "user": "Nirali",
+    "content": "😂😂😂",
+    "timestamp": "2024-05-15T15:35:28"
+  },
+  {
+    "message_id": "msg_000197",
+    "user": "Jake",
+    "content": "bruh",
+    "timestamp": "2024-05-15T15:35:35"
+  },
+  {
+    "message_id": "msg_000198",
+    "user": "Amane",
+    "content": "you can uber with jake then",
+    "timestamp": "2024-05-15T15:35:54"
+  },
+  {
+    "message_id": "msg_000199",
+    "user": "Tanya",
+    "content": "wait can i actually just ride with you guys ill squeeze in",
+    "timestamp": "2024-05-15T15:36:22"
+  },
+  {
+    "message_id": "msg_000200",
+    "user": "Amane",
+    "content": "car only seats 4 safely",
+    "timestamp": "2024-05-15T15:36:41"
+  },
+  {
+    "message_id": "msg_000201",
+    "user": "Tanya",
+    "content": "ugh fine ill split an uber with jake",
+    "timestamp": "2024-05-15T15:37:08"
+  },
+  {
+    "message_id": "msg_000202",
+    "user": "Jake",
+    "content": "bet",
+    "timestamp": "2024-05-15T15:37:19"
+  },
+  {
+    "message_id": "msg_000203",
+    "user": "Mahiru",
+    "content": "Perfect! What time should we meet? 11am?",
+    "timestamp": "2024-05-15T15:38:02"
+  },
+  {
+    "message_id": "msg_000204",
+    "user": "Tanya",
+    "content": "can we do 12",
+    "timestamp": "2024-05-15T15:38:24"
+  },
+  {
+    "message_id": "msg_000205",
+    "user": "Maya",
+    "content": "noon is probably better anyway. beach wont be as crowded yet",
+    "timestamp": "2024-05-15T15:38:57"
+  },
+  {
+    "message_id": "msg_000206",
+    "user": "Nirali",
+    "content": "works for me!",
+    "timestamp": "2024-05-15T15:39:11"
+  },
+  {
+    "message_id": "msg_000207",
+    "user": "Mahiru",
+    "content": "Okay! What should everyone bring? I'm thinking towels, sunscreen, snacks?",
+    "timestamp": "2024-05-15T15:40:23"
+  },
+  {
+    "message_id": "msg_000208",
+    "user": "Nirali",
+    "content": "i can bring a cooler with drinks!",
+    "timestamp": "2024-05-15T15:40:51"
+  },
+  {
+    "message_id": "msg_000209",
+    "user": "Maya",
+    "content": "ill bring some fruit. watermelon and grapes",
+    "timestamp": "2024-05-15T15:41:18"
+  },
+  {
+    "message_id": "msg_000210",
+    "user": "Tanya",
+    "content": "i have a bluetooth speaker we can bring",
+    "timestamp": "2024-05-15T15:41:42"
+  },
+  {
+    "message_id": "msg_000211",
+    "user": "Jake",
+    "content": "ill bring my camera obviously lol",
+    "timestamp": "2024-05-15T15:42:01"
+  },
+  {
+    "message_id": "msg_000212",
+    "user": "Jake",
+    "content": "and maybe a beach ball or frisbee",
+    "timestamp": "2024-05-15T15:42:09"
+  },
+  {
+    "message_id": "msg_000213",
+    "user": "Amane",
+    "content": "i have a beach umbrella",
+    "timestamp": "2024-05-15T15:42:34"
+  },
+  {
+    "message_id": "msg_000214",
+    "user": "Mahiru",
+    "content": "I'll bring sunscreen for everyone and some sandwiches! 😊",
+    "timestamp": "2024-05-15T15:43:07"
+  },
+  {
+    "message_id": "msg_000215",
+    "user": "Nirali",
+    "content": "omg mahiru youre the best",
+    "timestamp": "2024-05-15T15:43:28"
+  },
+  {
+    "message_id": "msg_000216",
+    "user": "Maya",
+    "content": "actually yeah thank you",
+    "timestamp": "2024-05-15T15:43:44"
+  },
+  {
+    "message_id": "msg_000217",
+    "user": "Mahiru",
+    "content": "Of course! I'll make sure to do vegan options for you Maya!",
+    "timestamp": "2024-05-15T15:44:18"
+  },
+  {
+    "message_id": "msg_000218",
+    "user": "Maya",
+    "content": "❤️",
+    "timestamp": "2024-05-15T15:44:32"
+  },
+  {
+    "message_id": "msg_000219",
+    "user": "Mahiru",
+    "content": "[calendar: Beach Day - Santa Monica - Sat May 18, 12:00 PM]",
+    "timestamp": "2024-05-15T15:45:11"
+  },
+  {
+    "message_id": "msg_000220",
+    "user": "Mahiru",
+    "content": "See everyone Saturday! 🏖️",
+    "timestamp": "2024-05-15T15:45:19"
+  },
+  {
+    "message_id": "msg_000221",
+    "user": "Tanya",
+    "content": "ok so im running late surprise surprise",
+    "timestamp": "2024-05-18T11:47:22"
+  },
+  {
+    "message_id": "msg_000222",
+    "user": "Tanya",
+    "content": "still getting ready lol",
+    "timestamp": "2024-05-18T11:47:29"
+  },
+  {
+    "message_id": "msg_000223",
+    "user": "Jake",
+    "content": "bro i was about to request the uber",
+    "timestamp": "2024-05-18T11:48:03"
+  },
+  {
+    "message_id": "msg_000224",
+    "user": "Tanya",
+    "content": "sorry!! give me like 15",
+    "timestamp": "2024-05-18T11:48:27"
+  },
+  {
+    "message_id": "msg_000225",
+    "user": "Jake",
+    "content": "aight",
+    "timestamp": "2024-05-18T11:48:38"
+  },
+  {
+    "message_id": "msg_000226",
+    "user": "Amane",
+    "content": "were leaving now",
+    "timestamp": "2024-05-18T11:52:14"
+  },
+  {
+    "message_id": "msg_000227",
+    "user": "Mahiru",
+    "content": "On our way! See you there Jake and Tanya!",
+    "timestamp": "2024-05-18T11:52:33"
+  },
+  {
+    "message_id": "msg_000228",
+    "user": "Tanya",
+    "content": "ok im ready!! jake u there?",
+    "timestamp": "2024-05-18T12:08:41"
+  },
+  {
+    "message_id": "msg_000229",
+    "user": "Jake",
+    "content": "yeah requesting uber now",
+    "timestamp": "2024-05-18T12:09:02"
+  },
+  {
+    "message_id": "msg_000230",
+    "user": "Jake",
+    "content": "$32 split = $16 each",
+    "timestamp": "2024-05-18T12:09:34"
+  },
+  {
+    "message_id": "msg_000231",
+    "user": "Tanya",
+    "content": "cool ill venmo you",
+    "timestamp": "2024-05-18T12:09:51"
+  },
+  {
+    "message_id": "msg_000232",
+    "user": "Nirali",
+    "content": "we're here!! got a good spot near the pier",
+    "timestamp": "2024-05-18T12:34:18"
+  },
+  {
+    "message_id": "msg_000233",
+    "user": "Mahiru",
+    "content": "[location: Santa Monica Beach - near lifeguard tower 15]",
+    "timestamp": "2024-05-18T12:34:47"
+  },
+  {
+    "message_id": "msg_000234",
+    "user": "Jake",
+    "content": "omw like 10 min",
+    "timestamp": "2024-05-18T12:38:52"
+  },
+  {
+    "message_id": "msg_000235",
+    "user": "Jake",
+    "content": "[image: Golden hour sunset over Santa Monica pier]",
+    "timestamp": "2024-05-18T17:42:13"
+  },
+  {
+    "message_id": "msg_000236",
+    "user": "Jake",
+    "content": "yo this lighting is insane",
+    "timestamp": "2024-05-18T17:42:24"
+  },
+  {
+    "message_id": "msg_000237",
+    "user": "Nirali",
+    "content": "JAKE THAT PIC IS SO GOOD",
+    "timestamp": "2024-05-18T17:43:01"
+  },
+  {
+    "message_id": "msg_000238",
+    "user": "Tanya",
+    "content": "omgggg send that to me",
+    "timestamp": "2024-05-18T17:43:22"
+  },
+  {
+    "message_id": "msg_000239",
+    "user": "Jake",
+    "content": "[image: Group candid photo playing frisbee on the beach]",
+    "timestamp": "2024-05-18T17:45:39"
+  },
+  {
+    "message_id": "msg_000240",
+    "user": "Mahiru",
+    "content": "This is such a perfect day! ☀️",
+    "timestamp": "2024-05-18T17:46:17"
+  },
+  {
+    "message_id": "msg_000241",
+    "user": "Maya",
+    "content": "agreed. and mahiru those sandwiches were really good",
+    "timestamp": "2024-05-18T17:47:03"
+  },
+  {
+    "message_id": "msg_000242",
+    "user": "Amane",
+    "content": "heading back now. everyone ready?",
+    "timestamp": "2024-05-18T18:22:41"
+  },
+  {
+    "message_id": "msg_000243",
+    "user": "Mahiru",
+    "content": "Yes! Let me just pack up",
+    "timestamp": "2024-05-18T18:23:08"
+  },
+  {
+    "message_id": "msg_000244",
+    "user": "Nirali",
+    "content": "wait i cant find my sunglasses",
+    "timestamp": "2024-05-18T18:23:31"
+  },
+  {
+    "message_id": "msg_000245",
+    "user": "Jake",
+    "content": "theyre on your head lmao",
+    "timestamp": "2024-05-18T18:23:52"
+  },
+  {
+    "message_id": "msg_000246",
+    "user": "Nirali",
+    "content": "oh my god",
+    "timestamp": "2024-05-18T18:24:03"
+  },
+  {
+    "message_id": "msg_000247",
+    "user": "Nirali",
+    "content": "😂😂😂",
+    "timestamp": "2024-05-18T18:24:07"
+  },
+  {
+    "message_id": "msg_000248",
+    "user": "Tanya",
+    "content": "LMAOOO",
+    "timestamp": "2024-05-18T18:24:18"
+  },
+  {
+    "message_id": "msg_000249",
+    "user": "Jake",
+    "content": "[image: Group beach day photo dump - 6 photos]",
+    "timestamp": "2024-05-18T20:15:44"
+  },
+  {
+    "message_id": "msg_000250",
+    "user": "Jake",
+    "content": "full beach day dump. everyone looks good 📸",
+    "timestamp": "2024-05-18T20:15:59"
+  },
+  {
+    "message_id": "msg_000251",
+    "user": "Tanya",
+    "content": "SEND THEM ALL TO ME",
+    "timestamp": "2024-05-18T20:16:24"
+  },
+  {
+    "message_id": "msg_000252",
+    "user": "Mahiru",
+    "content": "These are beautiful Jake! Thank you for capturing today 😊",
+    "timestamp": "2024-05-18T20:17:08"
+  },
+  {
+    "message_id": "msg_000253",
+    "user": "Maya",
+    "content": "good day. we should do this more often",
+    "timestamp": "2024-05-18T20:18:33"
+  },
+  {
+    "message_id": "msg_000254",
+    "user": "Nirali",
+    "content": "YES agreed!!",
+    "timestamp": "2024-05-18T20:19:02"
+  },
+  {
+    "message_id": "msg_000255",
+    "user": "Nirali",
+    "content": "guys theres a new thai place that opened near campus",
+    "timestamp": "2024-05-24T16:33:12"
+  },
+  {
+    "message_id": "msg_000256",
+    "user": "Nirali",
+    "content": "they claim to have \"authentic spice levels\"",
+    "timestamp": "2024-05-24T16:33:21"
+  },
+  {
+    "message_id": "msg_000257",
+    "user": "Jake",
+    "content": "oh no",
+    "timestamp": "2024-05-24T16:33:44"
+  },
+  {
+    "message_id": "msg_000258",
+    "user": "Jake",
+    "content": "niralisisgonna test them lmao",
+    "timestamp": "2024-05-24T16:33:52"
+  },
+  {
+    "message_id": "msg_000259",
+    "user": "Jake",
+    "content": "nirali is gonna*",
+    "timestamp": "2024-05-24T16:34:01"
+  },
+  {
+    "message_id": "msg_000260",
+    "user": "Nirali",
+    "content": "YOU BET I AM",
+    "timestamp": "2024-05-24T16:34:18"
+  },
+  {
+    "message_id": "msg_000261",
+    "user": "Tanya",
+    "content": "yesss thai food sounds good",
+    "timestamp": "2024-05-24T16:34:47"
+  },
+  {
+    "message_id": "msg_000262",
+    "user": "Mahiru",
+    "content": "I love Thai food! When should we go?",
+    "timestamp": "2024-05-24T16:35:22"
+  },
+  {
+    "message_id": "msg_000263",
+    "user": "Nirali",
+    "content": "tonight? tomorrow?",
+    "timestamp": "2024-05-24T16:35:51"
+  },
+  {
+    "message_id": "msg_000264",
+    "user": "Maya",
+    "content": "i have a paper due tomorrow so tonight doesnt work for me",
+    "timestamp": "2024-05-24T16:36:29"
+  },
+  {
+    "message_id": "msg_000265",
+    "user": "Maya",
+    "content": "saturday?",
+    "timestamp": "2024-05-24T16:36:34"
+  },
+  {
+    "message_id": "msg_000266",
+    "user": "Amane",
+    "content": "saturday works",
+    "timestamp": "2024-05-24T16:36:52"
+  },
+  {
+    "message_id": "msg_000267",
+    "user": "Jake",
+    "content": "im down",
+    "timestamp": "2024-05-24T16:37:04"
+  },
+  {
+    "message_id": "msg_000268",
+    "user": "Tanya",
+    "content": "works for me!!",
+    "timestamp": "2024-05-24T16:37:23"
+  },
+  {
+    "message_id": "msg_000269",
+    "user": "Mahiru",
+    "content": "Perfect! Saturday dinner 😊",
+    "timestamp": "2024-05-24T16:37:48"
+  },
+  {
+    "message_id": "msg_000270",
+    "user": "Nirali",
+    "content": "https://yelp.com/biz/spice-thai-kitchen-los-angeles",
+    "timestamp": "2024-05-24T16:38:14"
+  },
+  {
+    "message_id": "msg_000271",
+    "user": "Nirali",
+    "content": "its called Spice Thai Kitchen",
+    "timestamp": "2024-05-24T16:38:22"
+  },
+  {
+    "message_id": "msg_000272",
+    "user": "Jake",
+    "content": "4.5 stars thats promising",
+    "timestamp": "2024-05-24T16:39:07"
+  },
+  {
+    "message_id": "msg_000273",
+    "user": "Maya",
+    "content": "prices look reasonable. $12-18 for entrees",
+    "timestamp": "2024-05-24T16:39:44"
+  },
+  {
+    "message_id": "msg_000274",
+    "user": "Tanya",
+    "content": "ok but their pad thai looks AMAZING in these pics",
+    "timestamp": "2024-05-24T16:40:12"
+  },
+  {
+    "message_id": "msg_000275",
+    "user": "Mahiru",
+    "content": "What time? 7pm?",
+    "timestamp": "2024-05-24T16:41:03"
+  },
+  {
+    "message_id": "msg_000276",
+    "user": "Nirali",
+    "content": "perfect!",
+    "timestamp": "2024-05-24T16:41:21"
+  },
+  {
+    "message_id": "msg_000277",
+    "user": "Mahiru",
+    "content": "I'll make a reservation for 6 people 😊",
+    "timestamp": "2024-05-24T16:41:47"
+  },
+  {
+    "message_id": "msg_000278",
+    "user": "Mahiru",
+    "content": "[calendar: Dinner at Spice Thai Kitchen - Sat May 25, 7:00 PM]",
+    "timestamp": "2024-05-24T16:48:33"
+  },
+  {
+    "message_id": "msg_000279",
+    "user": "Mahiru",
+    "content": "All set! See you all Saturday",
+    "timestamp": "2024-05-24T16:48:42"
+  },
+  {
+    "message_id": "msg_000280",
+    "user": "Tanya",
+    "content": "guys im gonna be like 10 min late",
+    "timestamp": "2024-05-25T18:54:17"
+  },
+  {
+    "message_id": "msg_000281",
+    "user": "Tanya",
+    "content": "metro is delayed smh",
+    "timestamp": "2024-05-25T18:54:25"
+  },
+  {
+    "message_id": "msg_000282",
+    "user": "Mahiru",
+    "content": "No worries! We'll wait for you to order",
+    "timestamp": "2024-05-25T18:55:03"
+  },
+  {
+    "message_id": "msg_000283",
+    "user": "Amane",
+    "content": "were here already",
+    "timestamp": "2024-05-25T18:57:41"
+  },
+  {
+    "message_id": "msg_000284",
+    "user": "Jake",
+    "content": "same just walked in",
+    "timestamp": "2024-05-25T18:58:14"
+  },
+  {
+    "message_id": "msg_000285",
+    "user": "Nirali",
+    "content": "IM SO EXCITED",
+    "timestamp": "2024-05-25T18:59:22"
+  },
+  {
+    "message_id": "msg_000286",
+    "user": "Maya",
+    "content": "the menu has a lot of vegan options which is nice",
+    "timestamp": "2024-05-25T19:02:38"
+  },
+  {
+    "message_id": "msg_000287",
+    "user": "Tanya",
+    "content": "here!! where r u guys sitting",
+    "timestamp": "2024-05-25T19:08:41"
+  },
+  {
+    "message_id": "msg_000288",
+    "user": "Mahiru",
+    "content": "Back left corner by the window!",
+    "timestamp": "2024-05-25T19:08:59"
+  },
+  {
+    "message_id": "msg_000289",
+    "user": "Nirali",
+    "content": "ok so i asked the waiter about spice levels",
+    "timestamp": "2024-05-25T19:17:44"
+  },
+  {
+    "message_id": "msg_000290",
+    "user": "Nirali",
+    "content": "they have 1-5 stars and he said most people do 2-3",
+    "timestamp": "2024-05-25T19:17:53"
+  },
+  {
+    "message_id": "msg_000291",
+    "user": "Nirali",
+    "content": "obviously im getting 5 stars",
+    "timestamp": "2024-05-25T19:18:01"
+  },
+  {
+    "message_id": "msg_000292",
+    "user": "Jake",
+    "content": "im doing 2 stars lol",
+    "timestamp": "2024-05-25T19:18:24"
+  },
+  {
+    "message_id": "msg_000293",
+    "user": "Amane",
+    "content": "same",
+    "timestamp": "2024-05-25T19:18:32"
+  },
+  {
+    "message_id": "msg_000294",
+    "user": "Mahiru",
+    "content": "I'll do 1 star. I don't handle spice well 😅",
+    "timestamp": "2024-05-25T19:18:51"
+  },
+  {
+    "message_id": "msg_000295",
+    "user": "Tanya",
+    "content": "3 stars for me lets gooo",
+    "timestamp": "2024-05-25T19:19:14"
+  },
+  {
+    "message_id": "msg_000296",
+    "user": "Maya",
+    "content": "2 stars is probably safe",
+    "timestamp": "2024-05-25T19:19:33"
+  },
+  {
+    "message_id": "msg_000297",
+    "user": "Nirali",
+    "content": "[image: Menu page showing spice level options]",
+    "timestamp": "2024-05-25T19:42:18"
+  },
+  {
+    "message_id": "msg_000298",
+    "user": "Nirali",
+    "content": "ok this is disappointing",
+    "timestamp": "2024-05-25T19:42:28"
+  },
+  {
+    "message_id": "msg_000299",
+    "user": "Nirali",
+    "content": "5 stars is barely spicy",
+    "timestamp": "2024-05-25T19:42:35"
+  },
+  {
+    "message_id": "msg_000300",
+    "user": "Jake",
+    "content": "lmaooo called it",
+    "timestamp": "2024-05-25T19:42:51"
+  },
+  {
+    "message_id": "msg_000301",
+    "user": "Amane",
+    "content": "they always tone it down",
+    "timestamp": "2024-05-25T19:43:07"
+  },
+  {
+    "message_id": "msg_000302",
+    "user": "Nirali",
+    "content": "this is why i bring my own chili oil everywhere",
+    "timestamp": "2024-05-25T19:43:29"
+  },
+  {
+    "message_id": "msg_000303",
+    "user": "Nirali",
+    "content": "[image: Small bottle of homemade chili oil]",
+    "timestamp": "2024-05-25T19:43:44"
+  },
+  {
+    "message_id": "msg_000304",
+    "user": "Tanya",
+    "content": "you actually brought it lmaooo",
+    "timestamp": "2024-05-25T19:44:03"
+  },
+  {
+    "message_id": "msg_000305",
+    "user": "Nirali",
+    "content": "ALWAYS PREPARED",
+    "timestamp": "2024-05-25T19:44:17"
+  },
+  {
+    "message_id": "msg_000306",
+    "user": "Mahiru",
+    "content": "Haha I love your dedication Nirali 🌶️",
+    "timestamp": "2024-05-25T19:44:42"
+  },
+  {
+    "message_id": "msg_000307",
+    "user": "Maya",
+    "content": "the drunken noodles are really good though",
+    "timestamp": "2024-05-25T19:51:33"
+  },
+  {
+    "message_id": "msg_000308",
+    "user": "Mahiru",
+    "content": "The panang curry is delicious! Even at 1 star it has nice flavor",
+    "timestamp": "2024-05-25T19:52:08"
+  },
+  {
+    "message_id": "msg_000309",
+    "user": "Jake",
+    "content": "this pad thai is legit",
+    "timestamp": "2024-05-25T19:52:41"
+  },
+  {
+    "message_id": "msg_000310",
+    "user": "Amane",
+    "content": "basil fried rice is solid",
+    "timestamp": "2024-05-25T19:53:12"
+  },
+  {
+    "message_id": "msg_000311",
+    "user": "Tanya",
+    "content": "ok but these spring rolls are SO GOOD",
+    "timestamp": "2024-05-25T19:53:47"
+  },
+  {
+    "message_id": "msg_000312",
+    "user": "Nirali",
+    "content": "ok after adding my chili oil this is perfect",
+    "timestamp": "2024-05-25T19:54:23"
+  },
+  {
+    "message_id": "msg_000313",
+    "user": "Nirali",
+    "content": "the food is actually really good",
+    "timestamp": "2024-05-25T19:54:31"
+  },
+  {
+    "message_id": "msg_000314",
+    "user": "Jake",
+    "content": "[image: Everyone's dishes arranged on the table]",
+    "timestamp": "2024-05-25T20:08:17"
+  },
+  {
+    "message_id": "msg_000315",
+    "user": "Jake",
+    "content": "food spread looking good 📸",
+    "timestamp": "2024-05-25T20:08:28"
+  },
+  {
+    "message_id": "msg_000316",
+    "user": "Maya",
+    "content": "with tip it came out to like $22 per person",
+    "timestamp": "2024-05-25T20:34:51"
+  },
+  {
+    "message_id": "msg_000317",
+    "user": "Maya",
+    "content": "pretty reasonable",
+    "timestamp": "2024-05-25T20:34:57"
+  },
+  {
+    "message_id": "msg_000318",
+    "user": "Tanya",
+    "content": "[Venmo payment link]",
+    "timestamp": "2024-05-25T20:35:24"
+  },
+  {
+    "message_id": "msg_000319",
+    "user": "Tanya",
+    "content": "sent my share!",
+    "timestamp": "2024-05-25T20:35:29"
+  },
+  {
+    "message_id": "msg_000320",
+    "user": "Nirali",
+    "content": "same just venmod mahiru",
+    "timestamp": "2024-05-25T20:36:03"
+  },
+  {
+    "message_id": "msg_000321",
+    "user": "Mahiru",
+    "content": "Got it! Thanks everyone 😊",
+    "timestamp": "2024-05-25T20:36:28"
+  },
+  {
+    "message_id": "msg_000322",
+    "user": "Jake",
+    "content": "we should come back here",
+    "timestamp": "2024-05-25T20:47:15"
+  },
+  {
+    "message_id": "msg_000323",
+    "user": "Nirali",
+    "content": "agreed! as long as i can bring my chili oil lol",
+    "timestamp": "2024-05-25T20:47:44"
+  },
+  {
+    "message_id": "msg_000324",
+    "user": "Maya",
+    "content": "good food, good price. im in",
+    "timestamp": "2024-05-25T20:48:12"
+  },
+  {
+    "message_id": "msg_000325",
+    "user": "Jake",
+    "content": "yo who wants to do a sunrise hike",
+    "timestamp": "2024-06-01T21:14:32"
+  },
+  {
+    "message_id": "msg_000326",
+    "user": "Jake",
+    "content": "the lighting would be insane for photos",
+    "timestamp": "2024-06-01T21:14:41"
+  },
+  {
+    "message_id": "msg_000327",
+    "user": "Nirali",
+    "content": "omg yes!!",
+    "timestamp": "2024-06-01T21:15:18"
+  },
+  {
+    "message_id": "msg_000328",
+    "user": "Mahiru",
+    "content": "That sounds lovely! Where were you thinking?",
+    "timestamp": "2024-06-01T21:15:52"
+  },
+  {
+    "message_id": "msg_000329",
+    "user": "Jake",
+    "content": "runyon canyon? its pretty close and has great views",
+    "timestamp": "2024-06-01T21:16:24"
+  },
+  {
+    "message_id": "msg_000330",
+    "user": "Amane",
+    "content": "works for me",
+    "timestamp": "2024-06-01T21:16:47"
+  },
+  {
+    "message_id": "msg_000331",
+    "user": "Maya",
+    "content": "how early are we talking",
+    "timestamp": "2024-06-01T21:17:11"
+  },
+  {
+    "message_id": "msg_000332",
+    "user": "Jake",
+    "content": "sunrise is like 5:45am so we'd need to meet at like 5:15?",
+    "timestamp": "2024-06-01T21:17:44"
+  },
+  {
+    "message_id": "msg_000333",
+    "user": "Tanya",
+    "content": "WHAT",
+    "timestamp": "2024-06-01T21:18:02"
+  },
+  {
+    "message_id": "msg_000334",
+    "user": "Tanya",
+    "content": "thats so early omg",
+    "timestamp": "2024-06-01T21:18:08"
+  },
+  {
+    "message_id": "msg_000335",
+    "user": "Nirali",
+    "content": "itll be worth it!!",
+    "timestamp": "2024-06-01T21:18:31"
+  },
+  {
+    "message_id": "msg_000336",
+    "user": "Maya",
+    "content": "that means i need to wake up at like 4:30",
+    "timestamp": "2024-06-01T21:18:54"
+  },
+  {
+    "message_id": "msg_000337",
+    "user": "Maya",
+    "content": "but sure im down",
+    "timestamp": "2024-06-01T21:19:01"
+  },
+  {
+    "message_id": "msg_000338",
+    "user": "Mahiru",
+    "content": "I can make it! I'll set multiple alarms 😊",
+    "timestamp": "2024-06-01T21:19:28"
+  },
+  {
+    "message_id": "msg_000339",
+    "user": "Tanya",
+    "content": "idk if i can wake up that early",
+    "timestamp": "2024-06-01T21:19:53"
+  },
+  {
+    "message_id": "msg_000340",
+    "user": "Jake",
+    "content": "just go to bed early lol",
+    "timestamp": "2024-06-01T21:20:14"
+  },
+  {
+    "message_id": "msg_000341",
+    "user": "Tanya",
+    "content": "you dont understand im not a morning person AT ALL",
+    "timestamp": "2024-06-01T21:20:38"
+  },
+  {
+    "message_id": "msg_000342",
+    "user": "Amane",
+    "content": "you can meet us later if you want",
+    "timestamp": "2024-06-01T21:21:02"
+  },
+  {
+    "message_id": "msg_000343",
+    "user": "Tanya",
+    "content": "no no ill try",
+    "timestamp": "2024-06-01T21:21:24"
+  },
+  {
+    "message_id": "msg_000344",
+    "user": "Tanya",
+    "content": "ill set like 10 alarms",
+    "timestamp": "2024-06-01T21:21:31"
+  },
+  {
+    "message_id": "msg_000345",
+    "user": "Nirali",
+    "content": "this is gonna be interesting lol",
+    "timestamp": "2024-06-01T21:21:54"
+  },
+  {
+    "message_id": "msg_000346",
+    "user": "Mahiru",
+    "content": "What day? Tomorrow is Sunday",
+    "timestamp": "2024-06-01T21:22:21"
+  },
+  {
+    "message_id": "msg_000347",
+    "user": "Jake",
+    "content": "yeah tomorrow morning? weather looks perfect",
+    "timestamp": "2024-06-01T21:22:48"
+  },
+  {
+    "message_id": "msg_000348",
+    "user": "Nirali",
+    "content": "works for me!",
+    "timestamp": "2024-06-01T21:23:02"
+  },
+  {
+    "message_id": "msg_000349",
+    "user": "Maya",
+    "content": "fine but this better be worth it",
+    "timestamp": "2024-06-01T21:23:27"
+  },
+  {
+    "message_id": "msg_000350",
+    "user": "Jake",
+    "content": "trust me it will be",
+    "timestamp": "2024-06-01T21:23:43"
+  },
+  {
+    "message_id": "msg_000351",
+    "user": "Mahiru",
+    "content": "I'll bring some breakfast snacks and coffee!",
+    "timestamp": "2024-06-01T21:24:15"
+  },
+  {
+    "message_id": "msg_000352",
+    "user": "Nirali",
+    "content": "omg yes coffee is necessary",
+    "timestamp": "2024-06-01T21:24:38"
+  },
+  {
+    "message_id": "msg_000353",
+    "user": "Jake",
+    "content": "[calendar: Sunrise Hike - Runyon Canyon - Sun Jun 2, 5:15 AM]",
+    "timestamp": "2024-06-01T21:25:11"
+  },
+  {
+    "message_id": "msg_000354",
+    "user": "Jake",
+    "content": "see yall in the morning",
+    "timestamp": "2024-06-01T21:25:19"
+  },
+  {
+    "message_id": "msg_000355",
+    "user": "Amane",
+    "content": "im here",
+    "timestamp": "2024-06-02T05:12:38"
+  },
+  {
+    "message_id": "msg_000356",
+    "user": "Jake",
+    "content": "same. parking lot is pretty empty",
+    "timestamp": "2024-06-02T05:13:51"
+  },
+  {
+    "message_id": "msg_000357",
+    "user": "Mahiru",
+    "content": "Just pulled up! I see you guys",
+    "timestamp": "2024-06-02T05:14:24"
+  },
+  {
+    "message_id": "msg_000358",
+    "user": "Nirali",
+    "content": "omw like 2 min away",
+    "timestamp": "2024-06-02T05:15:07"
+  },
+  {
+    "message_id": "msg_000359",
+    "user": "Maya",
+    "content": "here. i need coffee immediately",
+    "timestamp": "2024-06-02T05:16:42"
+  },
+  {
+    "message_id": "msg_000360",
+    "user": "Mahiru",
+    "content": "I have a thermos! Come get some 😊",
+    "timestamp": "2024-06-02T05:17:03"
+  },
+  {
+    "message_id": "msg_000361",
+    "user": "Jake",
+    "content": "wheres tanya",
+    "timestamp": "2024-06-02T05:18:29"
+  },
+  {
+    "message_id": "msg_000362",
+    "user": "Nirali",
+    "content": "probably still asleep lol",
+    "timestamp": "2024-06-02T05:18:47"
+  },
+  {
+    "message_id": "msg_000363",
+    "user": "Amane",
+    "content": "we should start. suns coming up soon",
+    "timestamp": "2024-06-02T05:19:14"
+  },
+  {
+    "message_id": "msg_000364",
+    "user": "Mahiru",
+    "content": "She can catch up if she makes it!",
+    "timestamp": "2024-06-02T05:19:38"
+  },
+  {
+    "message_id": "msg_000365",
+    "user": "Jake",
+    "content": "alright lets go",
+    "timestamp": "2024-06-02T05:19:52"
+  },
+  {
+    "message_id": "msg_000366",
+    "user": "Jake",
+    "content": "[image: View of LA skyline with pink sunrise sky]",
+    "timestamp": "2024-06-02T05:47:13"
+  },
+  {
+    "message_id": "msg_000367",
+    "user": "Jake",
+    "content": "THIS IS INSANE",
+    "timestamp": "2024-06-02T05:47:22"
+  },
+  {
+    "message_id": "msg_000368",
+    "user": "Nirali",
+    "content": "SO PRETTY",
+    "timestamp": "2024-06-02T05:47:41"
+  },
+  {
+    "message_id": "msg_000369",
+    "user": "Maya",
+    "content": "okay this was worth waking up early for",
+    "timestamp": "2024-06-02T05:48:08"
+  },
+  {
+    "message_id": "msg_000370",
+    "user": "Mahiru",
+    "content": "It's beautiful! The sky is so pink 💕",
+    "timestamp": "2024-06-02T05:48:34"
+  },
+  {
+    "message_id": "msg_000371",
+    "user": "Jake",
+    "content": "[image: Group silhouette against sunrise]",
+    "timestamp": "2024-06-02T05:52:19"
+  },
+  {
+    "message_id": "msg_000372",
+    "user": "Amane",
+    "content": "good shot",
+    "timestamp": "2024-06-02T05:52:38"
+  },
+  {
+    "message_id": "msg_000373",
+    "user": "Tanya",
+    "content": "oh my god",
+    "timestamp": "2024-06-02T11:34:07"
+  },
+  {
+    "message_id": "msg_000374",
+    "user": "Tanya",
+    "content": "i just woke up",
+    "timestamp": "2024-06-02T11:34:12"
+  },
+  {
+    "message_id": "msg_000375",
+    "user": "Tanya",
+    "content": "IM SO SORRY",
+    "timestamp": "2024-06-02T11:34:18"
+  },
+  {
+    "message_id": "msg_000376",
+    "user": "Jake",
+    "content": "LMAOOOOO",
+    "timestamp": "2024-06-02T11:34:42"
+  },
+  {
+    "message_id": "msg_000377",
+    "user": "Nirali",
+    "content": "TANYA ITS NOON",
+    "timestamp": "2024-06-02T11:34:58"
+  },
+  {
+    "message_id": "msg_000378",
+    "user": "Tanya",
+    "content": "I KNOW",
+    "timestamp": "2024-06-02T11:35:11"
+  },
+  {
+    "message_id": "msg_000379",
+    "user": "Tanya",
+    "content": "i slept through all 10 alarms 😭😭😭",
+    "timestamp": "2024-06-02T11:35:19"
+  },
+  {
+    "message_id": "msg_000380",
+    "user": "Maya",
+    "content": "honestly impressive",
+    "timestamp": "2024-06-02T11:35:37"
+  },
+  {
+    "message_id": "msg_000381",
+    "user": "Amane",
+    "content": "called it",
+    "timestamp": "2024-06-02T11:35:51"
+  },
+  {
+    "message_id": "msg_000382",
+    "user": "Mahiru",
+    "content": "Haha it's okay! We got some beautiful photos. You can come next time 😊",
+    "timestamp": "2024-06-02T11:36:24"
+  },
+  {
+    "message_id": "msg_000383",
+    "user": "Tanya",
+    "content": "next time we're doing a SUNSET hike",
+    "timestamp": "2024-06-02T11:36:51"
+  },
+  {
+    "message_id": "msg_000384",
+    "user": "Jake",
+    "content": "deal lmao",
+    "timestamp": "2024-06-02T11:37:08"
+  },
+  {
+    "message_id": "msg_000385",
+    "user": "Jake",
+    "content": "[image: Photo dump from the hike - sunrise, views, trail shots]",
+    "timestamp": "2024-06-02T11:42:33"
+  },
+  {
+    "message_id": "msg_000386",
+    "user": "Jake",
+    "content": "full dump for tanya to see what she missed 📸",
+    "timestamp": "2024-06-02T11:42:47"
+  },
+  {
+    "message_id": "msg_000387",
+    "user": "Tanya",
+    "content": "IM CRYING THESE ARE SO BEAUTIFUL",
+    "timestamp": "2024-06-02T11:43:14"
+  },
+  {
+    "message_id": "msg_000388",
+    "user": "Tanya",
+    "content": "why am i like this",
+    "timestamp": "2024-06-02T11:43:22"
+  },
+  {
+    "message_id": "msg_000389",
+    "user": "Nirali",
+    "content": "bc youre not a morning person lol",
+    "timestamp": "2024-06-02T11:43:47"
+  },
+  {
+    "message_id": "msg_000390",
+    "user": "Mahiru",
+    "content": "It was a great morning! Good exercise and beautiful views",
+    "timestamp": "2024-06-02T11:44:18"
+  },
+  {
+    "message_id": "msg_000391",
+    "user": "Maya",
+    "content": "agreed. we should do more outdoor stuff",
+    "timestamp": "2024-06-02T11:44:52"
+  },
+  {
+    "message_id": "msg_000392",
+    "user": "Jake",
+    "content": "yo game night at our place this friday?",
+    "timestamp": "2024-06-10T14:22:17"
+  },
+  {
+    "message_id": "msg_000393",
+    "user": "Amane",
+    "content": "we have mario kart",
+    "timestamp": "2024-06-10T14:22:33"
+  },
+  {
+    "message_id": "msg_000394",
+    "user": "Nirali",
+    "content": "OMG YES",
+    "timestamp": "2024-06-10T14:23:04"
+  },
+  {
+    "message_id": "msg_000395",
+    "user": "Tanya",
+    "content": "yessss im so down",
+    "timestamp": "2024-06-10T14:23:28"
+  },
+  {
+    "message_id": "msg_000396",
+    "user": "Mahiru",
+    "content": "That sounds so fun! What time?",
+    "timestamp": "2024-06-10T14:24:03"
+  },
+  {
+    "message_id": "msg_000397",
+    "user": "Jake",
+    "content": "like 7? we can order pizza or something",
+    "timestamp": "2024-06-10T14:24:41"
+  },
+  {
+    "message_id": "msg_000398",
+    "user": "Maya",
+    "content": "or we could do potluck",
+    "timestamp": "2024-06-10T14:25:14"
+  },
+  {
+    "message_id": "msg_000399",
+    "user": "Maya",
+    "content": "cheaper than ordering",
+    "timestamp": "2024-06-10T14:25:20"
+  },
+  {
+    "message_id": "msg_000400",
+    "user": "Mahiru",
+    "content": "Ooh I like that idea! I can bring some snacks",
+    "timestamp": "2024-06-10T14:25:52"
+  },
+  {
+    "message_id": "msg_000401",
+    "user": "Nirali",
+    "content": "i can make samosas!!",
+    "timestamp": "2024-06-10T14:26:17"
+  },
+  {
+    "message_id": "msg_000402",
+    "user": "Tanya",
+    "content": "omg nirali your samosas are so good",
+    "timestamp": "2024-06-10T14:26:44"
+  },
+  {
+    "message_id": "msg_000403",
+    "user": "Jake",
+    "content": "wait yeah potluck is a good call",
+    "timestamp": "2024-06-10T14:27:08"
+  },
+  {
+    "message_id": "msg_000404",
+    "user": "Jake",
+    "content": "ill grab chips and dip",
+    "timestamp": "2024-06-10T14:27:15"
+  },
+  {
+    "message_id": "msg_000405",
+    "user": "Amane",
+    "content": "we have drinks already",
+    "timestamp": "2024-06-10T14:27:38"
+  },
+  {
+    "message_id": "msg_000406",
+    "user": "Tanya",
+    "content": "ill bring cookies or brownies!",
+    "timestamp": "2024-06-10T14:28:02"
+  },
+  {
+    "message_id": "msg_000407",
+    "user": "Maya",
+    "content": "ill bring a veggie tray",
+    "timestamp": "2024-06-10T14:28:31"
+  },
+  {
+    "message_id": "msg_000408",
+    "user": "Mahiru",
+    "content": "Perfect! I'll make some onigiri rice balls 😊",
+    "timestamp": "2024-06-10T14:29:04"
+  },
+  {
+    "message_id": "msg_000409",
+    "user": "Nirali",
+    "content": "this is gonna be so good",
+    "timestamp": "2024-06-10T14:29:27"
+  },
+  {
+    "message_id": "msg_000410",
+    "user": "Jake",
+    "content": "[location: Apartment - 742 W 28th St Unit 3B]",
+    "timestamp": "2024-06-10T14:30:15"
+  },
+  {
+    "message_id": "msg_000411",
+    "user": "Jake",
+    "content": "7pm friday see yall there",
+    "timestamp": "2024-06-10T14:30:23"
+  },
+  {
+    "message_id": "msg_000412",
+    "user": "Amane",
+    "content": "just fyi parking is tight on our street",
+    "timestamp": "2024-06-10T14:31:07"
+  },
+  {
+    "message_id": "msg_000413",
+    "user": "Amane",
+    "content": "might need to street park a few blocks away",
+    "timestamp": "2024-06-10T14:31:15"
+  },
+  {
+    "message_id": "msg_000414",
+    "user": "Maya",
+    "content": "ill take the metro anyway",
+    "timestamp": "2024-06-10T14:31:42"
+  },
+  {
+    "message_id": "msg_000415",
+    "user": "Nirali",
+    "content": "same here",
+    "timestamp": "2024-06-10T14:31:54"
+  },
+  {
+    "message_id": "msg_000416",
+    "user": "Mahiru",
+    "content": "[calendar: Game Night - Amane & Jake's - Fri Jun 14, 7:00 PM]",
+    "timestamp": "2024-06-10T14:32:38"
+  },
+  {
+    "message_id": "msg_000417",
+    "user": "Tanya",
+    "content": "guys i might be a tiny bit late",
+    "timestamp": "2024-06-14T18:53:24"
+  },
+  {
+    "message_id": "msg_000418",
+    "user": "Tanya",
+    "content": "the brownies are taking longer than expected",
+    "timestamp": "2024-06-14T18:53:33"
+  },
+  {
+    "message_id": "msg_000419",
+    "user": "Jake",
+    "content": "classic tanya lol",
+    "timestamp": "2024-06-14T18:54:01"
+  },
+  {
+    "message_id": "msg_000420",
+    "user": "Nirali",
+    "content": "im on the metro rn",
+    "timestamp": "2024-06-14T18:54:28"
+  },
+  {
+    "message_id": "msg_000421",
+    "user": "Maya",
+    "content": "same. should be there in like 15",
+    "timestamp": "2024-06-14T18:54:52"
+  },
+  {
+    "message_id": "msg_000422",
+    "user": "Mahiru",
+    "content": "Just pulled up! The onigiri turned out so cute 🍙",
+    "timestamp": "2024-06-14T18:57:14"
+  },
+  {
+    "message_id": "msg_000423",
+    "user": "Amane",
+    "content": "come on up. doors unlocked",
+    "timestamp": "2024-06-14T18:57:38"
+  },
+  {
+    "message_id": "msg_000424",
+    "user": "Nirali",
+    "content": "here!!",
+    "timestamp": "2024-06-14T19:08:42"
+  },
+  {
+    "message_id": "msg_000425",
+    "user": "Maya",
+    "content": "walking up now",
+    "timestamp": "2024-06-14T19:11:27"
+  },
+  {
+    "message_id": "msg_000426",
+    "user": "Tanya",
+    "content": "brownies are done!! omw",
+    "timestamp": "2024-06-14T19:18:53"
+  },
+  {
+    "message_id": "msg_000427",
+    "user": "Jake",
+    "content": "[image: Potluck spread on the coffee table]",
+    "timestamp": "2024-06-14T19:24:17"
+  },
+  {
+    "message_id": "msg_000428",
+    "user": "Jake",
+    "content": "we eating good tonight",
+    "timestamp": "2024-06-14T19:24:26"
+  },
+  {
+    "message_id": "msg_000429",
+    "user": "Mahiru",
+    "content": "Everything looks amazing!",
+    "timestamp": "2024-06-14T19:24:51"
+  },
+  {
+    "message_id": "msg_000430",
+    "user": "Nirali",
+    "content": "ok but can we talk about how good mahirus onigiri look",
+    "timestamp": "2024-06-14T19:25:18"
+  },
+  {
+    "message_id": "msg_000431",
+    "user": "Maya",
+    "content": "theyre really good. perfect amount of salt",
+    "timestamp": "2024-06-14T19:25:47"
+  },
+  {
+    "message_id": "msg_000432",
+    "user": "Mahiru",
+    "content": "Thank you! I made some with salmon and some with pickled plum 😊",
+    "timestamp": "2024-06-14T19:26:21"
+  },
+  {
+    "message_id": "msg_000433",
+    "user": "Tanya",
+    "content": "IM HERE",
+    "timestamp": "2024-06-14T19:31:04"
+  },
+  {
+    "message_id": "msg_000434",
+    "user": "Tanya",
+    "content": "wait which apartment",
+    "timestamp": "2024-06-14T19:31:11"
+  },
+  {
+    "message_id": "msg_000435",
+    "user": "Amane",
+    "content": "3B",
+    "timestamp": "2024-06-14T19:31:24"
+  },
+  {
+    "message_id": "msg_000436",
+    "user": "Jake",
+    "content": "ok so mario kart tournament time",
+    "timestamp": "2024-06-14T19:47:33"
+  },
+  {
+    "message_id": "msg_000437",
+    "user": "Nirali",
+    "content": "LETS GOOO",
+    "timestamp": "2024-06-14T19:47:48"
+  },
+  {
+    "message_id": "msg_000438",
+    "user": "Tanya",
+    "content": "im choosing princess peach",
+    "timestamp": "2024-06-14T19:48:12"
+  },
+  {
+    "message_id": "msg_000439",
+    "user": "Maya",
+    "content": "fair warning i havent played this in years",
+    "timestamp": "2024-06-14T19:48:41"
+  },
+  {
+    "message_id": "msg_000440",
+    "user": "Amane",
+    "content": "youll be fine",
+    "timestamp": "2024-06-14T19:48:54"
+  },
+  {
+    "message_id": "msg_000441",
+    "user": "Nirali",
+    "content": "YOSHI GANG",
+    "timestamp": "2024-06-14T19:49:08"
+  },
+  {
+    "message_id": "msg_000442",
+    "user": "Jake",
+    "content": "im going luigi",
+    "timestamp": "2024-06-14T19:49:23"
+  },
+  {
+    "message_id": "msg_000443",
+    "user": "Mahiru",
+    "content": "I'll be Mario! 🍄",
+    "timestamp": "2024-06-14T19:49:47"
+  },
+  {
+    "message_id": "msg_000444",
+    "user": "Nirali",
+    "content": "OH MY GOD",
+    "timestamp": "2024-06-14T20:12:38"
+  },
+  {
+    "message_id": "msg_000445",
+    "user": "Nirali",
+    "content": "BLUE SHELL",
+    "timestamp": "2024-06-14T20:12:42"
+  },
+  {
+    "message_id": "msg_000446",
+    "user": "Nirali",
+    "content": "NO NO NO",
+    "timestamp": "2024-06-14T20:12:46"
+  },
+  {
+    "message_id": "msg_000447",
+    "user": "Jake",
+    "content": "LMAOOOO",
+    "timestamp": "2024-06-14T20:12:54"
+  },
+  {
+    "message_id": "msg_000448",
+    "user": "Tanya",
+    "content": "GET WRECKED",
+    "timestamp": "2024-06-14T20:13:02"
+  },
+  {
+    "message_id": "msg_000449",
+    "user": "Amane",
+    "content": "[voice message: 0:03]",
+    "timestamp": "2024-06-14T20:24:17"
+  },
+  {
+    "message_id": "msg_000450",
+    "user": "Maya",
+    "content": "did amane just laugh out loud",
+    "timestamp": "2024-06-14T20:24:38"
+  },
+  {
+    "message_id": "msg_000451",
+    "user": "Maya",
+    "content": "that was tanya falling off rainbow road THREE TIMES",
+    "timestamp": "2024-06-14T20:24:47"
+  },
+  {
+    "message_id": "msg_000452",
+    "user": "Tanya",
+    "content": "STOP THAT MAP IS HARD",
+    "timestamp": "2024-06-14T20:25:03"
+  },
+  {
+    "message_id": "msg_000453",
+    "user": "Nirali",
+    "content": "😂😂😂",
+    "timestamp": "2024-06-14T20:25:14"
+  },
+  {
+    "message_id": "msg_000454",
+    "user": "Mahiru",
+    "content": "Haha this is so much fun! I haven't played games like this in forever",
+    "timestamp": "2024-06-14T20:36:29"
+  },
+  {
+    "message_id": "msg_000455",
+    "user": "Jake",
+    "content": "ok final race",
+    "timestamp": "2024-06-14T20:51:42"
+  },
+  {
+    "message_id": "msg_000456",
+    "user": "Jake",
+    "content": "winner takes all",
+    "timestamp": "2024-06-14T20:51:48"
+  },
+  {
+    "message_id": "msg_000457",
+    "user": "Nirali",
+    "content": "IM READY",
+    "timestamp": "2024-06-14T20:52:03"
+  },
+  {
+    "message_id": "msg_000458",
+    "user": "Amane",
+    "content": "lets go",
+    "timestamp": "2024-06-14T20:52:14"
+  },
+  {
+    "message_id": "msg_000459",
+    "user": "Jake",
+    "content": "[image: Screen showing final race results - Amane in 1st place]",
+    "timestamp": "2024-06-14T20:58:27"
+  },
+  {
+    "message_id": "msg_000460",
+    "user": "Jake",
+    "content": "amane with the clutch win",
+    "timestamp": "2024-06-14T20:58:36"
+  },
+  {
+    "message_id": "msg_000461",
+    "user": "Nirali",
+    "content": "HOW",
+    "timestamp": "2024-06-14T20:58:48"
+  },
+  {
+    "message_id": "msg_000462",
+    "user": "Nirali",
+    "content": "he was so quiet the whole time",
+    "timestamp": "2024-06-14T20:58:55"
+  },
+  {
+    "message_id": "msg_000463",
+    "user": "Amane",
+    "content": "i let my racing do the talking",
+    "timestamp": "2024-06-14T20:59:14"
+  },
+  {
+    "message_id": "msg_000464",
+    "user": "Tanya",
+    "content": "LMAOOO",
+    "timestamp": "2024-06-14T20:59:24"
+  },
+  {
+    "message_id": "msg_000465",
+    "user": "Mahiru",
+    "content": "Haha congrats Amane! 🏆",
+    "timestamp": "2024-06-14T20:59:42"
+  },
+  {
+    "message_id": "msg_000466",
+    "user": "Maya",
+    "content": "i came in last but i had fun",
+    "timestamp": "2024-06-14T21:00:18"
+  },
+  {
+    "message_id": "msg_000467",
+    "user": "Jake",
+    "content": "[image: Group photo on the couch with controllers]",
+    "timestamp": "2024-06-14T21:23:44"
+  },
+  {
+    "message_id": "msg_000468",
+    "user": "Tanya",
+    "content": "send me that!!",
+    "timestamp": "2024-06-14T21:24:07"
+  },
+  {
+    "message_id": "msg_000469",
+    "user": "Nirali",
+    "content": "such a fun night",
+    "timestamp": "2024-06-14T22:18:33"
+  },
+  {
+    "message_id": "msg_000470",
+    "user": "Mahiru",
+    "content": "Thank you for hosting! Your apartment is so cozy 😊",
+    "timestamp": "2024-06-14T22:19:08"
+  },
+  {
+    "message_id": "msg_000471",
+    "user": "Jake",
+    "content": "anytime! we should do this again",
+    "timestamp": "2024-06-14T22:19:41"
+  },
+  {
+    "message_id": "msg_000472",
+    "user": "Amane",
+    "content": "agreed",
+    "timestamp": "2024-06-14T22:19:52"
+  },
+  {
+    "message_id": "msg_000473",
+    "user": "Mahiru",
+    "content": "OH MY GOD",
+    "timestamp": "2024-06-20T09:14:22"
+  },
+  {
+    "message_id": "msg_000474",
+    "user": "Mahiru",
+    "content": "GUYS",
+    "timestamp": "2024-06-20T09:14:25"
+  },
+  {
+    "message_id": "msg_000475",
+    "user": "Mahiru",
+    "content": "TWICE is coming to LA",
+    "timestamp": "2024-06-20T09:14:31"
+  },
+  {
+    "message_id": "msg_000476",
+    "user": "Nirali",
+    "content": "omg!!",
+    "timestamp": "2024-06-20T09:15:08"
+  },
+  {
+    "message_id": "msg_000477",
+    "user": "Tanya",
+    "content": "yesss when???",
+    "timestamp": "2024-06-20T09:15:34"
+  },
+  {
+    "message_id": "msg_000478",
+    "user": "Mahiru",
+    "content": "July 28th! Tickets go on sale Friday",
+    "timestamp": "2024-06-20T09:16:02"
+  },
+  {
+    "message_id": "msg_000479",
+    "user": "Mahiru",
+    "content": "Would anyone want to come with me? 😊",
+    "timestamp": "2024-06-20T09:16:14"
+  },
+  {
+    "message_id": "msg_000480",
+    "user": "Tanya",
+    "content": "IM SO DOWN",
+    "timestamp": "2024-06-20T09:16:41"
+  },
+  {
+    "message_id": "msg_000481",
+    "user": "Nirali",
+    "content": "yes!! ive never been to a kpop concert",
+    "timestamp": "2024-06-20T09:17:03"
+  },
+  {
+    "message_id": "msg_000482",
+    "user": "Jake",
+    "content": "not really my vibe but the photos would be sick",
+    "timestamp": "2024-06-20T09:17:38"
+  },
+  {
+    "message_id": "msg_000483",
+    "user": "Jake",
+    "content": "im in",
+    "timestamp": "2024-06-20T09:17:42"
+  },
+  {
+    "message_id": "msg_000484",
+    "user": "Mahiru",
+    "content": "Yay!! What about you Maya and Amane?",
+    "timestamp": "2024-06-20T09:18:17"
+  },
+  {
+    "message_id": "msg_000485",
+    "user": "Maya",
+    "content": "how much are tickets",
+    "timestamp": "2024-06-20T09:18:52"
+  },
+  {
+    "message_id": "msg_000486",
+    "user": "Mahiru",
+    "content": "Looking at the venue... ranges from $79 for upper level to $250 for floor seats",
+    "timestamp": "2024-06-20T09:19:44"
+  },
+  {
+    "message_id": "msg_000487",
+    "user": "Maya",
+    "content": "oof $79 is doable but thats my budget limit",
+    "timestamp": "2024-06-20T09:20:18"
+  },
+  {
+    "message_id": "msg_000488",
+    "user": "Amane",
+    "content": "ill go if mahiru wants me there",
+    "timestamp": "2024-06-20T09:20:47"
+  },
+  {
+    "message_id": "msg_000489",
+    "user": "Mahiru",
+    "content": "Of course I do! 💕",
+    "timestamp": "2024-06-20T09:21:03"
+  },
+  {
+    "message_id": "msg_000490",
+    "user": "Tanya",
+    "content": "wait what time do tickets go on sale friday",
+    "timestamp": "2024-06-20T09:21:38"
+  },
+  {
+    "message_id": "msg_000491",
+    "user": "Mahiru",
+    "content": "10am PST. We need to be READY because they sell out fast",
+    "timestamp": "2024-06-20T09:22:14"
+  },
+  {
+    "message_id": "msg_000492",
+    "user": "Nirali",
+    "content": "ok so whats the strategy",
+    "timestamp": "2024-06-20T09:22:47"
+  },
+  {
+    "message_id": "msg_000493",
+    "user": "Mahiru",
+    "content": "Everyone should try to get tickets separately to increase our chances. Then we coordinate which seats we got",
+    "timestamp": "2024-06-20T09:23:29"
+  },
+  {
+    "message_id": "msg_000494",
+    "user": "Jake",
+    "content": "smart",
+    "timestamp": "2024-06-20T09:23:44"
+  },
+  {
+    "message_id": "msg_000495",
+    "user": "Tanya",
+    "content": "im setting like 5 alarms",
+    "timestamp": "2024-06-20T09:24:08"
+  },
+  {
+    "message_id": "msg_000496",
+    "user": "Amane",
+    "content": "tanya actually waking up early. this is serious",
+    "timestamp": "2024-06-20T09:24:33"
+  },
+  {
+    "message_id": "msg_000497",
+    "user": "Nirali",
+    "content": "😂",
+    "timestamp": "2024-06-20T09:24:42"
+  },
+  {
+    "message_id": "msg_000498",
+    "user": "Tanya",
+    "content": "HEY this is important ok",
+    "timestamp": "2024-06-20T09:24:56"
+  },
+  {
+    "message_id": "msg_000499",
+    "user": "Mahiru",
+    "content": "What sections should we aim for? I'm thinking $120-150 range for mid-level seats?",
+    "timestamp": "2024-06-20T09:25:41"
+  },
+  {
+    "message_id": "msg_000500",
+    "user": "Maya",
+    "content": "ill try for the $79 ones",
+    "timestamp": "2024-06-20T09:26:12"
+  },
+  {
+    "message_id": "msg_000501",
+    "user": "Nirali",
+    "content": "$120 works for me",
+    "timestamp": "2024-06-20T09:26:34"
+  },
+  {
+    "message_id": "msg_000502",
+    "user": "Jake",
+    "content": "same",
+    "timestamp": "2024-06-20T09:26:42"
+  },
+  {
+    "message_id": "msg_000503",
+    "user": "Tanya",
+    "content": "im in for $120-150",
+    "timestamp": "2024-06-20T09:27:03"
+  },
+  {
+    "message_id": "msg_000504",
+    "user": "Amane",
+    "content": "same",
+    "timestamp": "2024-06-20T09:27:14"
+  },
+  {
+    "message_id": "msg_000505",
+    "user": "Mahiru",
+    "content": "Okay! Everyone be online at 9:55am Friday. Good luck everyone!! 🍀",
+    "timestamp": "2024-06-20T09:28:07"
+  },
+  {
+    "message_id": "msg_000506",
+    "user": "Mahiru",
+    "content": "[calendar: TWICE Ticket Sale - Fri Jun 21, 10:00 AM]",
+    "timestamp": "2024-06-20T09:28:22"
+  },
+  {
+    "message_id": "msg_000507",
+    "user": "Mahiru",
+    "content": "IM IN THE QUEUE",
+    "timestamp": "2024-06-21T09:59:47"
+  },
+  {
+    "message_id": "msg_000508",
+    "user": "Tanya",
+    "content": "SAME",
+    "timestamp": "2024-06-21T09:59:53"
+  },
+  {
+    "message_id": "msg_000509",
+    "user": "Nirali",
+    "content": "me too!",
+    "timestamp": "2024-06-21T10:00:02"
+  },
+  {
+    "message_id": "msg_000510",
+    "user": "Jake",
+    "content": "queue position: 2847",
+    "timestamp": "2024-06-21T10:00:18"
+  },
+  {
+    "message_id": "msg_000511",
+    "user": "Jake",
+    "content": "fuck",
+    "timestamp": "2024-06-21T10:00:21"
+  },
+  {
+    "message_id": "msg_000512",
+    "user": "Maya",
+    "content": "1923 here",
+    "timestamp": "2024-06-21T10:00:34"
+  },
+  {
+    "message_id": "msg_000513",
+    "user": "Amane",
+    "content": "1456",
+    "timestamp": "2024-06-21T10:00:47"
+  },
+  {
+    "message_id": "msg_000514",
+    "user": "Mahiru",
+    "content": "892! 🤞",
+    "timestamp": "2024-06-21T10:01:03"
+  },
+  {
+    "message_id": "msg_000515",
+    "user": "Tanya",
+    "content": "3102 nooooo",
+    "timestamp": "2024-06-21T10:01:19"
+  },
+  {
+    "message_id": "msg_000516",
+    "user": "Nirali",
+    "content": "2234",
+    "timestamp": "2024-06-21T10:01:28"
+  },
+  {
+    "message_id": "msg_000517",
+    "user": "Mahiru",
+    "content": "IM IN",
+    "timestamp": "2024-06-21T10:08:42"
+  },
+  {
+    "message_id": "msg_000518",
+    "user": "Mahiru",
+    "content": "looking at section 214",
+    "timestamp": "2024-06-21T10:08:51"
+  },
+  {
+    "message_id": "msg_000519",
+    "user": "Amane",
+    "content": "just got in",
+    "timestamp": "2024-06-21T10:11:33"
+  },
+  {
+    "message_id": "msg_000520",
+    "user": "Mahiru",
+    "content": "GOT 2 TICKETS SECTION 214 ROW F",
+    "timestamp": "2024-06-21T10:12:07"
+  },
+  {
+    "message_id": "msg_000521",
+    "user": "Mahiru",
+    "content": "CHECKING OUT NOW",
+    "timestamp": "2024-06-21T10:12:13"
+  },
+  {
+    "message_id": "msg_000522",
+    "user": "Amane",
+    "content": "got 1 in section 215",
+    "timestamp": "2024-06-21T10:12:41"
+  },
+  {
+    "message_id": "msg_000523",
+    "user": "Amane",
+    "content": "right next to your section mahiru",
+    "timestamp": "2024-06-21T10:12:49"
+  },
+  {
+    "message_id": "msg_000524",
+    "user": "Maya",
+    "content": "im in. $79 tickets are sold out",
+    "timestamp": "2024-06-21T10:14:28"
+  },
+  {
+    "message_id": "msg_000525",
+    "user": "Maya",
+    "content": "cheapest i see is $115",
+    "timestamp": "2024-06-21T10:14:37"
+  },
+  {
+    "message_id": "msg_000526",
+    "user": "Nirali",
+    "content": "JUST GOT IN",
+    "timestamp": "2024-06-21T10:15:03"
+  },
+  {
+    "message_id": "msg_000527",
+    "user": "Nirali",
+    "content": "looking for section 214-215",
+    "timestamp": "2024-06-21T10:15:11"
+  },
+  {
+    "message_id": "msg_000528",
+    "user": "Jake",
+    "content": "got 1 ticket section 214 row H",
+    "timestamp": "2024-06-21T10:16:47"
+  },
+  {
+    "message_id": "msg_000529",
+    "user": "Nirali",
+    "content": "GOT ONE SECTION 214 ROW G",
+    "timestamp": "2024-06-21T10:17:22"
+  },
+  {
+    "message_id": "msg_000530",
+    "user": "Tanya",
+    "content": "FINALLY IN",
+    "timestamp": "2024-06-21T10:18:34"
+  },
+  {
+    "message_id": "msg_000531",
+    "user": "Tanya",
+    "content": "wtf everything is so expensive now",
+    "timestamp": "2024-06-21T10:18:43"
+  },
+  {
+    "message_id": "msg_000532",
+    "user": "Mahiru",
+    "content": "Check sections 214-215!",
+    "timestamp": "2024-06-21T10:19:08"
+  },
+  {
+    "message_id": "msg_000533",
+    "user": "Maya",
+    "content": "i cant do $115. thats too much for me",
+    "timestamp": "2024-06-21T10:19:41"
+  },
+  {
+    "message_id": "msg_000534",
+    "user": "Maya",
+    "content": "you guys go ahead. ill sit this one out",
+    "timestamp": "2024-06-21T10:19:52"
+  },
+  {
+    "message_id": "msg_000535",
+    "user": "Mahiru",
+    "content": "Oh no! Are you sure Maya?",
+    "timestamp": "2024-06-21T10:20:18"
+  },
+  {
+    "message_id": "msg_000536",
+    "user": "Maya",
+    "content": "yeah its okay. kpop isnt really my thing anyway",
+    "timestamp": "2024-06-21T10:20:47"
+  },
+  {
+    "message_id": "msg_000537",
+    "user": "Maya",
+    "content": "have fun though!",
+    "timestamp": "2024-06-21T10:20:52"
+  },
+  {
+    "message_id": "msg_000538",
+    "user": "Tanya",
+    "content": "GOT ONE SECTION 215 ROW E",
+    "timestamp": "2024-06-21T10:21:14"
+  },
+  {
+    "message_id": "msg_000539",
+    "user": "Mahiru",
+    "content": "Yay!! So we have 5 tickets all in sections 214-215",
+    "timestamp": "2024-06-21T10:22:03"
+  },
+  {
+    "message_id": "msg_000540",
+    "user": "Mahiru",
+    "content": "This is going to be amazing!! 💕",
+    "timestamp": "2024-06-21T10:22:12"
+  },
+  {
+    "message_id": "msg_000541",
+    "user": "Nirali",
+    "content": "IM SO EXCITED",
+    "timestamp": "2024-06-21T10:22:34"
+  },
+  {
+    "message_id": "msg_000542",
+    "user": "Jake",
+    "content": "that was stressful lol",
+    "timestamp": "2024-06-21T10:22:51"
+  },
+  {
+    "message_id": "msg_000543",
+    "user": "Tanya",
+    "content": "my heart is still racing",
+    "timestamp": "2024-06-21T10:23:08"
+  },
+  {
+    "message_id": "msg_000544",
+    "user": "Amane",
+    "content": "worth it",
+    "timestamp": "2024-06-21T10:23:22"
+  },
+  {
+    "message_id": "msg_000545",
+    "user": "Mahiru",
+    "content": "concert outfit planning starts NOW",
+    "timestamp": "2024-07-26T13:47:19"
+  },
+  {
+    "message_id": "msg_000546",
+    "user": "Tanya",
+    "content": "OMG YES",
+    "timestamp": "2024-07-26T13:48:02"
+  },
+  {
+    "message_id": "msg_000547",
+    "user": "Tanya",
+    "content": "im thinking pink and white theme",
+    "timestamp": "2024-07-26T13:48:11"
+  },
+  {
+    "message_id": "msg_000548",
+    "user": "Nirali",
+    "content": "ooh cute!",
+    "timestamp": "2024-07-26T13:48:37"
+  },
+  {
+    "message_id": "msg_000549",
+    "user": "Mahiru",
+    "content": "Should we coordinate colors?",
+    "timestamp": "2024-07-26T13:49:14"
+  },
+  {
+    "message_id": "msg_000550",
+    "user": "Jake",
+    "content": "im just wearing black lol",
+    "timestamp": "2024-07-26T13:49:42"
+  },
+  {
+    "message_id": "msg_000551",
+    "user": "Amane",
+    "content": "same",
+    "timestamp": "2024-07-26T13:49:51"
+  },
+  {
+    "message_id": "msg_000552",
+    "user": "Tanya",
+    "content": "boys are so boring 😂",
+    "timestamp": "2024-07-26T13:50:14"
+  },
+  {
+    "message_id": "msg_000553",
+    "user": "Mahiru",
+    "content": "okay everyone meet at my place at 5pm? Concert starts at 7:30 but we should get there early!",
+    "timestamp": "2024-07-28T11:22:47"
+  },
+  {
+    "message_id": "msg_000554",
+    "user": "Nirali",
+    "content": "works for me!",
+    "timestamp": "2024-07-28T11:23:18"
+  },
+  {
+    "message_id": "msg_000555",
+    "user": "Tanya",
+    "content": "yep!! bringing my light stick",
+    "timestamp": "2024-07-28T11:23:44"
+  },
+  {
+    "message_id": "msg_000556",
+    "user": "Jake",
+    "content": "ill drive. car fits 4",
+    "timestamp": "2024-07-28T11:24:17"
+  },
+  {
+    "message_id": "msg_000557",
+    "user": "Amane",
+    "content": "ill take mahiru in my car then",
+    "timestamp": "2024-07-28T11:24:42"
+  },
+  {
+    "message_id": "msg_000558",
+    "user": "Mahiru",
+    "content": "Perfect! See everyone at 5 😊🎵",
+    "timestamp": "2024-07-28T11:25:11"
+  },
+  {
+    "message_id": "msg_000559",
+    "user": "Mahiru",
+    "content": "[image: Pre-concert group photo at Mahiru's apartment]",
+    "timestamp": "2024-07-28T17:18:44"
+  },
+  {
+    "message_id": "msg_000560",
+    "user": "Mahiru",
+    "content": "Everyone looks so good!!",
+    "timestamp": "2024-07-28T17:18:53"
+  },
+  {
+    "message_id": "msg_000561",
+    "user": "Tanya",
+    "content": "[image: Candy bong light stick glowing]",
+    "timestamp": "2024-07-28T19:34:22"
+  },
+  {
+    "message_id": "msg_000562",
+    "user": "Tanya",
+    "content": "ITS STARTING",
+    "timestamp": "2024-07-28T19:34:29"
+  },
+  {
+    "message_id": "msg_000563",
+    "user": "Jake",
+    "content": "[image: Stage lights and crowd before the show]",
+    "timestamp": "2024-07-28T19:35:17"
+  },
+  {
+    "message_id": "msg_000564",
+    "user": "Nirali",
+    "content": "the energy here is INSANE",
+    "timestamp": "2024-07-28T19:36:03"
+  },
+  {
+    "message_id": "msg_000565",
+    "user": "Mahiru",
+    "content": "[image: TWICE on stage performing]",
+    "timestamp": "2024-07-28T20:47:18"
+  },
+  {
+    "message_id": "msg_000566",
+    "user": "Mahiru",
+    "content": "THIS IS THE BEST NIGHT EVER",
+    "timestamp": "2024-07-28T20:47:27"
+  },
+  {
+    "message_id": "msg_000567",
+    "user": "Tanya",
+    "content": "IM CRYING",
+    "timestamp": "2024-07-28T20:48:04"
+  },
+  {
+    "message_id": "msg_000568",
+    "user": "Nirali",
+    "content": "THEY SOUND SO GOOD LIVE",
+    "timestamp": "2024-07-28T20:48:31"
+  },
+  {
+    "message_id": "msg_000569",
+    "user": "Jake",
+    "content": "[image: Full venue shot with lights and stage]",
+    "timestamp": "2024-07-28T21:52:44"
+  },
+  {
+    "message_id": "msg_000570",
+    "user": "Jake",
+    "content": "got some sick shots tonight 📸",
+    "timestamp": "2024-07-28T21:52:56"
+  },
+  {
+    "message_id": "msg_000571",
+    "user": "Mahiru",
+    "content": "That was incredible! Thank you all for coming with me 💕",
+    "timestamp": "2024-07-28T22:38:17"
+  },
+  {
+    "message_id": "msg_000572",
+    "user": "Nirali",
+    "content": "thank YOU for getting us into kpop concerts lol",
+    "timestamp": "2024-07-28T22:39:02"
+  },
+  {
+    "message_id": "msg_000573",
+    "user": "Tanya",
+    "content": "my voice is gone from screaming",
+    "timestamp": "2024-07-28T22:39:34"
+  },
+  {
+    "message_id": "msg_000574",
+    "user": "Amane",
+    "content": "worth it. you had fun",
+    "timestamp": "2024-07-28T22:40:08"
+  },
+  {
+    "message_id": "msg_000575",
+    "user": "Mahiru",
+    "content": "😊❤️",
+    "timestamp": "2024-07-28T22:40:31"
+  },
+  {
+    "message_id": "msg_000576",
+    "user": "Jake",
+    "content": "farmers market sunday morning?",
+    "timestamp": "2024-08-08T18:44:12"
+  },
+  {
+    "message_id": "msg_000577",
+    "user": "Jake",
+    "content": "good lighting for photos and we can grab fresh produce",
+    "timestamp": "2024-08-08T18:44:23"
+  },
+  {
+    "message_id": "msg_000578",
+    "user": "Mahiru",
+    "content": "Oh I love that idea! Which market?",
+    "timestamp": "2024-08-08T18:45:07"
+  },
+  {
+    "message_id": "msg_000579",
+    "user": "Jake",
+    "content": "the one on melrose. its pretty big",
+    "timestamp": "2024-08-08T18:45:41"
+  },
+  {
+    "message_id": "msg_000580",
+    "user": "Maya",
+    "content": "theyhave good vegan vendors",
+    "timestamp": "2024-08-08T18:46:18"
+  },
+  {
+    "message_id": "msg_000581",
+    "user": "Maya",
+    "content": "they have*",
+    "timestamp": "2024-08-08T18:46:24"
+  },
+  {
+    "message_id": "msg_000582",
+    "user": "Nirali",
+    "content": "yes!! i need fresh veggies",
+    "timestamp": "2024-08-08T18:46:52"
+  },
+  {
+    "message_id": "msg_000583",
+    "user": "Tanya",
+    "content": "farmers markets are so aesthetic",
+    "timestamp": "2024-08-08T18:47:24"
+  },
+  {
+    "message_id": "msg_000584",
+    "user": "Amane",
+    "content": "what time",
+    "timestamp": "2024-08-08T18:47:48"
+  },
+  {
+    "message_id": "msg_000585",
+    "user": "Jake",
+    "content": "9am? get there before it gets too crowded",
+    "timestamp": "2024-08-08T18:48:17"
+  },
+  {
+    "message_id": "msg_000586",
+    "user": "Tanya",
+    "content": "9am on a sunday 😭",
+    "timestamp": "2024-08-08T18:48:42"
+  },
+  {
+    "message_id": "msg_000587",
+    "user": "Mahiru",
+    "content": "We can do 10am if that's better!",
+    "timestamp": "2024-08-08T18:49:14"
+  },
+  {
+    "message_id": "msg_000588",
+    "user": "Tanya",
+    "content": "10 is perfect thank u",
+    "timestamp": "2024-08-08T18:49:37"
+  },
+  {
+    "message_id": "msg_000589",
+    "user": "Mahiru",
+    "content": "And we can cook lunch with whatever we buy! My place?",
+    "timestamp": "2024-08-08T18:50:21"
+  },
+  {
+    "message_id": "msg_000590",
+    "user": "Nirali",
+    "content": "OMG YES",
+    "timestamp": "2024-08-08T18:50:44"
+  },
+  {
+    "message_id": "msg_000591",
+    "user": "Jake",
+    "content": "mahiru cooking is always good",
+    "timestamp": "2024-08-08T18:51:08"
+  },
+  {
+    "message_id": "msg_000592",
+    "user": "Amane",
+    "content": "agreed",
+    "timestamp": "2024-08-08T18:51:19"
+  },
+  {
+    "message_id": "msg_000593",
+    "user": "Mahiru",
+    "content": "[calendar: Farmers Market + Cooking - Sun Aug 11, 10:00 AM]",
+    "timestamp": "2024-08-08T18:52:03"
+  },
+  {
+    "message_id": "msg_000594",
+    "user": "Jake",
+    "content": "[image: Colorful produce stands at the market]",
+    "timestamp": "2024-08-11T10:22:17"
+  },
+  {
+    "message_id": "msg_000595",
+    "user": "Jake",
+    "content": "this lighting is perfect",
+    "timestamp": "2024-08-11T10:22:28"
+  },
+  {
+    "message_id": "msg_000596",
+    "user": "Mahiru",
+    "content": "Look at these heirloom tomatoes! So pretty 🍅",
+    "timestamp": "2024-08-11T10:28:44"
+  },
+  {
+    "message_id": "msg_000597",
+    "user": "Nirali",
+    "content": "wait theres a spice vendor",
+    "timestamp": "2024-08-11T10:31:12"
+  },
+  {
+    "message_id": "msg_000598",
+    "user": "Nirali",
+    "content": "IM IN HEAVEN",
+    "timestamp": "2024-08-11T10:31:18"
+  },
+  {
+    "message_id": "msg_000599",
+    "user": "Jake",
+    "content": "😂 of course",
+    "timestamp": "2024-08-11T10:31:34"
+  },
+  {
+    "message_id": "msg_000600",
+    "user": "Tanya",
+    "content": "[image: Bouquet of fresh flowers]",
+    "timestamp": "2024-08-11T10:37:51"
+  },
+  {
+    "message_id": "msg_000601",
+    "user": "Tanya",
+    "content": "got these for my room theyre so cute",
+    "timestamp": "2024-08-11T10:38:02"
+  },
+  {
+    "message_id": "msg_000602",
+    "user": "Maya",
+    "content": "[voice message: 0:12]",
+    "timestamp": "2024-08-11T10:42:33"
+  },
+  {
+    "message_id": "msg_000603",
+    "user": "Nirali",
+    "content": "maya found the vegan cheese stand lol",
+    "timestamp": "2024-08-11T10:43:07"
+  },
+  {
+    "message_id": "msg_000604",
+    "user": "Amane",
+    "content": "getting mushrooms for the lunch",
+    "timestamp": "2024-08-11T10:48:22"
+  },
+  {
+    "message_id": "msg_000605",
+    "user": "Mahiru",
+    "content": "Perfect! I got fresh basil and tomatoes. We can make pasta!",
+    "timestamp": "2024-08-11T10:49:08"
+  },
+  {
+    "message_id": "msg_000606",
+    "user": "Jake",
+    "content": "[image: Group photo with shopping bags]",
+    "timestamp": "2024-08-11T11:14:37"
+  },
+  {
+    "message_id": "msg_000607",
+    "user": "Jake",
+    "content": "good haul today",
+    "timestamp": "2024-08-11T11:14:46"
+  },
+  {
+    "message_id": "msg_000608",
+    "user": "Mahiru",
+    "content": "Okay everyone back to my place! Time to cook 👩‍🍳",
+    "timestamp": "2024-08-11T11:23:18"
+  },
+  {
+    "message_id": "msg_000609",
+    "user": "Mahiru",
+    "content": "[image: All the fresh ingredients laid out on the counter]",
+    "timestamp": "2024-08-11T11:47:29"
+  },
+  {
+    "message_id": "msg_000610",
+    "user": "Mahiru",
+    "content": "Ready to start!",
+    "timestamp": "2024-08-11T11:47:37"
+  },
+  {
+    "message_id": "msg_000611",
+    "user": "Nirali",
+    "content": "putting me on chopping duty?",
+    "timestamp": "2024-08-11T11:48:14"
+  },
+  {
+    "message_id": "msg_000612",
+    "user": "Mahiru",
+    "content": "Yes please! Can you dice the tomatoes?",
+    "timestamp": "2024-08-11T11:48:41"
+  },
+  {
+    "message_id": "msg_000613",
+    "user": "Amane",
+    "content": "ill handle the mushrooms",
+    "timestamp": "2024-08-11T11:49:03"
+  },
+  {
+    "message_id": "msg_000614",
+    "user": "Jake",
+    "content": "[image: Mahiru cooking at the stove]",
+    "timestamp": "2024-08-11T12:18:44"
+  },
+  {
+    "message_id": "msg_000615",
+    "user": "Jake",
+    "content": "documenting the chef at work",
+    "timestamp": "2024-08-11T12:18:53"
+  },
+  {
+    "message_id": "msg_000616",
+    "user": "Tanya",
+    "content": "it smells SO GOOD in here",
+    "timestamp": "2024-08-11T12:24:17"
+  },
+  {
+    "message_id": "msg_000617",
+    "user": "Maya",
+    "content": "im starving",
+    "timestamp": "2024-08-11T12:24:39"
+  },
+  {
+    "message_id": "msg_000618",
+    "user": "Mahiru",
+    "content": "Almost done! Just need to finish the sauce",
+    "timestamp": "2024-08-11T12:25:14"
+  },
+  {
+    "message_id": "msg_000619",
+    "user": "Nirali",
+    "content": "wait mahiru",
+    "timestamp": "2024-08-11T12:31:47"
+  },
+  {
+    "message_id": "msg_000620",
+    "user": "Nirali",
+    "content": "did you add the chili flakes i bought",
+    "timestamp": "2024-08-11T12:31:54"
+  },
+  {
+    "message_id": "msg_000621",
+    "user": "Mahiru",
+    "content": "I did! A good amount too 😊",
+    "timestamp": "2024-08-11T12:32:18"
+  },
+  {
+    "message_id": "msg_000622",
+    "user": "Nirali",
+    "content": "[image: Pasta with spicy tomato sauce]",
+    "timestamp": "2024-08-11T12:38:23"
+  },
+  {
+    "message_id": "msg_000623",
+    "user": "Nirali",
+    "content": "oh my god mahiru",
+    "timestamp": "2024-08-11T12:38:31"
+  },
+  {
+    "message_id": "msg_000624",
+    "user": "Nirali",
+    "content": "THIS IS PERFECT",
+    "timestamp": "2024-08-11T12:38:36"
+  },
+  {
+    "message_id": "msg_000625",
+    "user": "Nirali",
+    "content": "i dont even need my chili oil",
+    "timestamp": "2024-08-11T12:38:43"
+  },
+  {
+    "message_id": "msg_000626",
+    "user": "Jake",
+    "content": "WAIT WHAT",
+    "timestamp": "2024-08-11T12:38:57"
+  },
+  {
+    "message_id": "msg_000627",
+    "user": "Tanya",
+    "content": "NIRALI NOT NEEDING EXTRA SPICE???",
+    "timestamp": "2024-08-11T12:39:14"
+  },
+  {
+    "message_id": "msg_000628",
+    "user": "Tanya",
+    "content": "this is historic",
+    "timestamp": "2024-08-11T12:39:20"
+  },
+  {
+    "message_id": "msg_000629",
+    "user": "Mahiru",
+    "content": "Haha I've been practicing! I know you like it spicy 🌶️",
+    "timestamp": "2024-08-11T12:39:52"
+  },
+  {
+    "message_id": "msg_000630",
+    "user": "Nirali",
+    "content": "mahiru youre amazing",
+    "timestamp": "2024-08-11T12:40:14"
+  },
+  {
+    "message_id": "msg_000631",
+    "user": "Amane",
+    "content": "the mushrooms came out good too",
+    "timestamp": "2024-08-11T12:40:41"
+  },
+  {
+    "message_id": "msg_000632",
+    "user": "Maya",
+    "content": "this is really good. and it was cheap since we got everything from the market",
+    "timestamp": "2024-08-11T12:41:27"
+  },
+  {
+    "message_id": "msg_000633",
+    "user": "Jake",
+    "content": "[image: Everyone eating together at the table]",
+    "timestamp": "2024-08-11T12:53:18"
+  },
+  {
+    "message_id": "msg_000634",
+    "user": "Mahiru",
+    "content": "Best Sunday ever! 💕",
+    "timestamp": "2024-08-11T13:22:47"
+  },
+  {
+    "message_id": "msg_000635",
+    "user": "Tanya",
+    "content": "we should make this a regular thing",
+    "timestamp": "2024-08-11T13:23:19"
+  },
+  {
+    "message_id": "msg_000636",
+    "user": "Nirali",
+    "content": "yes!! monthly farmers market + cooking session",
+    "timestamp": "2024-08-11T13:23:52"
+  },
+  {
+    "message_id": "msg_000637",
+    "user": "Mahiru",
+    "content": "I would love that! 😊",
+    "timestamp": "2024-08-11T13:24:18"
+  },
+  {
+    "message_id": "msg_000638",
+    "user": "Tanya",
+    "content": "ok so i saw this tiktok about an escape room",
+    "timestamp": "2024-08-22T19:14:33"
+  },
+  {
+    "message_id": "msg_000639",
+    "user": "Tanya",
+    "content": "we should totally do one",
+    "timestamp": "2024-08-22T19:14:41"
+  },
+  {
+    "message_id": "msg_000640",
+    "user": "Nirali",
+    "content": "omg yes ive never done an escape room",
+    "timestamp": "2024-08-22T19:15:18"
+  },
+  {
+    "message_id": "msg_000641",
+    "user": "Jake",
+    "content": "im down. which one",
+    "timestamp": "2024-08-22T19:15:47"
+  },
+  {
+    "message_id": "msg_000642",
+    "user": "Tanya",
+    "content": "https://tiktok.com/@escaperoomla/haunted-mansion",
+    "timestamp": "2024-08-22T19:16:12"
+  },
+  {
+    "message_id": "msg_000643",
+    "user": "Tanya",
+    "content": "this one looks so cool",
+    "timestamp": "2024-08-22T19:16:18"
+  },
+  {
+    "message_id": "msg_000644",
+    "user": "Mahiru",
+    "content": "Ooh that looks fun! But also maybe a little scary?",
+    "timestamp": "2024-08-22T19:17:03"
+  },
+  {
+    "message_id": "msg_000645",
+    "user": "Amane",
+    "content": "its not actually scary. just themed",
+    "timestamp": "2024-08-22T19:17:38"
+  },
+  {
+    "message_id": "msg_000646",
+    "user": "Maya",
+    "content": "how much is it",
+    "timestamp": "2024-08-22T19:18:04"
+  },
+  {
+    "message_id": "msg_000647",
+    "user": "Tanya",
+    "content": "like $35 per person",
+    "timestamp": "2024-08-22T19:18:32"
+  },
+  {
+    "message_id": "msg_000648",
+    "user": "Maya",
+    "content": "thats reasonable",
+    "timestamp": "2024-08-22T19:18:51"
+  },
+  {
+    "message_id": "msg_000649",
+    "user": "Nirali",
+    "content": "when should we go?",
+    "timestamp": "2024-08-22T19:19:17"
+  },
+  {
+    "message_id": "msg_000650",
+    "user": "Tanya",
+    "content": "this saturday?",
+    "timestamp": "2024-08-22T19:19:42"
+  },
+  {
+    "message_id": "msg_000651",
+    "user": "Jake",
+    "content": "works for me",
+    "timestamp": "2024-08-22T19:20:01"
+  },
+  {
+    "message_id": "msg_000652",
+    "user": "Amane",
+    "content": "same",
+    "timestamp": "2024-08-22T19:20:11"
+  },
+  {
+    "message_id": "msg_000653",
+    "user": "Mahiru",
+    "content": "I can do Saturday! What time?",
+    "timestamp": "2024-08-22T19:20:38"
+  },
+  {
+    "message_id": "msg_000654",
+    "user": "Tanya",
+    "content": "they have a 6pm slot available",
+    "timestamp": "2024-08-22T19:21:14"
+  },
+  {
+    "message_id": "msg_000655",
+    "user": "Nirali",
+    "content": "perfect! and we can get dinner after",
+    "timestamp": "2024-08-22T19:21:43"
+  },
+  {
+    "message_id": "msg_000656",
+    "user": "Maya",
+    "content": "im in",
+    "timestamp": "2024-08-22T19:22:02"
+  },
+  {
+    "message_id": "msg_000657",
+    "user": "Tanya",
+    "content": "booking it now!!",
+    "timestamp": "2024-08-22T19:22:31"
+  },
+  {
+    "message_id": "msg_000658",
+    "user": "Tanya",
+    "content": "ok done. 6 people for saturday at 6pm",
+    "timestamp": "2024-08-22T19:25:47"
+  },
+  {
+    "message_id": "msg_000659",
+    "user": "Tanya",
+    "content": "everyone venmo me $35",
+    "timestamp": "2024-08-22T19:25:55"
+  },
+  {
+    "message_id": "msg_000660",
+    "user": "Tanya",
+    "content": "[Venmo link]",
+    "timestamp": "2024-08-22T19:26:03"
+  },
+  {
+    "message_id": "msg_000661",
+    "user": "Mahiru",
+    "content": "[calendar: Escape Room - Haunted Mansion - Sat Aug 24, 6:00 PM]",
+    "timestamp": "2024-08-22T19:27:22"
+  },
+  {
+    "message_id": "msg_000662",
+    "user": "Nirali",
+    "content": "sent!",
+    "timestamp": "2024-08-22T19:28:14"
+  },
+  {
+    "message_id": "msg_000663",
+    "user": "Maya",
+    "content": "sent",
+    "timestamp": "2024-08-22T19:28:41"
+  },
+  {
+    "message_id": "msg_000664",
+    "user": "Tanya",
+    "content": "ok guys im running late",
+    "timestamp": "2024-08-24T17:52:08"
+  },
+  {
+    "message_id": "msg_000665",
+    "user": "Jake",
+    "content": "shocker",
+    "timestamp": "2024-08-24T17:52:24"
+  },
+  {
+    "message_id": "msg_000666",
+    "user": "Tanya",
+    "content": "THE METRO IS DELAYED OK",
+    "timestamp": "2024-08-24T17:52:47"
+  },
+  {
+    "message_id": "msg_000667",
+    "user": "Amane",
+    "content": "we cant start without you. you booked it",
+    "timestamp": "2024-08-24T17:53:14"
+  },
+  {
+    "message_id": "msg_000668",
+    "user": "Tanya",
+    "content": "ill be there in like 10 i promise",
+    "timestamp": "2024-08-24T17:53:42"
+  },
+  {
+    "message_id": "msg_000669",
+    "user": "Mahiru",
+    "content": "No rush! We'll wait outside 😊",
+    "timestamp": "2024-08-24T17:54:11"
+  },
+  {
+    "message_id": "msg_000670",
+    "user": "Nirali",
+    "content": "the outside of this building looks creepy lol",
+    "timestamp": "2024-08-24T17:58:33"
+  },
+  {
+    "message_id": "msg_000671",
+    "user": "Jake",
+    "content": "[image: Spooky entrance to the escape room]",
+    "timestamp": "2024-08-24T17:59:08"
+  },
+  {
+    "message_id": "msg_000672",
+    "user": "Tanya",
+    "content": "HERE IM HERE",
+    "timestamp": "2024-08-24T18:04:17"
+  },
+  {
+    "message_id": "msg_000673",
+    "user": "Tanya",
+    "content": "lets gooo",
+    "timestamp": "2024-08-24T18:04:23"
+  },
+  {
+    "message_id": "msg_000674",
+    "user": "Amane",
+    "content": "ok game plan. we need to be systematic",
+    "timestamp": "2024-08-24T18:07:44"
+  },
+  {
+    "message_id": "msg_000675",
+    "user": "Amane",
+    "content": "dont just randomly try things",
+    "timestamp": "2024-08-24T18:07:52"
+  },
+  {
+    "message_id": "msg_000676",
+    "user": "Maya",
+    "content": "agreed. divide and conquer",
+    "timestamp": "2024-08-24T18:08:17"
+  },
+  {
+    "message_id": "msg_000677",
+    "user": "Nirali",
+    "content": "im good at puzzles!",
+    "timestamp": "2024-08-24T18:08:38"
+  },
+  {
+    "message_id": "msg_000678",
+    "user": "Jake",
+    "content": "ill look for hidden stuff",
+    "timestamp": "2024-08-24T18:08:54"
+  },
+  {
+    "message_id": "msg_000679",
+    "user": "Mahiru",
+    "content": "I'll keep track of clues we find!",
+    "timestamp": "2024-08-24T18:09:18"
+  },
+  {
+    "message_id": "msg_000680",
+    "user": "Tanya",
+    "content": "ill just vibe and help where needed lol",
+    "timestamp": "2024-08-24T18:09:44"
+  },
+  {
+    "message_id": "msg_000681",
+    "user": "Nirali",
+    "content": "GUYS",
+    "timestamp": "2024-08-24T18:24:17"
+  },
+  {
+    "message_id": "msg_000682",
+    "user": "Nirali",
+    "content": "I FOUND SOMETHING",
+    "timestamp": "2024-08-24T18:24:22"
+  },
+  {
+    "message_id": "msg_000683",
+    "user": "Maya",
+    "content": "what is it",
+    "timestamp": "2024-08-24T18:24:35"
+  },
+  {
+    "message_id": "msg_000684",
+    "user": "Nirali",
+    "content": "theres numbers on the back of this painting",
+    "timestamp": "2024-08-24T18:24:47"
+  },
+  {
+    "message_id": "msg_000685",
+    "user": "Amane",
+    "content": "good. that might be the code for the lock mahiru found",
+    "timestamp": "2024-08-24T18:25:14"
+  },
+  {
+    "message_id": "msg_000686",
+    "user": "Jake",
+    "content": "yo wait",
+    "timestamp": "2024-08-24T18:31:48"
+  },
+  {
+    "message_id": "msg_000687",
+    "user": "Jake",
+    "content": "this bookshelf moves",
+    "timestamp": "2024-08-24T18:31:54"
+  },
+  {
+    "message_id": "msg_000688",
+    "user": "Tanya",
+    "content": "WHAT",
+    "timestamp": "2024-08-24T18:32:03"
+  },
+  {
+    "message_id": "msg_000689",
+    "user": "Mahiru",
+    "content": "Ooh a secret passage!",
+    "timestamp": "2024-08-24T18:32:21"
+  },
+  {
+    "message_id": "msg_000690",
+    "user": "Maya",
+    "content": "we have 15 minutes left",
+    "timestamp": "2024-08-24T18:46:33"
+  },
+  {
+    "message_id": "msg_000691",
+    "user": "Amane",
+    "content": "we need the final key",
+    "timestamp": "2024-08-24T18:46:52"
+  },
+  {
+    "message_id": "msg_000692",
+    "user": "Nirali",
+    "content": "where could it be",
+    "timestamp": "2024-08-24T18:47:11"
+  },
+  {
+    "message_id": "msg_000693",
+    "user": "Tanya",
+    "content": "guys we're not gonna make it",
+    "timestamp": "2024-08-24T18:53:27"
+  },
+  {
+    "message_id": "msg_000694",
+    "user": "Tanya",
+    "content": "2 minutes left",
+    "timestamp": "2024-08-24T18:53:33"
+  },
+  {
+    "message_id": "msg_000695",
+    "user": "Amane",
+    "content": "we were close",
+    "timestamp": "2024-08-24T18:55:48"
+  },
+  {
+    "message_id": "msg_000696",
+    "user": "Maya",
+    "content": "that was harder than i expected",
+    "timestamp": "2024-08-24T18:56:14"
+  },
+  {
+    "message_id": "msg_000697",
+    "user": "Jake",
+    "content": "we failed but it was fun lol",
+    "timestamp": "2024-08-24T18:56:42"
+  },
+  {
+    "message_id": "msg_000698",
+    "user": "Nirali",
+    "content": "the game master said we got farther than most groups",
+    "timestamp": "2024-08-24T18:57:18"
+  },
+  {
+    "message_id": "msg_000699",
+    "user": "Mahiru",
+    "content": "That was so much fun! Even though we didn't escape 😅",
+    "timestamp": "2024-08-24T18:57:51"
+  },
+  {
+    "message_id": "msg_000700",
+    "user": "Tanya",
+    "content": "ok but now im hungry",
+    "timestamp": "2024-08-24T18:58:24"
+  },
+  {
+    "message_id": "msg_000701",
+    "user": "Tanya",
+    "content": "boba and ramen?",
+    "timestamp": "2024-08-24T18:58:31"
+  },
+  {
+    "message_id": "msg_000702",
+    "user": "Nirali",
+    "content": "YES",
+    "timestamp": "2024-08-24T18:58:44"
+  },
+  {
+    "message_id": "msg_000703",
+    "user": "Jake",
+    "content": "theres a place like 2 blocks from here",
+    "timestamp": "2024-08-24T18:59:08"
+  },
+  {
+    "message_id": "msg_000704",
+    "user": "Amane",
+    "content": "lets go",
+    "timestamp": "2024-08-24T18:59:19"
+  },
+  {
+    "message_id": "msg_000705",
+    "user": "Jake",
+    "content": "[image: Group photo outside the escape room]",
+    "timestamp": "2024-08-24T19:13:47"
+  },
+  {
+    "message_id": "msg_000706",
+    "user": "Jake",
+    "content": "we may have failed but we look good doing it 📸",
+    "timestamp": "2024-08-24T19:14:02"
+  },
+  {
+    "message_id": "msg_000707",
+    "user": "Tanya",
+    "content": "LMAOOO",
+    "timestamp": "2024-08-24T19:14:18"
+  },
+  {
+    "message_id": "msg_000708",
+    "user": "Maya",
+    "content": "next time we'll beat it",
+    "timestamp": "2024-08-24T19:14:44"
+  },
+  {
+    "message_id": "msg_000709",
+    "user": "Mahiru",
+    "content": "Definitely! That was a great bonding experience 😊",
+    "timestamp": "2024-08-24T19:15:17"
+  },
+  {
+    "message_id": "msg_000710",
+    "user": "Maya",
+    "content": "theres a free outdoor movie screening at griffith park this friday",
+    "timestamp": "2024-09-03T16:28:14"
+  },
+  {
+    "message_id": "msg_000711",
+    "user": "Maya",
+    "content": "theyre showing spirited away",
+    "timestamp": "2024-09-03T16:28:22"
+  },
+  {
+    "message_id": "msg_000712",
+    "user": "Mahiru",
+    "content": "Oh I love that movie!!",
+    "timestamp": "2024-09-03T16:29:07"
+  },
+  {
+    "message_id": "msg_000713",
+    "user": "Nirali",
+    "content": "omg yes studio ghibli",
+    "timestamp": "2024-09-03T16:29:34"
+  },
+  {
+    "message_id": "msg_000714",
+    "user": "Tanya",
+    "content": "yesss and its free???",
+    "timestamp": "2024-09-03T16:30:02"
+  },
+  {
+    "message_id": "msg_000715",
+    "user": "Maya",
+    "content": "yep completely free. starts at 8pm",
+    "timestamp": "2024-09-03T16:30:31"
+  },
+  {
+    "message_id": "msg_000716",
+    "user": "Jake",
+    "content": "outdoor movie nights are dope",
+    "timestamp": "2024-09-03T16:31:04"
+  },
+  {
+    "message_id": "msg_000717",
+    "user": "Amane",
+    "content": "im in",
+    "timestamp": "2024-09-03T16:31:22"
+  },
+  {
+    "message_id": "msg_000718",
+    "user": "Mahiru",
+    "content": "We should bring blankets and snacks! Make it cozy 😊",
+    "timestamp": "2024-09-03T16:32:08"
+  },
+  {
+    "message_id": "msg_000719",
+    "user": "Nirali",
+    "content": "picnic style!!",
+    "timestamp": "2024-09-03T16:32:37"
+  },
+  {
+    "message_id": "msg_000720",
+    "user": "Tanya",
+    "content": "ok so whos bringing what",
+    "timestamp": "2024-09-03T16:33:11"
+  },
+  {
+    "message_id": "msg_000721",
+    "user": "Amane",
+    "content": "i have blankets",
+    "timestamp": "2024-09-03T16:33:38"
+  },
+  {
+    "message_id": "msg_000722",
+    "user": "Mahiru",
+    "content": "I can make onigiri and bring some fruit!",
+    "timestamp": "2024-09-03T16:34:14"
+  },
+  {
+    "message_id": "msg_000723",
+    "user": "Nirali",
+    "content": "ill bring samosas",
+    "timestamp": "2024-09-03T16:34:42"
+  },
+  {
+    "message_id": "msg_000724",
+    "user": "Jake",
+    "content": "ill grab chips and candy",
+    "timestamp": "2024-09-03T16:35:08"
+  },
+  {
+    "message_id": "msg_000725",
+    "user": "Tanya",
+    "content": "i can bring drinks!",
+    "timestamp": "2024-09-03T16:35:33"
+  },
+  {
+    "message_id": "msg_000726",
+    "user": "Maya",
+    "content": "ill bring a veggie tray and hummus",
+    "timestamp": "2024-09-03T16:36:02"
+  },
+  {
+    "message_id": "msg_000727",
+    "user": "Mahiru",
+    "content": "Perfect! What time should we get there? I heard it fills up fast",
+    "timestamp": "2024-09-03T16:36:48"
+  },
+  {
+    "message_id": "msg_000728",
+    "user": "Maya",
+    "content": "movie starts at 8 but people start claiming spots around 6:30",
+    "timestamp": "2024-09-03T16:37:24"
+  },
+  {
+    "message_id": "msg_000729",
+    "user": "Amane",
+    "content": "ill go early and save a spot",
+    "timestamp": "2024-09-03T16:37:58"
+  },
+  {
+    "message_id": "msg_000730",
+    "user": "Mahiru",
+    "content": "I'll come with you!",
+    "timestamp": "2024-09-03T16:38:14"
+  },
+  {
+    "message_id": "msg_000731",
+    "user": "Jake",
+    "content": "rest of us can meet you guys there like 7:30?",
+    "timestamp": "2024-09-03T16:38:47"
+  },
+  {
+    "message_id": "msg_000732",
+    "user": "Nirali",
+    "content": "works for me",
+    "timestamp": "2024-09-03T16:39:03"
+  },
+  {
+    "message_id": "msg_000733",
+    "user": "Mahiru",
+    "content": "[calendar: Outdoor Movie - Spirited Away - Fri Sep 6, 8:00 PM]",
+    "timestamp": "2024-09-03T16:40:12"
+  },
+  {
+    "message_id": "msg_000734",
+    "user": "Amane",
+    "content": "were here. got a good spot on the hill",
+    "timestamp": "2024-09-06T18:44:17"
+  },
+  {
+    "message_id": "msg_000735",
+    "user": "Mahiru",
+    "content": "[location: Griffith Park - near the big oak tree]",
+    "timestamp": "2024-09-06T18:44:52"
+  },
+  {
+    "message_id": "msg_000736",
+    "user": "Mahiru",
+    "content": "We're by the big oak tree!",
+    "timestamp": "2024-09-06T18:45:01"
+  },
+  {
+    "message_id": "msg_000737",
+    "user": "Jake",
+    "content": "omw with nirali",
+    "timestamp": "2024-09-06T19:18:33"
+  },
+  {
+    "message_id": "msg_000738",
+    "user": "Maya",
+    "content": "just parked. walking over now",
+    "timestamp": "2024-09-06T19:22:14"
+  },
+  {
+    "message_id": "msg_000739",
+    "user": "Tanya",
+    "content": "running a bit late but ill be there before the movie starts!",
+    "timestamp": "2024-09-06T19:28:47"
+  },
+  {
+    "message_id": "msg_000740",
+    "user": "Amane",
+    "content": "naturally",
+    "timestamp": "2024-09-06T19:29:04"
+  },
+  {
+    "message_id": "msg_000741",
+    "user": "Nirali",
+    "content": "found you guys!!",
+    "timestamp": "2024-09-06T19:34:28"
+  },
+  {
+    "message_id": "msg_000742",
+    "user": "Jake",
+    "content": "[image: Blanket setup with food spread at sunset]",
+    "timestamp": "2024-09-06T19:42:17"
+  },
+  {
+    "message_id": "msg_000743",
+    "user": "Jake",
+    "content": "this setup is perfect",
+    "timestamp": "2024-09-06T19:42:26"
+  },
+  {
+    "message_id": "msg_000744",
+    "user": "Mahiru",
+    "content": "The sunset is so pretty from here!",
+    "timestamp": "2024-09-06T19:43:08"
+  },
+  {
+    "message_id": "msg_000745",
+    "user": "Maya",
+    "content": "mahiru your onigiri are so good",
+    "timestamp": "2024-09-06T19:51:33"
+  },
+  {
+    "message_id": "msg_000746",
+    "user": "Nirali",
+    "content": "and the samosas came out great this time",
+    "timestamp": "2024-09-06T19:52:08"
+  },
+  {
+    "message_id": "msg_000747",
+    "user": "Jake",
+    "content": "this is like a whole feast",
+    "timestamp": "2024-09-06T19:52:41"
+  },
+  {
+    "message_id": "msg_000748",
+    "user": "Tanya",
+    "content": "OK IM HERE",
+    "timestamp": "2024-09-06T19:58:14"
+  },
+  {
+    "message_id": "msg_000749",
+    "user": "Tanya",
+    "content": "where are you guys its so crowded",
+    "timestamp": "2024-09-06T19:58:22"
+  },
+  {
+    "message_id": "msg_000750",
+    "user": "Amane",
+    "content": "look for the big oak tree",
+    "timestamp": "2024-09-06T19:58:47"
+  },
+  {
+    "message_id": "msg_000751",
+    "user": "Mahiru",
+    "content": "I'm waving!",
+    "timestamp": "2024-09-06T19:59:03"
+  },
+  {
+    "message_id": "msg_000752",
+    "user": "Tanya",
+    "content": "found you!!",
+    "timestamp": "2024-09-06T20:01:28"
+  },
+  {
+    "message_id": "msg_000753",
+    "user": "Nirali",
+    "content": "its starting!",
+    "timestamp": "2024-09-06T20:04:17"
+  },
+  {
+    "message_id": "msg_000754",
+    "user": "Mahiru",
+    "content": "[image: Movie screen with Spirited Away opening scene]",
+    "timestamp": "2024-09-06T20:08:44"
+  },
+  {
+    "message_id": "msg_000755",
+    "user": "Tanya",
+    "content": "this movie makes me cry every time",
+    "timestamp": "2024-09-06T21:23:52"
+  },
+  {
+    "message_id": "msg_000756",
+    "user": "Mahiru",
+    "content": "Same! The music is so beautiful",
+    "timestamp": "2024-09-06T21:24:18"
+  },
+  {
+    "message_id": "msg_000757",
+    "user": "Nirali",
+    "content": "im not crying you are",
+    "timestamp": "2024-09-06T21:47:33"
+  },
+  {
+    "message_id": "msg_000758",
+    "user": "Jake",
+    "content": "okay that ending got me too",
+    "timestamp": "2024-09-06T21:48:07"
+  },
+  {
+    "message_id": "msg_000759",
+    "user": "Maya",
+    "content": "studio ghibli never misses",
+    "timestamp": "2024-09-06T21:48:41"
+  },
+  {
+    "message_id": "msg_000760",
+    "user": "Jake",
+    "content": "[image: Group photo bundled in blankets under the stars]",
+    "timestamp": "2024-09-06T21:54:28"
+  },
+  {
+    "message_id": "msg_000761",
+    "user": "Mahiru",
+    "content": "What a perfect night! The weather was perfect, the movie was perfect, the company was perfect 💕",
+    "timestamp": "2024-09-06T22:12:47"
+  },
+  {
+    "message_id": "msg_000762",
+    "user": "Tanya",
+    "content": "we should do this again next time they have one",
+    "timestamp": "2024-09-06T22:13:24"
+  },
+  {
+    "message_id": "msg_000763",
+    "user": "Nirali",
+    "content": "yes!! this was so fun and it was free",
+    "timestamp": "2024-09-06T22:13:58"
+  },
+  {
+    "message_id": "msg_000764",
+    "user": "Maya",
+    "content": "free is my favorite price",
+    "timestamp": "2024-09-06T22:14:22"
+  },
+  {
+    "message_id": "msg_000765",
+    "user": "Amane",
+    "content": "good night",
+    "timestamp": "2024-09-06T22:14:47"
+  },
+  {
+    "message_id": "msg_000766",
+    "user": "Mahiru",
+    "content": "I was thinking... we should do a proper potluck dinner party!",
+    "timestamp": "2024-09-18T14:22:38"
+  },
+  {
+    "message_id": "msg_000767",
+    "user": "Mahiru",
+    "content": "Everyone makes their signature dish 😊",
+    "timestamp": "2024-09-18T14:22:47"
+  },
+  {
+    "message_id": "msg_000768",
+    "user": "Nirali",
+    "content": "OMG YES",
+    "timestamp": "2024-09-18T14:23:18"
+  },
+  {
+    "message_id": "msg_000769",
+    "user": "Nirali",
+    "content": "i can finally make my moms biryani recipe",
+    "timestamp": "2024-09-18T14:23:27"
+  },
+  {
+    "message_id": "msg_000770",
+    "user": "Jake",
+    "content": "wait you cook?",
+    "timestamp": "2024-09-18T14:23:54"
+  },
+  {
+    "message_id": "msg_000771",
+    "user": "Nirali",
+    "content": "EXCUSE ME yes i cook",
+    "timestamp": "2024-09-18T14:24:12"
+  },
+  {
+    "message_id": "msg_000772",
+    "user": "Tanya",
+    "content": "this sounds so fun!!",
+    "timestamp": "2024-09-18T14:24:47"
+  },
+  {
+    "message_id": "msg_000773",
+    "user": "Maya",
+    "content": "im down. i can make vegan tacos",
+    "timestamp": "2024-09-18T14:25:21"
+  },
+  {
+    "message_id": "msg_000774",
+    "user": "Amane",
+    "content": "i dont really have a signature dish",
+    "timestamp": "2024-09-18T14:25:53"
+  },
+  {
+    "message_id": "msg_000775",
+    "user": "Mahiru",
+    "content": "You make great stir fry! You could do that",
+    "timestamp": "2024-09-18T14:26:24"
+  },
+  {
+    "message_id": "msg_000776",
+    "user": "Amane",
+    "content": "ok ill do stir fry",
+    "timestamp": "2024-09-18T14:26:42"
+  },
+  {
+    "message_id": "msg_000777",
+    "user": "Jake",
+    "content": "uhhh i dont really cook lol",
+    "timestamp": "2024-09-18T14:27:14"
+  },
+  {
+    "message_id": "msg_000778",
+    "user": "Jake",
+    "content": "can i just bring dessert or something",
+    "timestamp": "2024-09-18T14:27:22"
+  },
+  {
+    "message_id": "msg_000779",
+    "user": "Tanya",
+    "content": "same here i cant cook to save my life",
+    "timestamp": "2024-09-18T14:27:51"
+  },
+  {
+    "message_id": "msg_000780",
+    "user": "Mahiru",
+    "content": "That's totally fine! Jake can bring dessert and Tanya can bring drinks/apps?",
+    "timestamp": "2024-09-18T14:28:34"
+  },
+  {
+    "message_id": "msg_000781",
+    "user": "Tanya",
+    "content": "yes!! ill get fancy cheese and crackers and stuff",
+    "timestamp": "2024-09-18T14:29:07"
+  },
+  {
+    "message_id": "msg_000782",
+    "user": "Jake",
+    "content": "ill go to that good bakery and get a nice cake",
+    "timestamp": "2024-09-18T14:29:38"
+  },
+  {
+    "message_id": "msg_000783",
+    "user": "Mahiru",
+    "content": "Perfect! I'll make Japanese curry and gyoza",
+    "timestamp": "2024-09-18T14:30:14"
+  },
+  {
+    "message_id": "msg_000784",
+    "user": "Nirali",
+    "content": "ok wait we need to coordinate",
+    "timestamp": "2024-09-18T14:30:47"
+  },
+  {
+    "message_id": "msg_000785",
+    "user": "Nirali",
+    "content": "maya is vegan, mahiru and i eat everything, what about everyone else?",
+    "timestamp": "2024-09-18T14:31:02"
+  },
+  {
+    "message_id": "msg_000786",
+    "user": "Amane",
+    "content": "i eat everything",
+    "timestamp": "2024-09-18T14:31:24"
+  },
+  {
+    "message_id": "msg_000787",
+    "user": "Jake",
+    "content": "same",
+    "timestamp": "2024-09-18T14:31:33"
+  },
+  {
+    "message_id": "msg_000788",
+    "user": "Tanya",
+    "content": "no dietary restrictions here",
+    "timestamp": "2024-09-18T14:31:52"
+  },
+  {
+    "message_id": "msg_000789",
+    "user": "Maya",
+    "content": "so just make sure everything has a vegan option and were good",
+    "timestamp": "2024-09-18T14:32:24"
+  },
+  {
+    "message_id": "msg_000790",
+    "user": "Mahiru",
+    "content": "I can make my curry vegan! Just use coconut milk instead of cream",
+    "timestamp": "2024-09-18T14:33:01"
+  },
+  {
+    "message_id": "msg_000791",
+    "user": "Nirali",
+    "content": "biryani can be vegan too. ill do veggie version",
+    "timestamp": "2024-09-18T14:33:34"
+  },
+  {
+    "message_id": "msg_000792",
+    "user": "Amane",
+    "content": "tofu stir fry. easy",
+    "timestamp": "2024-09-18T14:33:58"
+  },
+  {
+    "message_id": "msg_000793",
+    "user": "Maya",
+    "content": "you guys are the best",
+    "timestamp": "2024-09-18T14:34:17"
+  },
+  {
+    "message_id": "msg_000794",
+    "user": "Mahiru",
+    "content": "When should we do this? Next Saturday?",
+    "timestamp": "2024-09-18T14:35:03"
+  },
+  {
+    "message_id": "msg_000795",
+    "user": "Nirali",
+    "content": "works for me!",
+    "timestamp": "2024-09-18T14:35:24"
+  },
+  {
+    "message_id": "msg_000796",
+    "user": "Tanya",
+    "content": "yep im free",
+    "timestamp": "2024-09-18T14:35:41"
+  },
+  {
+    "message_id": "msg_000797",
+    "user": "Jake",
+    "content": "saturday works",
+    "timestamp": "2024-09-18T14:35:56"
+  },
+  {
+    "message_id": "msg_000798",
+    "user": "Maya",
+    "content": "same",
+    "timestamp": "2024-09-18T14:36:04"
+  },
+  {
+    "message_id": "msg_000799",
+    "user": "Amane",
+    "content": "fine with me",
+    "timestamp": "2024-09-18T14:36:18"
+  },
+  {
+    "message_id": "msg_000800",
+    "user": "Mahiru",
+    "content": "7pm at my place? That gives everyone time to cook during the day",
+    "timestamp": "2024-09-18T14:36:54"
+  },
+  {
+    "message_id": "msg_000801",
+    "user": "Nirali",
+    "content": "perfect bc biryani takes like 2 hours lol",
+    "timestamp": "2024-09-18T14:37:22"
+  },
+  {
+    "message_id": "msg_000802",
+    "user": "Mahiru",
+    "content": "[calendar: Potluck Dinner Party - Sat Sep 21, 7:00 PM]",
+    "timestamp": "2024-09-18T14:38:11"
+  },
+  {
+    "message_id": "msg_000803",
+    "user": "Mahiru",
+    "content": "Can't wait!! This is going to be amazing 😊",
+    "timestamp": "2024-09-18T14:38:24"
+  },
+  {
+    "message_id": "msg_000804",
+    "user": "Nirali",
+    "content": "ok guys",
+    "timestamp": "2024-09-21T15:47:22"
+  },
+  {
+    "message_id": "msg_000805",
+    "user": "Nirali",
+    "content": "the biryani is HAPPENING",
+    "timestamp": "2024-09-21T15:47:29"
+  },
+  {
+    "message_id": "msg_000806",
+    "user": "Nirali",
+    "content": "[image: Pot of biryani cooking on the stove]",
+    "timestamp": "2024-09-21T15:47:41"
+  },
+  {
+    "message_id": "msg_000807",
+    "user": "Tanya",
+    "content": "that looks AMAZING",
+    "timestamp": "2024-09-21T15:48:14"
+  },
+  {
+    "message_id": "msg_000808",
+    "user": "Jake",
+    "content": "yo im at the bakery",
+    "timestamp": "2024-09-21T16:22:37"
+  },
+  {
+    "message_id": "msg_000809",
+    "user": "Jake",
+    "content": "chocolate cake or fruit tart?",
+    "timestamp": "2024-09-21T16:22:45"
+  },
+  {
+    "message_id": "msg_000810",
+    "user": "Mahiru",
+    "content": "Fruit tart!",
+    "timestamp": "2024-09-21T16:23:08"
+  },
+  {
+    "message_id": "msg_000811",
+    "user": "Nirali",
+    "content": "chocolate cake",
+    "timestamp": "2024-09-21T16:23:14"
+  },
+  {
+    "message_id": "msg_000812",
+    "user": "Tanya",
+    "content": "chocolate!!",
+    "timestamp": "2024-09-21T16:23:22"
+  },
+  {
+    "message_id": "msg_000813",
+    "user": "Maya",
+    "content": "fruit tart is probably better after a big meal",
+    "timestamp": "2024-09-21T16:23:47"
+  },
+  {
+    "message_id": "msg_000814",
+    "user": "Amane",
+    "content": "fruit tart",
+    "timestamp": "2024-09-21T16:24:01"
+  },
+  {
+    "message_id": "msg_000815",
+    "user": "Jake",
+    "content": "its tied lmao",
+    "timestamp": "2024-09-21T16:24:18"
+  },
+  {
+    "message_id": "msg_000816",
+    "user": "Jake",
+    "content": "getting fruit tart. maya's logic makes sense",
+    "timestamp": "2024-09-21T16:24:31"
+  },
+  {
+    "message_id": "msg_000817",
+    "user": "Mahiru",
+    "content": "[image: Gyoza being pan-fried]",
+    "timestamp": "2024-09-21T17:44:12"
+  },
+  {
+    "message_id": "msg_000818",
+    "user": "Mahiru",
+    "content": "Gyoza looking crispy! 🥟",
+    "timestamp": "2024-09-21T17:44:22"
+  },
+  {
+    "message_id": "msg_000819",
+    "user": "Amane",
+    "content": "those look perfect",
+    "timestamp": "2024-09-21T17:44:47"
+  },
+  {
+    "message_id": "msg_000820",
+    "user": "Tanya",
+    "content": "omw with the charcuterie board!",
+    "timestamp": "2024-09-21T18:52:18"
+  },
+  {
+    "message_id": "msg_000821",
+    "user": "Nirali",
+    "content": "leaving now. biryani is packed and ready",
+    "timestamp": "2024-09-21T18:54:33"
+  },
+  {
+    "message_id": "msg_000822",
+    "user": "Maya",
+    "content": "tacos are done. heading over",
+    "timestamp": "2024-09-21T18:56:47"
+  },
+  {
+    "message_id": "msg_000823",
+    "user": "Amane",
+    "content": "ill be there in 10",
+    "timestamp": "2024-09-21T18:58:22"
+  },
+  {
+    "message_id": "msg_000824",
+    "user": "Jake",
+    "content": "just parked",
+    "timestamp": "2024-09-21T19:02:14"
+  },
+  {
+    "message_id": "msg_000825",
+    "user": "Mahiru",
+    "content": "[image: Table set with dishes, candles, and flowers]",
+    "timestamp": "2024-09-21T19:14:37"
+  },
+  {
+    "message_id": "msg_000826",
+    "user": "Mahiru",
+    "content": "Everything is ready! Come on in everyone 😊",
+    "timestamp": "2024-09-21T19:14:48"
+  },
+  {
+    "message_id": "msg_000827",
+    "user": "Tanya",
+    "content": "[image: Full spread of all the dishes on the table]",
+    "timestamp": "2024-09-21T19:28:44"
+  },
+  {
+    "message_id": "msg_000828",
+    "user": "Tanya",
+    "content": "THIS IS A FEAST",
+    "timestamp": "2024-09-21T19:28:52"
+  },
+  {
+    "message_id": "msg_000829",
+    "user": "Jake",
+    "content": "yo we went all out",
+    "timestamp": "2024-09-21T19:29:17"
+  },
+  {
+    "message_id": "msg_000830",
+    "user": "Nirali",
+    "content": "everyone try the biryani while its hot!!",
+    "timestamp": "2024-09-21T19:29:48"
+  },
+  {
+    "message_id": "msg_000831",
+    "user": "Maya",
+    "content": "oh my god nirali",
+    "timestamp": "2024-09-21T19:34:22"
+  },
+  {
+    "message_id": "msg_000832",
+    "user": "Maya",
+    "content": "this biryani is INCREDIBLE",
+    "timestamp": "2024-09-21T19:34:30"
+  },
+  {
+    "message_id": "msg_000833",
+    "user": "Jake",
+    "content": "wait yeah this is insane",
+    "timestamp": "2024-09-21T19:34:51"
+  },
+  {
+    "message_id": "msg_000834",
+    "user": "Amane",
+    "content": "really good. the spices are perfect",
+    "timestamp": "2024-09-21T19:35:18"
+  },
+  {
+    "message_id": "msg_000835",
+    "user": "Nirali",
+    "content": "IM SO GLAD YOU LIKE IT",
+    "timestamp": "2024-09-21T19:35:42"
+  },
+  {
+    "message_id": "msg_000836",
+    "user": "Nirali",
+    "content": "my mom taught me well",
+    "timestamp": "2024-09-21T19:35:49"
+  },
+  {
+    "message_id": "msg_000837",
+    "user": "Tanya",
+    "content": "mahirus gyoza are so good too",
+    "timestamp": "2024-09-21T19:36:24"
+  },
+  {
+    "message_id": "msg_000838",
+    "user": "Mahiru",
+    "content": "Try them with the ponzu sauce! 😊",
+    "timestamp": "2024-09-21T19:36:47"
+  },
+  {
+    "message_id": "msg_000839",
+    "user": "Jake",
+    "content": "and mayas tacos are fire",
+    "timestamp": "2024-09-21T19:37:14"
+  },
+  {
+    "message_id": "msg_000840",
+    "user": "Maya",
+    "content": "the cashew crema really makes it",
+    "timestamp": "2024-09-21T19:37:42"
+  },
+  {
+    "message_id": "msg_000841",
+    "user": "Amane",
+    "content": "my stir fry is pretty basic compared to everyone elses",
+    "timestamp": "2024-09-21T19:38:18"
+  },
+  {
+    "message_id": "msg_000842",
+    "user": "Mahiru",
+    "content": "No it's perfect! The veggies are cooked just right",
+    "timestamp": "2024-09-21T19:38:47"
+  },
+  {
+    "message_id": "msg_000843",
+    "user": "Nirali",
+    "content": "yeah its really good!",
+    "timestamp": "2024-09-21T19:39:03"
+  },
+  {
+    "message_id": "msg_000844",
+    "user": "Jake",
+    "content": "[voice message: 0:18]",
+    "timestamp": "2024-09-21T19:52:33"
+  },
+  {
+    "message_id": "msg_000845",
+    "user": "Tanya",
+    "content": "LMAOOO jake is so full he cant move",
+    "timestamp": "2024-09-21T19:53:08"
+  },
+  {
+    "message_id": "msg_000846",
+    "user": "Maya",
+    "content": "same honestly",
+    "timestamp": "2024-09-21T19:53:27"
+  },
+  {
+    "message_id": "msg_000847",
+    "user": "Amane",
+    "content": "we still have dessert",
+    "timestamp": "2024-09-21T19:53:48"
+  },
+  {
+    "message_id": "msg_000848",
+    "user": "Jake",
+    "content": "give me like 20 minutes lol",
+    "timestamp": "2024-09-21T19:54:12"
+  },
+  {
+    "message_id": "msg_000849",
+    "user": "Jake",
+    "content": "[image: The fruit tart on a serving plate]",
+    "timestamp": "2024-09-21T20:18:44"
+  },
+  {
+    "message_id": "msg_000850",
+    "user": "Jake",
+    "content": "dessert time 📸",
+    "timestamp": "2024-09-21T20:18:53"
+  },
+  {
+    "message_id": "msg_000851",
+    "user": "Tanya",
+    "content": "omg that looks beautiful",
+    "timestamp": "2024-09-21T20:19:17"
+  },
+  {
+    "message_id": "msg_000852",
+    "user": "Nirali",
+    "content": "good choice jake",
+    "timestamp": "2024-09-21T20:19:38"
+  },
+  {
+    "message_id": "msg_000853",
+    "user": "Mahiru",
+    "content": "[image: Group photo at the dinner table]",
+    "timestamp": "2024-09-21T20:44:22"
+  },
+  {
+    "message_id": "msg_000854",
+    "user": "Mahiru",
+    "content": "Thank you all for making this such a special night! Everything was delicious 💕",
+    "timestamp": "2024-09-21T20:44:38"
+  },
+  {
+    "message_id": "msg_000855",
+    "user": "Nirali",
+    "content": "this was so fun!",
+    "timestamp": "2024-09-21T20:45:14"
+  },
+  {
+    "message_id": "msg_000856",
+    "user": "Maya",
+    "content": "we should make this a tradition",
+    "timestamp": "2024-09-21T20:45:42"
+  },
+  {
+    "message_id": "msg_000857",
+    "user": "Tanya",
+    "content": "yes!! like every few months",
+    "timestamp": "2024-09-21T20:46:08"
+  },
+  {
+    "message_id": "msg_000858",
+    "user": "Jake",
+    "content": "im so down",
+    "timestamp": "2024-09-21T20:46:27"
+  },
+  {
+    "message_id": "msg_000859",
+    "user": "Amane",
+    "content": "agreed. good food, good people",
+    "timestamp": "2024-09-21T20:46:54"
+  },
+  {
+    "message_id": "msg_000860",
+    "user": "Mahiru",
+    "content": "I love this group so much 😊❤️",
+    "timestamp": "2024-09-21T20:47:28"
+  },
+  {
+    "message_id": "msg_000861",
+    "user": "Amane",
+    "content": "anyone want to do a malibu day trip this weekend",
+    "timestamp": "2024-10-03T19:33:17"
+  },
+  {
+    "message_id": "msg_000862",
+    "user": "Amane",
+    "content": "nice weather forecast",
+    "timestamp": "2024-10-03T19:33:25"
+  },
+  {
+    "message_id": "msg_000863",
+    "user": "Tanya",
+    "content": "YES beach day!!",
+    "timestamp": "2024-10-03T19:34:02"
+  },
+  {
+    "message_id": "msg_000864",
+    "user": "Jake",
+    "content": "malibu has great photo spots",
+    "timestamp": "2024-10-03T19:34:38"
+  },
+  {
+    "message_id": "msg_000865",
+    "user": "Jake",
+    "content": "im so down",
+    "timestamp": "2024-10-03T19:34:43"
+  },
+  {
+    "message_id": "msg_000866",
+    "user": "Mahiru",
+    "content": "That sounds lovely! We could pack a picnic 😊",
+    "timestamp": "2024-10-03T19:35:22"
+  },
+  {
+    "message_id": "msg_000867",
+    "user": "Nirali",
+    "content": "yes!! im in",
+    "timestamp": "2024-10-03T19:35:47"
+  },
+  {
+    "message_id": "msg_000868",
+    "user": "Maya",
+    "content": "how are we getting there",
+    "timestamp": "2024-10-03T19:36:14"
+  },
+  {
+    "message_id": "msg_000869",
+    "user": "Amane",
+    "content": "i can drive. car fits 4",
+    "timestamp": "2024-10-03T19:36:42"
+  },
+  {
+    "message_id": "msg_000870",
+    "user": "Jake",
+    "content": "i can take 2 more if someone wants to split uber cost with me",
+    "timestamp": "2024-10-03T19:37:18"
+  },
+  {
+    "message_id": "msg_000871",
+    "user": "Maya",
+    "content": "ubers to malibu are like $60+ each way",
+    "timestamp": "2024-10-03T19:37:52"
+  },
+  {
+    "message_id": "msg_000872",
+    "user": "Maya",
+    "content": "thats $120 total. too much for me",
+    "timestamp": "2024-10-03T19:38:02"
+  },
+  {
+    "message_id": "msg_000873",
+    "user": "Tanya",
+    "content": "oof yeah thats expensive",
+    "timestamp": "2024-10-03T19:38:31"
+  },
+  {
+    "message_id": "msg_000874",
+    "user": "Amane",
+    "content": "maya you can come in my car",
+    "timestamp": "2024-10-03T19:39:02"
+  },
+  {
+    "message_id": "msg_000875",
+    "user": "Mahiru",
+    "content": "Yes! We'll make room",
+    "timestamp": "2024-10-03T19:39:24"
+  },
+  {
+    "message_id": "msg_000876",
+    "user": "Maya",
+    "content": "you sure? i can chip in for gas",
+    "timestamp": "2024-10-03T19:39:53"
+  },
+  {
+    "message_id": "msg_000877",
+    "user": "Amane",
+    "content": "dont worry about it",
+    "timestamp": "2024-10-03T19:40:08"
+  },
+  {
+    "message_id": "msg_000878",
+    "user": "Maya",
+    "content": "thanks. i appreciate it",
+    "timestamp": "2024-10-03T19:40:34"
+  },
+  {
+    "message_id": "msg_000879",
+    "user": "Nirali",
+    "content": "so whos in which car?",
+    "timestamp": "2024-10-03T19:41:07"
+  },
+  {
+    "message_id": "msg_000880",
+    "user": "Amane",
+    "content": "me, mahiru, maya, nirali",
+    "timestamp": "2024-10-03T19:41:38"
+  },
+  {
+    "message_id": "msg_000881",
+    "user": "Jake",
+    "content": "me and tanya uber together then",
+    "timestamp": "2024-10-03T19:42:02"
+  },
+  {
+    "message_id": "msg_000882",
+    "user": "Tanya",
+    "content": "works for me! split is like $60 each which is better than $120",
+    "timestamp": "2024-10-03T19:42:37"
+  },
+  {
+    "message_id": "msg_000883",
+    "user": "Mahiru",
+    "content": "What time should we leave? 10am?",
+    "timestamp": "2024-10-03T19:43:22"
+  },
+  {
+    "message_id": "msg_000884",
+    "user": "Maya",
+    "content": "parking in malibu is expensive. let me look for free spots",
+    "timestamp": "2024-10-03T19:44:07"
+  },
+  {
+    "message_id": "msg_000885",
+    "user": "Jake",
+    "content": "maya the real mvp",
+    "timestamp": "2024-10-03T19:44:31"
+  },
+  {
+    "message_id": "msg_000886",
+    "user": "Maya",
+    "content": "ok found it. theres free street parking near Point Dume if we get there before 11am",
+    "timestamp": "2024-10-03T19:48:14"
+  },
+  {
+    "message_id": "msg_000887",
+    "user": "Maya",
+    "content": "after that it fills up",
+    "timestamp": "2024-10-03T19:48:21"
+  },
+  {
+    "message_id": "msg_000888",
+    "user": "Amane",
+    "content": "so leave at 9:30",
+    "timestamp": "2024-10-03T19:48:47"
+  },
+  {
+    "message_id": "msg_000889",
+    "user": "Tanya",
+    "content": "ughhh 9:30 on a saturday",
+    "timestamp": "2024-10-03T19:49:14"
+  },
+  {
+    "message_id": "msg_000890",
+    "user": "Nirali",
+    "content": "tanya you can sleep in the car lol",
+    "timestamp": "2024-10-03T19:49:41"
+  },
+  {
+    "message_id": "msg_000891",
+    "user": "Tanya",
+    "content": "true true ok im in",
+    "timestamp": "2024-10-03T19:50:03"
+  },
+  {
+    "message_id": "msg_000892",
+    "user": "Mahiru",
+    "content": "I'll make sandwiches and bring snacks!",
+    "timestamp": "2024-10-03T19:50:44"
+  },
+  {
+    "message_id": "msg_000893",
+    "user": "Nirali",
+    "content": "ill bring drinks and fruit",
+    "timestamp": "2024-10-03T19:51:12"
+  },
+  {
+    "message_id": "msg_000894",
+    "user": "Jake",
+    "content": "bringing my camera obviously",
+    "timestamp": "2024-10-03T19:51:38"
+  },
+  {
+    "message_id": "msg_000895",
+    "user": "Amane",
+    "content": "i have beach chairs and an umbrella",
+    "timestamp": "2024-10-03T19:52:07"
+  },
+  {
+    "message_id": "msg_000896",
+    "user": "Tanya",
+    "content": "ill bring my speaker for beach vibes",
+    "timestamp": "2024-10-03T19:52:34"
+  },
+  {
+    "message_id": "msg_000897",
+    "user": "Mahiru",
+    "content": "[calendar: Malibu Day Trip - Sat Oct 5, 9:30 AM departure]",
+    "timestamp": "2024-10-03T19:53:22"
+  },
+  {
+    "message_id": "msg_000898",
+    "user": "Amane",
+    "content": "leaving in 5. everyone ready?",
+    "timestamp": "2024-10-05T09:24:33"
+  },
+  {
+    "message_id": "msg_000899",
+    "user": "Mahiru",
+    "content": "Yes! Picnic basket is packed 😊",
+    "timestamp": "2024-10-05T09:25:08"
+  },
+  {
+    "message_id": "msg_000900",
+    "user": "Nirali",
+    "content": "ready!!",
+    "timestamp": "2024-10-05T09:25:24"
+  },
+  {
+    "message_id": "msg_000901",
+    "user": "Maya",
+    "content": "be there in 2 min",
+    "timestamp": "2024-10-05T09:25:47"
+  },
+  {
+    "message_id": "msg_000902",
+    "user": "Jake",
+    "content": "requesting uber now",
+    "timestamp": "2024-10-05T09:26:18"
+  },
+  {
+    "message_id": "msg_000903",
+    "user": "Tanya",
+    "content": "omw to jakes place",
+    "timestamp": "2024-10-05T09:27:03"
+  },
+  {
+    "message_id": "msg_000904",
+    "user": "Amane",
+    "content": "on the road",
+    "timestamp": "2024-10-05T09:33:47"
+  },
+  {
+    "message_id": "msg_000905",
+    "user": "Nirali",
+    "content": "pch is so pretty",
+    "timestamp": "2024-10-05T10:12:24"
+  },
+  {
+    "message_id": "msg_000906",
+    "user": "Mahiru",
+    "content": "The ocean view is beautiful!",
+    "timestamp": "2024-10-05T10:12:51"
+  },
+  {
+    "message_id": "msg_000907",
+    "user": "Jake",
+    "content": "we just hit pch",
+    "timestamp": "2024-10-05T10:14:33"
+  },
+  {
+    "message_id": "msg_000908",
+    "user": "Tanya",
+    "content": "the vibes are immaculate",
+    "timestamp": "2024-10-05T10:15:07"
+  },
+  {
+    "message_id": "msg_000909",
+    "user": "Maya",
+    "content": "ok parking spot is up ahead on the right",
+    "timestamp": "2024-10-05T10:38:14"
+  },
+  {
+    "message_id": "msg_000910",
+    "user": "Amane",
+    "content": "see it",
+    "timestamp": "2024-10-05T10:38:29"
+  },
+  {
+    "message_id": "msg_000911",
+    "user": "Maya",
+    "content": "told you guys. free parking 👍",
+    "timestamp": "2024-10-05T10:42:33"
+  },
+  {
+    "message_id": "msg_000912",
+    "user": "Nirali",
+    "content": "maya saves the day again",
+    "timestamp": "2024-10-05T10:43:04"
+  },
+  {
+    "message_id": "msg_000913",
+    "user": "Jake",
+    "content": "our uber just pulled up",
+    "timestamp": "2024-10-05T10:44:17"
+  },
+  {
+    "message_id": "msg_000914",
+    "user": "Mahiru",
+    "content": "We're by the blue lifeguard tower!",
+    "timestamp": "2024-10-05T10:47:52"
+  },
+  {
+    "message_id": "msg_000915",
+    "user": "Jake",
+    "content": "[image: Beautiful Malibu beach with clear blue water]",
+    "timestamp": "2024-10-05T11:02:44"
+  },
+  {
+    "message_id": "msg_000916",
+    "user": "Jake",
+    "content": "this is paradise",
+    "timestamp": "2024-10-05T11:02:53"
+  },
+  {
+    "message_id": "msg_000917",
+    "user": "Tanya",
+    "content": "the water is SO clear",
+    "timestamp": "2024-10-05T11:03:21"
+  },
+  {
+    "message_id": "msg_000918",
+    "user": "Nirali",
+    "content": "im going in!",
+    "timestamp": "2024-10-05T11:14:37"
+  },
+  {
+    "message_id": "msg_000919",
+    "user": "Tanya",
+    "content": "wait for me!!",
+    "timestamp": "2024-10-05T11:14:52"
+  },
+  {
+    "message_id": "msg_000920",
+    "user": "Mahiru",
+    "content": "[image: Group setup with umbrella and beach chairs]",
+    "timestamp": "2024-10-05T11:28:18"
+  },
+  {
+    "message_id": "msg_000921",
+    "user": "Mahiru",
+    "content": "Our little beach spot! 🏖️",
+    "timestamp": "2024-10-05T11:28:29"
+  },
+  {
+    "message_id": "msg_000922",
+    "user": "Jake",
+    "content": "[image: Candid shot of Nirali and Tanya in the water]",
+    "timestamp": "2024-10-05T12:47:33"
+  },
+  {
+    "message_id": "msg_000923",
+    "user": "Tanya",
+    "content": "SEND ME THAT",
+    "timestamp": "2024-10-05T12:48:07"
+  },
+  {
+    "message_id": "msg_000924",
+    "user": "Mahiru",
+    "content": "Lunch time! Sandwiches are ready 🥪",
+    "timestamp": "2024-10-05T13:15:22"
+  },
+  {
+    "message_id": "msg_000925",
+    "user": "Nirali",
+    "content": "perfect timing im starving",
+    "timestamp": "2024-10-05T13:15:51"
+  },
+  {
+    "message_id": "msg_000926",
+    "user": "Maya",
+    "content": "these sandwiches are really good mahiru",
+    "timestamp": "2024-10-05T13:22:44"
+  },
+  {
+    "message_id": "msg_000927",
+    "user": "Jake",
+    "content": "eating lunch with this view hits different",
+    "timestamp": "2024-10-05T13:23:18"
+  },
+  {
+    "message_id": "msg_000928",
+    "user": "Amane",
+    "content": "this was a good idea",
+    "timestamp": "2024-10-05T13:23:47"
+  },
+  {
+    "message_id": "msg_000929",
+    "user": "Jake",
+    "content": "[image: Golden hour sunset over the ocean]",
+    "timestamp": "2024-10-05T18:33:12"
+  },
+  {
+    "message_id": "msg_000930",
+    "user": "Jake",
+    "content": "guys look at this sunset",
+    "timestamp": "2024-10-05T18:33:21"
+  },
+  {
+    "message_id": "msg_000931",
+    "user": "Mahiru",
+    "content": "It's breathtaking!",
+    "timestamp": "2024-10-05T18:33:47"
+  },
+  {
+    "message_id": "msg_000932",
+    "user": "Tanya",
+    "content": "ok this was worth waking up early for",
+    "timestamp": "2024-10-05T18:34:19"
+  },
+  {
+    "message_id": "msg_000933",
+    "user": "Nirali",
+    "content": "best day ever",
+    "timestamp": "2024-10-05T18:34:44"
+  },
+  {
+    "message_id": "msg_000934",
+    "user": "Jake",
+    "content": "[image: Group silhouette photo against the sunset]",
+    "timestamp": "2024-10-05T18:42:27"
+  },
+  {
+    "message_id": "msg_000935",
+    "user": "Tanya",
+    "content": "JAKE THIS IS BEAUTIFUL",
+    "timestamp": "2024-10-05T18:43:02"
+  },
+  {
+    "message_id": "msg_000936",
+    "user": "Nirali",
+    "content": "frame worthy",
+    "timestamp": "2024-10-05T18:43:28"
+  },
+  {
+    "message_id": "msg_000937",
+    "user": "Amane",
+    "content": "we should head back. traffic will get bad",
+    "timestamp": "2024-10-05T18:51:14"
+  },
+  {
+    "message_id": "msg_000938",
+    "user": "Maya",
+    "content": "good call",
+    "timestamp": "2024-10-05T18:51:33"
+  },
+  {
+    "message_id": "msg_000939",
+    "user": "Jake",
+    "content": "requesting uber",
+    "timestamp": "2024-10-05T18:52:08"
+  },
+  {
+    "message_id": "msg_000940",
+    "user": "Mahiru",
+    "content": "Today was perfect! Thank you for planning this Amane 💕",
+    "timestamp": "2024-10-05T19:47:22"
+  },
+  {
+    "message_id": "msg_000941",
+    "user": "Nirali",
+    "content": "yes!! and thank you maya for finding free parking",
+    "timestamp": "2024-10-05T19:48:03"
+  },
+  {
+    "message_id": "msg_000942",
+    "user": "Maya",
+    "content": "always gotta save where we can lol",
+    "timestamp": "2024-10-05T19:48:37"
+  },
+  {
+    "message_id": "msg_000943",
+    "user": "Tanya",
+    "content": "we need to do more day trips",
+    "timestamp": "2024-10-05T19:49:14"
+  },
+  {
+    "message_id": "msg_000944",
+    "user": "Amane",
+    "content": "agreed",
+    "timestamp": "2024-10-05T19:49:31"
+  },
+  {
+    "message_id": "msg_000945",
+    "user": "Tanya",
+    "content": "ok so my friend is DJing at this underground show friday night",
+    "timestamp": "2024-10-15T17:22:41"
+  },
+  {
+    "message_id": "msg_000946",
+    "user": "Tanya",
+    "content": "you guys HAVE to come",
+    "timestamp": "2024-10-05T17:22:49"
+  },
+  {
+    "message_id": "msg_000947",
+    "user": "Nirali",
+    "content": "underground show??",
+    "timestamp": "2024-10-15T17:23:18"
+  },
+  {
+    "message_id": "msg_000948",
+    "user": "Tanya",
+    "content": "yeah like a warehouse rave vibe",
+    "timestamp": "2024-10-15T17:23:47"
+  },
+  {
+    "message_id": "msg_000949",
+    "user": "Tanya",
+    "content": "really good vibes, good music",
+    "timestamp": "2024-10-15T17:23:55"
+  },
+  {
+    "message_id": "msg_000950",
+    "user": "Jake",
+    "content": "that sounds dope actually",
+    "timestamp": "2024-10-15T17:24:24"
+  },
+  {
+    "message_id": "msg_000951",
+    "user": "Mahiru",
+    "content": "I've never been to something like that! Is it safe?",
+    "timestamp": "2024-10-15T17:25:03"
+  },
+  {
+    "message_id": "msg_000952",
+    "user": "Tanya",
+    "content": "yeah its totally safe! everyone there is chill",
+    "timestamp": "2024-10-15T17:25:38"
+  },
+  {
+    "message_id": "msg_000953",
+    "user": "Tanya",
+    "content": "plus ill be with you guys the whole time",
+    "timestamp": "2024-10-15T17:25:47"
+  },
+  {
+    "message_id": "msg_000954",
+    "user": "Amane",
+    "content": "whats the dress code",
+    "timestamp": "2024-10-15T17:26:22"
+  },
+  {
+    "message_id": "msg_000955",
+    "user": "Tanya",
+    "content": "like... rave fashion?",
+    "timestamp": "2024-10-15T17:26:53"
+  },
+  {
+    "message_id": "msg_000956",
+    "user": "Tanya",
+    "content": "idk how to describe it lol",
+    "timestamp": "2024-10-15T17:27:01"
+  },
+  {
+    "message_id": "msg_000957",
+    "user": "Maya",
+    "content": "so like black clothes?",
+    "timestamp": "2024-10-15T17:27:34"
+  },
+  {
+    "message_id": "msg_000958",
+    "user": "Tanya",
+    "content": "yeah that works. or neon. or whatever youre comfortable in honestly",
+    "timestamp": "2024-10-15T17:28:07"
+  },
+  {
+    "message_id": "msg_000959",
+    "user": "Nirali",
+    "content": "im down!! this sounds fun",
+    "timestamp": "2024-10-15T17:28:41"
+  },
+  {
+    "message_id": "msg_000960",
+    "user": "Jake",
+    "content": "the photo ops are gonna be insane",
+    "timestamp": "2024-10-15T17:29:14"
+  },
+  {
+    "message_id": "msg_000961",
+    "user": "Mahiru",
+    "content": "I'll go if Amane goes!",
+    "timestamp": "2024-10-15T17:29:48"
+  },
+  {
+    "message_id": "msg_000962",
+    "user": "Amane",
+    "content": "ill go",
+    "timestamp": "2024-10-15T17:30:03"
+  },
+  {
+    "message_id": "msg_000963",
+    "user": "Maya",
+    "content": "im in. sounds like a new experience",
+    "timestamp": "2024-10-15T17:30:34"
+  },
+  {
+    "message_id": "msg_000964",
+    "user": "Tanya",
+    "content": "YESSS this is gonna be so fun",
+    "timestamp": "2024-10-15T17:31:08"
+  },
+  {
+    "message_id": "msg_000965",
+    "user": "Tanya",
+    "content": "doors open at 10pm",
+    "timestamp": "2024-10-15T17:31:16"
+  },
+  {
+    "message_id": "msg_000966",
+    "user": "Nirali",
+    "content": "10pm?? thats late",
+    "timestamp": "2024-10-15T17:31:42"
+  },
+  {
+    "message_id": "msg_000967",
+    "user": "Tanya",
+    "content": "its a rave lol it goes until like 3am",
+    "timestamp": "2024-10-15T17:32:14"
+  },
+  {
+    "message_id": "msg_000968",
+    "user": "Jake",
+    "content": "oh damn",
+    "timestamp": "2024-10-15T17:32:28"
+  },
+  {
+    "message_id": "msg_000969",
+    "user": "Mahiru",
+    "content": "We don't have to stay the whole time right? 😅",
+    "timestamp": "2024-10-15T17:32:57"
+  },
+  {
+    "message_id": "msg_000970",
+    "user": "Tanya",
+    "content": "no you can leave whenever!",
+    "timestamp": "2024-10-15T17:33:24"
+  },
+  {
+    "message_id": "msg_000971",
+    "user": "Maya",
+    "content": "how much is it",
+    "timestamp": "2024-10-15T17:33:51"
+  },
+  {
+    "message_id": "msg_000972",
+    "user": "Tanya",
+    "content": "$20 at the door",
+    "timestamp": "2024-10-15T17:34:18"
+  },
+  {
+    "message_id": "msg_000973",
+    "user": "Maya",
+    "content": "thats reasonable",
+    "timestamp": "2024-10-15T17:34:33"
+  },
+  {
+    "message_id": "msg_000974",
+    "user": "Tanya",
+    "content": "ill send the address day of. its kind of a secret location thing",
+    "timestamp": "2024-10-15T17:35:14"
+  },
+  {
+    "message_id": "msg_000975",
+    "user": "Jake",
+    "content": "very underground lol",
+    "timestamp": "2024-10-15T17:35:38"
+  },
+  {
+    "message_id": "msg_000976",
+    "user": "Tanya",
+    "content": "[calendar: Underground Show - Fri Oct 18, 10:00 PM]",
+    "timestamp": "2024-10-15T17:36:27"
+  },
+  {
+    "message_id": "msg_000977",
+    "user": "Mahiru",
+    "content": "wait so what exactly should i wear",
+    "timestamp": "2024-10-18T18:44:22"
+  },
+  {
+    "message_id": "msg_000978",
+    "user": "Tanya",
+    "content": "anything! just be comfortable",
+    "timestamp": "2024-10-18T18:45:07"
+  },
+  {
+    "message_id": "msg_000979",
+    "user": "Nirali",
+    "content": "im wearing all black with neon accessories",
+    "timestamp": "2024-10-18T18:45:44"
+  },
+  {
+    "message_id": "msg_000980",
+    "user": "Jake",
+    "content": "black jeans and a tshirt for me",
+    "timestamp": "2024-10-18T18:46:18"
+  },
+  {
+    "message_id": "msg_000981",
+    "user": "Maya",
+    "content": "same. keeping it simple",
+    "timestamp": "2024-10-18T18:46:42"
+  },
+  {
+    "message_id": "msg_000982",
+    "user": "Amane",
+    "content": "ill just wear what i always wear",
+    "timestamp": "2024-10-18T18:47:14"
+  },
+  {
+    "message_id": "msg_000983",
+    "user": "Tanya",
+    "content": "ok so the address is [location: Warehouse in Arts District]",
+    "timestamp": "2024-10-18T20:33:47"
+  },
+  {
+    "message_id": "msg_000984",
+    "user": "Tanya",
+    "content": "meet there at 10:15?",
+    "timestamp": "2024-10-18T20:33:55"
+  },
+  {
+    "message_id": "msg_000985",
+    "user": "Nirali",
+    "content": "works for me!",
+    "timestamp": "2024-10-18T20:34:22"
+  },
+  {
+    "message_id": "msg_000986",
+    "user": "Amane",
+    "content": "ill drive",
+    "timestamp": "2024-10-18T20:34:39"
+  },
+  {
+    "message_id": "msg_000987",
+    "user": "Jake",
+    "content": "can i get a ride",
+    "timestamp": "2024-10-18T20:35:03"
+  },
+  {
+    "message_id": "msg_000988",
+    "user": "Amane",
+    "content": "yeah",
+    "timestamp": "2024-10-18T20:35:14"
+  },
+  {
+    "message_id": "msg_000989",
+    "user": "Tanya",
+    "content": "just pulled up",
+    "timestamp": "2024-10-18T22:12:38"
+  },
+  {
+    "message_id": "msg_000990",
+    "user": "Tanya",
+    "content": "the line is already long lol",
+    "timestamp": "2024-10-18T22:12:47"
+  },
+  {
+    "message_id": "msg_000991",
+    "user": "Nirali",
+    "content": "were parking now",
+    "timestamp": "2024-10-18T22:13:24"
+  },
+  {
+    "message_id": "msg_000992",
+    "user": "Maya",
+    "content": "i see you tanya",
+    "timestamp": "2024-10-18T22:15:41"
+  },
+  {
+    "message_id": "msg_000993",
+    "user": "Tanya",
+    "content": "ok once were inside ill introduce you to my friend whos DJing",
+    "timestamp": "2024-10-18T22:27:14"
+  },
+  {
+    "message_id": "msg_000994",
+    "user": "Nirali",
+    "content": "OH MY GOD",
+    "timestamp": "2024-10-18T22:34:52"
+  },
+  {
+    "message_id": "msg_000995",
+    "user": "Nirali",
+    "content": "THE LIGHTS",
+    "timestamp": "2024-10-18T22:34:57"
+  },
+  {
+    "message_id": "msg_000996",
+    "user": "Nirali",
+    "content": "THIS IS INSANE",
+    "timestamp": "2024-10-18T22:35:02"
+  },
+  {
+    "message_id": "msg_000997",
+    "user": "Jake",
+    "content": "[image: Warehouse interior with laser lights and crowd]",
+    "timestamp": "2024-10-18T22:41:17"
+  },
+  {
+    "message_id": "msg_000998",
+    "user": "Jake",
+    "content": "this is wild",
+    "timestamp": "2024-10-18T22:41:26"
+  },
+  {
+    "message_id": "msg_000999",
+    "user": "Mahiru",
+    "content": "The music is so loud! But everyone seems really nice 😊",
+    "timestamp": "2024-10-18T22:53:44"
+  },
+  {
+    "message_id": "msg_001000",
+    "user": "Tanya",
+    "content": "told you!!",
+    "timestamp": "2024-10-18T22:54:12"
+  },
+  {
+    "message_id": "msg_001001",
+    "user": "Tanya",
+    "content": "my friends about to go on",
+    "timestamp": "2024-10-18T23:08:33"
+  },
+  {
+    "message_id": "msg_001002",
+    "user": "Jake",
+    "content": "[voice message: 0:05]",
+    "timestamp": "2024-10-18T23:24:17"
+  },
+  {
+    "message_id": "msg_001003",
+    "user": "Nirali",
+    "content": "THE DROP WAS INSANE",
+    "timestamp": "2024-10-18T23:24:48"
+  },
+  {
+    "message_id": "msg_001004",
+    "user": "Tanya",
+    "content": "MY FRIEND IS SO GOOD",
+    "timestamp": "2024-10-18T23:25:14"
+  },
+  {
+    "message_id": "msg_001005",
+    "user": "Maya",
+    "content": "this is actually really fun",
+    "timestamp": "2024-10-18T23:42:37"
+  },
+  {
+    "message_id": "msg_001006",
+    "user": "Amane",
+    "content": "not bad",
+    "timestamp": "2024-10-18T23:43:02"
+  },
+  {
+    "message_id": "msg_001007",
+    "user": "Jake",
+    "content": "[image: Group photo with neon lights in background]",
+    "timestamp": "2024-10-19T00:18:44"
+  },
+  {
+    "message_id": "msg_001008",
+    "user": "Jake",
+    "content": "we look sick",
+    "timestamp": "2024-10-19T00:18:53"
+  },
+  {
+    "message_id": "msg_001009",
+    "user": "Mahiru",
+    "content": "I think I'm ready to head out soon. It's been fun but I'm getting tired!",
+    "timestamp": "2024-10-19T00:47:22"
+  },
+  {
+    "message_id": "msg_001010",
+    "user": "Amane",
+    "content": "same. anyone else want to leave?",
+    "timestamp": "2024-10-19T00:47:51"
+  },
+  {
+    "message_id": "msg_001011",
+    "user": "Maya",
+    "content": "yeah im good to go",
+    "timestamp": "2024-10-19T00:48:14"
+  },
+  {
+    "message_id": "msg_001012",
+    "user": "Jake",
+    "content": "ill head out too",
+    "timestamp": "2024-10-19T00:48:33"
+  },
+  {
+    "message_id": "msg_001013",
+    "user": "Nirali",
+    "content": "im staying with tanya!!",
+    "timestamp": "2024-10-19T00:49:02"
+  },
+  {
+    "message_id": "msg_001014",
+    "user": "Tanya",
+    "content": "yes!! well uber home later",
+    "timestamp": "2024-10-19T00:49:28"
+  },
+  {
+    "message_id": "msg_001015",
+    "user": "Amane",
+    "content": "be safe",
+    "timestamp": "2024-10-19T00:49:44"
+  },
+  {
+    "message_id": "msg_001016",
+    "user": "Tanya",
+    "content": "always!",
+    "timestamp": "2024-10-19T00:50:03"
+  },
+  {
+    "message_id": "msg_001017",
+    "user": "Mahiru",
+    "content": "That was such a unique experience! Thank you for inviting us Tanya 💕",
+    "timestamp": "2024-10-19T01:32:47"
+  },
+  {
+    "message_id": "msg_001018",
+    "user": "Jake",
+    "content": "yeah that was dope",
+    "timestamp": "2024-10-19T01:33:22"
+  },
+  {
+    "message_id": "msg_001019",
+    "user": "Maya",
+    "content": "different from our usual hangouts but in a good way",
+    "timestamp": "2024-10-19T01:33:54"
+  },
+  {
+    "message_id": "msg_001020",
+    "user": "Tanya",
+    "content": "home safe!! that was the best night ever",
+    "timestamp": "2024-10-19T03:17:38"
+  },
+  {
+    "message_id": "msg_001021",
+    "user": "Nirali",
+    "content": "my ears are still ringing lol",
+    "timestamp": "2024-10-19T03:18:14"
+  },
+  {
+    "message_id": "msg_001022",
+    "user": "Tanya",
+    "content": "worth it 😂",
+    "timestamp": "2024-10-19T03:18:31"
+  },
+  {
+    "message_id": "msg_001023",
+    "user": "Nirali",
+    "content": "so uh",
+    "timestamp": "2024-10-28T15:22:17"
+  },
+  {
+    "message_id": "msg_001024",
+    "user": "Nirali",
+    "content": "i have a piano recital next saturday",
+    "timestamp": "2024-10-28T15:22:25"
+  },
+  {
+    "message_id": "msg_001025",
+    "user": "Nirali",
+    "content": "you guys should come if you want",
+    "timestamp": "2024-10-28T15:22:34"
+  },
+  {
+    "message_id": "msg_001026",
+    "user": "Mahiru",
+    "content": "Oh my gosh yes!! I didn't know you played piano!",
+    "timestamp": "2024-10-28T15:23:14"
+  },
+  {
+    "message_id": "msg_001027",
+    "user": "Nirali",
+    "content": "yeah ive been playing since i was like 6",
+    "timestamp": "2024-10-28T15:23:47"
+  },
+  {
+    "message_id": "msg_001028",
+    "user": "Tanya",
+    "content": "WHAT",
+    "timestamp": "2024-10-28T15:24:08"
+  },
+  {
+    "message_id": "msg_001029",
+    "user": "Tanya",
+    "content": "how did we not know this",
+    "timestamp": "2024-10-28T15:24:15"
+  },
+  {
+    "message_id": "msg_001030",
+    "user": "Nirali",
+    "content": "i dont really talk about it lol",
+    "timestamp": "2024-10-28T15:24:42"
+  },
+  {
+    "message_id": "msg_001031",
+    "user": "Jake",
+    "content": "nirali has a secret talent",
+    "timestamp": "2024-10-28T15:25:14"
+  },
+  {
+    "message_id": "msg_001032",
+    "user": "Maya",
+    "content": "im definitely coming. what time",
+    "timestamp": "2024-10-28T15:25:48"
+  },
+  {
+    "message_id": "msg_001033",
+    "user": "Nirali",
+    "content": "4pm at the USC music hall",
+    "timestamp": "2024-10-28T15:26:22"
+  },
+  {
+    "message_id": "msg_001034",
+    "user": "Nirali",
+    "content": "im performing around 4:30",
+    "timestamp": "2024-10-28T15:26:31"
+  },
+  {
+    "message_id": "msg_001035",
+    "user": "Amane",
+    "content": "well be there",
+    "timestamp": "2024-10-28T15:27:03"
+  },
+  {
+    "message_id": "msg_001036",
+    "user": "Nirali",
+    "content": "you guys dont have to come if youre busy!",
+    "timestamp": "2024-10-28T15:27:38"
+  },
+  {
+    "message_id": "msg_001037",
+    "user": "Mahiru",
+    "content": "No we're definitely coming! This is so exciting 😊",
+    "timestamp": "2024-10-28T15:28:14"
+  },
+  {
+    "message_id": "msg_001038",
+    "user": "Tanya",
+    "content": "yeah we wouldnt miss it!!",
+    "timestamp": "2024-10-28T15:28:42"
+  },
+  {
+    "message_id": "msg_001039",
+    "user": "Jake",
+    "content": "what are you playing",
+    "timestamp": "2024-10-28T15:29:17"
+  },
+  {
+    "message_id": "msg_001040",
+    "user": "Nirali",
+    "content": "im doing a classical piece and then a modern arrangement",
+    "timestamp": "2024-10-28T15:29:54"
+  },
+  {
+    "message_id": "msg_001041",
+    "user": "Nirali",
+    "content": "chopin and then a bollywood/anime mashup i arranged myself",
+    "timestamp": "2024-10-28T15:30:07"
+  },
+  {
+    "message_id": "msg_001042",
+    "user": "Tanya",
+    "content": "WAIT YOU ARRANGE YOUR OWN MUSIC??",
+    "timestamp": "2024-10-28T15:30:38"
+  },
+  {
+    "message_id": "msg_001043",
+    "user": "Nirali",
+    "content": "sometimes lol",
+    "timestamp": "2024-10-28T15:30:54"
+  },
+  {
+    "message_id": "msg_001044",
+    "user": "Jake",
+    "content": "nirali youre lowkey a genius",
+    "timestamp": "2024-10-28T15:31:24"
+  },
+  {
+    "message_id": "msg_001045",
+    "user": "Nirali",
+    "content": "STOP im nervous now lol",
+    "timestamp": "2024-10-28T15:31:52"
+  },
+  {
+    "message_id": "msg_001046",
+    "user": "Mahiru",
+    "content": "You're going to do amazing! We'll all be there cheering you on 💕",
+    "timestamp": "2024-10-28T15:32:34"
+  },
+  {
+    "message_id": "msg_001047",
+    "user": "Maya",
+    "content": "should we bring flowers or something",
+    "timestamp": "2024-10-28T15:33:17"
+  },
+  {
+    "message_id": "msg_001048",
+    "user": "Nirali",
+    "content": "omg you guys dont have to do that",
+    "timestamp": "2024-10-28T15:33:48"
+  },
+  {
+    "message_id": "msg_001049",
+    "user": "Tanya",
+    "content": "too late were bringing flowers",
+    "timestamp": "2024-10-28T15:34:14"
+  },
+  {
+    "message_id": "msg_001050",
+    "user": "Nirali",
+    "content": "😭 you guys are the best",
+    "timestamp": "2024-10-28T15:34:42"
+  },
+  {
+    "message_id": "msg_001051",
+    "user": "Mahiru",
+    "content": "[calendar: Nirali's Piano Recital - Sat Nov 2, 4:00 PM]",
+    "timestamp": "2024-10-28T15:35:28"
+  },
+  {
+    "message_id": "msg_001052",
+    "user": "Nirali",
+    "content": "ok im freaking out",
+    "timestamp": "2024-11-02T14:33:22"
+  },
+  {
+    "message_id": "msg_001053",
+    "user": "Nirali",
+    "content": "what if i mess up",
+    "timestamp": "2024-11-02T14:33:29"
+  },
+  {
+    "message_id": "msg_001054",
+    "user": "Mahiru",
+    "content": "You're going to be wonderful! You've practiced so much",
+    "timestamp": "2024-11-02T14:34:07"
+  },
+  {
+    "message_id": "msg_001055",
+    "user": "Tanya",
+    "content": "youre gonna kill it!!",
+    "timestamp": "2024-11-02T14:34:34"
+  },
+  {
+    "message_id": "msg_001056",
+    "user": "Amane",
+    "content": "youll do fine",
+    "timestamp": "2024-11-02T14:34:52"
+  },
+  {
+    "message_id": "msg_001057",
+    "user": "Nirali",
+    "content": "thanks guys 💕",
+    "timestamp": "2024-11-02T14:35:18"
+  },
+  {
+    "message_id": "msg_001058",
+    "user": "Mahiru",
+    "content": "We're here! Saved seats in the third row",
+    "timestamp": "2024-11-02T15:52:44"
+  },
+  {
+    "message_id": "msg_001059",
+    "user": "Tanya",
+    "content": "this music hall is so fancy",
+    "timestamp": "2024-11-02T15:53:18"
+  },
+  {
+    "message_id": "msg_001060",
+    "user": "Jake",
+    "content": "[image: Stage with grand piano and flowers]",
+    "timestamp": "2024-11-02T15:58:33"
+  },
+  {
+    "message_id": "msg_001061",
+    "user": "Maya",
+    "content": "its starting",
+    "timestamp": "2024-11-02T16:02:47"
+  },
+  {
+    "message_id": "msg_001062",
+    "user": "Mahiru",
+    "content": "Nirali is up next!",
+    "timestamp": "2024-11-02T16:28:14"
+  },
+  {
+    "message_id": "msg_001063",
+    "user": "Tanya",
+    "content": "im so nervous for her lol",
+    "timestamp": "2024-11-02T16:28:42"
+  },
+  {
+    "message_id": "msg_001064",
+    "user": "Jake",
+    "content": "[voice message: 0:07]",
+    "timestamp": "2024-11-02T16:33:18"
+  },
+  {
+    "message_id": "msg_001065",
+    "user": "Mahiru",
+    "content": "She's playing so beautifully! The Chopin is perfect 😊",
+    "timestamp": "2024-11-02T16:38:47"
+  },
+  {
+    "message_id": "msg_001066",
+    "user": "Tanya",
+    "content": "wait shes about to do the mashup",
+    "timestamp": "2024-11-02T16:42:22"
+  },
+  {
+    "message_id": "msg_001067",
+    "user": "Jake",
+    "content": "OH SHIT",
+    "timestamp": "2024-11-02T16:44:33"
+  },
+  {
+    "message_id": "msg_001068",
+    "user": "Jake",
+    "content": "this is SO GOOD",
+    "timestamp": "2024-11-02T16:44:41"
+  },
+  {
+    "message_id": "msg_001069",
+    "user": "Tanya",
+    "content": "IM GONNA CRY",
+    "timestamp": "2024-11-02T16:45:08"
+  },
+  {
+    "message_id": "msg_001070",
+    "user": "Maya",
+    "content": "i didnt know nirali was THIS good",
+    "timestamp": "2024-11-02T16:45:44"
+  },
+  {
+    "message_id": "msg_001071",
+    "user": "Amane",
+    "content": "impressive",
+    "timestamp": "2024-11-02T16:46:02"
+  },
+  {
+    "message_id": "msg_001072",
+    "user": "Mahiru",
+    "content": "[image: Nirali taking a bow on stage]",
+    "timestamp": "2024-11-02T16:47:18"
+  },
+  {
+    "message_id": "msg_001073",
+    "user": "Mahiru",
+    "content": "Standing ovation!! 👏👏👏",
+    "timestamp": "2024-11-02T16:47:29"
+  },
+  {
+    "message_id": "msg_001074",
+    "user": "Tanya",
+    "content": "WE'RE SO PROUD",
+    "timestamp": "2024-11-02T16:47:52"
+  },
+  {
+    "message_id": "msg_001075",
+    "user": "Jake",
+    "content": "[image: Group presenting flowers to Nirali after the show]",
+    "timestamp": "2024-11-02T17:12:44"
+  },
+  {
+    "message_id": "msg_001076",
+    "user": "Nirali",
+    "content": "you guys came!!",
+    "timestamp": "2024-11-02T17:13:18"
+  },
+  {
+    "message_id": "msg_001077",
+    "user": "Nirali",
+    "content": "thank you so much",
+    "timestamp": "2024-11-02T17:13:24"
+  },
+  {
+    "message_id": "msg_001078",
+    "user": "Mahiru",
+    "content": "You were INCREDIBLE! That mashup was so creative 💕",
+    "timestamp": "2024-11-02T17:13:58"
+  },
+  {
+    "message_id": "msg_001079",
+    "user": "Tanya",
+    "content": "literally i cried",
+    "timestamp": "2024-11-02T17:14:24"
+  },
+  {
+    "message_id": "msg_001080",
+    "user": "Jake",
+    "content": "that was insane nirali. seriously",
+    "timestamp": "2024-11-02T17:14:53"
+  },
+  {
+    "message_id": "msg_001081",
+    "user": "Maya",
+    "content": "you have real talent",
+    "timestamp": "2024-11-02T17:15:22"
+  },
+  {
+    "message_id": "msg_001082",
+    "user": "Amane",
+    "content": "really impressive. you should be proud",
+    "timestamp": "2024-11-02T17:15:51"
+  },
+  {
+    "message_id": "msg_001083",
+    "user": "Nirali",
+    "content": "im so glad you guys were there",
+    "timestamp": "2024-11-02T17:16:27"
+  },
+  {
+    "message_id": "msg_001084",
+    "user": "Nirali",
+    "content": "it meant so much to see you all in the audience",
+    "timestamp": "2024-11-02T17:16:36"
+  },
+  {
+    "message_id": "msg_001085",
+    "user": "Tanya",
+    "content": "ok we HAVE to celebrate",
+    "timestamp": "2024-11-02T17:17:08"
+  },
+  {
+    "message_id": "msg_001086",
+    "user": "Tanya",
+    "content": "dinner?",
+    "timestamp": "2024-11-02T17:17:13"
+  },
+  {
+    "message_id": "msg_001087",
+    "user": "Nirali",
+    "content": "yes!! im starving",
+    "timestamp": "2024-11-02T17:17:38"
+  },
+  {
+    "message_id": "msg_001088",
+    "user": "Mahiru",
+    "content": "Where should we go? Nirali's choice!",
+    "timestamp": "2024-11-02T17:18:14"
+  },
+  {
+    "message_id": "msg_001089",
+    "user": "Nirali",
+    "content": "indian food!!",
+    "timestamp": "2024-11-02T17:18:42"
+  },
+  {
+    "message_id": "msg_001090",
+    "user": "Jake",
+    "content": "perfect",
+    "timestamp": "2024-11-02T17:18:54"
+  },
+  {
+    "message_id": "msg_001091",
+    "user": "Jake",
+    "content": "[image: Celebration dinner at the Indian restaurant]",
+    "timestamp": "2024-11-02T19:24:18"
+  },
+  {
+    "message_id": "msg_001092",
+    "user": "Jake",
+    "content": "celebrating our piano prodigy 🎹",
+    "timestamp": "2024-11-02T19:24:31"
+  },
+  {
+    "message_id": "msg_001093",
+    "user": "Nirali",
+    "content": "best day ever",
+    "timestamp": "2024-11-02T19:25:07"
+  },
+  {
+    "message_id": "msg_001094",
+    "user": "Mahiru",
+    "content": "So proud of you Nirali! 💕🎹",
+    "timestamp": "2024-11-02T19:25:44"
+  },
+  {
+    "message_id": "msg_001095",
+    "user": "Amane",
+    "content": "mahirus birthday is next saturday",
+    "timestamp": "2024-11-12T18:47:22"
+  },
+  {
+    "message_id": "msg_001096",
+    "user": "Tanya",
+    "content": "WHAT",
+    "timestamp": "2024-11-12T18:47:41"
+  },
+  {
+    "message_id": "msg_001097",
+    "user": "Nirali",
+    "content": "MAHIRU",
+    "timestamp": "2024-11-12T18:47:54"
+  },
+  {
+    "message_id": "msg_001098",
+    "user": "Nirali",
+    "content": "YOU WERENT GONNA TELL US??",
+    "timestamp": "2024-11-12T18:48:01"
+  },
+  {
+    "message_id": "msg_001099",
+    "user": "Mahiru",
+    "content": "Amane!! 😅",
+    "timestamp": "2024-11-12T18:48:28"
+  },
+  {
+    "message_id": "msg_001100",
+    "user": "Mahiru",
+    "content": "It's really not a big deal you guys!",
+    "timestamp": "2024-11-12T18:48:37"
+  },
+  {
+    "message_id": "msg_001101",
+    "user": "Jake",
+    "content": "not a big deal???",
+    "timestamp": "2024-11-12T18:49:03"
+  },
+  {
+    "message_id": "msg_001102",
+    "user": "Maya",
+    "content": "mahiru youve planned something for literally every single hangout",
+    "timestamp": "2024-11-12T18:49:38"
+  },
+  {
+    "message_id": "msg_001103",
+    "user": "Maya",
+    "content": "were doing something for your birthday",
+    "timestamp": "2024-11-12T18:49:47"
+  },
+  {
+    "message_id": "msg_001104",
+    "user": "Tanya",
+    "content": "YEAH we're celebrating!!",
+    "timestamp": "2024-11-12T18:50:14"
+  },
+  {
+    "message_id": "msg_001105",
+    "user": "Mahiru",
+    "content": "You really don't have to! I'm happy just hanging out with you all 😊",
+    "timestamp": "2024-11-12T18:50:52"
+  },
+  {
+    "message_id": "msg_001106",
+    "user": "Amane",
+    "content": "too late. its happening",
+    "timestamp": "2024-11-12T18:51:17"
+  },
+  {
+    "message_id": "msg_001107",
+    "user": "Nirali",
+    "content": "ok group chat WITHOUT mahiru",
+    "timestamp": "2024-11-12T18:51:44"
+  },
+  {
+    "message_id": "msg_001108",
+    "user": "Nirali",
+    "content": "we need to plan",
+    "timestamp": "2024-11-12T18:51:50"
+  },
+  {
+    "message_id": "msg_001109",
+    "user": "Mahiru",
+    "content": "Guys!! You're all so sweet but really...",
+    "timestamp": "2024-11-12T18:52:24"
+  },
+  {
+    "message_id": "msg_001110",
+    "user": "Tanya",
+    "content": "nope not listening lalalala",
+    "timestamp": "2024-11-12T18:52:47"
+  },
+  {
+    "message_id": "msg_001111",
+    "user": "Jake",
+    "content": "mahiru youve done so much for all of us",
+    "timestamp": "2024-11-12T18:53:22"
+  },
+  {
+    "message_id": "msg_001112",
+    "user": "Jake",
+    "content": "let us do this for you",
+    "timestamp": "2024-11-12T18:53:29"
+  },
+  {
+    "message_id": "msg_001113",
+    "user": "Mahiru",
+    "content": "You guys are going to make me cry 😭💕",
+    "timestamp": "2024-11-12T18:54:07"
+  },
+  {
+    "message_id": "msg_001114",
+    "user": "Maya",
+    "content": "ok so whats the plan",
+    "timestamp": "2024-11-12T18:54:42"
+  },
+  {
+    "message_id": "msg_001115",
+    "user": "Tanya",
+    "content": "dinner party at amane and jakes place?",
+    "timestamp": "2024-11-12T18:55:18"
+  },
+  {
+    "message_id": "msg_001116",
+    "user": "Amane",
+    "content": "works for me",
+    "timestamp": "2024-11-12T18:55:37"
+  },
+  {
+    "message_id": "msg_001117",
+    "user": "Jake",
+    "content": "yeah we can host",
+    "timestamp": "2024-11-12T18:55:51"
+  },
+  {
+    "message_id": "msg_001118",
+    "user": "Nirali",
+    "content": "ok so we need food, cake, decorations",
+    "timestamp": "2024-11-12T18:56:29"
+  },
+  {
+    "message_id": "msg_001119",
+    "user": "Maya",
+    "content": "ill handle decorations. i can keep it simple and nice",
+    "timestamp": "2024-11-12T18:57:04"
+  },
+  {
+    "message_id": "msg_001120",
+    "user": "Tanya",
+    "content": "ill get the cake!!",
+    "timestamp": "2024-11-12T18:57:32"
+  },
+  {
+    "message_id": "msg_001121",
+    "user": "Nirali",
+    "content": "what kind of cake does mahiru like?",
+    "timestamp": "2024-11-12T18:58:03"
+  },
+  {
+    "message_id": "msg_001122",
+    "user": "Amane",
+    "content": "strawberry shortcake. japanese style",
+    "timestamp": "2024-11-12T18:58:38"
+  },
+  {
+    "message_id": "msg_001123",
+    "user": "Tanya",
+    "content": "ok i know a place that does that",
+    "timestamp": "2024-11-12T18:59:07"
+  },
+  {
+    "message_id": "msg_001124",
+    "user": "Nirali",
+    "content": "what about food?",
+    "timestamp": "2024-11-12T18:59:38"
+  },
+  {
+    "message_id": "msg_001125",
+    "user": "Jake",
+    "content": "we could do another potluck?",
+    "timestamp": "2024-11-12T19:00:12"
+  },
+  {
+    "message_id": "msg_001126",
+    "user": "Maya",
+    "content": "mahiru always cooks for us. we should cook for her",
+    "timestamp": "2024-11-12T19:00:47"
+  },
+  {
+    "message_id": "msg_001127",
+    "user": "Nirali",
+    "content": "yes!! everyone makes their best dish",
+    "timestamp": "2024-11-12T19:01:18"
+  },
+  {
+    "message_id": "msg_001128",
+    "user": "Amane",
+    "content": "ill make her favorite. miso salmon",
+    "timestamp": "2024-11-12T19:01:54"
+  },
+  {
+    "message_id": "msg_001129",
+    "user": "Nirali",
+    "content": "biryani again? or should i do something else",
+    "timestamp": "2024-11-12T19:02:31"
+  },
+  {
+    "message_id": "msg_001130",
+    "user": "Tanya",
+    "content": "biryani!! mahiru loved it last time",
+    "timestamp": "2024-11-12T19:03:02"
+  },
+  {
+    "message_id": "msg_001131",
+    "user": "Maya",
+    "content": "ill make my tacos again",
+    "timestamp": "2024-11-12T19:03:34"
+  },
+  {
+    "message_id": "msg_001132",
+    "user": "Jake",
+    "content": "wait should i actually try to cook something",
+    "timestamp": "2024-11-12T19:04:08"
+  },
+  {
+    "message_id": "msg_001133",
+    "user": "Amane",
+    "content": "no",
+    "timestamp": "2024-11-12T19:04:22"
+  },
+  {
+    "message_id": "msg_001134",
+    "user": "Nirali",
+    "content": "LMAOOO",
+    "timestamp": "2024-11-12T19:04:34"
+  },
+  {
+    "message_id": "msg_001135",
+    "user": "Tanya",
+    "content": "😂😂😂",
+    "timestamp": "2024-11-12T19:04:42"
+  },
+  {
+    "message_id": "msg_001136",
+    "user": "Jake",
+    "content": "fair",
+    "timestamp": "2024-11-12T19:04:56"
+  },
+  {
+    "message_id": "msg_001137",
+    "user": "Jake",
+    "content": "ill handle drinks and appetizers then",
+    "timestamp": "2024-11-12T19:05:04"
+  },
+  {
+    "message_id": "msg_001138",
+    "user": "Tanya",
+    "content": "same ill help with that",
+    "timestamp": "2024-11-12T19:05:31"
+  },
+  {
+    "message_id": "msg_001139",
+    "user": "Maya",
+    "content": "what time should we tell mahiru",
+    "timestamp": "2024-11-12T19:06:14"
+  },
+  {
+    "message_id": "msg_001140",
+    "user": "Amane",
+    "content": "7pm. ill make sure she gets there",
+    "timestamp": "2024-11-12T19:06:48"
+  },
+  {
+    "message_id": "msg_001141",
+    "user": "Nirali",
+    "content": "ok and we all need to be there by 6:30 to set up",
+    "timestamp": "2024-11-12T19:07:24"
+  },
+  {
+    "message_id": "msg_001142",
+    "user": "Tanya",
+    "content": "ill actually be on time for this i promise",
+    "timestamp": "2024-11-12T19:07:57"
+  },
+  {
+    "message_id": "msg_001143",
+    "user": "Jake",
+    "content": "this is gonna be good",
+    "timestamp": "2024-11-12T19:08:32"
+  },
+  {
+    "message_id": "msg_001144",
+    "user": "Mahiru",
+    "content": "Amane says we're having a casual dinner at your place Saturday? 😊",
+    "timestamp": "2024-11-14T16:33:18"
+  },
+  {
+    "message_id": "msg_001145",
+    "user": "Jake",
+    "content": "yep! just a chill hangout",
+    "timestamp": "2024-11-14T16:34:02"
+  },
+  {
+    "message_id": "msg_001146",
+    "user": "Mahiru",
+    "content": "Should I bring anything?",
+    "timestamp": "2024-11-14T16:34:37"
+  },
+  {
+    "message_id": "msg_001147",
+    "user": "Nirali",
+    "content": "nope just yourself!",
+    "timestamp": "2024-11-14T16:35:04"
+  },
+  {
+    "message_id": "msg_001148",
+    "user": "Mahiru",
+    "content": "Are you sure? I can make something...",
+    "timestamp": "2024-11-14T16:35:42"
+  },
+  {
+    "message_id": "msg_001149",
+    "user": "Amane",
+    "content": "no cooking. just come",
+    "timestamp": "2024-11-14T16:36:11"
+  },
+  {
+    "message_id": "msg_001150",
+    "user": "Mahiru",
+    "content": "Okay! 💕",
+    "timestamp": "2024-11-14T16:36:38"
+  },
+  {
+    "message_id": "msg_001151",
+    "user": "Tanya",
+    "content": "ok picked up the cake",
+    "timestamp": "2024-11-16T15:22:44"
+  },
+  {
+    "message_id": "msg_001152",
+    "user": "Tanya",
+    "content": "[image: Beautiful strawberry shortcake]",
+    "timestamp": "2024-11-16T15:23:02"
+  },
+  {
+    "message_id": "msg_001153",
+    "user": "Nirali",
+    "content": "OMG THAT LOOKS PERFECT",
+    "timestamp": "2024-11-16T15:23:38"
+  },
+  {
+    "message_id": "msg_001154",
+    "user": "Jake",
+    "content": "mahiru is gonna cry",
+    "timestamp": "2024-11-16T15:24:07"
+  },
+  {
+    "message_id": "msg_001155",
+    "user": "Maya",
+    "content": "got decorations. keeping it classy not too much",
+    "timestamp": "2024-11-16T15:47:33"
+  },
+  {
+    "message_id": "msg_001156",
+    "user": "Nirali",
+    "content": "biryani is in progress!",
+    "timestamp": "2024-11-16T16:18:22"
+  },
+  {
+    "message_id": "msg_001157",
+    "user": "Amane",
+    "content": "salmon is prepped. cooking at 6",
+    "timestamp": "2024-11-16T16:44:18"
+  },
+  {
+    "message_id": "msg_001158",
+    "user": "Maya",
+    "content": "heading over now with decorations and food",
+    "timestamp": "2024-11-16T18:08:47"
+  },
+  {
+    "message_id": "msg_001159",
+    "user": "Tanya",
+    "content": "omw with cake and apps",
+    "timestamp": "2024-11-16T18:12:33"
+  },
+  {
+    "message_id": "msg_001160",
+    "user": "Tanya",
+    "content": "AND IM EARLY",
+    "timestamp": "2024-11-16T18:12:40"
+  },
+  {
+    "message_id": "msg_001161",
+    "user": "Nirali",
+    "content": "LMAOOO character development",
+    "timestamp": "2024-11-16T18:13:14"
+  },
+  {
+    "message_id": "msg_001162",
+    "user": "Jake",
+    "content": "[image: Apartment decorated with balloons and streamers]",
+    "timestamp": "2024-11-16T18:34:22"
+  },
+  {
+    "message_id": "msg_001163",
+    "user": "Jake",
+    "content": "maya really made it look good",
+    "timestamp": "2024-11-16T18:34:33"
+  },
+  {
+    "message_id": "msg_001164",
+    "user": "Maya",
+    "content": "told you. classy",
+    "timestamp": "2024-11-16T18:35:07"
+  },
+  {
+    "message_id": "msg_001165",
+    "user": "Nirali",
+    "content": "ok all the food is set up",
+    "timestamp": "2024-11-16T18:48:18"
+  },
+  {
+    "message_id": "msg_001166",
+    "user": "Jake",
+    "content": "table looks incredible",
+    "timestamp": "2024-11-16T18:48:44"
+  },
+  {
+    "message_id": "msg_001167",
+    "user": "Amane",
+    "content": "leaving my place now with mahiru",
+    "timestamp": "2024-11-16T18:52:33"
+  },
+  {
+    "message_id": "msg_001168",
+    "user": "Amane",
+    "content": "be there in 5",
+    "timestamp": "2024-11-16T18:52:40"
+  },
+  {
+    "message_id": "msg_001169",
+    "user": "Tanya",
+    "content": "everyone ready??",
+    "timestamp": "2024-11-16T18:53:14"
+  },
+  {
+    "message_id": "msg_001170",
+    "user": "Nirali",
+    "content": "lights off!",
+    "timestamp": "2024-11-16T18:56:42"
+  },
+  {
+    "message_id": "msg_001171",
+    "user": "Jake",
+    "content": "shhhh",
+    "timestamp": "2024-11-16T18:57:08"
+  },
+  {
+    "message_id": "msg_001172",
+    "user": "Tanya",
+    "content": "SURPRISE!!!!! 🎉🎉🎉",
+    "timestamp": "2024-11-16T18:58:37"
+  },
+  {
+    "message_id": "msg_001173",
+    "user": "Nirali",
+    "content": "HAPPY BIRTHDAY MAHIRU",
+    "timestamp": "2024-11-16T18:58:44"
+  },
+  {
+    "message_id": "msg_001174",
+    "user": "Mahiru",
+    "content": "Oh my god you guys 😭😭😭",
+    "timestamp": "2024-11-16T18:59:18"
+  },
+  {
+    "message_id": "msg_001175",
+    "user": "Mahiru",
+    "content": "I can't believe you did all this",
+    "timestamp": "2024-11-16T18:59:27"
+  },
+  {
+    "message_id": "msg_001176",
+    "user": "Jake",
+    "content": "[image: Mahiru crying happy tears with her hands over her mouth]",
+    "timestamp": "2024-11-16T18:59:52"
+  },
+  {
+    "message_id": "msg_001177",
+    "user": "Maya",
+    "content": "we told you we were celebrating",
+    "timestamp": "2024-11-16T19:00:24"
+  },
+  {
+    "message_id": "msg_001178",
+    "user": "Tanya",
+    "content": "you do so much for us mahiru",
+    "timestamp": "2024-11-16T19:00:53"
+  },
+  {
+    "message_id": "msg_001179",
+    "user": "Tanya",
+    "content": "its your turn to be celebrated",
+    "timestamp": "2024-11-16T19:01:02"
+  },
+  {
+    "message_id": "msg_001180",
+    "user": "Mahiru",
+    "content": "I love you all so much 💕",
+    "timestamp": "2024-11-16T19:01:38"
+  },
+  {
+    "message_id": "msg_001181",
+    "user": "Nirali",
+    "content": "ok ok no more crying lets eat!",
+    "timestamp": "2024-11-16T19:02:17"
+  },
+  {
+    "message_id": "msg_001182",
+    "user": "Mahiru",
+    "content": "Wait you all cooked??",
+    "timestamp": "2024-11-16T19:04:44"
+  },
+  {
+    "message_id": "msg_001183",
+    "user": "Amane",
+    "content": "made your favorite",
+    "timestamp": "2024-11-16T19:05:12"
+  },
+  {
+    "message_id": "msg_001184",
+    "user": "Mahiru",
+    "content": "Miso salmon!! 😭 Amane...",
+    "timestamp": "2024-11-16T19:05:44"
+  },
+  {
+    "message_id": "msg_001185",
+    "user": "Nirali",
+    "content": "and i made extra spicy biryani just how you like it",
+    "timestamp": "2024-11-16T19:06:18"
+  },
+  {
+    "message_id": "msg_001186",
+    "user": "Mahiru",
+    "content": "You remembered! 🌶️💕",
+    "timestamp": "2024-11-16T19:06:47"
+  },
+  {
+    "message_id": "msg_001187",
+    "user": "Maya",
+    "content": "and of course tacos",
+    "timestamp": "2024-11-16T19:07:14"
+  },
+  {
+    "message_id": "msg_001188",
+    "user": "Jake",
+    "content": "[image: Full spread of food on the table]",
+    "timestamp": "2024-11-16T19:14:33"
+  },
+  {
+    "message_id": "msg_001189",
+    "user": "Jake",
+    "content": "feast fit for our favorite person",
+    "timestamp": "2024-11-16T19:14:45"
+  },
+  {
+    "message_id": "msg_001190",
+    "user": "Mahiru",
+    "content": "This is the best birthday I've ever had 😊",
+    "timestamp": "2024-11-16T19:32:47"
+  },
+  {
+    "message_id": "msg_001191",
+    "user": "Tanya",
+    "content": "WAIT theres still cake",
+    "timestamp": "2024-11-16T19:58:14"
+  },
+  {
+    "message_id": "msg_001192",
+    "user": "Nirali",
+    "content": "lights off again!",
+    "timestamp": "2024-11-16T19:58:38"
+  },
+  {
+    "message_id": "msg_001193",
+    "user": "Jake",
+    "content": "[image: Strawberry shortcake with lit candles]",
+    "timestamp": "2024-11-16T19:59:44"
+  },
+  {
+    "message_id": "msg_001194",
+    "user": "Mahiru",
+    "content": "It's a Japanese strawberry shortcake!! My favorite 😭💕",
+    "timestamp": "2024-11-16T20:00:22"
+  },
+  {
+    "message_id": "msg_001195",
+    "user": "Amane",
+    "content": "of course it is",
+    "timestamp": "2024-11-16T20:00:44"
+  },
+  {
+    "message_id": "msg_001196",
+    "user": "Tanya",
+    "content": "make a wish!!",
+    "timestamp": "2024-11-16T20:01:08"
+  },
+  {
+    "message_id": "msg_001197",
+    "user": "Mahiru",
+    "content": "I don't even need to wish for anything. I have everything I want right here 💕",
+    "timestamp": "2024-11-16T20:01:52"
+  },
+  {
+    "message_id": "msg_001198",
+    "user": "Nirali",
+    "content": "MAHIRU STOP YOURE GONNA MAKE ME CRY AGAIN",
+    "timestamp": "2024-11-16T20:02:24"
+  },
+  {
+    "message_id": "msg_001199",
+    "user": "Tanya",
+    "content": "too late im already crying",
+    "timestamp": "2024-11-16T20:02:47"
+  },
+  {
+    "message_id": "msg_001200",
+    "user": "Jake",
+    "content": "[image: Group photo around Mahiru with the cake]",
+    "timestamp": "2024-11-16T20:08:33"
+  },
+  {
+    "message_id": "msg_001201",
+    "user": "Jake",
+    "content": "best group photo yet",
+    "timestamp": "2024-11-16T20:08:44"
+  },
+  {
+    "message_id": "msg_001202",
+    "user": "Maya",
+    "content": "this cake is really good",
+    "timestamp": "2024-11-16T20:14:37"
+  },
+  {
+    "message_id": "msg_001203",
+    "user": "Mahiru",
+    "content": "It's perfect! Everything is perfect",
+    "timestamp": "2024-11-16T20:15:14"
+  },
+  {
+    "message_id": "msg_001204",
+    "user": "Nirali",
+    "content": "you deserve it mahiru",
+    "timestamp": "2024-11-16T20:15:47"
+  },
+  {
+    "message_id": "msg_001205",
+    "user": "Nirali",
+    "content": "youre always taking care of everyone",
+    "timestamp": "2024-11-16T20:15:56"
+  },
+  {
+    "message_id": "msg_001206",
+    "user": "Maya",
+    "content": "yeah. you make sure everyone is included and happy",
+    "timestamp": "2024-11-16T20:16:33"
+  },
+  {
+    "message_id": "msg_001207",
+    "user": "Tanya",
+    "content": "youre like the heart of our group",
+    "timestamp": "2024-11-16T20:17:08"
+  },
+  {
+    "message_id": "msg_001208",
+    "user": "Jake",
+    "content": "fr. we wouldnt be as close without you",
+    "timestamp": "2024-11-16T20:17:44"
+  },
+  {
+    "message_id": "msg_001209",
+    "user": "Amane",
+    "content": "youre special mahiru. to all of us",
+    "timestamp": "2024-11-16T20:18:22"
+  },
+  {
+    "message_id": "msg_001210",
+    "user": "Mahiru",
+    "content": "I don't even know what to say 😭",
+    "timestamp": "2024-11-16T20:19:07"
+  },
+  {
+    "message_id": "msg_001211",
+    "user": "Mahiru",
+    "content": "You all mean the world to me",
+    "timestamp": "2024-11-16T20:19:18"
+  },
+  {
+    "message_id": "msg_001212",
+    "user": "Mahiru",
+    "content": "This whole year... all these memories we've made together... I treasure every single moment",
+    "timestamp": "2024-11-16T20:19:44"
+  },
+  {
+    "message_id": "msg_001213",
+    "user": "Tanya",
+    "content": "from coffee study sessions to underground raves lol",
+    "timestamp": "2024-11-16T20:20:22"
+  },
+  {
+    "message_id": "msg_001214",
+    "user": "Nirali",
+    "content": "beach days and farmers markets",
+    "timestamp": "2024-11-16T20:20:48"
+  },
+  {
+    "message_id": "msg_001215",
+    "user": "Jake",
+    "content": "kpop concerts and game nights",
+    "timestamp": "2024-11-16T20:21:14"
+  },
+  {
+    "message_id": "msg_001216",
+    "user": "Maya",
+    "content": "so many good meals",
+    "timestamp": "2024-11-16T20:21:38"
+  },
+  {
+    "message_id": "msg_001217",
+    "user": "Amane",
+    "content": "and many more to come",
+    "timestamp": "2024-11-16T20:22:04"
+  },
+  {
+    "message_id": "msg_001218",
+    "user": "Mahiru",
+    "content": "To many more adventures with my favorite people 💕🥂",
+    "timestamp": "2024-11-16T20:22:47"
+  },
+  {
+    "message_id": "msg_001219",
+    "user": "Nirali",
+    "content": "cheers to that!!",
+    "timestamp": "2024-11-16T20:23:12"
+  },
+  {
+    "message_id": "msg_001220",
+    "user": "Tanya",
+    "content": "🥂🥂🥂",
+    "timestamp": "2024-11-16T20:23:24"
+  },
+  {
+    "message_id": "msg_001221",
+    "user": "Jake",
+    "content": "[image: Group toast with drinks raised]",
+    "timestamp": "2024-11-16T20:24:18"
+  },
+  {
+    "message_id": "msg_001222",
+    "user": "Jake",
+    "content": "to mahiru. and to us 📸",
+    "timestamp": "2024-11-16T20:24:33"
+  },
+  {
+    "message_id": "msg_001223",
+    "user": "Mahiru",
+    "content": "Best birthday ever. Thank you for being my family away from home 💕",
+    "timestamp": "2024-11-16T21:47:52"
+  },
+  {
+    "message_id": "msg_001224",
+    "user": "Nirali",
+    "content": "always ❤️",
+    "timestamp": "2024-11-16T21:48:24"
+  },
+  {
+    "message_id": "msg_001225",
+    "user": "Tanya",
+    "content": "love you mahiru 💕",
+    "timestamp": "2024-11-16T21:48:47"
+  },
+  {
+    "message_id": "msg_001226",
+    "user": "Maya",
+    "content": "happy birthday 🎂",
+    "timestamp": "2024-11-16T21:49:14"
+  },
+  {
+    "message_id": "msg_001227",
+    "user": "Jake",
+    "content": "happy birthday mahiru 🎉",
+    "timestamp": "2024-11-16T21:49:38"
+  },
+  {
+    "message_id": "msg_001228",
+    "user": "Amane",
+    "content": "happy birthday ❤️",
+    "timestamp": "2024-11-16T21:50:07"
+  }
+]

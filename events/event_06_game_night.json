@@ -1,0 +1,488 @@
+[
+  {
+    "message_id": "msg_000392",
+    "user": "Jake",
+    "content": "yo game night at our place this friday?",
+    "timestamp": "2024-06-10T14:22:17"
+  },
+  {
+    "message_id": "msg_000393",
+    "user": "Amane",
+    "content": "we have mario kart",
+    "timestamp": "2024-06-10T14:22:33"
+  },
+  {
+    "message_id": "msg_000394",
+    "user": "Nirali",
+    "content": "OMG YES",
+    "timestamp": "2024-06-10T14:23:04"
+  },
+  {
+    "message_id": "msg_000395",
+    "user": "Tanya",
+    "content": "yessss im so down",
+    "timestamp": "2024-06-10T14:23:28"
+  },
+  {
+    "message_id": "msg_000396",
+    "user": "Mahiru",
+    "content": "That sounds so fun! What time?",
+    "timestamp": "2024-06-10T14:24:03"
+  },
+  {
+    "message_id": "msg_000397",
+    "user": "Jake",
+    "content": "like 7? we can order pizza or something",
+    "timestamp": "2024-06-10T14:24:41"
+  },
+  {
+    "message_id": "msg_000398",
+    "user": "Maya",
+    "content": "or we could do potluck",
+    "timestamp": "2024-06-10T14:25:14"
+  },
+  {
+    "message_id": "msg_000399",
+    "user": "Maya",
+    "content": "cheaper than ordering",
+    "timestamp": "2024-06-10T14:25:20"
+  },
+  {
+    "message_id": "msg_000400",
+    "user": "Mahiru",
+    "content": "Ooh I like that idea! I can bring some snacks",
+    "timestamp": "2024-06-10T14:25:52"
+  },
+  {
+    "message_id": "msg_000401",
+    "user": "Nirali",
+    "content": "i can make samosas!!",
+    "timestamp": "2024-06-10T14:26:17"
+  },
+  {
+    "message_id": "msg_000402",
+    "user": "Tanya",
+    "content": "omg nirali your samosas are so good",
+    "timestamp": "2024-06-10T14:26:44"
+  },
+  {
+    "message_id": "msg_000403",
+    "user": "Jake",
+    "content": "wait yeah potluck is a good call",
+    "timestamp": "2024-06-10T14:27:08"
+  },
+  {
+    "message_id": "msg_000404",
+    "user": "Jake",
+    "content": "ill grab chips and dip",
+    "timestamp": "2024-06-10T14:27:15"
+  },
+  {
+    "message_id": "msg_000405",
+    "user": "Amane",
+    "content": "we have drinks already",
+    "timestamp": "2024-06-10T14:27:38"
+  },
+  {
+    "message_id": "msg_000406",
+    "user": "Tanya",
+    "content": "ill bring cookies or brownies!",
+    "timestamp": "2024-06-10T14:28:02"
+  },
+  {
+    "message_id": "msg_000407",
+    "user": "Maya",
+    "content": "ill bring a veggie tray",
+    "timestamp": "2024-06-10T14:28:31"
+  },
+  {
+    "message_id": "msg_000408",
+    "user": "Mahiru",
+    "content": "Perfect! I'll make some onigiri rice balls 😊",
+    "timestamp": "2024-06-10T14:29:04"
+  },
+  {
+    "message_id": "msg_000409",
+    "user": "Nirali",
+    "content": "this is gonna be so good",
+    "timestamp": "2024-06-10T14:29:27"
+  },
+  {
+    "message_id": "msg_000410",
+    "user": "Jake",
+    "content": "[location: Apartment - 742 W 28th St Unit 3B]",
+    "timestamp": "2024-06-10T14:30:15"
+  },
+  {
+    "message_id": "msg_000411",
+    "user": "Jake",
+    "content": "7pm friday see yall there",
+    "timestamp": "2024-06-10T14:30:23"
+  },
+  {
+    "message_id": "msg_000412",
+    "user": "Amane",
+    "content": "just fyi parking is tight on our street",
+    "timestamp": "2024-06-10T14:31:07"
+  },
+  {
+    "message_id": "msg_000413",
+    "user": "Amane",
+    "content": "might need to street park a few blocks away",
+    "timestamp": "2024-06-10T14:31:15"
+  },
+  {
+    "message_id": "msg_000414",
+    "user": "Maya",
+    "content": "ill take the metro anyway",
+    "timestamp": "2024-06-10T14:31:42"
+  },
+  {
+    "message_id": "msg_000415",
+    "user": "Nirali",
+    "content": "same here",
+    "timestamp": "2024-06-10T14:31:54"
+  },
+  {
+    "message_id": "msg_000416",
+    "user": "Mahiru",
+    "content": "[calendar: Game Night - Amane & Jake's - Fri Jun 14, 7:00 PM]",
+    "timestamp": "2024-06-10T14:32:38"
+  },
+  {
+    "message_id": "msg_000417",
+    "user": "Tanya",
+    "content": "guys i might be a tiny bit late",
+    "timestamp": "2024-06-14T18:53:24"
+  },
+  {
+    "message_id": "msg_000418",
+    "user": "Tanya",
+    "content": "the brownies are taking longer than expected",
+    "timestamp": "2024-06-14T18:53:33"
+  },
+  {
+    "message_id": "msg_000419",
+    "user": "Jake",
+    "content": "classic tanya lol",
+    "timestamp": "2024-06-14T18:54:01"
+  },
+  {
+    "message_id": "msg_000420",
+    "user": "Nirali",
+    "content": "im on the metro rn",
+    "timestamp": "2024-06-14T18:54:28"
+  },
+  {
+    "message_id": "msg_000421",
+    "user": "Maya",
+    "content": "same. should be there in like 15",
+    "timestamp": "2024-06-14T18:54:52"
+  },
+  {
+    "message_id": "msg_000422",
+    "user": "Mahiru",
+    "content": "Just pulled up! The onigiri turned out so cute 🍙",
+    "timestamp": "2024-06-14T18:57:14"
+  },
+  {
+    "message_id": "msg_000423",
+    "user": "Amane",
+    "content": "come on up. doors unlocked",
+    "timestamp": "2024-06-14T18:57:38"
+  },
+  {
+    "message_id": "msg_000424",
+    "user": "Nirali",
+    "content": "here!!",
+    "timestamp": "2024-06-14T19:08:42"
+  },
+  {
+    "message_id": "msg_000425",
+    "user": "Maya",
+    "content": "walking up now",
+    "timestamp": "2024-06-14T19:11:27"
+  },
+  {
+    "message_id": "msg_000426",
+    "user": "Tanya",
+    "content": "brownies are done!! omw",
+    "timestamp": "2024-06-14T19:18:53"
+  },
+  {
+    "message_id": "msg_000427",
+    "user": "Jake",
+    "content": "[image: Potluck spread on the coffee table]",
+    "timestamp": "2024-06-14T19:24:17"
+  },
+  {
+    "message_id": "msg_000428",
+    "user": "Jake",
+    "content": "we eating good tonight",
+    "timestamp": "2024-06-14T19:24:26"
+  },
+  {
+    "message_id": "msg_000429",
+    "user": "Mahiru",
+    "content": "Everything looks amazing!",
+    "timestamp": "2024-06-14T19:24:51"
+  },
+  {
+    "message_id": "msg_000430",
+    "user": "Nirali",
+    "content": "ok but can we talk about how good mahirus onigiri look",
+    "timestamp": "2024-06-14T19:25:18"
+  },
+  {
+    "message_id": "msg_000431",
+    "user": "Maya",
+    "content": "theyre really good. perfect amount of salt",
+    "timestamp": "2024-06-14T19:25:47"
+  },
+  {
+    "message_id": "msg_000432",
+    "user": "Mahiru",
+    "content": "Thank you! I made some with salmon and some with pickled plum 😊",
+    "timestamp": "2024-06-14T19:26:21"
+  },
+  {
+    "message_id": "msg_000433",
+    "user": "Tanya",
+    "content": "IM HERE",
+    "timestamp": "2024-06-14T19:31:04"
+  },
+  {
+    "message_id": "msg_000434",
+    "user": "Tanya",
+    "content": "wait which apartment",
+    "timestamp": "2024-06-14T19:31:11"
+  },
+  {
+    "message_id": "msg_000435",
+    "user": "Amane",
+    "content": "3B",
+    "timestamp": "2024-06-14T19:31:24"
+  },
+  {
+    "message_id": "msg_000436",
+    "user": "Jake",
+    "content": "ok so mario kart tournament time",
+    "timestamp": "2024-06-14T19:47:33"
+  },
+  {
+    "message_id": "msg_000437",
+    "user": "Nirali",
+    "content": "LETS GOOO",
+    "timestamp": "2024-06-14T19:47:48"
+  },
+  {
+    "message_id": "msg_000438",
+    "user": "Tanya",
+    "content": "im choosing princess peach",
+    "timestamp": "2024-06-14T19:48:12"
+  },
+  {
+    "message_id": "msg_000439",
+    "user": "Maya",
+    "content": "fair warning i havent played this in years",
+    "timestamp": "2024-06-14T19:48:41"
+  },
+  {
+    "message_id": "msg_000440",
+    "user": "Amane",
+    "content": "youll be fine",
+    "timestamp": "2024-06-14T19:48:54"
+  },
+  {
+    "message_id": "msg_000441",
+    "user": "Nirali",
+    "content": "YOSHI GANG",
+    "timestamp": "2024-06-14T19:49:08"
+  },
+  {
+    "message_id": "msg_000442",
+    "user": "Jake",
+    "content": "im going luigi",
+    "timestamp": "2024-06-14T19:49:23"
+  },
+  {
+    "message_id": "msg_000443",
+    "user": "Mahiru",
+    "content": "I'll be Mario! 🍄",
+    "timestamp": "2024-06-14T19:49:47"
+  },
+  {
+    "message_id": "msg_000444",
+    "user": "Nirali",
+    "content": "OH MY GOD",
+    "timestamp": "2024-06-14T20:12:38"
+  },
+  {
+    "message_id": "msg_000445",
+    "user": "Nirali",
+    "content": "BLUE SHELL",
+    "timestamp": "2024-06-14T20:12:42"
+  },
+  {
+    "message_id": "msg_000446",
+    "user": "Nirali",
+    "content": "NO NO NO",
+    "timestamp": "2024-06-14T20:12:46"
+  },
+  {
+    "message_id": "msg_000447",
+    "user": "Jake",
+    "content": "LMAOOOO",
+    "timestamp": "2024-06-14T20:12:54"
+  },
+  {
+    "message_id": "msg_000448",
+    "user": "Tanya",
+    "content": "GET WRECKED",
+    "timestamp": "2024-06-14T20:13:02"
+  },
+  {
+    "message_id": "msg_000449",
+    "user": "Amane",
+    "content": "[voice message: 0:03]",
+    "timestamp": "2024-06-14T20:24:17"
+  },
+  {
+    "message_id": "msg_000450",
+    "user": "Maya",
+    "content": "did amane just laugh out loud",
+    "timestamp": "2024-06-14T20:24:38"
+  },
+  {
+    "message_id": "msg_000451",
+    "user": "Maya",
+    "content": "that was tanya falling off rainbow road THREE TIMES",
+    "timestamp": "2024-06-14T20:24:47"
+  },
+  {
+    "message_id": "msg_000452",
+    "user": "Tanya",
+    "content": "STOP THAT MAP IS HARD",
+    "timestamp": "2024-06-14T20:25:03"
+  },
+  {
+    "message_id": "msg_000453",
+    "user": "Nirali",
+    "content": "😂😂😂",
+    "timestamp": "2024-06-14T20:25:14"
+  },
+  {
+    "message_id": "msg_000454",
+    "user": "Mahiru",
+    "content": "Haha this is so much fun! I haven't played games like this in forever",
+    "timestamp": "2024-06-14T20:36:29"
+  },
+  {
+    "message_id": "msg_000455",
+    "user": "Jake",
+    "content": "ok final race",
+    "timestamp": "2024-06-14T20:51:42"
+  },
+  {
+    "message_id": "msg_000456",
+    "user": "Jake",
+    "content": "winner takes all",
+    "timestamp": "2024-06-14T20:51:48"
+  },
+  {
+    "message_id": "msg_000457",
+    "user": "Nirali",
+    "content": "IM READY",
+    "timestamp": "2024-06-14T20:52:03"
+  },
+  {
+    "message_id": "msg_000458",
+    "user": "Amane",
+    "content": "lets go",
+    "timestamp": "2024-06-14T20:52:14"
+  },
+  {
+    "message_id": "msg_000459",
+    "user": "Jake",
+    "content": "[image: Screen showing final race results - Amane in 1st place]",
+    "timestamp": "2024-06-14T20:58:27"
+  },
+  {
+    "message_id": "msg_000460",
+    "user": "Jake",
+    "content": "amane with the clutch win",
+    "timestamp": "2024-06-14T20:58:36"
+  },
+  {
+    "message_id": "msg_000461",
+    "user": "Nirali",
+    "content": "HOW",
+    "timestamp": "2024-06-14T20:58:48"
+  },
+  {
+    "message_id": "msg_000462",
+    "user": "Nirali",
+    "content": "he was so quiet the whole time",
+    "timestamp": "2024-06-14T20:58:55"
+  },
+  {
+    "message_id": "msg_000463",
+    "user": "Amane",
+    "content": "i let my racing do the talking",
+    "timestamp": "2024-06-14T20:59:14"
+  },
+  {
+    "message_id": "msg_000464",
+    "user": "Tanya",
+    "content": "LMAOOO",
+    "timestamp": "2024-06-14T20:59:24"
+  },
+  {
+    "message_id": "msg_000465",
+    "user": "Mahiru",
+    "content": "Haha congrats Amane! 🏆",
+    "timestamp": "2024-06-14T20:59:42"
+  },
+  {
+    "message_id": "msg_000466",
+    "user": "Maya",
+    "content": "i came in last but i had fun",
+    "timestamp": "2024-06-14T21:00:18"
+  },
+  {
+    "message_id": "msg_000467",
+    "user": "Jake",
+    "content": "[image: Group photo on the couch with controllers]",
+    "timestamp": "2024-06-14T21:23:44"
+  },
+  {
+    "message_id": "msg_000468",
+    "user": "Tanya",
+    "content": "send me that!!",
+    "timestamp": "2024-06-14T21:24:07"
+  },
+  {
+    "message_id": "msg_000469",
+    "user": "Nirali",
+    "content": "such a fun night",
+    "timestamp": "2024-06-14T22:18:33"
+  },
+  {
+    "message_id": "msg_000470",
+    "user": "Mahiru",
+    "content": "Thank you for hosting! Your apartment is so cozy 😊",
+    "timestamp": "2024-06-14T22:19:08"
+  },
+  {
+    "message_id": "msg_000471",
+    "user": "Jake",
+    "content": "anytime! we should do this again",
+    "timestamp": "2024-06-14T22:19:41"
+  },
+  {
+    "message_id": "msg_000472",
+    "user": "Amane",
+    "content": "agreed",
+    "timestamp": "2024-06-14T22:19:52"
+  }
+]

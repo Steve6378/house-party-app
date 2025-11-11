@@ -1,0 +1,542 @@
+[
+  {
+    "message_id": "msg_000165",
+    "user": "Jake",
+    "content": "yo its supposed to be like 80 degrees this weekend",
+    "timestamp": "2024-05-15T15:22:41"
+  },
+  {
+    "message_id": "msg_000166",
+    "user": "Jake",
+    "content": "beach day?",
+    "timestamp": "2024-05-15T15:22:47"
+  },
+  {
+    "message_id": "msg_000167",
+    "user": "Nirali",
+    "content": "YESSSS",
+    "timestamp": "2024-05-15T15:23:12"
+  },
+  {
+    "message_id": "msg_000168",
+    "user": "Tanya",
+    "content": "omg yes i need to tan",
+    "timestamp": "2024-05-15T15:23:54"
+  },
+  {
+    "message_id": "msg_000169",
+    "user": "Mahiru",
+    "content": "That sounds perfect! Santa Monica or Venice?",
+    "timestamp": "2024-05-15T15:24:37"
+  },
+  {
+    "message_id": "msg_000170",
+    "user": "Jake",
+    "content": "santa monica has better parking",
+    "timestamp": "2024-05-15T15:25:03"
+  },
+  {
+    "message_id": "msg_000171",
+    "user": "Maya",
+    "content": "parking costs money though",
+    "timestamp": "2024-05-15T15:25:41"
+  },
+  {
+    "message_id": "msg_000172",
+    "user": "Amane",
+    "content": "we can split it",
+    "timestamp": "2024-05-15T15:26:02"
+  },
+  {
+    "message_id": "msg_000173",
+    "user": "Maya",
+    "content": "ok that works. probably like $3-4 per person",
+    "timestamp": "2024-05-15T15:26:38"
+  },
+  {
+    "message_id": "msg_000174",
+    "user": "Mahiru",
+    "content": "Saturday or Sunday?",
+    "timestamp": "2024-05-15T15:27:14"
+  },
+  {
+    "message_id": "msg_000175",
+    "user": "Tanya",
+    "content": "saturday!! sunday i have plans",
+    "timestamp": "2024-05-15T15:27:52"
+  },
+  {
+    "message_id": "msg_000176",
+    "user": "Nirali",
+    "content": "saturdays good for me",
+    "timestamp": "2024-05-15T15:28:09"
+  },
+  {
+    "message_id": "msg_000177",
+    "user": "Jake",
+    "content": "works",
+    "timestamp": "2024-05-15T15:28:21"
+  },
+  {
+    "message_id": "msg_000178",
+    "user": "Amane",
+    "content": "i can drive. fits 4 people",
+    "timestamp": "2024-05-15T15:28:54"
+  },
+  {
+    "message_id": "msg_000179",
+    "user": "Maya",
+    "content": "i can take the metro if needed",
+    "timestamp": "2024-05-15T15:29:27"
+  },
+  {
+    "message_id": "msg_000180",
+    "user": "Mahiru",
+    "content": "No need! We can figure out the logistics. Maybe someone can carpool?",
+    "timestamp": "2024-05-15T15:30:11"
+  },
+  {
+    "message_id": "msg_000181",
+    "user": "Nirali",
+    "content": "i dont have a car but i can chip in extra for gas!",
+    "timestamp": "2024-05-15T15:30:48"
+  },
+  {
+    "message_id": "msg_000182",
+    "user": "Amane",
+    "content": "dont worry about it",
+    "timestamp": "2024-05-15T15:31:03"
+  },
+  {
+    "message_id": "msg_000183",
+    "user": "Jake",
+    "content": "actually wait i might need to uber",
+    "timestamp": "2024-05-15T15:31:42"
+  },
+  {
+    "message_id": "msg_000184",
+    "user": "Jake",
+    "content": "im bringing my camera and i dont want it getting damaged in a packed car",
+    "timestamp": "2024-05-15T15:31:51"
+  },
+  {
+    "message_id": "msg_000185",
+    "user": "Tanya",
+    "content": "jake and his camera lmaooo",
+    "timestamp": "2024-05-15T15:32:18"
+  },
+  {
+    "message_id": "msg_000186",
+    "user": "Jake",
+    "content": "its expensive ok 😭",
+    "timestamp": "2024-05-15T15:32:34"
+  },
+  {
+    "message_id": "msg_000187",
+    "user": "Nirali",
+    "content": "\"just a hobby\" he says",
+    "timestamp": "2024-05-15T15:32:51"
+  },
+  {
+    "message_id": "msg_000188",
+    "user": "Jake",
+    "content": "IT IS",
+    "timestamp": "2024-05-15T15:33:02"
+  },
+  {
+    "message_id": "msg_000189",
+    "user": "Mahiru",
+    "content": "Haha okay so Amane can take 3 people and Jake will meet us there?",
+    "timestamp": "2024-05-15T15:33:44"
+  },
+  {
+    "message_id": "msg_000190",
+    "user": "Jake",
+    "content": "yeah that works",
+    "timestamp": "2024-05-15T15:33:58"
+  },
+  {
+    "message_id": "msg_000191",
+    "user": "Amane",
+    "content": "ill take mahiru, maya, nirali",
+    "timestamp": "2024-05-15T15:34:21"
+  },
+  {
+    "message_id": "msg_000192",
+    "user": "Tanya",
+    "content": "wait what about me",
+    "timestamp": "2024-05-15T15:34:39"
+  },
+  {
+    "message_id": "msg_000193",
+    "user": "Amane",
+    "content": "you said you have plans",
+    "timestamp": "2024-05-15T15:34:52"
+  },
+  {
+    "message_id": "msg_000194",
+    "user": "Tanya",
+    "content": "OH i thought you meant sunday not saturday lol",
+    "timestamp": "2024-05-15T15:35:11"
+  },
+  {
+    "message_id": "msg_000195",
+    "user": "Tanya",
+    "content": "im free saturday!!",
+    "timestamp": "2024-05-15T15:35:17"
+  },
+  {
+    "message_id": "msg_000196",
+    "user": "Nirali",
+    "content": "😂😂😂",
+    "timestamp": "2024-05-15T15:35:28"
+  },
+  {
+    "message_id": "msg_000197",
+    "user": "Jake",
+    "content": "bruh",
+    "timestamp": "2024-05-15T15:35:35"
+  },
+  {
+    "message_id": "msg_000198",
+    "user": "Amane",
+    "content": "you can uber with jake then",
+    "timestamp": "2024-05-15T15:35:54"
+  },
+  {
+    "message_id": "msg_000199",
+    "user": "Tanya",
+    "content": "wait can i actually just ride with you guys ill squeeze in",
+    "timestamp": "2024-05-15T15:36:22"
+  },
+  {
+    "message_id": "msg_000200",
+    "user": "Amane",
+    "content": "car only seats 4 safely",
+    "timestamp": "2024-05-15T15:36:41"
+  },
+  {
+    "message_id": "msg_000201",
+    "user": "Tanya",
+    "content": "ugh fine ill split an uber with jake",
+    "timestamp": "2024-05-15T15:37:08"
+  },
+  {
+    "message_id": "msg_000202",
+    "user": "Jake",
+    "content": "bet",
+    "timestamp": "2024-05-15T15:37:19"
+  },
+  {
+    "message_id": "msg_000203",
+    "user": "Mahiru",
+    "content": "Perfect! What time should we meet? 11am?",
+    "timestamp": "2024-05-15T15:38:02"
+  },
+  {
+    "message_id": "msg_000204",
+    "user": "Tanya",
+    "content": "can we do 12",
+    "timestamp": "2024-05-15T15:38:24"
+  },
+  {
+    "message_id": "msg_000205",
+    "user": "Maya",
+    "content": "noon is probably better anyway. beach wont be as crowded yet",
+    "timestamp": "2024-05-15T15:38:57"
+  },
+  {
+    "message_id": "msg_000206",
+    "user": "Nirali",
+    "content": "works for me!",
+    "timestamp": "2024-05-15T15:39:11"
+  },
+  {
+    "message_id": "msg_000207",
+    "user": "Mahiru",
+    "content": "Okay! What should everyone bring? I'm thinking towels, sunscreen, snacks?",
+    "timestamp": "2024-05-15T15:40:23"
+  },
+  {
+    "message_id": "msg_000208",
+    "user": "Nirali",
+    "content": "i can bring a cooler with drinks!",
+    "timestamp": "2024-05-15T15:40:51"
+  },
+  {
+    "message_id": "msg_000209",
+    "user": "Maya",
+    "content": "ill bring some fruit. watermelon and grapes",
+    "timestamp": "2024-05-15T15:41:18"
+  },
+  {
+    "message_id": "msg_000210",
+    "user": "Tanya",
+    "content": "i have a bluetooth speaker we can bring",
+    "timestamp": "2024-05-15T15:41:42"
+  },
+  {
+    "message_id": "msg_000211",
+    "user": "Jake",
+    "content": "ill bring my camera obviously lol",
+    "timestamp": "2024-05-15T15:42:01"
+  },
+  {
+    "message_id": "msg_000212",
+    "user": "Jake",
+    "content": "and maybe a beach ball or frisbee",
+    "timestamp": "2024-05-15T15:42:09"
+  },
+  {
+    "message_id": "msg_000213",
+    "user": "Amane",
+    "content": "i have a beach umbrella",
+    "timestamp": "2024-05-15T15:42:34"
+  },
+  {
+    "message_id": "msg_000214",
+    "user": "Mahiru",
+    "content": "I'll bring sunscreen for everyone and some sandwiches! 😊",
+    "timestamp": "2024-05-15T15:43:07"
+  },
+  {
+    "message_id": "msg_000215",
+    "user": "Nirali",
+    "content": "omg mahiru youre the best",
+    "timestamp": "2024-05-15T15:43:28"
+  },
+  {
+    "message_id": "msg_000216",
+    "user": "Maya",
+    "content": "actually yeah thank you",
+    "timestamp": "2024-05-15T15:43:44"
+  },
+  {
+    "message_id": "msg_000217",
+    "user": "Mahiru",
+    "content": "Of course! I'll make sure to do vegan options for you Maya!",
+    "timestamp": "2024-05-15T15:44:18"
+  },
+  {
+    "message_id": "msg_000218",
+    "user": "Maya",
+    "content": "❤️",
+    "timestamp": "2024-05-15T15:44:32"
+  },
+  {
+    "message_id": "msg_000219",
+    "user": "Mahiru",
+    "content": "[calendar: Beach Day - Santa Monica - Sat May 18, 12:00 PM]",
+    "timestamp": "2024-05-15T15:45:11"
+  },
+  {
+    "message_id": "msg_000220",
+    "user": "Mahiru",
+    "content": "See everyone Saturday! 🏖️",
+    "timestamp": "2024-05-15T15:45:19"
+  },
+  {
+    "message_id": "msg_000221",
+    "user": "Tanya",
+    "content": "ok so im running late surprise surprise",
+    "timestamp": "2024-05-18T11:47:22"
+  },
+  {
+    "message_id": "msg_000222",
+    "user": "Tanya",
+    "content": "still getting ready lol",
+    "timestamp": "2024-05-18T11:47:29"
+  },
+  {
+    "message_id": "msg_000223",
+    "user": "Jake",
+    "content": "bro i was about to request the uber",
+    "timestamp": "2024-05-18T11:48:03"
+  },
+  {
+    "message_id": "msg_000224",
+    "user": "Tanya",
+    "content": "sorry!! give me like 15",
+    "timestamp": "2024-05-18T11:48:27"
+  },
+  {
+    "message_id": "msg_000225",
+    "user": "Jake",
+    "content": "aight",
+    "timestamp": "2024-05-18T11:48:38"
+  },
+  {
+    "message_id": "msg_000226",
+    "user": "Amane",
+    "content": "were leaving now",
+    "timestamp": "2024-05-18T11:52:14"
+  },
+  {
+    "message_id": "msg_000227",
+    "user": "Mahiru",
+    "content": "On our way! See you there Jake and Tanya!",
+    "timestamp": "2024-05-18T11:52:33"
+  },
+  {
+    "message_id": "msg_000228",
+    "user": "Tanya",
+    "content": "ok im ready!! jake u there?",
+    "timestamp": "2024-05-18T12:08:41"
+  },
+  {
+    "message_id": "msg_000229",
+    "user": "Jake",
+    "content": "yeah requesting uber now",
+    "timestamp": "2024-05-18T12:09:02"
+  },
+  {
+    "message_id": "msg_000230",
+    "user": "Jake",
+    "content": "$32 split = $16 each",
+    "timestamp": "2024-05-18T12:09:34"
+  },
+  {
+    "message_id": "msg_000231",
+    "user": "Tanya",
+    "content": "cool ill venmo you",
+    "timestamp": "2024-05-18T12:09:51"
+  },
+  {
+    "message_id": "msg_000232",
+    "user": "Nirali",
+    "content": "we're here!! got a good spot near the pier",
+    "timestamp": "2024-05-18T12:34:18"
+  },
+  {
+    "message_id": "msg_000233",
+    "user": "Mahiru",
+    "content": "[location: Santa Monica Beach - near lifeguard tower 15]",
+    "timestamp": "2024-05-18T12:34:47"
+  },
+  {
+    "message_id": "msg_000234",
+    "user": "Jake",
+    "content": "omw like 10 min",
+    "timestamp": "2024-05-18T12:38:52"
+  },
+  {
+    "message_id": "msg_000235",
+    "user": "Jake",
+    "content": "[image: Golden hour sunset over Santa Monica pier]",
+    "timestamp": "2024-05-18T17:42:13"
+  },
+  {
+    "message_id": "msg_000236",
+    "user": "Jake",
+    "content": "yo this lighting is insane",
+    "timestamp": "2024-05-18T17:42:24"
+  },
+  {
+    "message_id": "msg_000237",
+    "user": "Nirali",
+    "content": "JAKE THAT PIC IS SO GOOD",
+    "timestamp": "2024-05-18T17:43:01"
+  },
+  {
+    "message_id": "msg_000238",
+    "user": "Tanya",
+    "content": "omgggg send that to me",
+    "timestamp": "2024-05-18T17:43:22"
+  },
+  {
+    "message_id": "msg_000239",
+    "user": "Jake",
+    "content": "[image: Group candid photo playing frisbee on the beach]",
+    "timestamp": "2024-05-18T17:45:39"
+  },
+  {
+    "message_id": "msg_000240",
+    "user": "Mahiru",
+    "content": "This is such a perfect day! ☀️",
+    "timestamp": "2024-05-18T17:46:17"
+  },
+  {
+    "message_id": "msg_000241",
+    "user": "Maya",
+    "content": "agreed. and mahiru those sandwiches were really good",
+    "timestamp": "2024-05-18T17:47:03"
+  },
+  {
+    "message_id": "msg_000242",
+    "user": "Amane",
+    "content": "heading back now. everyone ready?",
+    "timestamp": "2024-05-18T18:22:41"
+  },
+  {
+    "message_id": "msg_000243",
+    "user": "Mahiru",
+    "content": "Yes! Let me just pack up",
+    "timestamp": "2024-05-18T18:23:08"
+  },
+  {
+    "message_id": "msg_000244",
+    "user": "Nirali",
+    "content": "wait i cant find my sunglasses",
+    "timestamp": "2024-05-18T18:23:31"
+  },
+  {
+    "message_id": "msg_000245",
+    "user": "Jake",
+    "content": "theyre on your head lmao",
+    "timestamp": "2024-05-18T18:23:52"
+  },
+  {
+    "message_id": "msg_000246",
+    "user": "Nirali",
+    "content": "oh my god",
+    "timestamp": "2024-05-18T18:24:03"
+  },
+  {
+    "message_id": "msg_000247",
+    "user": "Nirali",
+    "content": "😂😂😂",
+    "timestamp": "2024-05-18T18:24:07"
+  },
+  {
+    "message_id": "msg_000248",
+    "user": "Tanya",
+    "content": "LMAOOO",
+    "timestamp": "2024-05-18T18:24:18"
+  },
+  {
+    "message_id": "msg_000249",
+    "user": "Jake",
+    "content": "[image: Group beach day photo dump - 6 photos]",
+    "timestamp": "2024-05-18T20:15:44"
+  },
+  {
+    "message_id": "msg_000250",
+    "user": "Jake",
+    "content": "full beach day dump. everyone looks good 📸",
+    "timestamp": "2024-05-18T20:15:59"
+  },
+  {
+    "message_id": "msg_000251",
+    "user": "Tanya",
+    "content": "SEND THEM ALL TO ME",
+    "timestamp": "2024-05-18T20:16:24"
+  },
+  {
+    "message_id": "msg_000252",
+    "user": "Mahiru",
+    "content": "These are beautiful Jake! Thank you for capturing today 😊",
+    "timestamp": "2024-05-18T20:17:08"
+  },
+  {
+    "message_id": "msg_000253",
+    "user": "Maya",
+    "content": "good day. we should do this more often",
+    "timestamp": "2024-05-18T20:18:33"
+  },
+  {
+    "message_id": "msg_000254",
+    "user": "Nirali",
+    "content": "YES agreed!!",
+    "timestamp": "2024-05-18T20:19:02"
+  }
+]

@@ -1,0 +1,572 @@
+[
+  {
+    "message_id": "msg_000766",
+    "user": "Mahiru",
+    "content": "I was thinking... we should do a proper potluck dinner party!",
+    "timestamp": "2024-09-18T14:22:38"
+  },
+  {
+    "message_id": "msg_000767",
+    "user": "Mahiru",
+    "content": "Everyone makes their signature dish 😊",
+    "timestamp": "2024-09-18T14:22:47"
+  },
+  {
+    "message_id": "msg_000768",
+    "user": "Nirali",
+    "content": "OMG YES",
+    "timestamp": "2024-09-18T14:23:18"
+  },
+  {
+    "message_id": "msg_000769",
+    "user": "Nirali",
+    "content": "i can finally make my moms biryani recipe",
+    "timestamp": "2024-09-18T14:23:27"
+  },
+  {
+    "message_id": "msg_000770",
+    "user": "Jake",
+    "content": "wait you cook?",
+    "timestamp": "2024-09-18T14:23:54"
+  },
+  {
+    "message_id": "msg_000771",
+    "user": "Nirali",
+    "content": "EXCUSE ME yes i cook",
+    "timestamp": "2024-09-18T14:24:12"
+  },
+  {
+    "message_id": "msg_000772",
+    "user": "Tanya",
+    "content": "this sounds so fun!!",
+    "timestamp": "2024-09-18T14:24:47"
+  },
+  {
+    "message_id": "msg_000773",
+    "user": "Maya",
+    "content": "im down. i can make vegan tacos",
+    "timestamp": "2024-09-18T14:25:21"
+  },
+  {
+    "message_id": "msg_000774",
+    "user": "Amane",
+    "content": "i dont really have a signature dish",
+    "timestamp": "2024-09-18T14:25:53"
+  },
+  {
+    "message_id": "msg_000775",
+    "user": "Mahiru",
+    "content": "You make great stir fry! You could do that",
+    "timestamp": "2024-09-18T14:26:24"
+  },
+  {
+    "message_id": "msg_000776",
+    "user": "Amane",
+    "content": "ok ill do stir fry",
+    "timestamp": "2024-09-18T14:26:42"
+  },
+  {
+    "message_id": "msg_000777",
+    "user": "Jake",
+    "content": "uhhh i dont really cook lol",
+    "timestamp": "2024-09-18T14:27:14"
+  },
+  {
+    "message_id": "msg_000778",
+    "user": "Jake",
+    "content": "can i just bring dessert or something",
+    "timestamp": "2024-09-18T14:27:22"
+  },
+  {
+    "message_id": "msg_000779",
+    "user": "Tanya",
+    "content": "same here i cant cook to save my life",
+    "timestamp": "2024-09-18T14:27:51"
+  },
+  {
+    "message_id": "msg_000780",
+    "user": "Mahiru",
+    "content": "That's totally fine! Jake can bring dessert and Tanya can bring drinks/apps?",
+    "timestamp": "2024-09-18T14:28:34"
+  },
+  {
+    "message_id": "msg_000781",
+    "user": "Tanya",
+    "content": "yes!! ill get fancy cheese and crackers and stuff",
+    "timestamp": "2024-09-18T14:29:07"
+  },
+  {
+    "message_id": "msg_000782",
+    "user": "Jake",
+    "content": "ill go to that good bakery and get a nice cake",
+    "timestamp": "2024-09-18T14:29:38"
+  },
+  {
+    "message_id": "msg_000783",
+    "user": "Mahiru",
+    "content": "Perfect! I'll make Japanese curry and gyoza",
+    "timestamp": "2024-09-18T14:30:14"
+  },
+  {
+    "message_id": "msg_000784",
+    "user": "Nirali",
+    "content": "ok wait we need to coordinate",
+    "timestamp": "2024-09-18T14:30:47"
+  },
+  {
+    "message_id": "msg_000785",
+    "user": "Nirali",
+    "content": "maya is vegan, mahiru and i eat everything, what about everyone else?",
+    "timestamp": "2024-09-18T14:31:02"
+  },
+  {
+    "message_id": "msg_000786",
+    "user": "Amane",
+    "content": "i eat everything",
+    "timestamp": "2024-09-18T14:31:24"
+  },
+  {
+    "message_id": "msg_000787",
+    "user": "Jake",
+    "content": "same",
+    "timestamp": "2024-09-18T14:31:33"
+  },
+  {
+    "message_id": "msg_000788",
+    "user": "Tanya",
+    "content": "no dietary restrictions here",
+    "timestamp": "2024-09-18T14:31:52"
+  },
+  {
+    "message_id": "msg_000789",
+    "user": "Maya",
+    "content": "so just make sure everything has a vegan option and were good",
+    "timestamp": "2024-09-18T14:32:24"
+  },
+  {
+    "message_id": "msg_000790",
+    "user": "Mahiru",
+    "content": "I can make my curry vegan! Just use coconut milk instead of cream",
+    "timestamp": "2024-09-18T14:33:01"
+  },
+  {
+    "message_id": "msg_000791",
+    "user": "Nirali",
+    "content": "biryani can be vegan too. ill do veggie version",
+    "timestamp": "2024-09-18T14:33:34"
+  },
+  {
+    "message_id": "msg_000792",
+    "user": "Amane",
+    "content": "tofu stir fry. easy",
+    "timestamp": "2024-09-18T14:33:58"
+  },
+  {
+    "message_id": "msg_000793",
+    "user": "Maya",
+    "content": "you guys are the best",
+    "timestamp": "2024-09-18T14:34:17"
+  },
+  {
+    "message_id": "msg_000794",
+    "user": "Mahiru",
+    "content": "When should we do this? Next Saturday?",
+    "timestamp": "2024-09-18T14:35:03"
+  },
+  {
+    "message_id": "msg_000795",
+    "user": "Nirali",
+    "content": "works for me!",
+    "timestamp": "2024-09-18T14:35:24"
+  },
+  {
+    "message_id": "msg_000796",
+    "user": "Tanya",
+    "content": "yep im free",
+    "timestamp": "2024-09-18T14:35:41"
+  },
+  {
+    "message_id": "msg_000797",
+    "user": "Jake",
+    "content": "saturday works",
+    "timestamp": "2024-09-18T14:35:56"
+  },
+  {
+    "message_id": "msg_000798",
+    "user": "Maya",
+    "content": "same",
+    "timestamp": "2024-09-18T14:36:04"
+  },
+  {
+    "message_id": "msg_000799",
+    "user": "Amane",
+    "content": "fine with me",
+    "timestamp": "2024-09-18T14:36:18"
+  },
+  {
+    "message_id": "msg_000800",
+    "user": "Mahiru",
+    "content": "7pm at my place? That gives everyone time to cook during the day",
+    "timestamp": "2024-09-18T14:36:54"
+  },
+  {
+    "message_id": "msg_000801",
+    "user": "Nirali",
+    "content": "perfect bc biryani takes like 2 hours lol",
+    "timestamp": "2024-09-18T14:37:22"
+  },
+  {
+    "message_id": "msg_000802",
+    "user": "Mahiru",
+    "content": "[calendar: Potluck Dinner Party - Sat Sep 21, 7:00 PM]",
+    "timestamp": "2024-09-18T14:38:11"
+  },
+  {
+    "message_id": "msg_000803",
+    "user": "Mahiru",
+    "content": "Can't wait!! This is going to be amazing 😊",
+    "timestamp": "2024-09-18T14:38:24"
+  },
+  {
+    "message_id": "msg_000804",
+    "user": "Nirali",
+    "content": "ok guys",
+    "timestamp": "2024-09-21T15:47:22"
+  },
+  {
+    "message_id": "msg_000805",
+    "user": "Nirali",
+    "content": "the biryani is HAPPENING",
+    "timestamp": "2024-09-21T15:47:29"
+  },
+  {
+    "message_id": "msg_000806",
+    "user": "Nirali",
+    "content": "[image: Pot of biryani cooking on the stove]",
+    "timestamp": "2024-09-21T15:47:41"
+  },
+  {
+    "message_id": "msg_000807",
+    "user": "Tanya",
+    "content": "that looks AMAZING",
+    "timestamp": "2024-09-21T15:48:14"
+  },
+  {
+    "message_id": "msg_000808",
+    "user": "Jake",
+    "content": "yo im at the bakery",
+    "timestamp": "2024-09-21T16:22:37"
+  },
+  {
+    "message_id": "msg_000809",
+    "user": "Jake",
+    "content": "chocolate cake or fruit tart?",
+    "timestamp": "2024-09-21T16:22:45"
+  },
+  {
+    "message_id": "msg_000810",
+    "user": "Mahiru",
+    "content": "Fruit tart!",
+    "timestamp": "2024-09-21T16:23:08"
+  },
+  {
+    "message_id": "msg_000811",
+    "user": "Nirali",
+    "content": "chocolate cake",
+    "timestamp": "2024-09-21T16:23:14"
+  },
+  {
+    "message_id": "msg_000812",
+    "user": "Tanya",
+    "content": "chocolate!!",
+    "timestamp": "2024-09-21T16:23:22"
+  },
+  {
+    "message_id": "msg_000813",
+    "user": "Maya",
+    "content": "fruit tart is probably better after a big meal",
+    "timestamp": "2024-09-21T16:23:47"
+  },
+  {
+    "message_id": "msg_000814",
+    "user": "Amane",
+    "content": "fruit tart",
+    "timestamp": "2024-09-21T16:24:01"
+  },
+  {
+    "message_id": "msg_000815",
+    "user": "Jake",
+    "content": "its tied lmao",
+    "timestamp": "2024-09-21T16:24:18"
+  },
+  {
+    "message_id": "msg_000816",
+    "user": "Jake",
+    "content": "getting fruit tart. maya's logic makes sense",
+    "timestamp": "2024-09-21T16:24:31"
+  },
+  {
+    "message_id": "msg_000817",
+    "user": "Mahiru",
+    "content": "[image: Gyoza being pan-fried]",
+    "timestamp": "2024-09-21T17:44:12"
+  },
+  {
+    "message_id": "msg_000818",
+    "user": "Mahiru",
+    "content": "Gyoza looking crispy! 🥟",
+    "timestamp": "2024-09-21T17:44:22"
+  },
+  {
+    "message_id": "msg_000819",
+    "user": "Amane",
+    "content": "those look perfect",
+    "timestamp": "2024-09-21T17:44:47"
+  },
+  {
+    "message_id": "msg_000820",
+    "user": "Tanya",
+    "content": "omw with the charcuterie board!",
+    "timestamp": "2024-09-21T18:52:18"
+  },
+  {
+    "message_id": "msg_000821",
+    "user": "Nirali",
+    "content": "leaving now. biryani is packed and ready",
+    "timestamp": "2024-09-21T18:54:33"
+  },
+  {
+    "message_id": "msg_000822",
+    "user": "Maya",
+    "content": "tacos are done. heading over",
+    "timestamp": "2024-09-21T18:56:47"
+  },
+  {
+    "message_id": "msg_000823",
+    "user": "Amane",
+    "content": "ill be there in 10",
+    "timestamp": "2024-09-21T18:58:22"
+  },
+  {
+    "message_id": "msg_000824",
+    "user": "Jake",
+    "content": "just parked",
+    "timestamp": "2024-09-21T19:02:14"
+  },
+  {
+    "message_id": "msg_000825",
+    "user": "Mahiru",
+    "content": "[image: Table set with dishes, candles, and flowers]",
+    "timestamp": "2024-09-21T19:14:37"
+  },
+  {
+    "message_id": "msg_000826",
+    "user": "Mahiru",
+    "content": "Everything is ready! Come on in everyone 😊",
+    "timestamp": "2024-09-21T19:14:48"
+  },
+  {
+    "message_id": "msg_000827",
+    "user": "Tanya",
+    "content": "[image: Full spread of all the dishes on the table]",
+    "timestamp": "2024-09-21T19:28:44"
+  },
+  {
+    "message_id": "msg_000828",
+    "user": "Tanya",
+    "content": "THIS IS A FEAST",
+    "timestamp": "2024-09-21T19:28:52"
+  },
+  {
+    "message_id": "msg_000829",
+    "user": "Jake",
+    "content": "yo we went all out",
+    "timestamp": "2024-09-21T19:29:17"
+  },
+  {
+    "message_id": "msg_000830",
+    "user": "Nirali",
+    "content": "everyone try the biryani while its hot!!",
+    "timestamp": "2024-09-21T19:29:48"
+  },
+  {
+    "message_id": "msg_000831",
+    "user": "Maya",
+    "content": "oh my god nirali",
+    "timestamp": "2024-09-21T19:34:22"
+  },
+  {
+    "message_id": "msg_000832",
+    "user": "Maya",
+    "content": "this biryani is INCREDIBLE",
+    "timestamp": "2024-09-21T19:34:30"
+  },
+  {
+    "message_id": "msg_000833",
+    "user": "Jake",
+    "content": "wait yeah this is insane",
+    "timestamp": "2024-09-21T19:34:51"
+  },
+  {
+    "message_id": "msg_000834",
+    "user": "Amane",
+    "content": "really good. the spices are perfect",
+    "timestamp": "2024-09-21T19:35:18"
+  },
+  {
+    "message_id": "msg_000835",
+    "user": "Nirali",
+    "content": "IM SO GLAD YOU LIKE IT",
+    "timestamp": "2024-09-21T19:35:42"
+  },
+  {
+    "message_id": "msg_000836",
+    "user": "Nirali",
+    "content": "my mom taught me well",
+    "timestamp": "2024-09-21T19:35:49"
+  },
+  {
+    "message_id": "msg_000837",
+    "user": "Tanya",
+    "content": "mahirus gyoza are so good too",
+    "timestamp": "2024-09-21T19:36:24"
+  },
+  {
+    "message_id": "msg_000838",
+    "user": "Mahiru",
+    "content": "Try them with the ponzu sauce! 😊",
+    "timestamp": "2024-09-21T19:36:47"
+  },
+  {
+    "message_id": "msg_000839",
+    "user": "Jake",
+    "content": "and mayas tacos are fire",
+    "timestamp": "2024-09-21T19:37:14"
+  },
+  {
+    "message_id": "msg_000840",
+    "user": "Maya",
+    "content": "the cashew crema really makes it",
+    "timestamp": "2024-09-21T19:37:42"
+  },
+  {
+    "message_id": "msg_000841",
+    "user": "Amane",
+    "content": "my stir fry is pretty basic compared to everyone elses",
+    "timestamp": "2024-09-21T19:38:18"
+  },
+  {
+    "message_id": "msg_000842",
+    "user": "Mahiru",
+    "content": "No it's perfect! The veggies are cooked just right",
+    "timestamp": "2024-09-21T19:38:47"
+  },
+  {
+    "message_id": "msg_000843",
+    "user": "Nirali",
+    "content": "yeah its really good!",
+    "timestamp": "2024-09-21T19:39:03"
+  },
+  {
+    "message_id": "msg_000844",
+    "user": "Jake",
+    "content": "[voice message: 0:18]",
+    "timestamp": "2024-09-21T19:52:33"
+  },
+  {
+    "message_id": "msg_000845",
+    "user": "Tanya",
+    "content": "LMAOOO jake is so full he cant move",
+    "timestamp": "2024-09-21T19:53:08"
+  },
+  {
+    "message_id": "msg_000846",
+    "user": "Maya",
+    "content": "same honestly",
+    "timestamp": "2024-09-21T19:53:27"
+  },
+  {
+    "message_id": "msg_000847",
+    "user": "Amane",
+    "content": "we still have dessert",
+    "timestamp": "2024-09-21T19:53:48"
+  },
+  {
+    "message_id": "msg_000848",
+    "user": "Jake",
+    "content": "give me like 20 minutes lol",
+    "timestamp": "2024-09-21T19:54:12"
+  },
+  {
+    "message_id": "msg_000849",
+    "user": "Jake",
+    "content": "[image: The fruit tart on a serving plate]",
+    "timestamp": "2024-09-21T20:18:44"
+  },
+  {
+    "message_id": "msg_000850",
+    "user": "Jake",
+    "content": "dessert time 📸",
+    "timestamp": "2024-09-21T20:18:53"
+  },
+  {
+    "message_id": "msg_000851",
+    "user": "Tanya",
+    "content": "omg that looks beautiful",
+    "timestamp": "2024-09-21T20:19:17"
+  },
+  {
+    "message_id": "msg_000852",
+    "user": "Nirali",
+    "content": "good choice jake",
+    "timestamp": "2024-09-21T20:19:38"
+  },
+  {
+    "message_id": "msg_000853",
+    "user": "Mahiru",
+    "content": "[image: Group photo at the dinner table]",
+    "timestamp": "2024-09-21T20:44:22"
+  },
+  {
+    "message_id": "msg_000854",
+    "user": "Mahiru",
+    "content": "Thank you all for making this such a special night! Everything was delicious 💕",
+    "timestamp": "2024-09-21T20:44:38"
+  },
+  {
+    "message_id": "msg_000855",
+    "user": "Nirali",
+    "content": "this was so fun!",
+    "timestamp": "2024-09-21T20:45:14"
+  },
+  {
+    "message_id": "msg_000856",
+    "user": "Maya",
+    "content": "we should make this a tradition",
+    "timestamp": "2024-09-21T20:45:42"
+  },
+  {
+    "message_id": "msg_000857",
+    "user": "Tanya",
+    "content": "yes!! like every few months",
+    "timestamp": "2024-09-21T20:46:08"
+  },
+  {
+    "message_id": "msg_000858",
+    "user": "Jake",
+    "content": "im so down",
+    "timestamp": "2024-09-21T20:46:27"
+  },
+  {
+    "message_id": "msg_000859",
+    "user": "Amane",
+    "content": "agreed. good food, good people",
+    "timestamp": "2024-09-21T20:46:54"
+  },
+  {
+    "message_id": "msg_000860",
+    "user": "Mahiru",
+    "content": "I love this group so much 😊❤️",
+    "timestamp": "2024-09-21T20:47:28"
+  }
+]

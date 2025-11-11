@@ -1,0 +1,338 @@
+[
+  {
+    "message_id": "msg_000710",
+    "user": "Maya",
+    "content": "theres a free outdoor movie screening at griffith park this friday",
+    "timestamp": "2024-09-03T16:28:14"
+  },
+  {
+    "message_id": "msg_000711",
+    "user": "Maya",
+    "content": "theyre showing spirited away",
+    "timestamp": "2024-09-03T16:28:22"
+  },
+  {
+    "message_id": "msg_000712",
+    "user": "Mahiru",
+    "content": "Oh I love that movie!!",
+    "timestamp": "2024-09-03T16:29:07"
+  },
+  {
+    "message_id": "msg_000713",
+    "user": "Nirali",
+    "content": "omg yes studio ghibli",
+    "timestamp": "2024-09-03T16:29:34"
+  },
+  {
+    "message_id": "msg_000714",
+    "user": "Tanya",
+    "content": "yesss and its free???",
+    "timestamp": "2024-09-03T16:30:02"
+  },
+  {
+    "message_id": "msg_000715",
+    "user": "Maya",
+    "content": "yep completely free. starts at 8pm",
+    "timestamp": "2024-09-03T16:30:31"
+  },
+  {
+    "message_id": "msg_000716",
+    "user": "Jake",
+    "content": "outdoor movie nights are dope",
+    "timestamp": "2024-09-03T16:31:04"
+  },
+  {
+    "message_id": "msg_000717",
+    "user": "Amane",
+    "content": "im in",
+    "timestamp": "2024-09-03T16:31:22"
+  },
+  {
+    "message_id": "msg_000718",
+    "user": "Mahiru",
+    "content": "We should bring blankets and snacks! Make it cozy 😊",
+    "timestamp": "2024-09-03T16:32:08"
+  },
+  {
+    "message_id": "msg_000719",
+    "user": "Nirali",
+    "content": "picnic style!!",
+    "timestamp": "2024-09-03T16:32:37"
+  },
+  {
+    "message_id": "msg_000720",
+    "user": "Tanya",
+    "content": "ok so whos bringing what",
+    "timestamp": "2024-09-03T16:33:11"
+  },
+  {
+    "message_id": "msg_000721",
+    "user": "Amane",
+    "content": "i have blankets",
+    "timestamp": "2024-09-03T16:33:38"
+  },
+  {
+    "message_id": "msg_000722",
+    "user": "Mahiru",
+    "content": "I can make onigiri and bring some fruit!",
+    "timestamp": "2024-09-03T16:34:14"
+  },
+  {
+    "message_id": "msg_000723",
+    "user": "Nirali",
+    "content": "ill bring samosas",
+    "timestamp": "2024-09-03T16:34:42"
+  },
+  {
+    "message_id": "msg_000724",
+    "user": "Jake",
+    "content": "ill grab chips and candy",
+    "timestamp": "2024-09-03T16:35:08"
+  },
+  {
+    "message_id": "msg_000725",
+    "user": "Tanya",
+    "content": "i can bring drinks!",
+    "timestamp": "2024-09-03T16:35:33"
+  },
+  {
+    "message_id": "msg_000726",
+    "user": "Maya",
+    "content": "ill bring a veggie tray and hummus",
+    "timestamp": "2024-09-03T16:36:02"
+  },
+  {
+    "message_id": "msg_000727",
+    "user": "Mahiru",
+    "content": "Perfect! What time should we get there? I heard it fills up fast",
+    "timestamp": "2024-09-03T16:36:48"
+  },
+  {
+    "message_id": "msg_000728",
+    "user": "Maya",
+    "content": "movie starts at 8 but people start claiming spots around 6:30",
+    "timestamp": "2024-09-03T16:37:24"
+  },
+  {
+    "message_id": "msg_000729",
+    "user": "Amane",
+    "content": "ill go early and save a spot",
+    "timestamp": "2024-09-03T16:37:58"
+  },
+  {
+    "message_id": "msg_000730",
+    "user": "Mahiru",
+    "content": "I'll come with you!",
+    "timestamp": "2024-09-03T16:38:14"
+  },
+  {
+    "message_id": "msg_000731",
+    "user": "Jake",
+    "content": "rest of us can meet you guys there like 7:30?",
+    "timestamp": "2024-09-03T16:38:47"
+  },
+  {
+    "message_id": "msg_000732",
+    "user": "Nirali",
+    "content": "works for me",
+    "timestamp": "2024-09-03T16:39:03"
+  },
+  {
+    "message_id": "msg_000733",
+    "user": "Mahiru",
+    "content": "[calendar: Outdoor Movie - Spirited Away - Fri Sep 6, 8:00 PM]",
+    "timestamp": "2024-09-03T16:40:12"
+  },
+  {
+    "message_id": "msg_000734",
+    "user": "Amane",
+    "content": "were here. got a good spot on the hill",
+    "timestamp": "2024-09-06T18:44:17"
+  },
+  {
+    "message_id": "msg_000735",
+    "user": "Mahiru",
+    "content": "[location: Griffith Park - near the big oak tree]",
+    "timestamp": "2024-09-06T18:44:52"
+  },
+  {
+    "message_id": "msg_000736",
+    "user": "Mahiru",
+    "content": "We're by the big oak tree!",
+    "timestamp": "2024-09-06T18:45:01"
+  },
+  {
+    "message_id": "msg_000737",
+    "user": "Jake",
+    "content": "omw with nirali",
+    "timestamp": "2024-09-06T19:18:33"
+  },
+  {
+    "message_id": "msg_000738",
+    "user": "Maya",
+    "content": "just parked. walking over now",
+    "timestamp": "2024-09-06T19:22:14"
+  },
+  {
+    "message_id": "msg_000739",
+    "user": "Tanya",
+    "content": "running a bit late but ill be there before the movie starts!",
+    "timestamp": "2024-09-06T19:28:47"
+  },
+  {
+    "message_id": "msg_000740",
+    "user": "Amane",
+    "content": "naturally",
+    "timestamp": "2024-09-06T19:29:04"
+  },
+  {
+    "message_id": "msg_000741",
+    "user": "Nirali",
+    "content": "found you guys!!",
+    "timestamp": "2024-09-06T19:34:28"
+  },
+  {
+    "message_id": "msg_000742",
+    "user": "Jake",
+    "content": "[image: Blanket setup with food spread at sunset]",
+    "timestamp": "2024-09-06T19:42:17"
+  },
+  {
+    "message_id": "msg_000743",
+    "user": "Jake",
+    "content": "this setup is perfect",
+    "timestamp": "2024-09-06T19:42:26"
+  },
+  {
+    "message_id": "msg_000744",
+    "user": "Mahiru",
+    "content": "The sunset is so pretty from here!",
+    "timestamp": "2024-09-06T19:43:08"
+  },
+  {
+    "message_id": "msg_000745",
+    "user": "Maya",
+    "content": "mahiru your onigiri are so good",
+    "timestamp": "2024-09-06T19:51:33"
+  },
+  {
+    "message_id": "msg_000746",
+    "user": "Nirali",
+    "content": "and the samosas came out great this time",
+    "timestamp": "2024-09-06T19:52:08"
+  },
+  {
+    "message_id": "msg_000747",
+    "user": "Jake",
+    "content": "this is like a whole feast",
+    "timestamp": "2024-09-06T19:52:41"
+  },
+  {
+    "message_id": "msg_000748",
+    "user": "Tanya",
+    "content": "OK IM HERE",
+    "timestamp": "2024-09-06T19:58:14"
+  },
+  {
+    "message_id": "msg_000749",
+    "user": "Tanya",
+    "content": "where are you guys its so crowded",
+    "timestamp": "2024-09-06T19:58:22"
+  },
+  {
+    "message_id": "msg_000750",
+    "user": "Amane",
+    "content": "look for the big oak tree",
+    "timestamp": "2024-09-06T19:58:47"
+  },
+  {
+    "message_id": "msg_000751",
+    "user": "Mahiru",
+    "content": "I'm waving!",
+    "timestamp": "2024-09-06T19:59:03"
+  },
+  {
+    "message_id": "msg_000752",
+    "user": "Tanya",
+    "content": "found you!!",
+    "timestamp": "2024-09-06T20:01:28"
+  },
+  {
+    "message_id": "msg_000753",
+    "user": "Nirali",
+    "content": "its starting!",
+    "timestamp": "2024-09-06T20:04:17"
+  },
+  {
+    "message_id": "msg_000754",
+    "user": "Mahiru",
+    "content": "[image: Movie screen with Spirited Away opening scene]",
+    "timestamp": "2024-09-06T20:08:44"
+  },
+  {
+    "message_id": "msg_000755",
+    "user": "Tanya",
+    "content": "this movie makes me cry every time",
+    "timestamp": "2024-09-06T21:23:52"
+  },
+  {
+    "message_id": "msg_000756",
+    "user": "Mahiru",
+    "content": "Same! The music is so beautiful",
+    "timestamp": "2024-09-06T21:24:18"
+  },
+  {
+    "message_id": "msg_000757",
+    "user": "Nirali",
+    "content": "im not crying you are",
+    "timestamp": "2024-09-06T21:47:33"
+  },
+  {
+    "message_id": "msg_000758",
+    "user": "Jake",
+    "content": "okay that ending got me too",
+    "timestamp": "2024-09-06T21:48:07"
+  },
+  {
+    "message_id": "msg_000759",
+    "user": "Maya",
+    "content": "studio ghibli never misses",
+    "timestamp": "2024-09-06T21:48:41"
+  },
+  {
+    "message_id": "msg_000760",
+    "user": "Jake",
+    "content": "[image: Group photo bundled in blankets under the stars]",
+    "timestamp": "2024-09-06T21:54:28"
+  },
+  {
+    "message_id": "msg_000761",
+    "user": "Mahiru",
+    "content": "What a perfect night! The weather was perfect, the movie was perfect, the company was perfect 💕",
+    "timestamp": "2024-09-06T22:12:47"
+  },
+  {
+    "message_id": "msg_000762",
+    "user": "Tanya",
+    "content": "we should do this again next time they have one",
+    "timestamp": "2024-09-06T22:13:24"
+  },
+  {
+    "message_id": "msg_000763",
+    "user": "Nirali",
+    "content": "yes!! this was so fun and it was free",
+    "timestamp": "2024-09-06T22:13:58"
+  },
+  {
+    "message_id": "msg_000764",
+    "user": "Maya",
+    "content": "free is my favorite price",
+    "timestamp": "2024-09-06T22:14:22"
+  },
+  {
+    "message_id": "msg_000765",
+    "user": "Amane",
+    "content": "good night",
+    "timestamp": "2024-09-06T22:14:47"
+  }
+]

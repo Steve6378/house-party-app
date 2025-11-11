@@ -1,0 +1,470 @@
+[
+  {
+    "message_id": "msg_000945",
+    "user": "Tanya",
+    "content": "ok so my friend is DJing at this underground show friday night",
+    "timestamp": "2024-10-15T17:22:41"
+  },
+  {
+    "message_id": "msg_000946",
+    "user": "Tanya",
+    "content": "you guys HAVE to come",
+    "timestamp": "2024-10-05T17:22:49"
+  },
+  {
+    "message_id": "msg_000947",
+    "user": "Nirali",
+    "content": "underground show??",
+    "timestamp": "2024-10-15T17:23:18"
+  },
+  {
+    "message_id": "msg_000948",
+    "user": "Tanya",
+    "content": "yeah like a warehouse rave vibe",
+    "timestamp": "2024-10-15T17:23:47"
+  },
+  {
+    "message_id": "msg_000949",
+    "user": "Tanya",
+    "content": "really good vibes, good music",
+    "timestamp": "2024-10-15T17:23:55"
+  },
+  {
+    "message_id": "msg_000950",
+    "user": "Jake",
+    "content": "that sounds dope actually",
+    "timestamp": "2024-10-15T17:24:24"
+  },
+  {
+    "message_id": "msg_000951",
+    "user": "Mahiru",
+    "content": "I've never been to something like that! Is it safe?",
+    "timestamp": "2024-10-15T17:25:03"
+  },
+  {
+    "message_id": "msg_000952",
+    "user": "Tanya",
+    "content": "yeah its totally safe! everyone there is chill",
+    "timestamp": "2024-10-15T17:25:38"
+  },
+  {
+    "message_id": "msg_000953",
+    "user": "Tanya",
+    "content": "plus ill be with you guys the whole time",
+    "timestamp": "2024-10-15T17:25:47"
+  },
+  {
+    "message_id": "msg_000954",
+    "user": "Amane",
+    "content": "whats the dress code",
+    "timestamp": "2024-10-15T17:26:22"
+  },
+  {
+    "message_id": "msg_000955",
+    "user": "Tanya",
+    "content": "like... rave fashion?",
+    "timestamp": "2024-10-15T17:26:53"
+  },
+  {
+    "message_id": "msg_000956",
+    "user": "Tanya",
+    "content": "idk how to describe it lol",
+    "timestamp": "2024-10-15T17:27:01"
+  },
+  {
+    "message_id": "msg_000957",
+    "user": "Maya",
+    "content": "so like black clothes?",
+    "timestamp": "2024-10-15T17:27:34"
+  },
+  {
+    "message_id": "msg_000958",
+    "user": "Tanya",
+    "content": "yeah that works. or neon. or whatever youre comfortable in honestly",
+    "timestamp": "2024-10-15T17:28:07"
+  },
+  {
+    "message_id": "msg_000959",
+    "user": "Nirali",
+    "content": "im down!! this sounds fun",
+    "timestamp": "2024-10-15T17:28:41"
+  },
+  {
+    "message_id": "msg_000960",
+    "user": "Jake",
+    "content": "the photo ops are gonna be insane",
+    "timestamp": "2024-10-15T17:29:14"
+  },
+  {
+    "message_id": "msg_000961",
+    "user": "Mahiru",
+    "content": "I'll go if Amane goes!",
+    "timestamp": "2024-10-15T17:29:48"
+  },
+  {
+    "message_id": "msg_000962",
+    "user": "Amane",
+    "content": "ill go",
+    "timestamp": "2024-10-15T17:30:03"
+  },
+  {
+    "message_id": "msg_000963",
+    "user": "Maya",
+    "content": "im in. sounds like a new experience",
+    "timestamp": "2024-10-15T17:30:34"
+  },
+  {
+    "message_id": "msg_000964",
+    "user": "Tanya",
+    "content": "YESSS this is gonna be so fun",
+    "timestamp": "2024-10-15T17:31:08"
+  },
+  {
+    "message_id": "msg_000965",
+    "user": "Tanya",
+    "content": "doors open at 10pm",
+    "timestamp": "2024-10-15T17:31:16"
+  },
+  {
+    "message_id": "msg_000966",
+    "user": "Nirali",
+    "content": "10pm?? thats late",
+    "timestamp": "2024-10-15T17:31:42"
+  },
+  {
+    "message_id": "msg_000967",
+    "user": "Tanya",
+    "content": "its a rave lol it goes until like 3am",
+    "timestamp": "2024-10-15T17:32:14"
+  },
+  {
+    "message_id": "msg_000968",
+    "user": "Jake",
+    "content": "oh damn",
+    "timestamp": "2024-10-15T17:32:28"
+  },
+  {
+    "message_id": "msg_000969",
+    "user": "Mahiru",
+    "content": "We don't have to stay the whole time right? 😅",
+    "timestamp": "2024-10-15T17:32:57"
+  },
+  {
+    "message_id": "msg_000970",
+    "user": "Tanya",
+    "content": "no you can leave whenever!",
+    "timestamp": "2024-10-15T17:33:24"
+  },
+  {
+    "message_id": "msg_000971",
+    "user": "Maya",
+    "content": "how much is it",
+    "timestamp": "2024-10-15T17:33:51"
+  },
+  {
+    "message_id": "msg_000972",
+    "user": "Tanya",
+    "content": "$20 at the door",
+    "timestamp": "2024-10-15T17:34:18"
+  },
+  {
+    "message_id": "msg_000973",
+    "user": "Maya",
+    "content": "thats reasonable",
+    "timestamp": "2024-10-15T17:34:33"
+  },
+  {
+    "message_id": "msg_000974",
+    "user": "Tanya",
+    "content": "ill send the address day of. its kind of a secret location thing",
+    "timestamp": "2024-10-15T17:35:14"
+  },
+  {
+    "message_id": "msg_000975",
+    "user": "Jake",
+    "content": "very underground lol",
+    "timestamp": "2024-10-15T17:35:38"
+  },
+  {
+    "message_id": "msg_000976",
+    "user": "Tanya",
+    "content": "[calendar: Underground Show - Fri Oct 18, 10:00 PM]",
+    "timestamp": "2024-10-15T17:36:27"
+  },
+  {
+    "message_id": "msg_000977",
+    "user": "Mahiru",
+    "content": "wait so what exactly should i wear",
+    "timestamp": "2024-10-18T18:44:22"
+  },
+  {
+    "message_id": "msg_000978",
+    "user": "Tanya",
+    "content": "anything! just be comfortable",
+    "timestamp": "2024-10-18T18:45:07"
+  },
+  {
+    "message_id": "msg_000979",
+    "user": "Nirali",
+    "content": "im wearing all black with neon accessories",
+    "timestamp": "2024-10-18T18:45:44"
+  },
+  {
+    "message_id": "msg_000980",
+    "user": "Jake",
+    "content": "black jeans and a tshirt for me",
+    "timestamp": "2024-10-18T18:46:18"
+  },
+  {
+    "message_id": "msg_000981",
+    "user": "Maya",
+    "content": "same. keeping it simple",
+    "timestamp": "2024-10-18T18:46:42"
+  },
+  {
+    "message_id": "msg_000982",
+    "user": "Amane",
+    "content": "ill just wear what i always wear",
+    "timestamp": "2024-10-18T18:47:14"
+  },
+  {
+    "message_id": "msg_000983",
+    "user": "Tanya",
+    "content": "ok so the address is [location: Warehouse in Arts District]",
+    "timestamp": "2024-10-18T20:33:47"
+  },
+  {
+    "message_id": "msg_000984",
+    "user": "Tanya",
+    "content": "meet there at 10:15?",
+    "timestamp": "2024-10-18T20:33:55"
+  },
+  {
+    "message_id": "msg_000985",
+    "user": "Nirali",
+    "content": "works for me!",
+    "timestamp": "2024-10-18T20:34:22"
+  },
+  {
+    "message_id": "msg_000986",
+    "user": "Amane",
+    "content": "ill drive",
+    "timestamp": "2024-10-18T20:34:39"
+  },
+  {
+    "message_id": "msg_000987",
+    "user": "Jake",
+    "content": "can i get a ride",
+    "timestamp": "2024-10-18T20:35:03"
+  },
+  {
+    "message_id": "msg_000988",
+    "user": "Amane",
+    "content": "yeah",
+    "timestamp": "2024-10-18T20:35:14"
+  },
+  {
+    "message_id": "msg_000989",
+    "user": "Tanya",
+    "content": "just pulled up",
+    "timestamp": "2024-10-18T22:12:38"
+  },
+  {
+    "message_id": "msg_000990",
+    "user": "Tanya",
+    "content": "the line is already long lol",
+    "timestamp": "2024-10-18T22:12:47"
+  },
+  {
+    "message_id": "msg_000991",
+    "user": "Nirali",
+    "content": "were parking now",
+    "timestamp": "2024-10-18T22:13:24"
+  },
+  {
+    "message_id": "msg_000992",
+    "user": "Maya",
+    "content": "i see you tanya",
+    "timestamp": "2024-10-18T22:15:41"
+  },
+  {
+    "message_id": "msg_000993",
+    "user": "Tanya",
+    "content": "ok once were inside ill introduce you to my friend whos DJing",
+    "timestamp": "2024-10-18T22:27:14"
+  },
+  {
+    "message_id": "msg_000994",
+    "user": "Nirali",
+    "content": "OH MY GOD",
+    "timestamp": "2024-10-18T22:34:52"
+  },
+  {
+    "message_id": "msg_000995",
+    "user": "Nirali",
+    "content": "THE LIGHTS",
+    "timestamp": "2024-10-18T22:34:57"
+  },
+  {
+    "message_id": "msg_000996",
+    "user": "Nirali",
+    "content": "THIS IS INSANE",
+    "timestamp": "2024-10-18T22:35:02"
+  },
+  {
+    "message_id": "msg_000997",
+    "user": "Jake",
+    "content": "[image: Warehouse interior with laser lights and crowd]",
+    "timestamp": "2024-10-18T22:41:17"
+  },
+  {
+    "message_id": "msg_000998",
+    "user": "Jake",
+    "content": "this is wild",
+    "timestamp": "2024-10-18T22:41:26"
+  },
+  {
+    "message_id": "msg_000999",
+    "user": "Mahiru",
+    "content": "The music is so loud! But everyone seems really nice 😊",
+    "timestamp": "2024-10-18T22:53:44"
+  },
+  {
+    "message_id": "msg_001000",
+    "user": "Tanya",
+    "content": "told you!!",
+    "timestamp": "2024-10-18T22:54:12"
+  },
+  {
+    "message_id": "msg_001001",
+    "user": "Tanya",
+    "content": "my friends about to go on",
+    "timestamp": "2024-10-18T23:08:33"
+  },
+  {
+    "message_id": "msg_001002",
+    "user": "Jake",
+    "content": "[voice message: 0:05]",
+    "timestamp": "2024-10-18T23:24:17"
+  },
+  {
+    "message_id": "msg_001003",
+    "user": "Nirali",
+    "content": "THE DROP WAS INSANE",
+    "timestamp": "2024-10-18T23:24:48"
+  },
+  {
+    "message_id": "msg_001004",
+    "user": "Tanya",
+    "content": "MY FRIEND IS SO GOOD",
+    "timestamp": "2024-10-18T23:25:14"
+  },
+  {
+    "message_id": "msg_001005",
+    "user": "Maya",
+    "content": "this is actually really fun",
+    "timestamp": "2024-10-18T23:42:37"
+  },
+  {
+    "message_id": "msg_001006",
+    "user": "Amane",
+    "content": "not bad",
+    "timestamp": "2024-10-18T23:43:02"
+  },
+  {
+    "message_id": "msg_001007",
+    "user": "Jake",
+    "content": "[image: Group photo with neon lights in background]",
+    "timestamp": "2024-10-19T00:18:44"
+  },
+  {
+    "message_id": "msg_001008",
+    "user": "Jake",
+    "content": "we look sick",
+    "timestamp": "2024-10-19T00:18:53"
+  },
+  {
+    "message_id": "msg_001009",
+    "user": "Mahiru",
+    "content": "I think I'm ready to head out soon. It's been fun but I'm getting tired!",
+    "timestamp": "2024-10-19T00:47:22"
+  },
+  {
+    "message_id": "msg_001010",
+    "user": "Amane",
+    "content": "same. anyone else want to leave?",
+    "timestamp": "2024-10-19T00:47:51"
+  },
+  {
+    "message_id": "msg_001011",
+    "user": "Maya",
+    "content": "yeah im good to go",
+    "timestamp": "2024-10-19T00:48:14"
+  },
+  {
+    "message_id": "msg_001012",
+    "user": "Jake",
+    "content": "ill head out too",
+    "timestamp": "2024-10-19T00:48:33"
+  },
+  {
+    "message_id": "msg_001013",
+    "user": "Nirali",
+    "content": "im staying with tanya!!",
+    "timestamp": "2024-10-19T00:49:02"
+  },
+  {
+    "message_id": "msg_001014",
+    "user": "Tanya",
+    "content": "yes!! well uber home later",
+    "timestamp": "2024-10-19T00:49:28"
+  },
+  {
+    "message_id": "msg_001015",
+    "user": "Amane",
+    "content": "be safe",
+    "timestamp": "2024-10-19T00:49:44"
+  },
+  {
+    "message_id": "msg_001016",
+    "user": "Tanya",
+    "content": "always!",
+    "timestamp": "2024-10-19T00:50:03"
+  },
+  {
+    "message_id": "msg_001017",
+    "user": "Mahiru",
+    "content": "That was such a unique experience! Thank you for inviting us Tanya 💕",
+    "timestamp": "2024-10-19T01:32:47"
+  },
+  {
+    "message_id": "msg_001018",
+    "user": "Jake",
+    "content": "yeah that was dope",
+    "timestamp": "2024-10-19T01:33:22"
+  },
+  {
+    "message_id": "msg_001019",
+    "user": "Maya",
+    "content": "different from our usual hangouts but in a good way",
+    "timestamp": "2024-10-19T01:33:54"
+  },
+  {
+    "message_id": "msg_001020",
+    "user": "Tanya",
+    "content": "home safe!! that was the best night ever",
+    "timestamp": "2024-10-19T03:17:38"
+  },
+  {
+    "message_id": "msg_001021",
+    "user": "Nirali",
+    "content": "my ears are still ringing lol",
+    "timestamp": "2024-10-19T03:18:14"
+  },
+  {
+    "message_id": "msg_001022",
+    "user": "Tanya",
+    "content": "worth it 😂",
+    "timestamp": "2024-10-19T03:18:31"
+  }
+]
