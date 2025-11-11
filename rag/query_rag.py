@@ -242,25 +242,47 @@ def interactive_demo():
             if command == "quit":
                 break
 
-            parts = command.split(None, 2)
-            cmd_type = parts[0].lower()
+            # Parse command - handle multi-word names
+            if command.startswith("list "):
+                user_name = command[5:].strip()  # Everything after "list "
+                if user_name:
+                    results = get_all_user_facts(user_name)
+                    format_results(results, f"All Facts for: {user_name}")
+                else:
+                    print("Usage: list <username>")
+                    print("Example: list Tanya Charan")
 
-            if cmd_type == "user" and len(parts) >= 3:
-                user_name = parts[1]
-                query = parts[2]
-                results = query_user_facts(user_name, query)
-                format_results(results, f"User Facts: {user_name} - Query: '{query}'")
+            elif command.startswith("user "):
+                # For user command, use quotes if name has spaces
+                # Example: user "Tanya Charan" food  OR  user Khang food
+                import shlex
+                try:
+                    parts = shlex.split(command)
+                    if len(parts) >= 3:
+                        user_name = parts[1]
+                        query = " ".join(parts[2:])
+                        results = query_user_facts(user_name, query)
+                        format_results(results, f"User Facts: {user_name} - Query: '{query}'")
+                    else:
+                        print("Usage: user <username> <query>")
+                        print('Example: user "Tanya Charan" food preferences')
+                except ValueError:
+                    print("Parse error. Use quotes for multi-word names:")
+                    print('Example: user "Tanya Charan" food')
 
-            elif cmd_type == "group" and len(parts) >= 3:
-                group_name = parts[1]
-                query = parts[2]
-                results = query_group_facts(group_name, query)
-                format_results(results, f"Group Facts: {group_name} - Query: '{query}'")
-
-            elif cmd_type == "list" and len(parts) >= 2:
-                user_name = parts[1]
-                results = get_all_user_facts(user_name)
-                format_results(results, f"All Facts for: {user_name}")
+            elif command.startswith("group "):
+                import shlex
+                try:
+                    parts = shlex.split(command)
+                    if len(parts) >= 3:
+                        group_name = parts[1]
+                        query = " ".join(parts[2:])
+                        results = query_group_facts(group_name, query)
+                        format_results(results, f"Group Facts: {group_name} - Query: '{query}'")
+                    else:
+                        print("Usage: group <groupname> <query>")
+                except ValueError:
+                    print("Parse error. Use quotes for multi-word names.")
 
             else:
                 print("Invalid command. Try: user Sarah dietary restrictions")
