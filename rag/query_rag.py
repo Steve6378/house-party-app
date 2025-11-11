@@ -171,6 +171,40 @@ def get_all_user_facts(user_name: str) -> List[Dict]:
     return results
 
 
+def get_all_group_facts(group_name: str) -> List[Dict]:
+    """Get all facts for a group (no semantic search)."""
+    conn = get_db_connection()
+
+    with conn.cursor() as cur:
+        cur.execute(
+            """
+            SELECT
+                gf.fact_text,
+                gf.confidence,
+                m.content as source_message,
+                m.created_at as message_time
+            FROM group_facts gf
+            JOIN groups g ON gf.group_id = g.group_id
+            LEFT JOIN messages m ON gf.source_message_id = m.message_id
+            WHERE g.group_name = %s
+            ORDER BY gf.confidence DESC, gf.created_at DESC
+            """,
+            (group_name,)
+        )
+
+        results = []
+        for row in cur.fetchall():
+            results.append({
+                'fact_text': row[0],
+                'confidence': row[1],
+                'source_message': row[2],
+                'message_time': row[3]
+            })
+
+    conn.close()
+    return results
+
+
 def query_combined_context(user_name: str, group_name: str, query: str, top_k: int = 5) -> Dict:
     """
     Query both user and group facts for comprehensive context.
@@ -226,10 +260,11 @@ def interactive_demo():
     print("HOUSE PARTY RAG QUERY SYSTEM - Interactive Demo")
     print("="*80)
     print("\nCommands:")
-    print("  user <name> <query>  - Query user facts")
-    print("  group <name> <query> - Query group facts")
-    print("  list <name>          - List all facts for user")
-    print("  quit                 - Exit")
+    print("  user <name> <query>   - Query user facts")
+    print("  group <name> <query>  - Query group facts")
+    print("  list <name>           - List all facts for user")
+    print("  listgroup <name>      - List all facts for group")
+    print("  quit                  - Exit")
     print("="*80 + "\n")
 
     while True:
@@ -243,7 +278,16 @@ def interactive_demo():
                 break
 
             # Parse command - handle multi-word names
-            if command.startswith("list "):
+            if command.startswith("listgroup "):
+                group_name = command[10:].strip()  # Everything after "listgroup "
+                if group_name:
+                    results = get_all_group_facts(group_name)
+                    format_results(results, f"All Group Facts: {group_name}")
+                else:
+                    print("Usage: listgroup <groupname>")
+                    print("Example: listgroup DSCI 560 Group")
+
+            elif command.startswith("list "):
                 user_name = command[5:].strip()  # Everything after "list "
                 if user_name:
                     results = get_all_user_facts(user_name)
