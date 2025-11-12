@@ -1,0 +1,20 @@
+[
+  {
+    "task": "Buy burger buns and hot dog buns",
+    "status": "completed",
+    "due": "2024-11-16T10:00:00",
+    "created_at": "2025-11-12T09:21:27.207195"
+  },
+  {
+    "task": "Prep veggie burgers for Jake (vegetarian)",
+    "status": "pending",
+    "due": null,
+    "created_at": "2025-11-12T09:21:27.207442"
+  },
+  {
+    "task": "Set up folding tables on balcony",
+    "status": "pending",
+    "due": null,
+    "created_at": "2025-11-12T09:21:27.207624"
+  }
+]

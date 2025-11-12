@@ -1,0 +1,26 @@
+{
+  "address": {
+    "key": "address",
+    "value": "123 Main St, Apt 4B. Buzz unit 4B at the gate.",
+    "asked_count": 2,
+    "last_asked": "2025-11-12T09:21:27.208442",
+    "category": "logistics",
+    "auto_respond": true
+  },
+  "parking": {
+    "key": "parking",
+    "value": "Street parking on Oak St (free) or paid lot on 2nd Ave ($5/hr)",
+    "asked_count": 0,
+    "last_asked": null,
+    "category": "logistics",
+    "auto_respond": false
+  },
+  "what_to_bring": {
+    "key": "what_to_bring",
+    "value": "Just yourselves! I'm providing all food and drinks.",
+    "asked_count": 0,
+    "last_asked": null,
+    "category": "logistics",
+    "auto_respond": false
+  }
+}
