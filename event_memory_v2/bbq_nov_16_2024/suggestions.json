@@ -1,0 +1,25 @@
+[
+  {
+    "id": "suggestion_1762940938.407241",
+    "type": "faq",
+    "suggestion": "'address' has been asked 3 times. Consider pinning this message.",
+    "data": {
+      "faq_key": "address"
+    },
+    "confidence": 1.0,
+    "created_at": "2025-11-12T09:48:58.407286",
+    "status": "pending"
+  },
+  {
+    "id": "suggestion_1762940938.408436",
+    "type": "dietary",
+    "suggestion": "john mentioned a dietary restriction. Track it?",
+    "data": {
+      "user_id": "john",
+      "restriction": "btw i'm vegetarian"
+    },
+    "confidence": 0.9,
+    "created_at": "2025-11-12T09:48:58.408442",
+    "status": "accepted"
+  }
+]

@@ -1,0 +1,33 @@
+{
+  "faqs": {
+    "address": {
+      "value": "123 Main St, Apt 4B. Buzz unit 4B at gate.",
+      "set_at": "2025-11-12T09:48:58.402635",
+      "asked_count": 3,
+      "auto_respond": true
+    },
+    "time": {
+      "value": "Saturday 6:30 PM",
+      "set_at": "2025-11-12T09:48:58.403373",
+      "asked_count": 0,
+      "auto_respond": true
+    }
+  },
+  "dietary_restrictions": {
+    "john": "vegetarian (strict)"
+  },
+  "rsvp": {
+    "yes": [],
+    "no": [],
+    "maybe": []
+  },
+  "todos": [
+    {
+      "task": "Buy burger buns",
+      "status": "pending",
+      "due": "2024-11-16T14:00:00",
+      "created_at": "2025-11-12T09:48:58.403755"
+    }
+  ],
+  "preferences": {}
+}

@@ -1,0 +1,12 @@
+{"event_type": "faq_set_by_host", "timestamp": "2025-11-12T09:48:58.402651", "user_id": "amane", "data": {"faq_key": "address", "value": "123 Main St, Apt 4B. Buzz unit 4B at gate."}}
+{"event_type": "faq_set_by_host", "timestamp": "2025-11-12T09:48:58.403381", "user_id": "amane", "data": {"faq_key": "time", "value": "Saturday 6:30 PM"}}
+{"event_type": "todo_added", "timestamp": "2025-11-12T09:48:58.403759", "user_id": "amane", "data": {"task": "Buy burger buns", "status": "pending", "due": "2024-11-16T14:00:00", "created_at": "2025-11-12T09:48:58.403755"}}
+{"event_type": "message_sent", "timestamp": "2025-11-12T09:48:58.404283", "user_id": "jake", "data": {"message": "hey what's the address again?"}}
+{"event_type": "faq_asked", "timestamp": "2025-11-12T09:48:58.404613", "user_id": "jake", "data": {"faq_key": "address", "message": "hey what's the address again?"}}
+{"event_type": "message_sent", "timestamp": "2025-11-12T09:48:58.405680", "user_id": "maya", "data": {"message": "can you send me the address?"}}
+{"event_type": "faq_asked", "timestamp": "2025-11-12T09:48:58.406036", "user_id": "maya", "data": {"faq_key": "address", "message": "can you send me the address?"}}
+{"event_type": "message_sent", "timestamp": "2025-11-12T09:48:58.406598", "user_id": "nirali", "data": {"message": "address??"}}
+{"event_type": "faq_asked", "timestamp": "2025-11-12T09:48:58.406855", "user_id": "nirali", "data": {"faq_key": "address", "message": "address??"}}
+{"event_type": "message_sent", "timestamp": "2025-11-12T09:48:58.407661", "user_id": "john", "data": {"message": "btw i'm vegetarian"}}
+{"event_type": "dietary_mentioned", "timestamp": "2025-11-12T09:48:58.408253", "user_id": "john", "data": {"restriction": "btw i'm vegetarian"}}
+{"event_type": "suggestion_accepted", "timestamp": "2025-11-12T09:48:58.409076", "user_id": "amane", "data": {"suggestion_id": "suggestion_1762940938.408436", "edited": {"restriction": "vegetarian (strict)"}}}
