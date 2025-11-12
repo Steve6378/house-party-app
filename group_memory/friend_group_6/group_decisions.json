@@ -1,0 +1,27 @@
+[
+  {
+    "decision_id": "decision_001",
+    "event_id": "event_05_thai_restaurant",
+    "decision_type": "venue",
+    "value": "Thai Temple Restaurant",
+    "status": "majority",
+    "proposed_by": "nirali",
+    "proposed_at": "2024-06-15T12:00:00",
+    "supporting_users": [
+      "jake",
+      "tanya",
+      "amane",
+      "mahiru"
+    ],
+    "opposing_users": [],
+    "neutral_users": [
+      "maya"
+    ],
+    "reasoning": "",
+    "supersedes": null,
+    "source_messages": [
+      "msg_300",
+      "msg_301"
+    ]
+  }
+]

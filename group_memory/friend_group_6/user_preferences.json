@@ -1,0 +1,41 @@
+{
+  "john": [
+    {
+      "user_id": "john",
+      "preference_type": "dietary",
+      "value": "vegetarian",
+      "strength": "required",
+      "first_mentioned": "2024-05-01T10:00:00",
+      "last_confirmed": "2024-05-01T10:00:00",
+      "source_messages": [
+        "msg_001"
+      ]
+    }
+  ],
+  "maya": [
+    {
+      "user_id": "maya",
+      "preference_type": "budget",
+      "value": "$30-50 per person",
+      "strength": "strong",
+      "first_mentioned": "2024-05-05T14:00:00",
+      "last_confirmed": "2024-05-05T14:00:00",
+      "source_messages": [
+        "msg_050"
+      ]
+    }
+  ],
+  "tanya": [
+    {
+      "user_id": "tanya",
+      "preference_type": "venue_type",
+      "value": "indoor venues (gets cold easily)",
+      "strength": "mild",
+      "first_mentioned": "2024-06-10T16:00:00",
+      "last_confirmed": "2024-06-10T16:00:00",
+      "source_messages": [
+        "msg_200"
+      ]
+    }
+  ]
+}

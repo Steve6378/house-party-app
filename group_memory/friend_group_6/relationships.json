@@ -1,0 +1,14 @@
+[
+  {
+    "user1_id": "amane",
+    "user2_id": "mahiru",
+    "relationship_type": "dating",
+    "strength": 0.9,
+    "first_observed": "2024-07-04T15:14:33",
+    "evidence": [
+      "msg_450",
+      "msg_451",
+      "msg_452"
+    ]
+  }
+]
