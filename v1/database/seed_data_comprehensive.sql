@@ -47,9 +47,9 @@ INSERT INTO group_members (group_id, user_id, role) VALUES
 INSERT INTO group_preferences (group_id, user_id, dietary_restrictions, budget_max, venue_preferences, notes) VALUES
 ('group001-0001-0001-0001-000000000001', '33333333-3333-3333-3333-333333333333', ARRAY['vegetarian'], 50.00, '{"indoor": true, "outdoor": true}', 'Jake always vegetarian, flexible on venue'),
 ('group001-0001-0001-0001-000000000001', '55555555-5555-5555-5555-555555555555', ARRAY['vegan'], 40.00, '{"indoor": false, "outdoor": true}', 'Nirali prefers outdoor events, strict vegan'),
-('group001-0001-0001-0001-000000000001', '66666666-6666-6666-6666-666666666666', ARRAY[], 30.00, '{"indoor": true, "outdoor": false}', 'Maya budget-conscious, prefers smaller indoor gatherings'),
-('group001-0001-0001-0001-000000000001', '44444444-4444-4444-4444-444444444444', ARRAY[], 80.00, '{"indoor": true, "outdoor": true}', 'Tanya loves big parties, flexible budget'),
-('group001-0001-0001-0001-000000000001', '22222222-2222-2222-2222-222222222222', ARRAY[], 60.00, '{"indoor": true, "outdoor": true}', 'Mahiru great at cooking, loves hosting');
+('group001-0001-0001-0001-000000000001', '66666666-6666-6666-6666-666666666666', ARRAY[]::text[], 30.00, '{"indoor": true, "outdoor": false}', 'Maya budget-conscious, prefers smaller indoor gatherings'),
+('group001-0001-0001-0001-000000000001', '44444444-4444-4444-4444-444444444444', ARRAY[]::text[], 80.00, '{"indoor": true, "outdoor": true}', 'Tanya loves big parties, flexible budget'),
+('group001-0001-0001-0001-000000000001', '22222222-2222-2222-2222-222222222222', ARRAY[]::text[], 60.00, '{"indoor": true, "outdoor": true}', 'Mahiru great at cooking, loves hosting');
 
 -- ============================================
 -- EVENTS (16 events spanning 6 months)
@@ -353,7 +353,7 @@ INSERT INTO ground_truth_facts (id, event_id, key, value, category, importance, 
 INSERT INTO guest_preferences (event_id, user_id, dietary_restrictions, budget_preference, venue_preferences, confidence, manually_confirmed) VALUES
 ('event001-0001-0001-0001-000000000001', '33333333-3333-3333-3333-333333333333', ARRAY['vegetarian'], 50.00, '{"indoor": true}', 1.0, TRUE),
 ('event001-0001-0001-0001-000000000001', '55555555-5555-5555-5555-555555555555', ARRAY['vegan'], 40.00, '{"indoor": true}', 1.0, TRUE),
-('event001-0001-0001-0001-000000000001', '66666666-6666-6666-6666-666666666666', ARRAY[], 30.00, '{"indoor": true}', 1.0, TRUE);
+('event001-0001-0001-0001-000000000001', '66666666-6666-6666-6666-666666666666', ARRAY[]::text[], 30.00, '{"indoor": true}', 1.0, TRUE);
 
 -- Event 2: Movie Night - Prefilled
 INSERT INTO guest_preferences (event_id, user_id, dietary_restrictions, budget_preference, confidence, manually_confirmed) VALUES
@@ -364,7 +364,7 @@ INSERT INTO guest_preferences (event_id, user_id, dietary_restrictions, budget_p
 INSERT INTO guest_preferences (event_id, user_id, dietary_restrictions, budget_preference, confidence, manually_confirmed, extracted_from_message_id) VALUES
 ('event003-0003-0003-0003-000000000003', '33333333-3333-3333-3333-333333333333', ARRAY['vegetarian'], 50.00, 1.0, TRUE, NULL),
 ('event003-0003-0003-0003-000000000003', '55555555-5555-5555-5555-555555555555', ARRAY['vegan'], 40.00, 1.0, TRUE, NULL),
-('event003-0003-0003-0003-000000000003', '66666666-6666-6666-6666-666666666666', ARRAY[], 25.00, 0.85, FALSE, 'msg-e003-004');  -- Maya mentioned budget concerns
+('event003-0003-0003-0003-000000000003', '66666666-6666-6666-6666-666666666666', ARRAY[]::text[], 25.00, 0.85, FALSE, 'msg-e003-004');  -- Maya mentioned budget concerns
 
 -- Event 4: Maya's Birthday
 INSERT INTO guest_preferences (event_id, user_id, dietary_restrictions, budget_preference, confidence, manually_confirmed) VALUES

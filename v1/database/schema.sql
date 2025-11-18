@@ -130,8 +130,9 @@ CREATE INDEX idx_ground_truth_embedding ON ground_truth_facts
 USING ivfflat (embedding vector_cosine_ops) WITH (lists = 100);
 
 -- Change log for transparency (who changed what, when)
+CREATE SEQUENCE IF NOT EXISTS ground_truth_changes_id_seq;
 CREATE TABLE ground_truth_changes (
-    id TEXT PRIMARY KEY,
+    id TEXT PRIMARY KEY DEFAULT ('gtc-' || nextval('ground_truth_changes_id_seq')),
     event_id TEXT REFERENCES events(id) ON DELETE CASCADE,
     fact_id TEXT REFERENCES ground_truth_facts(id) ON DELETE SET NULL,
     fact_key VARCHAR(255),  -- Store key even if fact is deleted
@@ -149,8 +150,9 @@ CREATE INDEX idx_ground_truth_changes_changed_at ON ground_truth_changes(changed
 -- GUEST PREFERENCES (Extracted from chat)
 -- ============================================
 
+CREATE SEQUENCE IF NOT EXISTS guest_preferences_id_seq;
 CREATE TABLE guest_preferences (
-    id TEXT PRIMARY KEY,
+    id TEXT PRIMARY KEY DEFAULT ('gp-' || nextval('guest_preferences_id_seq')),
     event_id TEXT REFERENCES events(id) ON DELETE CASCADE,
     user_id TEXT REFERENCES users(id) ON DELETE CASCADE,
     dietary_restrictions TEXT[],
@@ -192,8 +194,9 @@ CREATE INDEX idx_escalated_questions_resolved ON escalated_questions(resolved);
 -- AI SUGGESTIONS (Generated from chat observations)
 -- ============================================
 
+CREATE SEQUENCE IF NOT EXISTS suggestions_id_seq;
 CREATE TABLE suggestions (
-    id TEXT PRIMARY KEY,
+    id TEXT PRIMARY KEY DEFAULT ('sug-' || nextval('suggestions_id_seq')),
     event_id TEXT REFERENCES events(id) ON DELETE CASCADE,
     suggestion_type VARCHAR(100),  -- 'new_faq', 'todo_item', 'preference_conflict', 'venue_idea'
     suggestion_text TEXT NOT NULL,
@@ -212,8 +215,9 @@ CREATE INDEX idx_suggestions_status ON suggestions(status);
 -- TO-DO LISTS
 -- ============================================
 
+CREATE SEQUENCE IF NOT EXISTS todos_id_seq;
 CREATE TABLE todos (
-    id TEXT PRIMARY KEY,
+    id TEXT PRIMARY KEY DEFAULT ('todo-' || nextval('todos_id_seq')),
     event_id TEXT REFERENCES events(id) ON DELETE CASCADE,
     description TEXT NOT NULL,
     completed BOOLEAN DEFAULT FALSE,
@@ -231,8 +235,9 @@ CREATE INDEX idx_todos_completed ON todos(completed);
 -- MESSAGES (Group Chat)
 -- ============================================
 
+CREATE SEQUENCE IF NOT EXISTS messages_id_seq;
 CREATE TABLE messages (
-    id TEXT PRIMARY KEY,
+    id TEXT PRIMARY KEY DEFAULT ('msg-' || nextval('messages_id_seq')),
     event_id TEXT REFERENCES events(id) ON DELETE CASCADE,
     user_id TEXT REFERENCES users(id) ON DELETE SET NULL,  -- NULL if from AI bot
     content TEXT NOT NULL,
