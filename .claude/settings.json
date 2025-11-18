@@ -1,7 +1,31 @@
 {
   "$schema": "https://docs.claude.com/assets/claude-code-settings-schema.json",
-  "description": "House Party App - Claude Code Settings",
-  "hooks": {},
+  "description": "House Party App - Claude Code Settings with Crash Recovery",
+  "hooks": {
+    "PreContextReset": [
+      {
+        "description": "Save session state before context resets (critical for continuity)",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "$CLAUDE_PROJECT_DIR/.claude/hooks/pre-context-reset.sh"
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "description": "Track file changes after Edit/Write tools (critical for crash recovery)",
+        "matcher": "Edit|Write|MultiEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "$CLAUDE_PROJECT_DIR/.claude/hooks/post-tool-use-tracker.sh"
+          }
+        ]
+      }
+    ]
+  },
   "skills": {
     "rulesPath": ".claude/skills/skill-rules.json"
   }
