@@ -12,7 +12,7 @@ CREATE EXTENSION IF NOT EXISTS vector;
 -- ============================================
 
 CREATE TABLE users (
-    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    id TEXT PRIMARY KEY,
     email VARCHAR(255) UNIQUE NOT NULL,
     password_hash VARCHAR(255),  -- NULL if using Google OAuth only
     google_id VARCHAR(255) UNIQUE,  -- Google user ID
@@ -30,9 +30,10 @@ CREATE INDEX idx_users_google_id ON users(google_id);
 -- ============================================
 
 CREATE TABLE groups (
-    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    id TEXT PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
-    created_by UUID REFERENCES users(id) ON DELETE SET NULL,
+    created_by TEXT REFERENCES users(id) ON DELETE SET NULL,
+    description TEXT,
     created_at TIMESTAMP DEFAULT NOW(),
     updated_at TIMESTAMP DEFAULT NOW()
 );
@@ -41,8 +42,8 @@ CREATE INDEX idx_groups_created_by ON groups(created_by);
 
 -- Group membership
 CREATE TABLE group_members (
-    group_id UUID REFERENCES groups(id) ON DELETE CASCADE,
-    user_id UUID REFERENCES users(id) ON DELETE CASCADE,
+    group_id TEXT REFERENCES groups(id) ON DELETE CASCADE,
+    user_id TEXT REFERENCES users(id) ON DELETE CASCADE,
     role VARCHAR(50) DEFAULT 'member',  -- 'member' or 'admin'
     joined_at TIMESTAMP DEFAULT NOW(),
     PRIMARY KEY (group_id, user_id)
@@ -52,9 +53,9 @@ CREATE INDEX idx_group_members_user_id ON group_members(user_id);
 
 -- Group-level persistent preferences (across all events in this group)
 CREATE TABLE group_preferences (
-    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
-    group_id UUID REFERENCES groups(id) ON DELETE CASCADE,
-    user_id UUID REFERENCES users(id) ON DELETE CASCADE,
+    id TEXT PRIMARY KEY,
+    group_id TEXT REFERENCES groups(id) ON DELETE CASCADE,
+    user_id TEXT REFERENCES users(id) ON DELETE CASCADE,
     dietary_restrictions TEXT[],  -- e.g., ['vegetarian', 'gluten-free']
     budget_max DECIMAL(10, 2),  -- Max budget per person
     venue_preferences JSONB,  -- e.g., {"indoor": true, "outdoor": false, "location_area": "downtown"}
@@ -72,16 +73,17 @@ CREATE INDEX idx_group_preferences_user_id ON group_preferences(user_id);
 -- ============================================
 
 CREATE TABLE events (
-    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
-    group_id UUID REFERENCES groups(id) ON DELETE SET NULL,  -- NULL = one-off party
+    id TEXT PRIMARY KEY,
+    group_id TEXT REFERENCES groups(id) ON DELETE SET NULL,  -- NULL = one-off party
     name VARCHAR(255) NOT NULL,
     event_type VARCHAR(50),  -- 'tight_knit', 'big_party', 'frat_party', etc.
-    main_host_id UUID REFERENCES users(id) ON DELETE SET NULL,
+    main_host_id TEXT REFERENCES users(id) ON DELETE SET NULL,
     date DATE,
     time TIME,
     address TEXT,
     venue_name VARCHAR(255),
     budget_per_person DECIMAL(10, 2),
+    expected_guests INTEGER,
     description TEXT,
     created_at TIMESTAMP DEFAULT NOW(),
     updated_at TIMESTAMP DEFAULT NOW()
@@ -93,8 +95,8 @@ CREATE INDEX idx_events_date ON events(date);
 
 -- Event co-hosts
 CREATE TABLE event_cohosts (
-    event_id UUID REFERENCES events(id) ON DELETE CASCADE,
-    user_id UUID REFERENCES users(id) ON DELETE CASCADE,
+    event_id TEXT REFERENCES events(id) ON DELETE CASCADE,
+    user_id TEXT REFERENCES users(id) ON DELETE CASCADE,
     added_at TIMESTAMP DEFAULT NOW(),
     PRIMARY KEY (event_id, user_id)
 );
@@ -106,15 +108,15 @@ CREATE INDEX idx_event_cohosts_user_id ON event_cohosts(user_id);
 -- ============================================
 
 CREATE TABLE ground_truth_facts (
-    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
-    event_id UUID REFERENCES events(id) ON DELETE CASCADE,
+    id TEXT PRIMARY KEY,
+    event_id TEXT REFERENCES events(id) ON DELETE CASCADE,
     key VARCHAR(255) NOT NULL,  -- e.g., 'address', 'parking', 'dress_code'
     value TEXT NOT NULL,
     category VARCHAR(100),  -- e.g., 'logistics', 'food', 'attire'
     importance VARCHAR(50) DEFAULT 'medium',  -- 'critical', 'high', 'medium', 'low'
     keywords TEXT[],  -- For keyword matching, e.g., ['address', 'location', 'where']
     embedding vector(1536),  -- OpenAI embedding for semantic search
-    created_by UUID REFERENCES users(id) ON DELETE SET NULL,
+    created_by TEXT REFERENCES users(id) ON DELETE SET NULL,
     created_at TIMESTAMP DEFAULT NOW(),
     updated_at TIMESTAMP DEFAULT NOW(),
     UNIQUE(event_id, key)
@@ -129,11 +131,11 @@ USING ivfflat (embedding vector_cosine_ops) WITH (lists = 100);
 
 -- Change log for transparency (who changed what, when)
 CREATE TABLE ground_truth_changes (
-    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
-    event_id UUID REFERENCES events(id) ON DELETE CASCADE,
-    fact_id UUID REFERENCES ground_truth_facts(id) ON DELETE SET NULL,
+    id TEXT PRIMARY KEY,
+    event_id TEXT REFERENCES events(id) ON DELETE CASCADE,
+    fact_id TEXT REFERENCES ground_truth_facts(id) ON DELETE SET NULL,
     fact_key VARCHAR(255),  -- Store key even if fact is deleted
-    changed_by UUID REFERENCES users(id) ON DELETE SET NULL,
+    changed_by TEXT REFERENCES users(id) ON DELETE SET NULL,
     change_type VARCHAR(50),  -- 'created', 'updated', 'deleted'
     old_value TEXT,
     new_value TEXT,
@@ -148,14 +150,14 @@ CREATE INDEX idx_ground_truth_changes_changed_at ON ground_truth_changes(changed
 -- ============================================
 
 CREATE TABLE guest_preferences (
-    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
-    event_id UUID REFERENCES events(id) ON DELETE CASCADE,
-    user_id UUID REFERENCES users(id) ON DELETE CASCADE,
+    id TEXT PRIMARY KEY,
+    event_id TEXT REFERENCES events(id) ON DELETE CASCADE,
+    user_id TEXT REFERENCES users(id) ON DELETE CASCADE,
     dietary_restrictions TEXT[],
     budget_preference DECIMAL(10, 2),
     venue_preferences JSONB,
     other_notes TEXT,
-    extracted_from_message_id UUID,  -- Reference to message this came from
+    extracted_from_message_id TEXT,  -- Reference to message this came from
     confidence FLOAT,  -- AI confidence score (0.0 to 1.0)
     manually_confirmed BOOLEAN DEFAULT FALSE,  -- Host can confirm/override
     created_at TIMESTAMP DEFAULT NOW(),
@@ -171,13 +173,13 @@ CREATE INDEX idx_guest_preferences_user_id ON guest_preferences(user_id);
 -- ============================================
 
 CREATE TABLE escalated_questions (
-    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
-    event_id UUID REFERENCES events(id) ON DELETE CASCADE,
-    asked_by UUID REFERENCES users(id) ON DELETE CASCADE,
+    id TEXT PRIMARY KEY,
+    event_id TEXT REFERENCES events(id) ON DELETE CASCADE,
+    asked_by TEXT REFERENCES users(id) ON DELETE CASCADE,
     question TEXT NOT NULL,
     context TEXT,  -- Optional: Previous messages for context
     resolved BOOLEAN DEFAULT FALSE,
-    resolved_by UUID REFERENCES users(id) ON DELETE SET NULL,
+    resolved_by TEXT REFERENCES users(id) ON DELETE SET NULL,
     resolution TEXT,  -- Host's answer
     created_at TIMESTAMP DEFAULT NOW(),
     resolved_at TIMESTAMP
@@ -191,14 +193,14 @@ CREATE INDEX idx_escalated_questions_resolved ON escalated_questions(resolved);
 -- ============================================
 
 CREATE TABLE suggestions (
-    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
-    event_id UUID REFERENCES events(id) ON DELETE CASCADE,
+    id TEXT PRIMARY KEY,
+    event_id TEXT REFERENCES events(id) ON DELETE CASCADE,
     suggestion_type VARCHAR(100),  -- 'new_faq', 'todo_item', 'preference_conflict', 'venue_idea'
     suggestion_text TEXT NOT NULL,
     supporting_evidence JSONB,  -- e.g., {"guest_count": 3, "message_ids": [...]}
     status VARCHAR(50) DEFAULT 'pending',  -- 'pending', 'accepted', 'dismissed'
     created_by_ai BOOLEAN DEFAULT TRUE,
-    reviewed_by UUID REFERENCES users(id) ON DELETE SET NULL,
+    reviewed_by TEXT REFERENCES users(id) ON DELETE SET NULL,
     created_at TIMESTAMP DEFAULT NOW(),
     reviewed_at TIMESTAMP
 );
@@ -211,11 +213,11 @@ CREATE INDEX idx_suggestions_status ON suggestions(status);
 -- ============================================
 
 CREATE TABLE todos (
-    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
-    event_id UUID REFERENCES events(id) ON DELETE CASCADE,
+    id TEXT PRIMARY KEY,
+    event_id TEXT REFERENCES events(id) ON DELETE CASCADE,
     description TEXT NOT NULL,
     completed BOOLEAN DEFAULT FALSE,
-    assigned_to UUID REFERENCES users(id) ON DELETE SET NULL,  -- Can assign to co-host
+    assigned_to TEXT REFERENCES users(id) ON DELETE SET NULL,  -- Can assign to co-host
     position INT,  -- For ordering
     created_at TIMESTAMP DEFAULT NOW(),
     completed_at TIMESTAMP
@@ -230,9 +232,9 @@ CREATE INDEX idx_todos_completed ON todos(completed);
 -- ============================================
 
 CREATE TABLE messages (
-    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
-    event_id UUID REFERENCES events(id) ON DELETE CASCADE,
-    user_id UUID REFERENCES users(id) ON DELETE SET NULL,  -- NULL if from AI bot
+    id TEXT PRIMARY KEY,
+    event_id TEXT REFERENCES events(id) ON DELETE CASCADE,
+    user_id TEXT REFERENCES users(id) ON DELETE SET NULL,  -- NULL if from AI bot
     content TEXT NOT NULL,
     message_type VARCHAR(50) DEFAULT 'text',  -- 'text', 'poll', 'poll_vote', 'system'
     metadata JSONB,  -- For polls: {"question": "...", "options": [...]}
@@ -250,9 +252,9 @@ CREATE INDEX idx_messages_ai_processed ON messages(ai_processed);
 -- ============================================
 
 CREATE TABLE polls (
-    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
-    event_id UUID REFERENCES events(id) ON DELETE CASCADE,
-    created_by UUID REFERENCES users(id) ON DELETE SET NULL,
+    id TEXT PRIMARY KEY,
+    event_id TEXT REFERENCES events(id) ON DELETE CASCADE,
+    created_by TEXT REFERENCES users(id) ON DELETE SET NULL,
     question TEXT NOT NULL,
     options JSONB NOT NULL,  -- e.g., ["Pizza", "Thai", "Mexican"]
     created_at TIMESTAMP DEFAULT NOW(),
@@ -262,8 +264,8 @@ CREATE TABLE polls (
 CREATE INDEX idx_polls_event_id ON polls(event_id);
 
 CREATE TABLE poll_votes (
-    poll_id UUID REFERENCES polls(id) ON DELETE CASCADE,
-    user_id UUID REFERENCES users(id) ON DELETE CASCADE,
+    poll_id TEXT REFERENCES polls(id) ON DELETE CASCADE,
+    user_id TEXT REFERENCES users(id) ON DELETE CASCADE,
     option_index INT NOT NULL,  -- Index into polls.options array
     voted_at TIMESTAMP DEFAULT NOW(),
     PRIMARY KEY (poll_id, user_id)
@@ -276,9 +278,9 @@ CREATE INDEX idx_poll_votes_poll_id ON polls(event_id);
 -- ============================================
 
 CREATE TABLE audit_log (
-    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
-    user_id UUID REFERENCES users(id) ON DELETE SET NULL,
-    event_id UUID REFERENCES events(id) ON DELETE SET NULL,
+    id TEXT PRIMARY KEY,
+    user_id TEXT REFERENCES users(id) ON DELETE SET NULL,
+    event_id TEXT REFERENCES users(id) ON DELETE SET NULL,
     action VARCHAR(100) NOT NULL,  -- e.g., 'created_event', 'edited_ground_truth'
     details JSONB,
     ip_address INET,
@@ -359,7 +361,7 @@ COMMENT ON TABLE audit_log IS 'Optional audit log for all actions';
 
 -- Create a default "AI Bot" user for system messages
 INSERT INTO users (id, email, name)
-VALUES ('00000000-0000-0000-0000-000000000000', 'bot@houseparty.app', 'AI Assistant')
+VALUES ('ai-bot-system-user', 'bot@houseparty.app', 'AI Assistant')
 ON CONFLICT DO NOTHING;
 
 COMMENT ON DATABASE postgres IS 'House Party App - Event planning with AI assistance';
