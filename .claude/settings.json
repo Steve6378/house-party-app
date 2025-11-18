@@ -1,0 +1,8 @@
+{
+  "$schema": "https://docs.claude.com/assets/claude-code-settings-schema.json",
+  "description": "House Party App - Claude Code Settings",
+  "hooks": {},
+  "skills": {
+    "rulesPath": ".claude/skills/skill-rules.json"
+  }
+}
