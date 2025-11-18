@@ -52,8 +52,9 @@ CREATE TABLE group_members (
 CREATE INDEX idx_group_members_user_id ON group_members(user_id);
 
 -- Group-level persistent preferences (across all events in this group)
+CREATE SEQUENCE IF NOT EXISTS group_preferences_id_seq;
 CREATE TABLE group_preferences (
-    id TEXT PRIMARY KEY,
+    id TEXT PRIMARY KEY DEFAULT ('gpr-' || nextval('group_preferences_id_seq')),
     group_id TEXT REFERENCES groups(id) ON DELETE CASCADE,
     user_id TEXT REFERENCES users(id) ON DELETE CASCADE,
     dietary_restrictions TEXT[],  -- e.g., ['vegetarian', 'gluten-free']
