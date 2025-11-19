@@ -48,6 +48,8 @@ class User(Base, TimestampMixin):
     escalated_questions = relationship("EscalatedQuestion", back_populates="user")
     todos_assigned = relationship("Todo", back_populates="assigned_user")
     event_attendance = relationship("EventAttendance", back_populates="user")
+    polls_created = relationship("Poll", back_populates="created_by_user")
+    poll_votes = relationship("PollVote", back_populates="user")
     
     def __repr__(self):
         return f"<User(id={self.id}, name={self.name}, email={self.email})>"

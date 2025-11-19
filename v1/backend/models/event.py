@@ -73,6 +73,7 @@ class Event(Base, TimestampMixin):
     suggestions = relationship("Suggestion", back_populates="event")
     todos = relationship("Todo", back_populates="event")
     guest_preferences = relationship("GuestPreferences", back_populates="event")
+    polls = relationship("Poll", back_populates="event")
     
     def __repr__(self):
         return f"<Event(id={self.id}, name={self.name}, date={self.date})>"

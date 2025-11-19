@@ -12,6 +12,8 @@ from .suggestion import Suggestion
 from .todo import Todo
 from .attendance import EventAttendance, GroupMembership, EventCoHost
 from .preferences import GuestPreferences, GroupPreferences
+from .poll import Poll, PollVote
+from .audit_log import AuditLog
 
 __all__ = [
     "Base",
@@ -30,4 +32,7 @@ __all__ = [
     "EventCoHost",
     "GuestPreferences",
     "GroupPreferences",
+    "Poll",
+    "PollVote",
+    "AuditLog",
 ]
