@@ -7,12 +7,16 @@ from sqlalchemy.orm import Session
 from sqlalchemy import text
 from utils.database import get_db
 from config import settings
+from routes import events_router
 
 app = FastAPI(
     title="Festivio API",
     version="0.0.1",
     description="AI-assisted event planning platform"
 )
+
+# Register routers
+app.include_router(events_router, prefix="/api")
 
 # CORS middleware for frontend
 app.add_middleware(
