@@ -10,8 +10,11 @@ from dotenv import load_dotenv
 import os
 from openai import OpenAI
 
-# Load environment variables
-load_dotenv('../.env')
+# Load environment variables (look in parent directory from script location)
+import pathlib
+script_dir = pathlib.Path(__file__).parent.resolve()
+env_path = script_dir.parent / '.env'
+load_dotenv(env_path)
 
 DATABASE_URL = os.getenv('DATABASE_URL')
 OPENAI_API_KEY = os.getenv('OPENAI_API_KEY')
