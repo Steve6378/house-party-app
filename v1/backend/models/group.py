@@ -1,7 +1,7 @@
 # Festivio - Group Model
 # Version: 0.0.1
 
-from sqlalchemy import Column, String
+from sqlalchemy import Column, String, Boolean
 from sqlalchemy.orm import relationship
 from .base import Base, TimestampMixin
 
@@ -23,9 +23,7 @@ class Group(Base, TimestampMixin):
     # Group info
     name = Column(String, nullable=False)
     description = Column(String)
-    
-    # TODO: Add is_private field for access control
-    # is_private = Column(Boolean, default=True, nullable=False)
+    is_private = Column(Boolean, default=True, nullable=False)  # Invite-only vs public
     
     # Relationships
     members = relationship("GroupMembership", back_populates="group")

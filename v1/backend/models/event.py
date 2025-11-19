@@ -1,7 +1,7 @@
 # Festivio - Event Model
 # Version: 0.0.1
 
-from sqlalchemy import Column, String, Date, Time, Integer, Numeric, DateTime, ForeignKey, Text
+from sqlalchemy import Column, String, Date, Time, Integer, Numeric, DateTime, ForeignKey, Text, Boolean
 from sqlalchemy.orm import relationship
 from .base import Base, TimestampMixin
 
@@ -46,25 +46,21 @@ class Event(Base, TimestampMixin):
     # Budget/capacity
     budget_per_person = Column(Numeric(10, 2))
     expected_guests = Column(Integer)
-    
-    # TODO: Add max_capacity for venue limits
-    # max_capacity = Column(Integer)
-    
-    # TODO: Add rsvp_deadline
-    # rsvp_deadline = Column(DateTime)
-    
+    max_capacity = Column(Integer)  # Venue capacity limit
+
+    # RSVP
+    rsvp_deadline = Column(DateTime)  # RSVP cutoff date
+    requires_approval = Column(Boolean, default=False, nullable=False)  # Host must approve RSVPs
+
     # Event status
     status = Column(String, default="active", nullable=False)
     # Values: "active", "ended", "archived", "cancelled", "deleted"
     archived_at = Column(DateTime)
     deleted_at = Column(DateTime)
-    
+
     # Privacy/visibility
     visibility = Column(String, default="private", nullable=False)
     # Values: "private", "group_only", "public"
-    
-    # TODO: Add requires_approval for RSVP moderation
-    # requires_approval = Column(Boolean, default=False, nullable=False)
     
     # Relationships
     host = relationship("User", back_populates="hosted_events", foreign_keys=[main_host_id])
