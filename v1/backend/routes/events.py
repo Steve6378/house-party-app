@@ -12,6 +12,8 @@ from models.user import User
 from schemas.event import EventCreate, EventUpdate, EventResponse, EventListResponse, EventListItem
 from utils.database import get_db
 from routes.auth import get_current_user
+from services.permissions import get_user_events, require_event_access
+from services.sanitize import sanitize_event_name, sanitize_event_address
 
 router = APIRouter(prefix="/events", tags=["events"])
 
@@ -30,29 +32,32 @@ def list_events(
 
     **Authentication required.**
 
+    Only returns events you have permission to view:
+    - Events you're hosting or co-hosting
+    - Events you're invited to
+    - Group events (if you're in the group)
+    - Public events
+
     - **skip**: Pagination offset (default: 0)
     - **limit**: Max results (default: 20, max: 100)
     - **status**: Filter by status (default: active)
     - **event_type**: Filter by type (optional)
     """
-    # Build query
-    query = db.query(Event)
-    
-    # Apply filters
-    if status:
-        query = query.filter(Event.status == status)
-    if event_type:
-        query = query.filter(Event.event_type == event_type)
-    
+    # Get all events user has access to (with filters applied)
+    accessible_events = get_user_events(current_user, db, status=status, event_type=event_type)
+
+    # Sort by date (newest first)
+    accessible_events.sort(key=lambda e: e.date, reverse=True)
+
     # Get total count
-    total = query.count()
-    
-    # Apply pagination and fetch
-    events = query.order_by(Event.date.desc()).offset(skip).limit(limit).all()
-    
+    total = len(accessible_events)
+
+    # Apply pagination manually
+    paginated_events = accessible_events[skip:skip + limit]
+
     return {
         "total": total,
-        "events": events,
+        "events": paginated_events,
         "skip": skip,
         "limit": limit
     }
@@ -69,13 +74,16 @@ def get_event(
 
     **Authentication required.**
 
-    Returns detailed event information.
+    Returns detailed event information if you have permission to view it.
     """
     event = db.query(Event).filter(Event.id == event_id).first()
-    
+
     if not event:
         raise HTTPException(status_code=404, detail="Event not found")
-    
+
+    # Check if user has permission to view this event
+    require_event_access(current_user, event, db, action="view")
+
     return event
 
 
@@ -93,21 +101,25 @@ def create_event(
     The logged-in user automatically becomes the main host.
 
     Requires:
-    - **name**: Event name
-    - **event_type**: Type (tight_knit, big_party, etc.)
+    - **name**: Event name (will be sanitized to remove HTML)
+    - **event_type**: Custom event type
     - **date**: Event date
     """
     # Generate unique ID
     event_id = f"event-{uuid.uuid4()}"
 
+    # Sanitize inputs to prevent XSS
+    sanitized_name = sanitize_event_name(event_data.name)
+    sanitized_address = sanitize_event_address(event_data.address) if event_data.address else None
+
     # Create event object (main_host_id is automatically set to current user)
     new_event = Event(
         id=event_id,
-        name=event_data.name,
+        name=sanitized_name,
         event_type=event_data.event_type,
         date=event_data.date,
         time=event_data.time,
-        address=event_data.address,
+        address=sanitized_address,
         main_host_id=current_user.id,  # Auto-set to logged-in user
         group_id=event_data.group_id,
         budget_per_person=event_data.budget_per_person,
@@ -115,12 +127,12 @@ def create_event(
         status="active",
         visibility=event_data.visibility
     )
-    
+
     # Save to database
     db.add(new_event)
     db.commit()
     db.refresh(new_event)
-    
+
     return new_event
 
 
@@ -136,7 +148,7 @@ def update_event(
 
     **Authentication required.**
 
-    Only the main host can update the event.
+    Only the host and co-hosts with edit_all permissions can update the event.
 
     All fields are optional - only provided fields will be updated.
     """
@@ -146,12 +158,19 @@ def update_event(
     if not event:
         raise HTTPException(status_code=404, detail="Event not found")
 
-    # Check if user is the host
-    if event.main_host_id != current_user.id:
-        raise HTTPException(status_code=403, detail="Only the host can update this event")
+    # Check if user has permission to edit
+    require_event_access(current_user, event, db, action="edit")
 
-    # Update fields (only non-None values)
+    # Get update data
     update_data = updates.model_dump(exclude_unset=True)
+
+    # Sanitize text fields if present
+    if "name" in update_data:
+        update_data["name"] = sanitize_event_name(update_data["name"])
+    if "address" in update_data and update_data["address"]:
+        update_data["address"] = sanitize_event_address(update_data["address"])
+
+    # Apply updates
     for field, value in update_data.items():
         setattr(event, field, value)
 
@@ -173,7 +192,7 @@ def delete_event(
 
     **Authentication required.**
 
-    Only the main host can delete the event.
+    Only the main host can delete events.
 
     Sets status to 'deleted' and records deletion timestamp.
     Data is preserved in database.
@@ -183,9 +202,8 @@ def delete_event(
     if not event:
         raise HTTPException(status_code=404, detail="Event not found")
 
-    # Check if user is the host
-    if event.main_host_id != current_user.id:
-        raise HTTPException(status_code=403, detail="Only the host can delete this event")
+    # Check if user has permission to delete (host only)
+    require_event_access(current_user, event, db, action="delete")
 
     # Soft delete
     event.status = "deleted"
@@ -211,7 +229,7 @@ def archive_event(
 
     **Authentication required.**
 
-    Only the main host can archive the event.
+    Only the host and co-hosts with edit_all permissions can archive events.
 
     Sets status to 'archived' and records archive timestamp.
     """
@@ -220,9 +238,8 @@ def archive_event(
     if not event:
         raise HTTPException(status_code=404, detail="Event not found")
 
-    # Check if user is the host
-    if event.main_host_id != current_user.id:
-        raise HTTPException(status_code=403, detail="Only the host can archive this event")
+    # Check if user has permission to edit
+    require_event_access(current_user, event, db, action="edit")
 
     # Archive
     event.status = "archived"

@@ -13,6 +13,8 @@ from models.user import User
 from schemas.message import MessageCreate, MessageUpdate, MessageResponse, MessageListResponse
 from utils.database import get_db
 from routes.auth import get_current_user
+from services.permissions import require_event_access
+from services.sanitize import sanitize_message_content
 
 router = APIRouter(prefix="/events", tags=["messages"])
 
@@ -29,19 +31,22 @@ def send_message(
 
     **Authentication required.**
 
-    Requires:
-    - **content**: Message text (1-10,000 characters)
-    - **message_type**: Optional, defaults to "user"
+    You must have access to the event to send messages.
 
-    TODO: Check if user is invited to event before allowing messages
+    Requires:
+    - **content**: Message text (1-10,000 characters, will be sanitized)
+    - **message_type**: Optional, defaults to "user"
     """
     # Check if event exists
     event = db.query(Event).filter(Event.id == event_id).first()
     if not event:
         raise HTTPException(status_code=404, detail="Event not found")
 
-    # TODO: Check if user is invited/member of this event
-    # For now, any logged-in user can message any event
+    # Check if user has permission to view/participate in this event
+    require_event_access(current_user, event, db, action="view")
+
+    # Sanitize message content (allows basic formatting)
+    sanitized_content = sanitize_message_content(message_data.content, allow_formatting=True)
 
     # Generate message ID
     message_id = f"msg-{uuid.uuid4()}"
@@ -52,7 +57,7 @@ def send_message(
         event_id=event_id,
         sender_id=current_user.id,
         message_type=message_data.message_type,
-        content=message_data.content,
+        content=sanitized_content,
         is_edited=False,
         is_deleted=False
     )
@@ -78,20 +83,21 @@ def list_messages(
 
     **Authentication required.**
 
+    You must have access to the event to view messages.
+
     - **skip**: Pagination offset (default: 0)
     - **limit**: Max results (default: 50, max: 100)
     - **include_deleted**: Show deleted messages (default: false)
 
     Messages are ordered by creation time (oldest first).
-
-    TODO: Check if user is invited to event before showing messages
     """
     # Check if event exists
     event = db.query(Event).filter(Event.id == event_id).first()
     if not event:
         raise HTTPException(status_code=404, detail="Event not found")
 
-    # TODO: Check if user is invited/member of this event
+    # Check if user has permission to view this event
+    require_event_access(current_user, event, db, action="view")
 
     # Build query
     query = db.query(Message).filter(Message.event_id == event_id)
@@ -128,6 +134,7 @@ def edit_message(
 
     Only the sender can edit their own messages.
     System and assistant messages cannot be edited.
+    Content will be sanitized to prevent XSS.
     """
     # Get message
     message = db.query(Message).filter(Message.id == message_id).first()
@@ -147,8 +154,11 @@ def edit_message(
     if message.is_deleted:
         raise HTTPException(status_code=400, detail="Cannot edit deleted message")
 
+    # Sanitize updated content
+    sanitized_content = sanitize_message_content(updates.content, allow_formatting=True)
+
     # Update message
-    message.content = updates.content
+    message.content = sanitized_content
     message.is_edited = True
     message.edited_at = datetime.utcnow()
 
@@ -215,13 +225,19 @@ def get_message(
 
     **Authentication required.**
 
-    TODO: Check if user has access to this event before showing message
+    You must have access to the event to view this message.
     """
     message = db.query(Message).filter(Message.id == message_id).first()
 
     if not message:
         raise HTTPException(status_code=404, detail="Message not found")
 
-    # TODO: Check if user is invited to the event this message belongs to
+    # Get the event to check permissions
+    event = db.query(Event).filter(Event.id == message.event_id).first()
+    if not event:
+        raise HTTPException(status_code=404, detail="Event not found")
+
+    # Check if user has permission to view this event's messages
+    require_event_access(current_user, event, db, action="view")
 
     return message
