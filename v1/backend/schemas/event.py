@@ -7,13 +7,12 @@ from typing import Optional
 
 
 class EventCreate(BaseModel):
-    """Schema for creating a new event"""
+    """Schema for creating a new event (main_host_id is auto-set to logged-in user)"""
     name: str = Field(..., min_length=1, max_length=255)
     event_type: str = Field(..., pattern="^(tight_knit|big_party|frat_party|professional|casual)$")
     date: date
     time: Optional[time] = None
     address: Optional[str] = None
-    main_host_id: str
     group_id: Optional[str] = None
     budget_per_person: Optional[float] = None
     expected_guests: Optional[int] = Field(None, ge=1)

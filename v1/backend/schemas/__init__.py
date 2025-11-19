@@ -3,6 +3,7 @@
 
 from .event import EventCreate, EventUpdate, EventResponse, EventListResponse
 from .ground_truth import GroundTruthQuery, GroundTruthAnswer, GroundTruthCreate, GroundTruthUpdate
+from .auth import UserRegister, UserLogin, Token, UserResponse
 
 __all__ = [
     "EventCreate",
@@ -13,4 +14,8 @@ __all__ = [
     "GroundTruthAnswer",
     "GroundTruthCreate",
     "GroundTruthUpdate",
+    "UserRegister",
+    "UserLogin",
+    "Token",
+    "UserResponse",
 ]
