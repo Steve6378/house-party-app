@@ -75,11 +75,12 @@ def query_semantic_search(question: str, event_id: str, db: Session, limit: int 
     embedding_str = '[' + ','.join(map(str, query_embedding)) + ']'
 
     # Search using cosine distance
-    query = text("""
-        SELECT 
+    # Note: embedding_str is formatted directly to avoid SQLAlchemy parameter issues with ::vector cast
+    query = text(f"""
+        SELECT
             key,
             value,
-            (embedding <=> :query_embedding::vector) as distance
+            (embedding <=> '{embedding_str}'::vector) as distance
         FROM ground_truth_facts
         WHERE event_id = :event_id
           AND embedding IS NOT NULL
@@ -88,7 +89,6 @@ def query_semantic_search(question: str, event_id: str, db: Session, limit: int 
     """)
 
     result = db.execute(query, {
-        "query_embedding": embedding_str,
         "event_id": event_id,
         "limit": limit
     })
