@@ -9,7 +9,7 @@ from typing import Optional
 class EventCreate(BaseModel):
     """Schema for creating a new event (main_host_id is auto-set to logged-in user)"""
     name: str = Field(..., min_length=1, max_length=255)
-    event_type: str = Field(..., pattern="^(tight_knit|big_party|frat_party|professional|casual)$")
+    event_type: str = Field(..., min_length=1, max_length=50, description="Custom event type (e.g., 'tight_knit', 'big_party', 'birthday', etc.)")
     date: date
     time: Optional[time] = None
     address: Optional[str] = None
@@ -22,7 +22,7 @@ class EventCreate(BaseModel):
 class EventUpdate(BaseModel):
     """Schema for updating an existing event (all fields optional)"""
     name: Optional[str] = Field(None, min_length=1, max_length=255)
-    event_type: Optional[str] = Field(None, pattern="^(tight_knit|big_party|frat_party|professional|casual)$")
+    event_type: Optional[str] = Field(None, min_length=1, max_length=50, description="Custom event type")
     date: Optional[date] = None
     time: Optional[time] = None
     address: Optional[str] = None

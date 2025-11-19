@@ -22,11 +22,14 @@ def list_events(
     limit: int = Query(20, ge=1, le=100, description="Max events to return"),
     status: Optional[str] = Query("active", description="Filter by status"),
     event_type: Optional[str] = Query(None, description="Filter by event type"),
+    current_user: User = Depends(get_current_user),
     db: Session = Depends(get_db)
 ):
     """
     List events with pagination and filters.
-    
+
+    **Authentication required.**
+
     - **skip**: Pagination offset (default: 0)
     - **limit**: Max results (default: 20, max: 100)
     - **status**: Filter by status (default: active)
@@ -56,10 +59,16 @@ def list_events(
 
 
 @router.get("/{event_id}", response_model=EventResponse)
-def get_event(event_id: str, db: Session = Depends(get_db)):
+def get_event(
+    event_id: str,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
     """
     Get a single event by ID.
-    
+
+    **Authentication required.**
+
     Returns detailed event information.
     """
     event = db.query(Event).filter(Event.id == event_id).first()
