@@ -4,6 +4,7 @@
 from .event import EventCreate, EventUpdate, EventResponse, EventListResponse
 from .ground_truth import GroundTruthQuery, GroundTruthAnswer, GroundTruthCreate, GroundTruthUpdate
 from .auth import UserRegister, UserLogin, Token, UserResponse
+from .message import MessageCreate, MessageUpdate, MessageResponse, MessageListResponse
 
 __all__ = [
     "EventCreate",
@@ -18,4 +19,8 @@ __all__ = [
     "UserLogin",
     "Token",
     "UserResponse",
+    "MessageCreate",
+    "MessageUpdate",
+    "MessageResponse",
+    "MessageListResponse",
 ]
