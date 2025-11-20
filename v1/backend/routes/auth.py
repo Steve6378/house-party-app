@@ -10,6 +10,7 @@ import uuid
 from models.user import User
 from schemas.auth import UserRegister, UserLogin, Token, UserResponse
 from services.auth import hash_password, verify_password, create_access_token, decode_access_token
+from services.sanitize import sanitize_text
 from utils.database import get_db
 
 router = APIRouter(prefix="/auth", tags=["authentication"])
@@ -42,14 +43,18 @@ def register(user_data: UserRegister, db: Session = Depends(get_db)):
     
     # Hash password
     hashed_password = hash_password(user_data.password)
-    
+
+    # Sanitize user inputs
+    sanitized_name = sanitize_text(user_data.name, allow_basic_formatting=False)
+    sanitized_phone = sanitize_text(user_data.phone, allow_basic_formatting=False) if user_data.phone else None
+
     # Create user
     new_user = User(
         id=user_id,
         email=user_data.email,
         password_hash=hashed_password,
-        name=user_data.name,
-        phone=user_data.phone,
+        name=sanitized_name,
+        phone=sanitized_phone,
         status="active",
         email_verified=False  # TODO: Add email verification flow
     )
