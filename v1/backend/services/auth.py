@@ -6,17 +6,27 @@ from typing import Optional
 from passlib.context import CryptContext
 from jose import JWTError, jwt
 from config import settings
+import hashlib
 
 # Password hashing
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
+def _prehash_password(password: str) -> str:
+    """
+    Pre-hash password with SHA256 to handle bcrypt's 72-byte limit.
+    This allows arbitrarily long passwords while maintaining security.
+    """
+    return hashlib.sha256(password.encode()).hexdigest()
+
 def hash_password(password: str) -> str:
-    """Hash a password using bcrypt"""
-    return pwd_context.hash(password)
+    """Hash a password using SHA256 + bcrypt"""
+    prehashed = _prehash_password(password)
+    return pwd_context.hash(prehashed)
 
 def verify_password(plain_password: str, hashed_password: str) -> bool:
     """Verify a password against its hash"""
-    return pwd_context.verify(plain_password, hashed_password)
+    prehashed = _prehash_password(plain_password)
+    return pwd_context.verify(prehashed, hashed_password)
 
 def create_access_token(data: dict, expires_delta: Optional[timedelta] = None) -> str:
     """
