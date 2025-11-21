@@ -1,4 +1,4 @@
-# Festivio - OpenAI Embeddings Service
+# Yorru - OpenAI Embeddings Service
 # Version: 0.0.1
 
 from openai import OpenAI

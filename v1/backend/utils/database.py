@@ -1,4 +1,4 @@
-# Festivio - Database Connection
+# Yorru - Database Connection
 # Version: 0.0.1
 
 from sqlalchemy import create_engine

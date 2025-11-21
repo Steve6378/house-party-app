@@ -1,4 +1,4 @@
-# Festivio - Ground Truth Query Service
+# Yorru - Ground Truth Query Service
 # Version: 0.0.1
 
 from sqlalchemy.orm import Session

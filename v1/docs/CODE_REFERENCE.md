@@ -1,4 +1,4 @@
-# Festivio - Code Reference
+# Yorru - Code Reference
 
 **Version:** 0.0.1
 **Last Updated:** 2025-11-18
@@ -48,7 +48,7 @@ python main.py
 ```
 
 **Endpoints available:**
-- `GET /` - Returns "Festivio API v0.0.1"
+- `GET /` - Returns "Yorru API v0.0.1"
 - `GET /health` - Checks database connection, returns event/embedding counts
 - `GET /api/test-semantic-search?question=Where+is+it` - Test vector search
 
@@ -67,7 +67,7 @@ python main.py
 from config import settings
 
 # Access settings:
-settings.DATABASE_URL       # "postgresql://festivio_admin:..."
+settings.DATABASE_URL       # "postgresql://yorru_admin:..."
 settings.OPENAI_API_KEY     # "sk-..."
 settings.JWT_SECRET_KEY     # Your random secret
 settings.DEBUG              # True/False
@@ -168,7 +168,7 @@ result = query_semantic_search("What should I wear?", "event001-...", db)
 
 **How to load:**
 ```bash
-psql -U festivio_admin -d house_party_db -h localhost < v1/database/schema.sql
+psql -U yorru_admin -d house_party_db -h localhost < v1/database/schema.sql
 ```
 
 **When to use:** First-time setup or after wiping database.
@@ -188,7 +188,7 @@ psql -U festivio_admin -d house_party_db -h localhost < v1/database/schema.sql
 
 **How to load:**
 ```bash
-psql -U festivio_admin -d house_party_db -h localhost < v1/database/seed_data_comprehensive.sql
+psql -U yorru_admin -d house_party_db -h localhost < v1/database/seed_data_comprehensive.sql
 ```
 
 **When to use:** After loading schema, for testing/development.
@@ -281,7 +281,7 @@ Event: Coffee Study Session
 
 **Required variables:**
 ```bash
-DATABASE_URL=postgresql://festivio_admin:PASSWORD@localhost:5432/house_party_db
+DATABASE_URL=postgresql://yorru_admin:PASSWORD@localhost:5432/house_party_db
 OPENAI_API_KEY=sk-your-key-here
 JWT_SECRET_KEY=random-64-char-string
 ENVIRONMENT=development
@@ -386,17 +386,17 @@ for key, value, distance in facts:
 ### Reset database
 ```bash
 # Drop everything
-psql -U festivio_admin -d house_party_db -h localhost \
+psql -U yorru_admin -d house_party_db -h localhost \
   -c "DROP SCHEMA public CASCADE; CREATE SCHEMA public;"
 
 # Recreate vector extension (as superuser!)
 sudo -u postgres psql -d house_party_db -c "CREATE EXTENSION vector;"
 
 # Reload schema
-psql -U festivio_admin -d house_party_db -h localhost < v1/database/schema.sql
+psql -U yorru_admin -d house_party_db -h localhost < v1/database/schema.sql
 
 # Reload seed data
-psql -U festivio_admin -d house_party_db -h localhost < v1/database/seed_data_comprehensive.sql
+psql -U yorru_admin -d house_party_db -h localhost < v1/database/seed_data_comprehensive.sql
 
 # Regenerate embeddings
 python generate_embeddings.py
@@ -432,7 +432,7 @@ f"(embedding <=> '{embedding_str}'::vector)"
 **Fix:** Create extension first, then reload schema:
 ```bash
 sudo -u postgres psql -d house_party_db -c "CREATE EXTENSION vector;"
-psql -U festivio_admin -d house_party_db -h localhost < v1/database/schema.sql
+psql -U yorru_admin -d house_party_db -h localhost < v1/database/schema.sql
 ```
 
 ### "null value in column 'id' violates not-null constraint"

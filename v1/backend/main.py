@@ -1,5 +1,6 @@
-# Festivio - FastAPI Backend
+# Yorru - FastAPI Backend
 # Version: 0.0.1
+# Yorru (夜 - "yoru" meaning night in Japanese) - Night Event Planning Platform
 
 from fastapi import FastAPI, Depends
 from fastapi.middleware.cors import CORSMiddleware
@@ -10,9 +11,9 @@ from config import settings
 from routes import events_router, ground_truth_router, auth_router, messages_router, message_router
 
 app = FastAPI(
-    title="Festivio API",
+    title="Yorru API",
     version="0.0.1",
-    description="AI-assisted event planning platform"
+    description="Yorru - AI-assisted night event planning platform"
 )
 
 # Register routers
@@ -35,9 +36,10 @@ app.add_middleware(
 def root():
     """API root endpoint"""
     return {
-        "name": "Festivio API",
+        "name": "Yorru API",
         "version": "0.0.1",
-        "status": "running"
+        "status": "running",
+        "tagline": "Night Event Planning"
     }
 
 @app.get("/health")

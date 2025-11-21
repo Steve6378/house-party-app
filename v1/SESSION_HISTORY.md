@@ -1,6 +1,6 @@
-# Claude Conversations - House Party App
+# Claude Conversations - Yorru
 
-**Project**: House Party App (AI-assisted event planning)
+**Project**: Yorru (AI-assisted event planning)
 **Session Date**: 2025-11-18
 **Branch**: `claude/expand-seed-data-017U1BvVDd1Q8Bop9ooQKkrj`
 
@@ -23,7 +23,7 @@
 
 ### Where We Started
 - You had Claude Code freeze **twice in a row**
-- Lost context about the House Party App architecture
+- Lost context about the Yorru architecture
 - Needed me to rebuild understanding and continue
 
 ### What We Accomplished

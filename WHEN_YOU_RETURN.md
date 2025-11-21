@@ -1,8 +1,9 @@
-# 🎯 FESTIVIO - COMPLETE SETUP & TESTING GUIDE
+# 🎯 YORRU - COMPLETE SETUP & TESTING GUIDE
 
-**Version:** 0.0.1  
-**Last Updated:** 2025-11-19  
+**Version:** 0.0.1
+**Last Updated:** 2025-11-21
 **Status:** Auth system complete, ready for testing
+**Brand:** Yorru (夜 - "yoru" meaning night in Japanese)
 
 ---
 
@@ -31,8 +32,8 @@
 ### **STEP 1: Pull Latest Code on EC2**
 
 ```bash
-cd ~/festivio
-git pull origin claude/expand-seed-data-017U1BvVDd1Q8Bop9ooQKkrj
+cd ~/yorru
+git pull origin claude/expand-seed-data-continued-01BcWwGkQ9yE8QcHMyAy7UU9
 ```
 
 ---
@@ -41,11 +42,11 @@ git pull origin claude/expand-seed-data-017U1BvVDd1Q8Bop9ooQKkrj
 
 ```bash
 # Migration 001: Add status/visibility columns
-psql -U festivio_admin -d house_party_db -h localhost \
+psql -U yorru_admin -d yorru_db -h localhost \
   -f v1/database/migrations/001_add_status_columns.sql
 
-# Migration 002: Fix table names + missing columns  
-psql -U festivio_admin -d house_party_db -h localhost \
+# Migration 002: Fix table names + missing columns
+psql -U yorru_admin -d yorru_db -h localhost \
   -f v1/database/migrations/002_fix_table_names_and_missing_columns.sql
 ```
 
@@ -67,14 +68,14 @@ If you see errors, check:
 ### **STEP 3: Restart the Server**
 
 ```bash
-cd ~/festivio/v1/backend
-source ~/festivio_env/bin/activate
+cd ~/yorru/v1/backend
+source ~/yorru_env/bin/activate
 python3 main.py
 ```
 
 **Expected output:**
 ```
-INFO:     Will watch for changes in these directories: ['/home/ubuntu/festivio/v1/backend']
+INFO:     Will watch for changes in these directories: ['/home/ubuntu/yorru/v1/backend']
 INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
 INFO:     Started reloader process [XXXX] using WatchFiles
 INFO:     Started server process [XXXX]

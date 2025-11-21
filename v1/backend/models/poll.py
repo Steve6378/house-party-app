@@ -1,4 +1,4 @@
-# Festivio - Poll Models
+# Yorru - Poll Models
 # Version: 0.0.1
 
 from sqlalchemy import Column, String, Text, ForeignKey, Integer, DateTime

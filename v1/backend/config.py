@@ -1,5 +1,6 @@
-# Festivio - Configuration Management
+# Yorru - Configuration Management
 # Version: 0.0.1
+# Yorru (夜 - "yoru" meaning night in Japanese) - Night Event Planning Platform
 
 from pydantic_settings import BaseSettings
 from typing import Optional

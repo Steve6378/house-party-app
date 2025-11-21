@@ -1,4 +1,4 @@
-# Python RAG Patterns for House Party App
+# Python RAG Patterns for Yorru
 
 ## Context
 This skill provides domain-specific patterns for the ground truth query system that uses pgvector for semantic search.

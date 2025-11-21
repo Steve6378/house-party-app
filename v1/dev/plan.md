@@ -1,4 +1,4 @@
-# House Party App - Implementation Plan
+# Yorru - Implementation Plan
 
 **Last Updated**: 2025-11-18
 **Status**: Planning Complete, Ready for Implementation

@@ -1,4 +1,4 @@
-# House Party App - Complete Implementation Guide
+# Yorru - Complete Implementation Guide
 
 **Start Date**: Tomorrow (EC2 setup)
 **Timeline**: 10-12 days
@@ -74,8 +74,8 @@ CREATE EXTENSION "uuid-ossp";
 ```bash
 # Clone your repo
 cd ~
-git clone https://github.com/Steve6378/house-party-app.git
-cd house-party-app
+git clone https://github.com/Steve6378/yorru.git
+cd yorru
 
 # Checkout the correct branch
 git checkout claude/expand-seed-data-017U1BvVDd1Q8Bop9ooQKkrj
@@ -93,7 +93,7 @@ pip install -r requirements.txt
 
 ```bash
 # Create .env file
-cd ~/house-party-app/v1/backend
+cd ~/yorru/v1/backend
 nano .env
 
 # Add these variables:
@@ -110,7 +110,7 @@ GOOGLE_CLIENT_SECRET=your-google-oauth-secret
 
 ```bash
 # Load schema
-cd ~/house-party-app/v1/database
+cd ~/yorru/v1/database
 psql -U house_party_user -d house_party_db -f schema.sql
 
 # Load seed data (comprehensive version)
@@ -125,7 +125,7 @@ psql -U house_party_user -d house_party_db -c "\dt"
 
 ```python
 # Create a script: generate_embeddings.py
-cd ~/house-party-app/v1/backend
+cd ~/yorru/v1/backend
 nano generate_embeddings.py
 
 # Paste this code:
@@ -184,7 +184,7 @@ with engine.connect() as conn:
 ### Task 2.1: Project Structure Setup
 
 ```bash
-cd ~/house-party-app/v1/backend
+cd ~/yorru/v1/backend
 
 # Create directory structure
 mkdir -p {models,api,auth,services,utils,tests/unit,tests/integration}
@@ -763,7 +763,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from api import auth, events, chat
 
-app = FastAPI(title="House Party App API", version="1.0.0")
+app = FastAPI(title="Yorru API", version="1.0.0")
 
 # CORS (for Next.js frontend)
 app.add_middleware(
@@ -781,7 +781,7 @@ app.include_router(chat.router)
 
 @app.get("/")
 def root():
-    return {"message": "House Party App API", "version": "1.0.0"}
+    return {"message": "Yorru API", "version": "1.0.0"}
 
 @app.get("/health")
 def health():
@@ -793,7 +793,7 @@ def health():
 ### Task 2.10: Run Backend
 
 ```bash
-cd ~/house-party-app/v1/backend
+cd ~/yorru/v1/backend
 source venv/bin/activate
 
 # Run backend
@@ -813,7 +813,7 @@ curl http://localhost:8000/health
 ### Task 3.1: Setup Next.js
 
 ```bash
-cd ~/house-party-app/v1
+cd ~/yorru/v1
 
 # Create Next.js app
 npx create-next-app@latest frontend --typescript --tailwind --app --no-src-dir

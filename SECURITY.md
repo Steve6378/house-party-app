@@ -1,9 +1,9 @@
-# Festivio Security Model
+# Yorru Security Model
 
 **Version:** 0.0.1
 **Last Updated:** November 2025
 
-This document outlines the security and permission model implemented in the Festivio backend.
+This document outlines the security and permission model implemented in the Yorru backend.
 
 ---
 
@@ -208,7 +208,7 @@ A: No. All input is sanitized using Bleach to strip HTML tags.
 
 ## Reporting Security Issues
 
-If you discover a security vulnerability, please email: [security@festivio.net]
+If you discover a security vulnerability, please email: [security@yorru.net]
 
 **Do not** create public GitHub issues for security vulnerabilities.
 

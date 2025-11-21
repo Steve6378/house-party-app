@@ -103,13 +103,13 @@ Show/hide sections based on event type:
 ### 1. Email Verification
 - Send verification email on registration
 - Email service options: SendGrid, AWS SES, Mailgun, Resend
-- Setup custom domain: donotreply@festivio.net
+- Setup custom domain: donotreply@yorru.net
 - Click-to-verify flow with token
 - Mark users as email_verified in database
 
 **Implementation:**
 - Generate verification token (JWT or random UUID)
-- Send email with link: `https://festivio.net/verify?token={token}`
+- Send email with link: `https://yorru.net/verify?token={token}`
 - Verify endpoint validates token and marks user as verified
 - Optional: Require verification before full access
 
@@ -136,7 +136,7 @@ Show/hide sections based on event type:
 **Setup per provider:**
 - Register with provider's developer console
 - Get Client ID and Client Secret
-- Set redirect URI: `https://festivio.net/auth/{provider}/callback`
+- Set redirect URI: `https://yorru.net/auth/{provider}/callback`
 - Use library: `authlib` or `python-social-auth`
 
 **User flow:**
@@ -290,7 +290,7 @@ return bleach.clean(text, tags=['b', 'i', 'u'], strip=True)
 response.headers["Content-Security-Policy"] = "default-src 'self'"
 ```
 
-**For Festivio:**
+**For Yorru:**
 - Event names, addresses: Strip all HTML
 - User messages: Allow basic formatting? Or strip all?
 - SQL injection: Already protected (SQLAlchemy uses parameterized queries ✓)
@@ -309,17 +309,17 @@ allow_origins=["*"]  # ← BAD for production!
 **Production:**
 ```python
 allow_origins=[
-    "https://festivio.net",
-    "https://www.festivio.net",
+    "https://yorru.net",
+    "https://www.yorru.net",
     "http://localhost:3000"  # Development only
 ]
 ```
 
 **What CORS does:**
-- Backend: `https://api.festivio.net`
-- Frontend: `https://festivio.net`
+- Backend: `https://api.yorru.net`
+- Frontend: `https://yorru.net`
 - Browser blocks cross-origin requests for security
-- CORS middleware tells browser: "It's okay, I trust festivio.net"
+- CORS middleware tells browser: "It's okay, I trust yorru.net"
 
 **Security:**
 - Only whitelist YOUR domains

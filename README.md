@@ -1,10 +1,10 @@
-# 🎉 House Party App - Event Planning with AI
+# 🌙 Yorru - Night Event Planning with AI
 
-[![Status](https://img.shields.io/badge/status-foundation_complete-brightgreen)]()
-[![Phase](https://img.shields.io/badge/phase-ready_for_implementation-blue)]()
+[![Status](https://img.shields.io/badge/status-v0.0.1_complete-brightgreen)]()
+[![Phase](https://img.shields.io/badge/phase-ready_for_deployment-blue)]()
 [![Stack](https://img.shields.io/badge/stack-FastAPI%20%7C%20PostgreSQL%20%7C%20Next.js-orange)]()
 
-**AI-assisted event planning app** with three interaction modes: Guest AI Assistant (1-on-1), Group Chat (observer), and Host Interface (dashboard).
+**Yorru** (夜 - "yoru" meaning night in Japanese) - AI-assisted event planning platform with three interaction modes: Guest AI Assistant (1-on-1), Group Chat (observer), and Host Interface (dashboard).
 
 ---
 
@@ -37,10 +37,10 @@
 ## 📂 **Project Structure**
 
 ```
-house-party-app/
-├── v0/                          # Old Yelp project (ignore)
+yorru/
+├── v0/                          # Old Yelp project (archived)
 │
-├── v1/                          # NEW - House Party App
+├── v1/                          # Yorru - Night Event Planning Platform
 │   ├── dev/                     # Dev Documentation (START HERE!)
 │   │   ├── plan.md             # Architecture & tech decisions (478 lines)
 │   │   ├── context.md          # Project state & file structure (461 lines)
@@ -175,7 +175,7 @@ sudo apt install -y python3.11 python3.11-venv python3-pip
 # Clone repository
 git clone https://github.com/Steve6378/house-party-app.git
 cd house-party-app
-git checkout claude/expand-seed-data-017U1BvVDd1Q8Bop9ooQKkrj
+git checkout claude/expand-seed-data-continued-01BcWwGkQ9yE8QcHMyAy7UU9
 ```
 
 ### **2. Database Setup**
@@ -183,20 +183,20 @@ git checkout claude/expand-seed-data-017U1BvVDd1Q8Bop9ooQKkrj
 ```bash
 # Create database
 sudo -u postgres psql
-CREATE DATABASE house_party_db;
-CREATE USER house_party_user WITH PASSWORD 'your_password';
-GRANT ALL PRIVILEGES ON DATABASE house_party_db TO house_party_user;
+CREATE DATABASE yorru_db;
+CREATE USER yorru_admin WITH PASSWORD 'your_password';
+GRANT ALL PRIVILEGES ON DATABASE yorru_db TO yorru_admin;
 
 # Enable extensions
-\c house_party_db
+\c yorru_db
 CREATE EXTENSION vector;
 CREATE EXTENSION "uuid-ossp";
 \q
 
 # Load schema and seed data
 cd v1/database
-psql -U house_party_user -d house_party_db -f schema.sql
-psql -U house_party_user -d house_party_db -f seed_data_comprehensive.sql
+psql -U yorru_admin -d yorru_db -f schema.sql
+psql -U yorru_admin -d yorru_db -f seed_data_comprehensive.sql
 ```
 
 ### **3. Backend Setup**
@@ -213,7 +213,7 @@ pip install -r requirements.txt
 
 # Create .env file
 cat > .env << EOF
-DATABASE_URL=postgresql://house_party_user:your_password@localhost:5432/house_party_db
+DATABASE_URL=postgresql://yorru_admin:your_password@localhost:5432/yorru_db
 OPENAI_API_KEY=sk-your-openai-key-here
 JWT_SECRET=your-random-secret-key
 EOF

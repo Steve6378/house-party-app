@@ -1,4 +1,4 @@
-# Claude Code Hooks for House Party App
+# Claude Code Hooks for Yorru
 
 ## Overview
 

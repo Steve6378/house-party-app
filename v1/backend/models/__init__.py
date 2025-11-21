@@ -1,4 +1,4 @@
-# Festivio - SQLAlchemy ORM Models
+# Yorru - SQLAlchemy ORM Models
 # Version: 0.0.1
 
 from .base import Base, TimestampMixin

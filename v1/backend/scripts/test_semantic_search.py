@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# Festivio - Test Semantic Search
+# Yorru - Test Semantic Search
 # Version: 0.0.1
 
 import sys

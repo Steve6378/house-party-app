@@ -1,4 +1,4 @@
-# Festivio - Message Model
+# Yorru - Message Model
 # Version: 0.0.1
 
 from sqlalchemy import Column, String, Text, ForeignKey, DateTime, Boolean

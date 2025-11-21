@@ -1,4 +1,4 @@
-# Festivio - Ground Truth Routes
+# Yorru - Ground Truth Routes
 # Version: 0.0.1
 
 from fastapi import APIRouter, Depends, HTTPException

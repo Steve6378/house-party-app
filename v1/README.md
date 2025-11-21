@@ -1,4 +1,4 @@
-# House Party App - v1
+# Yorru - v1
 
 Event planning web app with AI assistance. Helps hosts manage house parties, big events, and recurring group gatherings.
 

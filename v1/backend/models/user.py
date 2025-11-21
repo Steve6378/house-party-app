@@ -1,4 +1,4 @@
-# Festivio - User Model
+# Yorru - User Model
 # Version: 0.0.1
 
 from sqlalchemy import Column, String, Boolean, DateTime

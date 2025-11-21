@@ -1,4 +1,4 @@
-# House Party App - Tasks
+# Yorru - Tasks
 
 **Last Updated**: 2025-11-18
 

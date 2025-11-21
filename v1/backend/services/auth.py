@@ -1,4 +1,4 @@
-# Festivio - Authentication Service
+# Yorru - Authentication Service
 # Version: 0.0.1
 
 from datetime import datetime, timedelta

@@ -1,4 +1,4 @@
-# Festivio - Permission Service
+# Yorru - Permission Service
 # Version: 0.0.1
 
 """

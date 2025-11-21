@@ -7,9 +7,9 @@
 ## 🚀 Quick Handoff (Copy This)
 
 ```
-We're building the House Party App (AI-assisted event planning).
+We're building Yorru (夜 - "yoru" meaning night) - AI-assisted event planning platform.
 
-Foundation is 100% complete. Read these files in order:
+Foundation v0.0.1 complete. Read these files in order:
 
 1. README.md - Project overview
 2. v1/dev/context.md - Current state (last 50 lines show recent progress)
@@ -17,7 +17,7 @@ Foundation is 100% complete. Read these files in order:
 4. .claude/session-state.log - Last checkpoint (tail -50)
 
 Tech stack: FastAPI + PostgreSQL+pgvector + Next.js
-Branch: claude/expand-seed-data-017U1BvVDd1Q8Bop9ooQKkrj
+Branch: claude/expand-seed-data-continued-01BcWwGkQ9yE8QcHMyAy7UU9
 
 What's done:
 - Database schema (13 tables) ✅
@@ -62,8 +62,8 @@ Tell me:
 ```
 We just had a context reset. Read .claude/session-state.log to see the last checkpoint.
 
-Project: House Party App (AI event planning)
-Branch: claude/expand-seed-data-017U1BvVDd1Q8Bop9ooQKkrj
+Project: Yorru (夜 - Night Event Planning)
+Branch: claude/expand-seed-data-continued-01BcWwGkQ9yE8QcHMyAy7UU9
 
 Foundation complete. Now implementing: [FILL IN PHASE]
 
@@ -80,7 +80,7 @@ Continue from checkpoint.
 ## 🔍 Deep Context Needed (Copy This)
 
 ```
-I need you to fully understand the House Party App project.
+I need you to fully understand the Yorru project.
 
 Read these IN ORDER:
 
@@ -116,7 +116,7 @@ After reading, confirm what we're working on and continue.
 ## 🛠️ Implementation Phase (Copy This)
 
 ```
-We're in implementation phase for House Party App.
+We're in implementation phase for Yorru.
 
 Current phase: [Day X - FILL IN]
 
@@ -226,5 +226,5 @@ git diff
 
 ---
 
-**Last Updated**: 2025-11-18
-**Branch**: `claude/expand-seed-data-017U1BvVDd1Q8Bop9ooQKkrj`
+**Last Updated**: 2025-11-21
+**Branch**: `claude/expand-seed-data-continued-01BcWwGkQ9yE8QcHMyAy7UU9`

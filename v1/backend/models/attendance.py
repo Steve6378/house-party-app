@@ -1,4 +1,4 @@
-# Festivio - Attendance and Membership Models
+# Yorru - Attendance and Membership Models
 # Version: 0.0.1
 
 from sqlalchemy import Column, String, ForeignKey, Integer, DateTime

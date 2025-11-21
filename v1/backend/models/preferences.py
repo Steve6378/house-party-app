@@ -1,4 +1,4 @@
-# Festivio - Preferences Models
+# Yorru - Preferences Models
 # Version: 0.0.1
 
 from sqlalchemy import Column, String, ForeignKey, ARRAY, Text, Numeric

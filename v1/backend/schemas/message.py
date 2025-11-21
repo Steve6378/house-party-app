@@ -1,4 +1,4 @@
-# Festivio - Message Schemas
+# Yorru - Message Schemas
 # Version: 0.0.1
 
 from pydantic import BaseModel, Field

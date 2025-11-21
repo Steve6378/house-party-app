@@ -1,4 +1,4 @@
-# Festivio - Ground Truth Models
+# Yorru - Ground Truth Models
 # Version: 0.0.1
 
 from sqlalchemy import Column, String, Text, ForeignKey, ARRAY, DateTime

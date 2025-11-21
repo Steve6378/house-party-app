@@ -1,4 +1,4 @@
-# Festivio - Audit Log Model
+# Yorru - Audit Log Model
 # Version: 0.0.1
 
 from sqlalchemy import Column, String, ForeignKey, DateTime

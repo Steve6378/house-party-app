@@ -1,7 +1,7 @@
-# FastAPI Patterns for House Party App
+# FastAPI Patterns for Yorru
 
 ## Context
-Best practices for building the House Party App REST API with FastAPI + SQLAlchemy + Pydantic.
+Best practices for building the Yorru REST API with FastAPI + SQLAlchemy + Pydantic.
 
 ## Stack
 - **Framework**: FastAPI 0.109+
@@ -59,7 +59,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from api import auth, events, ground_truth, chat
 
 app = FastAPI(
-    title="House Party App API",
+    title="Yorru API",
     version="1.0.0",
     docs_url="/api/docs",  # Swagger UI
     redoc_url="/api/redoc"
@@ -82,7 +82,7 @@ app.include_router(chat.router)
 
 @app.get("/")
 def root():
-    return {"message": "House Party App API", "version": "1.0.0"}
+    return {"message": "Yorru API", "version": "1.0.0"}
 
 @app.get("/health")
 def health():

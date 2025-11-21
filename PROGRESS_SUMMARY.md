@@ -1,6 +1,6 @@
-# 🎉 Phase 1 Complete! Your House Party App Foundation is Ready
+# 🎉 Phase 1 Complete! Your Yorru Foundation is Ready
 
-Hey! While you were sleeping, I built the entire foundation for your House Party App following those **Claude Code best practices** from the Reddit post you shared. Everything is organized, documented, and ready to go.
+Hey! While you were sleeping, I built the entire foundation for your Yorru following those **Claude Code best practices** from the Reddit post you shared. Everything is organized, documented, and ready to go.
 
 ---
 

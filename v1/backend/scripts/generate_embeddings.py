@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# Festivio - Generate Embeddings for Ground Truth Facts
+# Yorru - Generate Embeddings for Ground Truth Facts
 # Version: 0.0.1
 
 import sys

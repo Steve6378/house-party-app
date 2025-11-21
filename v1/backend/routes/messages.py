@@ -1,4 +1,4 @@
-# Festivio - Message Routes
+# Yorru - Message Routes
 # Version: 0.0.1
 
 from fastapi import APIRouter, Depends, HTTPException, Query

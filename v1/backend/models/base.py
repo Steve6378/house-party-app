@@ -1,4 +1,4 @@
-# Festivio - Base Model Classes
+# Yorru - Base Model Classes
 # Version: 0.0.1
 
 from sqlalchemy.ext.declarative import declarative_base

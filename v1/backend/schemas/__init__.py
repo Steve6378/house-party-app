@@ -1,4 +1,4 @@
-# Festivio - Pydantic Schemas
+# Yorru - Pydantic Schemas
 # Version: 0.0.1
 
 from .event import EventCreate, EventUpdate, EventResponse, EventListResponse

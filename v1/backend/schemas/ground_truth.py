@@ -1,4 +1,4 @@
-# Festivio - Ground Truth Schemas
+# Yorru - Ground Truth Schemas
 # Version: 0.0.1
 
 from pydantic import BaseModel, Field

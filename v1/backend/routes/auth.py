@@ -1,4 +1,4 @@
-# Festivio - Auth Routes
+# Yorru - Auth Routes
 # Version: 0.0.1
 
 from fastapi import APIRouter, Depends, HTTPException, status

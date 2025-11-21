@@ -1,4 +1,4 @@
-# House Party App - Context & Key Files
+# Yorru - Context & Key Files
 
 **Last Updated**: 2025-11-18
 

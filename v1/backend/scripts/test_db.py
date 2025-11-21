@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# Festivio - Test Database Connection
+# Yorru - Test Database Connection
 # Version: 0.0.1
 
 import sys

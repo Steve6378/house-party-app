@@ -1,4 +1,4 @@
-# Festivio - Auth Schemas
+# Yorru - Auth Schemas
 # Version: 0.0.1
 
 from pydantic import BaseModel, EmailStr, Field

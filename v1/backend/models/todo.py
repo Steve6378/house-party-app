@@ -1,4 +1,4 @@
-# Festivio - Todo Model
+# Yorru - Todo Model
 # Version: 0.0.1
 
 from sqlalchemy import Column, String, Text, ForeignKey, Boolean, Date

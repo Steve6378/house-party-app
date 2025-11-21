@@ -1,4 +1,4 @@
-# Festivio - Input Sanitization Service
+# Yorru - Input Sanitization Service
 # Version: 0.0.1
 
 """

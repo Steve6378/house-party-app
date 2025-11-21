@@ -1,4 +1,4 @@
-# Festivio - Event Model
+# Yorru - Event Model
 # Version: 0.0.1
 
 from sqlalchemy import Column, String, Date, Time, Integer, Numeric, DateTime, ForeignKey, Text, Boolean
