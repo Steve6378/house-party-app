@@ -1,0 +1,153 @@
+{
+  "version": "1.0",
+  "description": "House Party App - Skill activation rules for FastAPI + PostgreSQL + Next.js stack",
+  "skills": {
+    "python-rag-patterns": {
+      "type": "domain",
+      "enforcement": "suggest",
+      "priority": "high",
+      "description": "RAG patterns for ground truth query system using pgvector",
+      "promptTriggers": {
+        "keywords": [
+          "rag",
+          "embedding",
+          "pgvector",
+          "semantic search",
+          "ground truth",
+          "fact query",
+          "keyword matching",
+          "cosine similarity"
+        ],
+        "intentPatterns": [
+          "(query|search|extract).*?(fact|embedding|ground truth)",
+          "(keyword|semantic).*?(match|search)",
+          "pgvector.*?(query|search)"
+        ]
+      },
+      "fileTriggers": {
+        "pathPatterns": [
+          "v1/backend/services/embeddings.py",
+          "v1/backend/services/ground_truth_query.py",
+          "v1/backend/services/**/*rag*.py",
+          "v1/backend/services/**/*query*.py"
+        ]
+      }
+    },
+    "fastapi-patterns": {
+      "type": "domain",
+      "enforcement": "suggest",
+      "priority": "high",
+      "description": "FastAPI endpoint patterns with SQLAlchemy and Pydantic",
+      "promptTriggers": {
+        "keywords": [
+          "fastapi",
+          "endpoint",
+          "router",
+          "pydantic",
+          "api",
+          "sqlalchemy",
+          "orm",
+          "crud"
+        ],
+        "intentPatterns": [
+          "(create|add|build).*?(endpoint|route|API)",
+          "(get|post|put|delete).*?/api/",
+          "sqlalchemy.*?(model|query)"
+        ]
+      },
+      "fileTriggers": {
+        "pathPatterns": [
+          "v1/backend/api/**/*.py",
+          "v1/backend/models/**/*.py",
+          "v1/backend/main.py"
+        ]
+      }
+    },
+    "websocket-patterns": {
+      "type": "domain",
+      "enforcement": "suggest",
+      "priority": "high",
+      "description": "WebSocket patterns for real-time chat (Guest AI + Group Chat)",
+      "promptTriggers": {
+        "keywords": [
+          "websocket",
+          "real-time",
+          "chat",
+          "socket",
+          "connection manager",
+          "broadcast"
+        ],
+        "intentPatterns": [
+          "websocket.*?(chat|connection)",
+          "(real-time|realtime).*?(chat|message)",
+          "(broadcast|send).*?(message|event)"
+        ]
+      },
+      "fileTriggers": {
+        "pathPatterns": [
+          "v1/backend/api/chat.py",
+          "v1/backend/**/*websocket*.py",
+          "v1/frontend/lib/websocket.ts"
+        ]
+      }
+    },
+    "database-patterns": {
+      "type": "domain",
+      "enforcement": "suggest",
+      "priority": "medium",
+      "description": "PostgreSQL + pgvector patterns for events, ground truth, preferences",
+      "promptTriggers": {
+        "keywords": [
+          "database",
+          "postgresql",
+          "schema",
+          "migration",
+          "alembic",
+          "vector",
+          "index"
+        ],
+        "intentPatterns": [
+          "(create|modify|alter).*?(table|schema)",
+          "(database|db).*?(query|index)",
+          "migration.*?(up|down|create)"
+        ]
+      },
+      "fileTriggers": {
+        "pathPatterns": [
+          "v1/database/**/*.sql",
+          "v1/backend/models/**/*.py",
+          "v1/backend/utils/db.py"
+        ]
+      }
+    },
+    "nextjs-patterns": {
+      "type": "domain",
+      "enforcement": "suggest",
+      "priority": "medium",
+      "description": "Next.js patterns for event management UI, chat interfaces, host dashboard",
+      "promptTriggers": {
+        "keywords": [
+          "nextjs",
+          "next.js",
+          "react",
+          "component",
+          "page",
+          "client",
+          "server component"
+        ],
+        "intentPatterns": [
+          "(create|build).*?(page|component)",
+          "nextjs.*?(routing|layout)",
+          "(client|server).*?component"
+        ]
+      },
+      "fileTriggers": {
+        "pathPatterns": [
+          "v1/frontend/app/**/*.tsx",
+          "v1/frontend/components/**/*.tsx",
+          "v1/frontend/lib/**/*.ts"
+        ]
+      }
+    }
+  }
+}
