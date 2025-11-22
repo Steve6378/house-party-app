@@ -1,5 +1,9 @@
--- House Party App - Database Schema
+-- Yorru - Database Schema
 -- PostgreSQL 15+ with pgvector extension
+
+-- Ensure we're using the public schema
+CREATE SCHEMA IF NOT EXISTS public;
+SET search_path TO public;
 
 -- Enable UUID extension
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
@@ -369,7 +373,5 @@ COMMENT ON TABLE audit_log IS 'Optional audit log for all actions';
 
 -- Create a default "AI Bot" user for system messages
 INSERT INTO users (id, email, name)
-VALUES ('ai-bot-system-user', 'bot@houseparty.app', 'AI Assistant')
+VALUES ('ai-bot-system-user', 'bot@yorru.net', 'Yorru AI Assistant')
 ON CONFLICT DO NOTHING;
-
-COMMENT ON DATABASE postgres IS 'House Party App - Event planning with AI assistance';
