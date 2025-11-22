@@ -11,26 +11,26 @@
 ## 🚀 **Current Status: Backend Deployed on Railway ✅**
 
 ### ✅ **Phase 1: Repository & Deployment (DONE)**
-- [x] Repository restructured (clean paths: backend/, database/, docs/)
-- [x] Python 3.12, environment-based config
-- [x] **Railway backend deployed** (FastAPI + Dockerfile)
-- [x] **Railway database deployed** (PostgreSQL + pgvector-pg17)
-- [x] **Database schema loaded** (production-ready)
-- [x] **Environment variables configured**
-- [x] **Dockerfile optimized** (layer caching for fast rebuilds)
+- ✅ Repository restructured (clean paths: backend/, database/, docs/)
+- ✅ Python 3.12, environment-based config
+- ✅ **Railway backend deployed** (FastAPI + Dockerfile)
+- ✅ **Railway database deployed** (PostgreSQL + pgvector-pg17)
+- ✅ **Database schema loaded** (production-ready)
+- ✅ **Environment variables configured**
+- ✅ **Dockerfile optimized** (layer caching for fast rebuilds)
 
 ### ⏳ **Phase 2: Frontend Development** (Next Up)
-- [ ] Initialize Next.js 14 + TypeScript project
-- [ ] Configure NextAuth.js (JWT integration)
-- [ ] Build core pages (login, events, chat, dashboard)
-- [ ] Integrate Socket.io for real-time chat
-- [ ] Deploy to Vercel
+- ⬜ Initialize Next.js 14 + TypeScript project
+- ⬜ Configure NextAuth.js (JWT integration)
+- ⬜ Build core pages (login, events, chat, dashboard)
+- ⬜ Integrate Socket.io for real-time chat
+- ⬜ Deploy to Vercel
 
 ### 🔜 **Phase 3-4: Features & Launch**
-- [ ] WebSocket chat implementation (Socket.io)
-- [ ] Photo storage (Cloudflare R2 / Firebase / MongoDB)
-- [ ] Testing & polish
-- [ ] Public launch
+- ⬜ WebSocket chat implementation (Socket.io)
+- ⬜ Photo storage (Cloudflare R2 / Firebase / MongoDB)
+- ⬜ Testing & polish
+- ⬜ Public launch
 
 ---
 
@@ -289,15 +289,15 @@ Guest: "Is there a gift registry?"
 
 ## 🎯 **Success Criteria**
 
-- [x] User can create account and log in
-- [x] Database schema supports all features
-- [x] Ground truth query system works (keyword + semantic)
-- [ ] User can create event
-- [ ] Guest can ask questions and get answers
-- [ ] AI escalates unknown questions
-- [ ] Group chat extracts preferences
-- [ ] Host can view dashboard
-- [ ] UI looks professional
+- ✅ User can create account and log in
+- ✅ Database schema supports all features
+- ✅ Ground truth query system works (keyword + semantic)
+- ⬜ User can create event
+- ⬜ Guest can ask questions and get answers
+- ⬜ AI escalates unknown questions
+- ⬜ Group chat extracts preferences
+- ⬜ Host can view dashboard
+- ⬜ UI looks professional
 
 ---
 
