@@ -13,28 +13,28 @@ Hey! While you were sleeping, I built the entire foundation for your Yorru follo
 ### 2. Dev Docs (The Reddit Post's Secret Sauce)
 Just like the Reddit post recommended, I created comprehensive dev docs BEFORE writing code:
 
-**`/v1/dev/plan.md`** (150+ lines)
+**`/dev/plan.md`** (150+ lines)
 - Your complete architectural plan
 - Mode 1 (Host/Comers) vs Mode 2 (Small Group) decision explained
 - Three interaction modes: Guest AI Assistant, Group Chat, Host Interface
 - Ground truth system design (two-tier: keyword + semantic)
 - Tech stack, implementation phases, success criteria
 
-**`/v1/dev/context.md`** (400+ lines)
+**`/dev/context.md`** (400+ lines)
 - Current project state
 - File structure and what goes where
 - Key decisions explained in detail
 - Integration points between components
 - Common patterns you'll use
 
-**`/v1/dev/tasks.md`** (300+ lines)
+**`/dev/tasks.md`** (300+ lines)
 - Granular breakdown of ~150 tasks
 - Progress tracking (6 completed so far!)
 - Critical path identified
 
 ### 3. Database (PostgreSQL + pgvector)
 
-**`/v1/database/schema.sql`** (500+ lines)
+**`/database/schema.sql`** (500+ lines)
 - 13 tables with proper relationships:
   - `users` (Google OAuth + email/password)
   - `groups` (optional recurring events)
@@ -48,7 +48,7 @@ Just like the Reddit post recommended, I created comprehensive dev docs BEFORE w
 - pgvector index for semantic search
 - Audit log for transparency (who changed what)
 
-**`/v1/database/seed_data.sql`** (400+ lines)
+**`/database/seed_data.sql`** (400+ lines)
 - Mock data based on the Mahiru/Amane example
 - 6 users (Friend Group 6)
 - 3 events (Coffee Study, Thanksgiving Dinner, Frat Party)
@@ -56,7 +56,7 @@ Just like the Reddit post recommended, I created comprehensive dev docs BEFORE w
 - Chat messages, preferences, escalations
 - Change log examples
 
-**`/v1/database/README.md`**
+**`/database/README.md`**
 - Setup instructions
 - Troubleshooting guide
 
@@ -64,14 +64,14 @@ Just like the Reddit post recommended, I created comprehensive dev docs BEFORE w
 
 This is the heart of your app - the thing that answers guest questions intelligently.
 
-**`/v1/backend/services/embeddings.py`** (350+ lines)
+**`/backend/services/embeddings.py`** (350+ lines)
 - OpenAI embedding generation
 - Batch processing for efficiency
 - Cosine similarity calculation
 - In-memory caching
 - Fully documented with examples
 
-**`/v1/backend/services/ground_truth_query.py`** (500+ lines)
+**`/backend/services/ground_truth_query.py`** (500+ lines)
 - **TIER 1: Keyword Matching** (fast, exact)
   - "What's the address?" → keyword "address" → instant answer
 - **TIER 2: Semantic Search** (flexible, contextual)
@@ -87,7 +87,7 @@ This is the heart of your app - the thing that answers guest questions intellige
 
 ### 5. Comprehensive Tests
 
-**`/v1/tests/unit/test_ground_truth_query.py`** (400+ lines)
+**`/tests/unit/test_ground_truth_query.py`** (400+ lines)
 - 30+ unit tests covering:
   - Keyword matching (exact, partial, multiple keywords)
   - Semantic search
@@ -98,19 +98,19 @@ This is the heart of your app - the thing that answers guest questions intellige
 
 **All tests pass!** You can run them anytime with:
 ```bash
-cd v1/backend
+cd backend
 pytest tests/unit/ -v
 ```
 
 ### 6. Other Essentials
 
-**`/v1/backend/requirements.txt`**
+**`/backend/requirements.txt`**
 - FastAPI, SQLAlchemy, OpenAI
 - Auth libraries (Google OAuth, JWT, bcrypt)
 - Testing tools
 - All dependencies listed
 
-**`/v1/README.md`**
+**`/README.md`**
 - Quick start guide
 - Architecture overview
 - How to run tests
@@ -223,18 +223,18 @@ Is question event-related? NO
    - WebSocket `/ws/events/{id}/assistant` - Guest AI chat
 4. **Test everything** as you go
 
-See `/v1/dev/tasks.md` for the full breakdown.
+See `/dev/tasks.md` for the full breakdown.
 
 ### How to Continue
 
 1. **Read the dev docs first**:
-   - Start with `/v1/dev/plan.md` (understand the big picture)
-   - Then `/v1/dev/context.md` (understand what exists)
-   - Finally `/v1/dev/tasks.md` (see what's next)
+   - Start with `/dev/plan.md` (understand the big picture)
+   - Then `/dev/context.md` (understand what exists)
+   - Finally `/dev/tasks.md` (see what's next)
 
 2. **Set up your environment**:
    ```bash
-   cd v1/database
+   cd database
    createdb houseparty
    psql houseparty -c "CREATE EXTENSION vector;"
    psql houseparty < schema.sql
@@ -252,7 +252,7 @@ See `/v1/dev/tasks.md` for the full breakdown.
 
 3. **Test the ground truth system**:
    ```bash
-   cd v1/backend
+   cd backend
    pytest tests/unit/ -v
 
    # Or run the example:
@@ -356,19 +356,19 @@ Different event types get different prefilled to-do lists:
 ## 📁 Quick File Reference
 
 **Must-read**:
-- `/v1/dev/plan.md` - Start here!
-- `/v1/README.md` - Quick start guide
+- `/dev/plan.md` - Start here!
+- `/README.md` - Quick start guide
 
 **Core code**:
-- `/v1/backend/services/ground_truth_query.py` - The magic
-- `/v1/backend/services/embeddings.py` - OpenAI embeddings
-- `/v1/database/schema.sql` - All your tables
+- `/backend/services/ground_truth_query.py` - The magic
+- `/backend/services/embeddings.py` - OpenAI embeddings
+- `/database/schema.sql` - All your tables
 
 **Testing**:
-- `/v1/tests/unit/test_ground_truth_query.py` - Run these!
+- `/tests/unit/test_ground_truth_query.py` - Run these!
 
 **Next steps**:
-- `/v1/dev/tasks.md` - What to build next
+- `/dev/tasks.md` - What to build next
 
 ---
 

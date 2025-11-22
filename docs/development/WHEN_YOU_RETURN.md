@@ -43,11 +43,11 @@ git pull origin claude/expand-seed-data-continued-01BcWwGkQ9yE8QcHMyAy7UU9
 ```bash
 # Migration 001: Add status/visibility columns
 psql -U yorru_admin -d yorru_db -h localhost \
-  -f v1/database/migrations/001_add_status_columns.sql
+  -f database/migrations/001_add_status_columns.sql
 
 # Migration 002: Fix table names + missing columns
 psql -U yorru_admin -d yorru_db -h localhost \
-  -f v1/database/migrations/002_fix_table_names_and_missing_columns.sql
+  -f database/migrations/002_fix_table_names_and_missing_columns.sql
 ```
 
 **Expected output:**
@@ -68,14 +68,14 @@ If you see errors, check:
 ### **STEP 3: Restart the Server**
 
 ```bash
-cd ~/yorru/v1/backend
+cd ~/yorru/backend
 source ~/yorru_env/bin/activate
 python3 main.py
 ```
 
 **Expected output:**
 ```
-INFO:     Will watch for changes in these directories: ['/home/ubuntu/yorru/v1/backend']
+INFO:     Will watch for changes in these directories: ['/home/ubuntu/yorru/backend']
 INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
 INFO:     Started reloader process [XXXX] using WatchFiles
 INFO:     Started server process [XXXX]
@@ -500,28 +500,28 @@ sudo -u postgres psql -d house_party_test -c "CREATE EXTENSION vector;"
 
 # Load schema
 psql -U festivio_admin -d house_party_test -h localhost \
-  -f v1/database/schema.sql
+  -f database/schema.sql
 
 # Load seed data
 psql -U festivio_admin -d house_party_test -h localhost \
-  -f v1/database/seed_data_comprehensive.sql
+  -f database/seed_data_comprehensive.sql
 
 # Run migrations
 psql -U festivio_admin -d house_party_test -h localhost \
-  -f v1/database/migrations/001_add_status_columns.sql
+  -f database/migrations/001_add_status_columns.sql
 
 psql -U festivio_admin -d house_party_test -h localhost \
-  -f v1/database/migrations/002_fix_table_names_and_missing_columns.sql
+  -f database/migrations/002_fix_table_names_and_missing_columns.sql
 
 # Generate embeddings
-cd ~/festivio/v1/backend
+cd ~/yorru/backend
 python3 scripts/generate_embeddings.py
 ```
 
 **Switch databases:**
 ```bash
 # Edit .env file
-nano ~/festivio/v1/backend/.env
+nano ~/yorru/backend/.env
 
 # Change DATABASE_URL to:
 DATABASE_URL=postgresql://festivio_admin:PASSWORD@localhost:5432/house_party_test

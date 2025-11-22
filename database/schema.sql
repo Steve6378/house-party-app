@@ -1,17 +1,23 @@
--- House Party App - Database Schema
+-- Yorru - Database Schema
 -- PostgreSQL 15+ with pgvector extension
 
+-- Ensure we're using the public schema
+CREATE SCHEMA IF NOT EXISTS public;
+
 -- Enable UUID extension
-CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+CREATE EXTENSION IF NOT EXISTS "uuid-ossp" SCHEMA public;
 
 -- Enable pgvector extension for embedding similarity search
-CREATE EXTENSION IF NOT EXISTS vector;
+CREATE EXTENSION IF NOT EXISTS vector SCHEMA public;
+
+-- Set search path AFTER extensions are created
+SET search_path TO public;
 
 -- ============================================
 -- USERS & AUTHENTICATION
 -- ============================================
 
-CREATE TABLE users (
+CREATE TABLE public.users (
     id TEXT PRIMARY KEY,
     email VARCHAR(255) UNIQUE NOT NULL,
     password_hash VARCHAR(255),  -- NULL if using Google OAuth only
@@ -22,14 +28,14 @@ CREATE TABLE users (
     updated_at TIMESTAMP DEFAULT NOW()
 );
 
-CREATE INDEX idx_users_email ON users(email);
-CREATE INDEX idx_users_google_id ON users(google_id);
+CREATE INDEX idx_users_email ON public.users(email);
+CREATE INDEX idx_users_google_id ON public.users(google_id);
 
 -- ============================================
 -- GROUPS (Optional, for recurring events)
 -- ============================================
 
-CREATE TABLE groups (
+CREATE TABLE public.groups (
     id TEXT PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
     created_by TEXT REFERENCES users(id) ON DELETE SET NULL,
@@ -38,10 +44,10 @@ CREATE TABLE groups (
     updated_at TIMESTAMP DEFAULT NOW()
 );
 
-CREATE INDEX idx_groups_created_by ON groups(created_by);
+CREATE INDEX idx_groups_created_by ON public.groups(created_by);
 
 -- Group membership
-CREATE TABLE group_members (
+CREATE TABLE public.group_members (
     group_id TEXT REFERENCES groups(id) ON DELETE CASCADE,
     user_id TEXT REFERENCES users(id) ON DELETE CASCADE,
     role VARCHAR(50) DEFAULT 'member',  -- 'member' or 'admin'
@@ -49,11 +55,11 @@ CREATE TABLE group_members (
     PRIMARY KEY (group_id, user_id)
 );
 
-CREATE INDEX idx_group_members_user_id ON group_members(user_id);
+CREATE INDEX idx_group_members_user_id ON public.group_members(user_id);
 
 -- Group-level persistent preferences (across all events in this group)
-CREATE SEQUENCE IF NOT EXISTS group_preferences_id_seq;
-CREATE TABLE group_preferences (
+CREATE SEQUENCE IF NOT EXISTS public.group_preferences_id_seq;
+CREATE TABLE public.group_preferences (
     id TEXT PRIMARY KEY DEFAULT ('gpr-' || nextval('group_preferences_id_seq')),
     group_id TEXT REFERENCES groups(id) ON DELETE CASCADE,
     user_id TEXT REFERENCES users(id) ON DELETE CASCADE,
@@ -66,14 +72,14 @@ CREATE TABLE group_preferences (
     UNIQUE(group_id, user_id)
 );
 
-CREATE INDEX idx_group_preferences_group_id ON group_preferences(group_id);
-CREATE INDEX idx_group_preferences_user_id ON group_preferences(user_id);
+CREATE INDEX idx_group_preferences_group_id ON public.group_preferences(group_id);
+CREATE INDEX idx_group_preferences_user_id ON public.group_preferences(user_id);
 
 -- ============================================
 -- EVENTS
 -- ============================================
 
-CREATE TABLE events (
+CREATE TABLE public.events (
     id TEXT PRIMARY KEY,
     group_id TEXT REFERENCES groups(id) ON DELETE SET NULL,  -- NULL = one-off party
     name VARCHAR(255) NOT NULL,
@@ -90,25 +96,25 @@ CREATE TABLE events (
     updated_at TIMESTAMP DEFAULT NOW()
 );
 
-CREATE INDEX idx_events_main_host_id ON events(main_host_id);
-CREATE INDEX idx_events_group_id ON events(group_id);
-CREATE INDEX idx_events_date ON events(date);
+CREATE INDEX idx_events_main_host_id ON public.events(main_host_id);
+CREATE INDEX idx_events_group_id ON public.events(group_id);
+CREATE INDEX idx_events_date ON public.events(date);
 
 -- Event co-hosts
-CREATE TABLE event_cohosts (
+CREATE TABLE public.event_cohosts (
     event_id TEXT REFERENCES events(id) ON DELETE CASCADE,
     user_id TEXT REFERENCES users(id) ON DELETE CASCADE,
     added_at TIMESTAMP DEFAULT NOW(),
     PRIMARY KEY (event_id, user_id)
 );
 
-CREATE INDEX idx_event_cohosts_user_id ON event_cohosts(user_id);
+CREATE INDEX idx_event_cohosts_user_id ON public.event_cohosts(user_id);
 
 -- ============================================
 -- GROUND TRUTH (Host-set facts)
 -- ============================================
 
-CREATE TABLE ground_truth_facts (
+CREATE TABLE public.ground_truth_facts (
     id TEXT PRIMARY KEY,
     event_id TEXT REFERENCES events(id) ON DELETE CASCADE,
     key VARCHAR(255) NOT NULL,  -- e.g., 'address', 'parking', 'dress_code'
@@ -123,16 +129,16 @@ CREATE TABLE ground_truth_facts (
     UNIQUE(event_id, key)
 );
 
-CREATE INDEX idx_ground_truth_event_id ON ground_truth_facts(event_id);
-CREATE INDEX idx_ground_truth_key ON ground_truth_facts(key);
+CREATE INDEX idx_ground_truth_event_id ON public.ground_truth_facts(event_id);
+CREATE INDEX idx_ground_truth_key ON public.ground_truth_facts(key);
 
 -- Vector similarity index for semantic search
-CREATE INDEX idx_ground_truth_embedding ON ground_truth_facts
+CREATE INDEX idx_ground_truth_embedding ON public.ground_truth_facts
 USING ivfflat (embedding vector_cosine_ops) WITH (lists = 100);
 
 -- Change log for transparency (who changed what, when)
-CREATE SEQUENCE IF NOT EXISTS ground_truth_changes_id_seq;
-CREATE TABLE ground_truth_changes (
+CREATE SEQUENCE IF NOT EXISTS public.ground_truth_changes_id_seq;
+CREATE TABLE public.ground_truth_changes (
     id TEXT PRIMARY KEY DEFAULT ('gtc-' || nextval('ground_truth_changes_id_seq')),
     event_id TEXT REFERENCES events(id) ON DELETE CASCADE,
     fact_id TEXT REFERENCES ground_truth_facts(id) ON DELETE SET NULL,
@@ -144,15 +150,15 @@ CREATE TABLE ground_truth_changes (
     changed_at TIMESTAMP DEFAULT NOW()
 );
 
-CREATE INDEX idx_ground_truth_changes_event_id ON ground_truth_changes(event_id);
-CREATE INDEX idx_ground_truth_changes_changed_at ON ground_truth_changes(changed_at DESC);
+CREATE INDEX idx_ground_truth_changes_event_id ON public.ground_truth_changes(event_id);
+CREATE INDEX idx_ground_truth_changes_changed_at ON public.ground_truth_changes(changed_at DESC);
 
 -- ============================================
 -- GUEST PREFERENCES (Extracted from chat)
 -- ============================================
 
-CREATE SEQUENCE IF NOT EXISTS guest_preferences_id_seq;
-CREATE TABLE guest_preferences (
+CREATE SEQUENCE IF NOT EXISTS public.guest_preferences_id_seq;
+CREATE TABLE public.guest_preferences (
     id TEXT PRIMARY KEY DEFAULT ('gp-' || nextval('guest_preferences_id_seq')),
     event_id TEXT REFERENCES events(id) ON DELETE CASCADE,
     user_id TEXT REFERENCES users(id) ON DELETE CASCADE,
@@ -168,14 +174,14 @@ CREATE TABLE guest_preferences (
     UNIQUE(event_id, user_id)
 );
 
-CREATE INDEX idx_guest_preferences_event_id ON guest_preferences(event_id);
-CREATE INDEX idx_guest_preferences_user_id ON guest_preferences(user_id);
+CREATE INDEX idx_guest_preferences_event_id ON public.guest_preferences(event_id);
+CREATE INDEX idx_guest_preferences_user_id ON public.guest_preferences(user_id);
 
 -- ============================================
 -- ESCALATED QUESTIONS (Bot couldn't answer)
 -- ============================================
 
-CREATE TABLE escalated_questions (
+CREATE TABLE public.escalated_questions (
     id TEXT PRIMARY KEY,
     event_id TEXT REFERENCES events(id) ON DELETE CASCADE,
     asked_by TEXT REFERENCES users(id) ON DELETE CASCADE,
@@ -188,15 +194,15 @@ CREATE TABLE escalated_questions (
     resolved_at TIMESTAMP
 );
 
-CREATE INDEX idx_escalated_questions_event_id ON escalated_questions(event_id);
-CREATE INDEX idx_escalated_questions_resolved ON escalated_questions(resolved);
+CREATE INDEX idx_escalated_questions_event_id ON public.escalated_questions(event_id);
+CREATE INDEX idx_escalated_questions_resolved ON public.escalated_questions(resolved);
 
 -- ============================================
 -- AI SUGGESTIONS (Generated from chat observations)
 -- ============================================
 
-CREATE SEQUENCE IF NOT EXISTS suggestions_id_seq;
-CREATE TABLE suggestions (
+CREATE SEQUENCE IF NOT EXISTS public.suggestions_id_seq;
+CREATE TABLE public.suggestions (
     id TEXT PRIMARY KEY DEFAULT ('sug-' || nextval('suggestions_id_seq')),
     event_id TEXT REFERENCES events(id) ON DELETE CASCADE,
     suggestion_type VARCHAR(100),  -- 'new_faq', 'todo_item', 'preference_conflict', 'venue_idea'
@@ -209,15 +215,15 @@ CREATE TABLE suggestions (
     reviewed_at TIMESTAMP
 );
 
-CREATE INDEX idx_suggestions_event_id ON suggestions(event_id);
-CREATE INDEX idx_suggestions_status ON suggestions(status);
+CREATE INDEX idx_suggestions_event_id ON public.suggestions(event_id);
+CREATE INDEX idx_suggestions_status ON public.suggestions(status);
 
 -- ============================================
 -- TO-DO LISTS
 -- ============================================
 
-CREATE SEQUENCE IF NOT EXISTS todos_id_seq;
-CREATE TABLE todos (
+CREATE SEQUENCE IF NOT EXISTS public.todos_id_seq;
+CREATE TABLE public.todos (
     id TEXT PRIMARY KEY DEFAULT ('todo-' || nextval('todos_id_seq')),
     event_id TEXT REFERENCES events(id) ON DELETE CASCADE,
     description TEXT NOT NULL,
@@ -228,36 +234,38 @@ CREATE TABLE todos (
     completed_at TIMESTAMP
 );
 
-CREATE INDEX idx_todos_event_id ON todos(event_id);
-CREATE INDEX idx_todos_assigned_to ON todos(assigned_to);
-CREATE INDEX idx_todos_completed ON todos(completed);
+CREATE INDEX idx_todos_event_id ON public.todos(event_id);
+CREATE INDEX idx_todos_assigned_to ON public.todos(assigned_to);
+CREATE INDEX idx_todos_completed ON public.todos(completed);
 
 -- ============================================
 -- MESSAGES (Group Chat)
 -- ============================================
 
-CREATE SEQUENCE IF NOT EXISTS messages_id_seq;
-CREATE TABLE messages (
-    id TEXT PRIMARY KEY DEFAULT ('msg-' || nextval('messages_id_seq')),
-    event_id TEXT REFERENCES events(id) ON DELETE CASCADE,
-    user_id TEXT REFERENCES users(id) ON DELETE SET NULL,  -- NULL if from AI bot
+CREATE TABLE public.messages (
+    id TEXT PRIMARY KEY DEFAULT ('msg-' || gen_random_uuid()),
+    event_id TEXT NOT NULL REFERENCES events(id) ON DELETE CASCADE,
+    sender_id TEXT REFERENCES users(id) ON DELETE SET NULL,  -- NULL for system/assistant messages
     content TEXT NOT NULL,
-    message_type VARCHAR(50) DEFAULT 'text',  -- 'text', 'poll', 'poll_vote', 'system'
-    metadata JSONB,  -- For polls: {"question": "...", "options": [...]}
-    ai_processed BOOLEAN DEFAULT FALSE,  -- Has AI extracted preferences yet?
-    created_at TIMESTAMP DEFAULT NOW()
+    message_type VARCHAR(50) DEFAULT 'user' NOT NULL,  -- 'user', 'system', 'assistant'
+    is_edited BOOLEAN DEFAULT FALSE NOT NULL,
+    edited_at TIMESTAMP,
+    is_deleted BOOLEAN DEFAULT FALSE NOT NULL,  -- Soft delete
+    deleted_at TIMESTAMP,
+    created_at TIMESTAMP DEFAULT NOW() NOT NULL,
+    updated_at TIMESTAMP DEFAULT NOW() NOT NULL
 );
 
-CREATE INDEX idx_messages_event_id ON messages(event_id);
-CREATE INDEX idx_messages_user_id ON messages(user_id);
-CREATE INDEX idx_messages_created_at ON messages(created_at DESC);
-CREATE INDEX idx_messages_ai_processed ON messages(ai_processed);
+CREATE INDEX idx_messages_event_id ON public.messages(event_id);
+CREATE INDEX idx_messages_sender_id ON public.messages(sender_id);
+CREATE INDEX idx_messages_created_at ON public.messages(created_at DESC);
+CREATE INDEX idx_messages_is_deleted ON public.messages(is_deleted) WHERE is_deleted = FALSE;
 
 -- ============================================
 -- POLLS (Group Chat Feature)
 -- ============================================
 
-CREATE TABLE polls (
+CREATE TABLE public.polls (
     id TEXT PRIMARY KEY,
     event_id TEXT REFERENCES events(id) ON DELETE CASCADE,
     created_by TEXT REFERENCES users(id) ON DELETE SET NULL,
@@ -267,9 +275,9 @@ CREATE TABLE polls (
     closes_at TIMESTAMP  -- Optional: poll expiration
 );
 
-CREATE INDEX idx_polls_event_id ON polls(event_id);
+CREATE INDEX idx_polls_event_id ON public.polls(event_id);
 
-CREATE TABLE poll_votes (
+CREATE TABLE public.poll_votes (
     poll_id TEXT REFERENCES polls(id) ON DELETE CASCADE,
     user_id TEXT REFERENCES users(id) ON DELETE CASCADE,
     option_index INT NOT NULL,  -- Index into polls.options array
@@ -277,13 +285,13 @@ CREATE TABLE poll_votes (
     PRIMARY KEY (poll_id, user_id)
 );
 
-CREATE INDEX idx_poll_votes_poll_id ON polls(event_id);
+CREATE INDEX idx_poll_votes_poll_id ON public.polls(event_id);
 
 -- ============================================
 -- AUDIT LOG (Optional, for debugging)
 -- ============================================
 
-CREATE TABLE audit_log (
+CREATE TABLE public.audit_log (
     id TEXT PRIMARY KEY,
     user_id TEXT REFERENCES users(id) ON DELETE SET NULL,
     event_id TEXT REFERENCES users(id) ON DELETE SET NULL,
@@ -294,9 +302,9 @@ CREATE TABLE audit_log (
     created_at TIMESTAMP DEFAULT NOW()
 );
 
-CREATE INDEX idx_audit_log_user_id ON audit_log(user_id);
-CREATE INDEX idx_audit_log_event_id ON audit_log(event_id);
-CREATE INDEX idx_audit_log_created_at ON audit_log(created_at DESC);
+CREATE INDEX idx_audit_log_user_id ON public.audit_log(user_id);
+CREATE INDEX idx_audit_log_event_id ON public.audit_log(event_id);
+CREATE INDEX idx_audit_log_created_at ON public.audit_log(created_at DESC);
 
 -- ============================================
 -- FUNCTIONS & TRIGGERS
@@ -311,44 +319,44 @@ BEGIN
 END;
 $$ language 'plpgsql';
 
-CREATE TRIGGER update_users_updated_at BEFORE UPDATE ON users
+CREATE TRIGGER update_users_updated_at BEFORE UPDATE ON public.users
     FOR EACH ROW EXECUTE FUNCTION update_updated_at_column();
 
-CREATE TRIGGER update_groups_updated_at BEFORE UPDATE ON groups
+CREATE TRIGGER update_groups_updated_at BEFORE UPDATE ON public.groups
     FOR EACH ROW EXECUTE FUNCTION update_updated_at_column();
 
-CREATE TRIGGER update_group_preferences_updated_at BEFORE UPDATE ON group_preferences
+CREATE TRIGGER update_group_preferences_updated_at BEFORE UPDATE ON public.group_preferences
     FOR EACH ROW EXECUTE FUNCTION update_updated_at_column();
 
-CREATE TRIGGER update_events_updated_at BEFORE UPDATE ON events
+CREATE TRIGGER update_events_updated_at BEFORE UPDATE ON public.events
     FOR EACH ROW EXECUTE FUNCTION update_updated_at_column();
 
-CREATE TRIGGER update_ground_truth_facts_updated_at BEFORE UPDATE ON ground_truth_facts
+CREATE TRIGGER update_ground_truth_facts_updated_at BEFORE UPDATE ON public.ground_truth_facts
     FOR EACH ROW EXECUTE FUNCTION update_updated_at_column();
 
-CREATE TRIGGER update_guest_preferences_updated_at BEFORE UPDATE ON guest_preferences
+CREATE TRIGGER update_guest_preferences_updated_at BEFORE UPDATE ON public.guest_preferences
     FOR EACH ROW EXECUTE FUNCTION update_updated_at_column();
 
 -- ============================================
 -- COMMENTS (Documentation)
 -- ============================================
 
-COMMENT ON TABLE users IS 'User accounts (Google OAuth or email/password)';
-COMMENT ON TABLE groups IS 'Optional groups for recurring events (e.g., "USC Roommates")';
-COMMENT ON TABLE group_members IS 'Membership in groups';
-COMMENT ON TABLE group_preferences IS 'Persistent preferences across all events in a group';
-COMMENT ON TABLE events IS 'Individual events (can belong to a group or be standalone)';
-COMMENT ON TABLE event_cohosts IS 'Co-hosts for an event (same permissions as main host)';
-COMMENT ON TABLE ground_truth_facts IS 'Host-set facts (address, parking, etc.) with embeddings for semantic search';
-COMMENT ON TABLE ground_truth_changes IS 'Audit log of ground truth changes (transparency for multi-host)';
-COMMENT ON TABLE guest_preferences IS 'Preferences extracted from group chat (AI-generated)';
-COMMENT ON TABLE escalated_questions IS 'Questions bot couldn''t answer, sent to host';
-COMMENT ON TABLE suggestions IS 'AI-generated suggestions based on chat observations';
-COMMENT ON TABLE todos IS 'To-do lists for hosts (prefilled based on event type)';
-COMMENT ON TABLE messages IS 'Group chat messages';
-COMMENT ON TABLE polls IS 'Polls created in group chat';
-COMMENT ON TABLE poll_votes IS 'Votes in polls';
-COMMENT ON TABLE audit_log IS 'Optional audit log for all actions';
+COMMENT ON TABLE public.users IS 'User accounts (Google OAuth or email/password)';
+COMMENT ON TABLE public.groups IS 'Optional groups for recurring events (e.g., "USC Roommates")';
+COMMENT ON TABLE public.group_members IS 'Membership in groups';
+COMMENT ON TABLE public.group_preferences IS 'Persistent preferences across all events in a group';
+COMMENT ON TABLE public.events IS 'Individual events (can belong to a group or be standalone)';
+COMMENT ON TABLE public.event_cohosts IS 'Co-hosts for an event (same permissions as main host)';
+COMMENT ON TABLE public.ground_truth_facts IS 'Host-set facts (address, parking, etc.) with embeddings for semantic search';
+COMMENT ON TABLE public.ground_truth_changes IS 'Audit log of ground truth changes (transparency for multi-host)';
+COMMENT ON TABLE public.guest_preferences IS 'Preferences extracted from group chat (AI-generated)';
+COMMENT ON TABLE public.escalated_questions IS 'Questions bot couldn''t answer, sent to host';
+COMMENT ON TABLE public.suggestions IS 'AI-generated suggestions based on chat observations';
+COMMENT ON TABLE public.todos IS 'To-do lists for hosts (prefilled based on event type)';
+COMMENT ON TABLE public.messages IS 'Group chat messages';
+COMMENT ON TABLE public.polls IS 'Polls created in group chat';
+COMMENT ON TABLE public.poll_votes IS 'Votes in polls';
+COMMENT ON TABLE public.audit_log IS 'Optional audit log for all actions';
 
 -- ============================================
 -- INDEXES SUMMARY
@@ -366,8 +374,6 @@ COMMENT ON TABLE audit_log IS 'Optional audit log for all actions';
 -- ============================================
 
 -- Create a default "AI Bot" user for system messages
-INSERT INTO users (id, email, name)
-VALUES ('ai-bot-system-user', 'bot@houseparty.app', 'AI Assistant')
+INSERT INTO public.users (id, email, name)
+VALUES ('ai-bot-system-user', 'bot@yorru.net', 'Yorru AI Assistant')
 ON CONFLICT DO NOTHING;
-
-COMMENT ON DATABASE postgres IS 'House Party App - Event planning with AI assistance';
