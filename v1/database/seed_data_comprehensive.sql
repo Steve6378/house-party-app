@@ -511,89 +511,89 @@ INSERT INTO todos (event_id, description, completed, assigned_to, position, crea
 -- ============================================
 
 -- Event 2: Movie Night Chat
-INSERT INTO messages (event_id, user_id, content, ai_processed, created_at) VALUES
-('event002-0002-0002-0002-000000000002', '11111111-1111-1111-1111-111111111111', 'Movie night at my place this Saturday! Studio Ghibli marathon 🎬', TRUE, NOW() - INTERVAL '11 days'),
-('event002-0002-0002-0002-000000000002', '22222222-2222-2222-2222-222222222222', 'Omg yes! I''ll make ramen for everyone', TRUE, NOW() - INTERVAL '11 days'),
-('event002-0002-0002-0002-000000000002', '55555555-5555-5555-5555-555555555555', 'Spirited Away is my favorite!! 😍', TRUE, NOW() - INTERVAL '11 days'),
-('event002-0002-0002-0002-000000000002', '66666666-6666-6666-6666-666666666666', 'What time? And can I bring snacks?', TRUE, NOW() - INTERVAL '11 days'),
-('event002-0002-0002-0002-000000000002', '11111111-1111-1111-1111-111111111111', '7pm, come in PJs! Snacks welcome but Mahiru is cooking :)', TRUE, NOW() - INTERVAL '11 days');
+INSERT INTO messages (event_id, sender_id, content, message_type, created_at) VALUES
+('event002-0002-0002-0002-000000000002', '11111111-1111-1111-1111-111111111111', 'Movie night at my place this Saturday! Studio Ghibli marathon 🎬', 'user', NOW() - INTERVAL '11 days'),
+('event002-0002-0002-0002-000000000002', '22222222-2222-2222-2222-222222222222', 'Omg yes! I''ll make ramen for everyone', 'user', NOW() - INTERVAL '11 days'),
+('event002-0002-0002-0002-000000000002', '55555555-5555-5555-5555-555555555555', 'Spirited Away is my favorite!! 😍', 'user', NOW() - INTERVAL '11 days'),
+('event002-0002-0002-0002-000000000002', '66666666-6666-6666-6666-666666666666', 'What time? And can I bring snacks?', 'user', NOW() - INTERVAL '11 days'),
+('event002-0002-0002-0002-000000000002', '11111111-1111-1111-1111-111111111111', '7pm, come in PJs! Snacks welcome but Mahiru is cooking :)', 'user', NOW() - INTERVAL '11 days');
 
 -- Event 3: Thanksgiving Chat (LONG conversation)
-INSERT INTO messages (event_id, user_id, content, ai_processed, created_at) VALUES
-('event003-0003-0003-0003-000000000003', '11111111-1111-1111-1111-111111111111', 'Hey everyone! Excited for Thanksgiving dinner at my place. Who''s bringing what?', TRUE, NOW() - INTERVAL '18 days'),
-('event003-0003-0003-0003-000000000003', '22222222-2222-2222-2222-222222222222', 'I''ll help you cook the turkey! And I can make mashed potatoes', TRUE, NOW() - INTERVAL '18 days'),
-('event003-0003-0003-0003-000000000003', '33333333-3333-3333-3333-333333333333', 'I can bring a vegetarian lasagna! Just a reminder I''m vegetarian btw', TRUE, NOW() - INTERVAL '18 days'),
-('event003-0003-0003-0003-000000000003', '55555555-5555-5555-5555-555555555555', 'I''ll bring a vegan pumpkin pie! Also I''m vegan so keep that in mind for sides', TRUE, NOW() - INTERVAL '18 days'),
-('event003-0003-0003-0003-000000000003', '44444444-4444-4444-4444-444444444444', 'I''ll do cranberry sauce and stuffing!', TRUE, NOW() - INTERVAL '17 days'),
-('event003-0003-0003-0003-000000000003', '66666666-6666-6666-6666-666666666666', 'What''s the budget looking like? I''m a bit tight on cash this month', TRUE, NOW() - INTERVAL '17 days'),
-('event003-0003-0003-0003-000000000003', '11111111-1111-1111-1111-111111111111', '@Maya it''s $25 per person but that covers the turkey and main sides. You just need to bring a small dish!', TRUE, NOW() - INTERVAL '17 days'),
-('event003-0003-0003-0003-000000000003', '66666666-6666-6666-6666-666666666666', 'Oh okay that''s manageable. I can make green bean casserole!', TRUE, NOW() - INTERVAL '17 days'),
-('event003-0003-0003-0003-000000000003', '22222222-2222-2222-2222-222222222222', 'I''ll bring wine! Red and white? Or just bring red?', TRUE, NOW() - INTERVAL '16 days'),
-('event003-0003-0003-0003-000000000003', '11111111-1111-1111-1111-111111111111', 'Both would be great! Thank you :)', TRUE, NOW() - INTERVAL '16 days'),
-('event003-0003-0003-0003-000000000003', '44444444-4444-4444-4444-444444444444', 'Can I bring my roommate? She''s visiting from out of town', TRUE, NOW() - INTERVAL '15 days'),
-('event003-0003-0003-0003-000000000003', '55555555-5555-5555-5555-555555555555', 'What''s the vibe music-wise? Should we make a playlist?', TRUE, NOW() - INTERVAL '14 days'),
-('event003-0003-0003-0003-000000000003', '22222222-2222-2222-2222-222222222222', 'Great idea! I''ll set up a Spotify collaborative playlist', TRUE, NOW() - INTERVAL '14 days'),
-('event003-0003-0003-0003-000000000003', '33333333-3333-3333-3333-333333333333', 'Add some chill jazz vibes!', TRUE, NOW() - INTERVAL '14 days');
+INSERT INTO messages (event_id, sender_id, content, message_type, created_at) VALUES
+('event003-0003-0003-0003-000000000003', '11111111-1111-1111-1111-111111111111', 'Hey everyone! Excited for Thanksgiving dinner at my place. Who''s bringing what?', 'user', NOW() - INTERVAL '18 days'),
+('event003-0003-0003-0003-000000000003', '22222222-2222-2222-2222-222222222222', 'I''ll help you cook the turkey! And I can make mashed potatoes', 'user', NOW() - INTERVAL '18 days'),
+('event003-0003-0003-0003-000000000003', '33333333-3333-3333-3333-333333333333', 'I can bring a vegetarian lasagna! Just a reminder I''m vegetarian btw', 'user', NOW() - INTERVAL '18 days'),
+('event003-0003-0003-0003-000000000003', '55555555-5555-5555-5555-555555555555', 'I''ll bring a vegan pumpkin pie! Also I''m vegan so keep that in mind for sides', 'user', NOW() - INTERVAL '18 days'),
+('event003-0003-0003-0003-000000000003', '44444444-4444-4444-4444-444444444444', 'I''ll do cranberry sauce and stuffing!', 'user', NOW() - INTERVAL '17 days'),
+('event003-0003-0003-0003-000000000003', '66666666-6666-6666-6666-666666666666', 'What''s the budget looking like? I''m a bit tight on cash this month', 'user', NOW() - INTERVAL '17 days'),
+('event003-0003-0003-0003-000000000003', '11111111-1111-1111-1111-111111111111', '@Maya it''s $25 per person but that covers the turkey and main sides. You just need to bring a small dish!', 'user', NOW() - INTERVAL '17 days'),
+('event003-0003-0003-0003-000000000003', '66666666-6666-6666-6666-666666666666', 'Oh okay that''s manageable. I can make green bean casserole!', 'user', NOW() - INTERVAL '17 days'),
+('event003-0003-0003-0003-000000000003', '22222222-2222-2222-2222-222222222222', 'I''ll bring wine! Red and white? Or just bring red?', 'user', NOW() - INTERVAL '16 days'),
+('event003-0003-0003-0003-000000000003', '11111111-1111-1111-1111-111111111111', 'Both would be great! Thank you :)', 'user', NOW() - INTERVAL '16 days'),
+('event003-0003-0003-0003-000000000003', '44444444-4444-4444-4444-444444444444', 'Can I bring my roommate? She''s visiting from out of town', 'user', NOW() - INTERVAL '15 days'),
+('event003-0003-0003-0003-000000000003', '55555555-5555-5555-5555-555555555555', 'What''s the vibe music-wise? Should we make a playlist?', 'user', NOW() - INTERVAL '14 days'),
+('event003-0003-0003-0003-000000000003', '22222222-2222-2222-2222-222222222222', 'Great idea! I''ll set up a Spotify collaborative playlist', 'user', NOW() - INTERVAL '14 days'),
+('event003-0003-0003-0003-000000000003', '33333333-3333-3333-3333-333333333333', 'Add some chill jazz vibes!', 'user', NOW() - INTERVAL '14 days');
 
 -- Event 4: Maya's Birthday
-INSERT INTO messages (event_id, user_id, content, ai_processed, created_at) VALUES
-('event004-0004-0004-0004-000000000004', '44444444-4444-4444-4444-444444444444', 'IT''S MAYA''S 21ST!! 🎉 K-Town BBQ this Friday!', TRUE, NOW() - INTERVAL '30 days'),
-('event004-0004-0004-0004-000000000004', '66666666-6666-6666-6666-666666666666', 'Omg you guys don''t have to do this 🥺', TRUE, NOW() - INTERVAL '30 days'),
-('event004-0004-0004-0004-000000000004', '11111111-1111-1111-1111-111111111111', 'Are you kidding? Of course we''re celebrating!', TRUE, NOW() - INTERVAL '30 days'),
-('event004-0004-0004-0004-000000000004', '22222222-2222-2222-2222-222222222222', 'What time should we get there?', TRUE, NOW() - INTERVAL '30 days'),
-('event004-0004-0004-0004-000000000004', '44444444-4444-4444-4444-444444444444', '7:30pm reservation! Birthday girl eats free, everyone else $35', TRUE, NOW() - INTERVAL '30 days'),
-('event004-0004-0004-0004-000000000004', '33333333-3333-3333-3333-333333333333', 'Do they have veggie options?', TRUE, NOW() - INTERVAL '29 days'),
-('event004-0004-0004-0004-000000000004', '44444444-4444-4444-4444-444444444444', 'Yes! Veggie platters for you Jake', TRUE, NOW() - INTERVAL '29 days');
+INSERT INTO messages (event_id, sender_id, content, message_type, created_at) VALUES
+('event004-0004-0004-0004-000000000004', '44444444-4444-4444-4444-444444444444', 'IT''S MAYA''S 21ST!! 🎉 K-Town BBQ this Friday!', 'user', NOW() - INTERVAL '30 days'),
+('event004-0004-0004-0004-000000000004', '66666666-6666-6666-6666-666666666666', 'Omg you guys don''t have to do this 🥺', 'user', NOW() - INTERVAL '30 days'),
+('event004-0004-0004-0004-000000000004', '11111111-1111-1111-1111-111111111111', 'Are you kidding? Of course we''re celebrating!', 'user', NOW() - INTERVAL '30 days'),
+('event004-0004-0004-0004-000000000004', '22222222-2222-2222-2222-222222222222', 'What time should we get there?', 'user', NOW() - INTERVAL '30 days'),
+('event004-0004-0004-0004-000000000004', '44444444-4444-4444-4444-444444444444', '7:30pm reservation! Birthday girl eats free, everyone else $35', 'user', NOW() - INTERVAL '30 days'),
+('event004-0004-0004-0004-000000000004', '33333333-3333-3333-3333-333333333333', 'Do they have veggie options?', 'user', NOW() - INTERVAL '29 days'),
+('event004-0004-0004-0004-000000000004', '44444444-4444-4444-4444-444444444444', 'Yes! Veggie platters for you Jake', 'user', NOW() - INTERVAL '29 days');
 
 -- Event 5: Frat Party Chat
-INSERT INTO messages (event_id, user_id, content, ai_processed, created_at) VALUES
-('event005-0005-0005-0005-000000000005', '44444444-4444-4444-4444-444444444444', 'THROWING A MASSIVE FRAT PARTY DEC 14TH 🎊🎊🎊', TRUE, NOW() - INTERVAL '4 weeks'),
-('event005-0005-0005-0005-000000000005', '77777777-7777-7777-7777-777777777777', 'Sigma Chi house is READY. DJ is booked!', TRUE, NOW() - INTERVAL '4 weeks'),
-('event005-0005-0005-0005-000000000005', '11111111-1111-1111-1111-111111111111', 'How much for entry?', TRUE, NOW() - INTERVAL '4 weeks'),
-('event005-0005-0005-0005-000000000005', '44444444-4444-4444-4444-444444444444', '$15 cover, includes all drinks. Venmo @tanya-frat', TRUE, NOW() - INTERVAL '4 weeks'),
-('event005-0005-0005-0005-000000000005', '88888888-8888-8888-8888-888888888888', 'Can I bring friends from my floor?', TRUE, NOW() - INTERVAL '27 days'),
-('event005-0005-0005-0005-000000000005', '44444444-4444-4444-4444-444444444444', 'Yes but text me their names by Dec 12 for guest list', TRUE, NOW() - INTERVAL '27 days'),
-('event005-0005-0005-0005-000000000005', '99999999-9999-9999-9999-999999999999', 'I''m 20, can I still come? 😬', TRUE, NOW() - INTERVAL '27 days'),
-('event005-0005-0005-0005-000000000005', '44444444-4444-4444-4444-444444444444', 'Yes! No alcohol wristband but you can party!', TRUE, NOW() - INTERVAL '27 days');
+INSERT INTO messages (event_id, sender_id, content, message_type, created_at) VALUES
+('event005-0005-0005-0005-000000000005', '44444444-4444-4444-4444-444444444444', 'THROWING A MASSIVE FRAT PARTY DEC 14TH 🎊🎊🎊', 'user', NOW() - INTERVAL '4 weeks'),
+('event005-0005-0005-0005-000000000005', '77777777-7777-7777-7777-777777777777', 'Sigma Chi house is READY. DJ is booked!', 'user', NOW() - INTERVAL '4 weeks'),
+('event005-0005-0005-0005-000000000005', '11111111-1111-1111-1111-111111111111', 'How much for entry?', 'user', NOW() - INTERVAL '4 weeks'),
+('event005-0005-0005-0005-000000000005', '44444444-4444-4444-4444-444444444444', '$15 cover, includes all drinks. Venmo @tanya-frat', 'user', NOW() - INTERVAL '4 weeks'),
+('event005-0005-0005-0005-000000000005', '88888888-8888-8888-8888-888888888888', 'Can I bring friends from my floor?', 'user', NOW() - INTERVAL '27 days'),
+('event005-0005-0005-0005-000000000005', '44444444-4444-4444-4444-444444444444', 'Yes but text me their names by Dec 12 for guest list', 'user', NOW() - INTERVAL '27 days'),
+('event005-0005-0005-0005-000000000005', '99999999-9999-9999-9999-999999999999', 'I''m 20, can I still come? 😬', 'user', NOW() - INTERVAL '27 days'),
+('event005-0005-0005-0005-000000000005', '44444444-4444-4444-4444-444444444444', 'Yes! No alcohol wristband but you can party!', 'user', NOW() - INTERVAL '27 days');
 
 -- Event 7: NYE Party
-INSERT INTO messages (event_id, user_id, content, ai_processed, created_at) VALUES
-('event007-0007-0007-0007-000000000007', '11111111-1111-1111-1111-111111111111', 'We''re doing it. NYE rooftop party downtown.', TRUE, NOW() - INTERVAL '10 weeks'),
-('event007-0007-0007-0007-000000000007', '22222222-2222-2222-2222-222222222222', 'WAIT WHAT. Details now!!', TRUE, NOW() - INTERVAL '10 weeks'),
-('event007-0007-0007-0007-000000000007', '11111111-1111-1111-1111-111111111111', 'Rented DTLA loft rooftop. Skyline view. Champagne at midnight. $45/person', TRUE, NOW() - INTERVAL '10 weeks'),
-('event007-0007-0007-0007-000000000007', '44444444-4444-4444-4444-444444444444', 'I''M IN. This is going to be INSANE', TRUE, NOW() - INTERVAL '10 weeks'),
-('event007-0007-0007-0007-000000000007', '66666666-6666-6666-6666-666666666666', 'Is $45 firm? That''s a lot for me', TRUE, NOW() - INTERVAL '10 weeks'),
-('event007-0007-0007-0007-000000000007', '11111111-1111-1111-1111-111111111111', 'DM me, we can work something out. Venue + catering is expensive but I want everyone there', TRUE, NOW() - INTERVAL '10 weeks'),
-('event007-0007-0007-0007-000000000007', '55555555-5555-5555-5555-555555555555', 'What''s the dress code?', TRUE, NOW() - INTERVAL '9 weeks'),
-('event007-0007-0007-0007-000000000007', '22222222-2222-2222-2222-222222222222', 'COCKTAIL ATTIRE! It''s NYE, dress UP', TRUE, NOW() - INTERVAL '9 weeks');
+INSERT INTO messages (event_id, sender_id, content, message_type, created_at) VALUES
+('event007-0007-0007-0007-000000000007', '11111111-1111-1111-1111-111111111111', 'We''re doing it. NYE rooftop party downtown.', 'user', NOW() - INTERVAL '10 weeks'),
+('event007-0007-0007-0007-000000000007', '22222222-2222-2222-2222-222222222222', 'WAIT WHAT. Details now!!', 'user', NOW() - INTERVAL '10 weeks'),
+('event007-0007-0007-0007-000000000007', '11111111-1111-1111-1111-111111111111', 'Rented DTLA loft rooftop. Skyline view. Champagne at midnight. $45/person', 'user', NOW() - INTERVAL '10 weeks'),
+('event007-0007-0007-0007-000000000007', '44444444-4444-4444-4444-444444444444', 'I''M IN. This is going to be INSANE', 'user', NOW() - INTERVAL '10 weeks'),
+('event007-0007-0007-0007-000000000007', '66666666-6666-6666-6666-666666666666', 'Is $45 firm? That''s a lot for me', 'user', NOW() - INTERVAL '10 weeks'),
+('event007-0007-0007-0007-000000000007', '11111111-1111-1111-1111-111111111111', 'DM me, we can work something out. Venue + catering is expensive but I want everyone there', 'user', NOW() - INTERVAL '10 weeks'),
+('event007-0007-0007-0007-000000000007', '55555555-5555-5555-5555-555555555555', 'What''s the dress code?', 'user', NOW() - INTERVAL '9 weeks'),
+('event007-0007-0007-0007-000000000007', '22222222-2222-2222-2222-222222222222', 'COCKTAIL ATTIRE! It''s NYE, dress UP', 'user', NOW() - INTERVAL '9 weeks');
 
 -- Event 10: Valentine's Party
-INSERT INTO messages (event_id, user_id, content, ai_processed, created_at) VALUES
-('event010-0010-0010-0010-000000000010', '22222222-2222-2222-2222-222222222222', 'Valentine''s Day party at our place! Singles + couples welcome 💕', TRUE, NOW() - INTERVAL '85 days'),
-('event010-0010-0010-0010-000000000010', '11111111-1111-1111-1111-111111111111', 'Come with a date or come solo! We''ll have fun games for everyone', TRUE, NOW() - INTERVAL '85 days'),
-('event010-0010-0010-0010-000000000010', '66666666-6666-6666-6666-666666666666', 'Wait is this like... a couples thing? I''m single and don''t want to be awkward', TRUE, NOW() - INTERVAL '85 days'),
-('event010-0010-0010-0010-000000000010', '22222222-2222-2222-2222-222222222222', 'NOT AT ALL! It''s a mixer. Games pair random people. Super fun!', TRUE, NOW() - INTERVAL '85 days'),
-('event010-0010-0010-0010-000000000010', '44444444-4444-4444-4444-444444444444', 'I''m bringing my boyfriend!', TRUE, NOW() - INTERVAL '84 days'),
-('event010-0010-0010-0010-000000000010', '55555555-5555-5555-5555-555555555555', 'Coming solo! Can''t wait', TRUE, NOW() - INTERVAL '84 days');
+INSERT INTO messages (event_id, sender_id, content, message_type, created_at) VALUES
+('event010-0010-0010-0010-000000000010', '22222222-2222-2222-2222-222222222222', 'Valentine''s Day party at our place! Singles + couples welcome 💕', 'user', NOW() - INTERVAL '85 days'),
+('event010-0010-0010-0010-000000000010', '11111111-1111-1111-1111-111111111111', 'Come with a date or come solo! We''ll have fun games for everyone', 'user', NOW() - INTERVAL '85 days'),
+('event010-0010-0010-0010-000000000010', '66666666-6666-6666-6666-666666666666', 'Wait is this like... a couples thing? I''m single and don''t want to be awkward', 'user', NOW() - INTERVAL '85 days'),
+('event010-0010-0010-0010-000000000010', '22222222-2222-2222-2222-222222222222', 'NOT AT ALL! It''s a mixer. Games pair random people. Super fun!', 'user', NOW() - INTERVAL '85 days'),
+('event010-0010-0010-0010-000000000010', '44444444-4444-4444-4444-444444444444', 'I''m bringing my boyfriend!', 'user', NOW() - INTERVAL '84 days'),
+('event010-0010-0010-0010-000000000010', '55555555-5555-5555-5555-555555555555', 'Coming solo! Can''t wait', 'user', NOW() - INTERVAL '84 days');
 
 -- Event 15: Spring Gala
-INSERT INTO messages (event_id, user_id, content, ai_processed, created_at) VALUES
-('event015-0015-0015-0015-000000000015', '22222222-2222-2222-2222-222222222222', 'USC SPRING GALA - tickets on sale! Link in bio', TRUE, NOW() - INTERVAL '30 days'),
-('event015-0015-0015-0015-000000000015', '55555555-5555-5555-5555-555555555555', 'How formal is formal? Do I need a floor-length gown?', TRUE, NOW() - INTERVAL '29 days'),
-('event015-0015-0015-0015-000000000015', '22222222-2222-2222-2222-222222222222', 'Cocktail dress is fine! Just no casual dresses', TRUE, NOW() - INTERVAL '29 days'),
-('event015-0015-0015-0015-000000000015', 'aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaab', 'Can I buy tickets at the door?', TRUE, NOW() - INTERVAL '28 days'),
-('event015-0015-0015-0015-000000000015', '22222222-2222-2222-2222-222222222222', 'No - must prepay by April 18. Catering needs headcount!', TRUE, NOW() - INTERVAL '28 days'),
-('event015-0015-0015-0015-000000000015', 'cccccccc-cccc-cccc-cccc-cccccccccccc', 'What''s the food situation?', TRUE, NOW() - INTERVAL '27 days'),
-('event015-0015-0015-0015-000000000015', '11111111-1111-1111-1111-111111111111', '3-course dinner! Choose chicken, fish, or veggie when you buy ticket', TRUE, NOW() - INTERVAL '27 days');
+INSERT INTO messages (event_id, sender_id, content, message_type, created_at) VALUES
+('event015-0015-0015-0015-000000000015', '22222222-2222-2222-2222-222222222222', 'USC SPRING GALA - tickets on sale! Link in bio', 'user', NOW() - INTERVAL '30 days'),
+('event015-0015-0015-0015-000000000015', '55555555-5555-5555-5555-555555555555', 'How formal is formal? Do I need a floor-length gown?', 'user', NOW() - INTERVAL '29 days'),
+('event015-0015-0015-0015-000000000015', '22222222-2222-2222-2222-222222222222', 'Cocktail dress is fine! Just no casual dresses', 'user', NOW() - INTERVAL '29 days'),
+('event015-0015-0015-0015-000000000015', 'aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaab', 'Can I buy tickets at the door?', 'user', NOW() - INTERVAL '28 days'),
+('event015-0015-0015-0015-000000000015', '22222222-2222-2222-2222-222222222222', 'No - must prepay by April 18. Catering needs headcount!', 'user', NOW() - INTERVAL '28 days'),
+('event015-0015-0015-0015-000000000015', 'cccccccc-cccc-cccc-cccc-cccccccccccc', 'What''s the food situation?', 'user', NOW() - INTERVAL '27 days'),
+('event015-0015-0015-0015-000000000015', '11111111-1111-1111-1111-111111111111', '3-course dinner! Choose chicken, fish, or veggie when you buy ticket', 'user', NOW() - INTERVAL '27 days');
 
 -- (More messages for other events...)
-INSERT INTO messages (event_id, user_id, content, ai_processed, created_at) VALUES
+INSERT INTO messages (event_id, sender_id, content, message_type, created_at) VALUES
 -- Event 13: Pool Party
-('event013-0013-0013-0013-000000000013', '88888888-8888-8888-8888-888888888888', 'POOL PARTY AT MY HOUSE!! My family is out of town 😎', TRUE, NOW() - INTERVAL '50 days'),
-('event013-0013-0013-0013-000000000013', '44444444-4444-4444-4444-444444444444', 'YESSS when??', TRUE, NOW() - INTERVAL '50 days'),
-('event013-0013-0013-0013-000000000013', '88888888-8888-8888-8888-888888888888', 'March 28, 2pm. Bring swimsuits!', TRUE, NOW() - INTERVAL '50 days'),
-('event013-0013-0013-0013-000000000013', '11111111-1111-1111-1111-111111111111', 'Is there food or should we bring stuff?', TRUE, NOW() - INTERVAL '49 days'),
-('event013-0013-0013-0013-000000000013', '88888888-8888-8888-8888-888888888888', 'My dad is grilling! But bring sides potluck style', TRUE, NOW() - INTERVAL '49 days');
+('event013-0013-0013-0013-000000000013', '88888888-8888-8888-8888-888888888888', 'POOL PARTY AT MY HOUSE!! My family is out of town 😎', 'user', NOW() - INTERVAL '50 days'),
+('event013-0013-0013-0013-000000000013', '44444444-4444-4444-4444-444444444444', 'YESSS when??', 'user', NOW() - INTERVAL '50 days'),
+('event013-0013-0013-0013-000000000013', '88888888-8888-8888-8888-888888888888', 'March 28, 2pm. Bring swimsuits!', 'user', NOW() - INTERVAL '50 days'),
+('event013-0013-0013-0013-000000000013', '11111111-1111-1111-1111-111111111111', 'Is there food or should we bring stuff?', 'user', NOW() - INTERVAL '49 days'),
+('event013-0013-0013-0013-000000000013', '88888888-8888-8888-8888-888888888888', 'My dad is grilling! But bring sides potluck style', 'user', NOW() - INTERVAL '49 days');
 
 -- ============================================
 -- GROUND TRUTH CHANGES (Audit Log - Transparency)

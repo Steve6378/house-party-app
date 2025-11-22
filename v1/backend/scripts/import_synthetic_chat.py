@@ -106,18 +106,18 @@ def main():
             batch = valid_messages[i:i+batch_size]
 
             f.write(f"-- Batch {i//batch_size + 1}\n")
-            f.write("INSERT INTO messages (id, event_id, user_id, content, message_type, ai_processed, created_at) VALUES\n")
+            f.write("INSERT INTO messages (id, event_id, sender_id, content, message_type, created_at) VALUES\n")
 
             values = []
             for msg in batch:
-                msg_id = str(uuid4())
+                msg_id = f"msg-{uuid4()}"
                 event_id = get_event_id_for_timestamp(msg['timestamp'])
-                user_id = USER_MAP[msg['user']]
+                sender_id = USER_MAP[msg['user']]
                 content = escape_sql_string(msg['content'])
                 timestamp = msg['timestamp']
 
                 values.append(
-                    f"('{msg_id}', '{event_id}', '{user_id}', '{content}', 'user', TRUE, '{timestamp}')"
+                    f"('{msg_id}', '{event_id}', '{sender_id}', '{content}', 'user', '{timestamp}')"
                 )
 
             f.write(',\n'.join(values))

@@ -236,22 +236,24 @@ CREATE INDEX idx_todos_completed ON todos(completed);
 -- MESSAGES (Group Chat)
 -- ============================================
 
-CREATE SEQUENCE IF NOT EXISTS messages_id_seq;
 CREATE TABLE messages (
-    id TEXT PRIMARY KEY DEFAULT ('msg-' || nextval('messages_id_seq')),
-    event_id TEXT REFERENCES events(id) ON DELETE CASCADE,
-    user_id TEXT REFERENCES users(id) ON DELETE SET NULL,  -- NULL if from AI bot
+    id TEXT PRIMARY KEY DEFAULT ('msg-' || gen_random_uuid()),
+    event_id TEXT NOT NULL REFERENCES events(id) ON DELETE CASCADE,
+    sender_id TEXT REFERENCES users(id) ON DELETE SET NULL,  -- NULL for system/assistant messages
     content TEXT NOT NULL,
-    message_type VARCHAR(50) DEFAULT 'text',  -- 'text', 'poll', 'poll_vote', 'system'
-    metadata JSONB,  -- For polls: {"question": "...", "options": [...]}
-    ai_processed BOOLEAN DEFAULT FALSE,  -- Has AI extracted preferences yet?
-    created_at TIMESTAMP DEFAULT NOW()
+    message_type VARCHAR(50) DEFAULT 'user' NOT NULL,  -- 'user', 'system', 'assistant'
+    is_edited BOOLEAN DEFAULT FALSE NOT NULL,
+    edited_at TIMESTAMP,
+    is_deleted BOOLEAN DEFAULT FALSE NOT NULL,  -- Soft delete
+    deleted_at TIMESTAMP,
+    created_at TIMESTAMP DEFAULT NOW() NOT NULL,
+    updated_at TIMESTAMP DEFAULT NOW() NOT NULL
 );
 
 CREATE INDEX idx_messages_event_id ON messages(event_id);
-CREATE INDEX idx_messages_user_id ON messages(user_id);
+CREATE INDEX idx_messages_sender_id ON messages(sender_id);
 CREATE INDEX idx_messages_created_at ON messages(created_at DESC);
-CREATE INDEX idx_messages_ai_processed ON messages(ai_processed);
+CREATE INDEX idx_messages_is_deleted ON messages(is_deleted) WHERE is_deleted = FALSE;
 
 -- ============================================
 -- POLLS (Group Chat Feature)
