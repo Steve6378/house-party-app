@@ -1,102 +1,126 @@
-# 🎯 YORRU - COMPLETE SETUP & TESTING GUIDE
+# 🎯 YORRU - QUICK START GUIDE
 
-**Version:** 0.0.1
-**Last Updated:** 2025-11-21
-**Status:** Auth system complete, ready for testing
+**Version:** 0.0.2
+**Last Updated:** 2025-11-22
+**Status:** Backend + Database deployed on Railway
 **Brand:** Yorru (夜 - "yoru" meaning night in Japanese)
 
 ---
 
-## ✅ WHAT'S BEEN BUILT (While You Were Away)
+## ✅ WHAT'S BEEN COMPLETED
 
-### 1. **Complete Authentication System**
-- User registration with email/password
-- User login with JWT tokens (7-day expiry)
-- Password hashing with bcrypt
-- Protected routes (only hosts can modify their events)
-- "Get current user" endpoint
+### 1. **Repository Restructure**
+- Removed v0/v1 nesting, clean structure now (backend/, database/, docs/)
+- Created organized docs/ folder (deployment/, development/)
+- Updated Python to 3.12
+- Environment-based configuration (.env, .env.staging, .env.example)
 
-### 2. **Protected Event Endpoints**
-- Creating events now requires login
-- Updating/deleting events requires being the host
-- Host is auto-set to logged-in user
+### 2. **Railway Deployment**
+- Backend deployed (FastAPI with Dockerfile)
+- pgvector-pg17 database deployed
+- Database schema loaded (production-ready, no seed data)
+- Environment variables configured
+- Dockerfile optimized with layer caching
 
-### 3. **Database Migrations Ready**
-- Migration 001: Status columns, soft delete, event cohosts
-- Migration 002: Table name fixes, missing columns
-
----
-
-## 📋 STEP-BY-STEP INSTRUCTIONS
-
-### **STEP 1: Pull Latest Code on EC2**
-
-```bash
-cd ~/yorru
-git pull origin claude/expand-seed-data-continued-01BcWwGkQ9yE8QcHMyAy7UU9
-```
+### 3. **Current Status**
+- Health check pending verification
+- Ready to test API endpoints
+- Next phase: Build Next.js frontend
 
 ---
 
-### **STEP 2: Run Database Migrations**
+## 📋 IMMEDIATE NEXT STEPS
+
+### **STEP 1: Verify Railway Deployment**
+
+1. Go to Railway dashboard
+2. Check yorru service deployment status
+3. Look at deployment logs for any errors
+4. Verify health check is passing (green checkmark)
+
+### **STEP 2: Test the Live API**
+
+**Get the Railway URL from the dashboard**, then test:
 
 ```bash
-# Migration 001: Add status/visibility columns
-psql -U yorru_admin -d yorru_db -h localhost \
-  -f database/migrations/001_add_status_columns.sql
+# Health check
+curl https://yorru-production.up.railway.app/health
 
-# Migration 002: Fix table names + missing columns
-psql -U yorru_admin -d yorru_db -h localhost \
-  -f database/migrations/002_fix_table_names_and_missing_columns.sql
+# Expected response:
+# {"status":"healthy","database":"connected"}
 ```
 
-**Expected output:**
-```
-ALTER TABLE
-ALTER TABLE
-CREATE TABLE
-UPDATE...
-```
-
-If you see errors, check:
-- Are you connected to the right database?
-- Did you run migration 001 first?
-- Did you recreate the vector extension after DROP SCHEMA CASCADE?
+**If health check fails:**
+- Check Railway logs for errors
+- Verify DATABASE_URL is set to `${{pgvector.DATABASE_PRIVATE_URL}}`
+- Verify all environment variables are set
 
 ---
 
-### **STEP 3: Restart the Server**
+### **STEP 3: Test API Endpoints**
 
-```bash
-cd ~/yorru/backend
-source ~/yorru_env/bin/activate
-python3 main.py
+Visit the Swagger docs at your Railway URL:
+```
+https://yorru-production.up.railway.app/docs
 ```
 
-**Expected output:**
-```
-INFO:     Will watch for changes in these directories: ['/home/ubuntu/yorru/backend']
-INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
-INFO:     Started reloader process [XXXX] using WatchFiles
-INFO:     Started server process [XXXX]
-INFO:     Waiting for application startup.
-INFO:     Application startup complete.
-```
+**Test these endpoints:**
+
+1. **Register a user** (POST `/api/auth/register`)
+   ```json
+   {
+     "email": "test@example.com",
+     "password": "SecurePass123!",
+     "name": "Test User"
+   }
+   ```
+
+2. **Login** (POST `/api/auth/login`)
+   ```json
+   {
+     "email": "test@example.com",
+     "password": "SecurePass123!"
+   }
+   ```
+   Copy the `access_token` from the response.
+
+3. **Get current user** (GET `/api/auth/me`)
+   - Click the 🔓 lock icon, paste your token, click "Authorize"
+   - Execute the endpoint
+
+4. **Create an event** (POST `/api/events`)
+   ```json
+   {
+     "name": "Test Party",
+     "event_type": "tight_knit",
+     "date": "2025-12-25",
+     "visibility": "private"
+   }
+   ```
 
 ---
 
-### **STEP 4: Test API with Interactive Docs**
+### **STEP 4: Local Development (Optional)**
 
-**From your LOCAL computer (with SSH tunnel):**
+If you want to run the backend locally:
 
 ```bash
-# Open new terminal on LOCAL computer
-ssh -i house-party-app.pem -L 8000:localhost:8000 ubuntu@ec2-54-151-88-137.us-west-1.compute.amazonaws.com
-```
+# Clone repo
+git clone https://github.com/Steve6378/yorru.git
+cd yorru
 
-**Then open in browser:**
-```
-http://localhost:8000/docs
+# Set up backend
+cd backend
+python3.12 -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
+
+# Create .env file
+cp ../.env.example .env
+# Edit .env with your values
+
+# Run locally
+uvicorn main:app --reload --host 0.0.0.0 --port 8000
 ```
 
 ---

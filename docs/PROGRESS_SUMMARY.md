@@ -1,406 +1,317 @@
-# 🎉 Phase 1 Complete! Your Yorru Foundation is Ready
+# 🎉 Backend Deployed on Railway! Yorru is Live
 
-Hey! While you were sleeping, I built the entire foundation for your Yorru following those **Claude Code best practices** from the Reddit post you shared. Everything is organized, documented, and ready to go.
+**Last Updated:** 2025-11-22
+**Status:** Backend + Database deployed, pending verification
+**Next:** Test deployment, build Next.js frontend
 
 ---
 
-## ✅ What's Done (Phase 1: Foundation)
+## ✅ What's Done (Deployment Phase)
 
-### 1. Project Restructured (/v0 and /v1)
-- Moved old Yelp venue recommendation stuff to `/v0` (outdated)
-- Created clean `/v1` structure following best practices
+### 1. **Repository Restructure**
+- **Old structure:** Nested v0/v1 directories
+- **New structure:** Clean root-level backend/, database/, docs/
+- Removed v0/ entirely, moved everything from v1/ to root
+- Created organized docs/ folder:
+  - `docs/deployment/` - Deployment checklists and guides
+  - `docs/development/` - Development guides and context
 
-### 2. Dev Docs (The Reddit Post's Secret Sauce)
-Just like the Reddit post recommended, I created comprehensive dev docs BEFORE writing code:
+### 2. **Environment Configuration**
+- Python upgraded to 3.12 (from 3.11)
+- Created environment-based config system:
+  - `.env` - Local development (git-ignored)
+  - `.env.example` - Template for developers
+  - `.env.staging.example` - Staging environment template
+- `config.py` updated to support ENV_FILE override
+- Auto-adjusts DEBUG based on ENVIRONMENT setting
 
-**`/dev/plan.md`** (150+ lines)
-- Your complete architectural plan
-- Mode 1 (Host/Comers) vs Mode 2 (Small Group) decision explained
-- Three interaction modes: Guest AI Assistant, Group Chat, Host Interface
-- Ground truth system design (two-tier: keyword + semantic)
-- Tech stack, implementation phases, success criteria
+### 3. **Railway Deployment**
 
-**`/dev/context.md`** (400+ lines)
-- Current project state
-- File structure and what goes where
-- Key decisions explained in detail
-- Integration points between components
-- Common patterns you'll use
+**Backend Service:**
+- Dockerfile created with optimized layer caching
+- `requirements.txt` copied first → pip install cached
+- Code copied second → fast rebuilds on code changes
+- `railway.json` configured:
+  - Builder: DOCKERFILE
+  - Health check: `/health` endpoint
+  - Restart policy: ON_FAILURE with 10 retries
+- Auto-deploys from `main` branch
 
-**`/dev/tasks.md`** (300+ lines)
-- Granular breakdown of ~150 tasks
-- Progress tracking (6 completed so far!)
-- Critical path identified
+**Database Service:**
+- Deployed pgvector-pg17 template
+- Database schema loaded (production, no seed data)
+- Connected to backend via DATABASE_PRIVATE_URL (internal network)
 
-### 3. Database (PostgreSQL + pgvector)
+**Environment Variables:**
+- `DATABASE_URL` → `${{pgvector.DATABASE_PRIVATE_URL}}`
+- `OPENAI_API_KEY` → Configured
+- `JWT_SECRET_KEY` → Configured
+- `ENVIRONMENT` → `production`
+- `DEBUG` → `False`
 
-**`/database/schema.sql`** (500+ lines)
-- 13 tables with proper relationships:
-  - `users` (Google OAuth + email/password)
-  - `groups` (optional recurring events)
-  - `events` (can belong to group or standalone)
-  - `ground_truth_facts` (with embeddings!)
-  - `guest_preferences` (AI-extracted from chat)
-  - `escalated_questions` (bot couldn't answer)
-  - `suggestions` (AI-generated ideas)
-  - `messages` (group chat)
-  - ... and more
-- pgvector index for semantic search
-- Audit log for transparency (who changed what)
+### 4. **Cost Optimization**
+- Dockerfile layer caching: pip install only runs when requirements.txt changes
+- Using DATABASE_PRIVATE_URL: no egress charges for backend↔database
+- Free tier ($5/month credit) should cover development usage
 
-**`/database/seed_data.sql`** (400+ lines)
-- Mock data based on the Mahiru/Amane example
-- 6 users (Friend Group 6)
-- 3 events (Coffee Study, Thanksgiving Dinner, Frat Party)
-- Sample ground truth facts with keywords
-- Chat messages, preferences, escalations
-- Change log examples
+---
 
-**`/database/README.md`**
-- Setup instructions
-- Troubleshooting guide
+## 🚀 What's Next (When You Wake Up)
 
-### 4. Ground Truth Query System (THE CORE)
+### **Immediate (Right Now)**
 
-This is the heart of your app - the thing that answers guest questions intelligently.
+1. **Verify Railway Deployment**
+   - Check health check status in Railway dashboard
+   - Look at deployment logs
+   - Test `/health` endpoint: `curl https://your-app.up.railway.app/health`
 
-**`/backend/services/embeddings.py`** (350+ lines)
-- OpenAI embedding generation
-- Batch processing for efficiency
-- Cosine similarity calculation
-- In-memory caching
-- Fully documented with examples
+2. **Test API Endpoints**
+   - Visit Swagger docs: `https://your-app.up.railway.app/docs`
+   - Test user registration
+   - Test login
+   - Test event creation
 
-**`/backend/services/ground_truth_query.py`** (500+ lines)
-- **TIER 1: Keyword Matching** (fast, exact)
-  - "What's the address?" → keyword "address" → instant answer
-- **TIER 2: Semantic Search** (flexible, contextual)
-  - "Where can I leave my car?" → semantically matches "parking" fact → answer
-- **Smart Escalation Logic**:
-  - Event-related + no match → escalate to host
-  - Off-topic → "I can only answer questions about this event"
-- **All edge cases handled**:
-  - Empty questions
-  - No facts available
-  - Compound questions ("what time and where?")
-  - Case insensitivity
+### **Next Phase: Frontend Development**
 
-### 5. Comprehensive Tests
+**Initialize Next.js Project:**
+- Next.js 14 + TypeScript
+- Tailwind CSS for styling
+- NextAuth.js for authentication
+- JWT integration with Railway backend
 
-**`/tests/unit/test_ground_truth_query.py`** (400+ lines)
-- 30+ unit tests covering:
-  - Keyword matching (exact, partial, multiple keywords)
-  - Semantic search
-  - Escalation logic
-  - Off-topic detection
-  - Edge cases
-  - Compound questions
+**Core Pages to Build:**
+- Login/Register pages
+- Dashboard
+- Event list and details
+- Event creation form
+- Chat interface
 
-**All tests pass!** You can run them anytime with:
-```bash
-cd backend
-pytest tests/unit/ -v
+**Deploy to Vercel:**
+- Connect GitHub repository
+- Auto-deploy from `main`
+- Configure environment variables (API URL, NextAuth secret)
+- Custom domain: `app.yorru.net`
+
+### **After Frontend: Real-time Chat**
+
+**Socket.io Implementation:**
+- Install `python-socketio` on backend
+- Install `socket.io-client` on frontend
+- Implement room management (join event room)
+- Broadcasting to event participants
+- Auto-reconnection handling
+
+---
+
+## 📊 Architecture Overview
+
+### **Current Stack**
+
+| Component | Technology | Hosting | Status |
+|-----------|-----------|---------|--------|
+| Backend | FastAPI + Python 3.12 | Railway | ✅ Deployed |
+| Database | PostgreSQL + pgvector | Railway | ✅ Deployed |
+| Frontend | Next.js 14 + TypeScript | Vercel | ⏳ To build |
+| Real-time | Socket.io | Railway | ⏳ To build |
+| Auth | NextAuth.js + JWT | - | ⏳ To build |
+
+### **Data Flow**
+
+```
+User Browser
+    ↓
+Vercel (Next.js frontend)
+    ↓ (API calls via HTTPS)
+Railway Backend (FastAPI)
+    ↓ (DATABASE_PRIVATE_URL - internal network)
+Railway Database (pgvector)
 ```
 
-### 6. Other Essentials
+### **Real-time Chat Flow (Future)**
 
-**`/backend/requirements.txt`**
-- FastAPI, SQLAlchemy, OpenAI
-- Auth libraries (Google OAuth, JWT, bcrypt)
-- Testing tools
-- All dependencies listed
-
-**`/README.md`**
-- Quick start guide
-- Architecture overview
-- How to run tests
-- Next steps
+```
+User Browser
+    ↓ (WebSocket connection)
+Railway Backend (Socket.io server)
+    ↓ (Room-based broadcasting)
+Other Users in Event Room
+```
 
 ---
 
-## 🏗️ Architecture Summary
+## 🏗️ The Problem Yorru Solves
 
-### The Problem You're Solving
-Hosts waste time answering the same questions over and over:
+**Pain Point:**
+Hosts waste time answering the same questions repeatedly:
 - "What's the address?" (asked 10 times)
 - "Where can I park?"
 - "What should I bring?"
 
-### Your Solution: Three Interaction Modes
+**Yorru's Solution: Three Interaction Modes**
 
-**1. Guest AI Assistant (1-on-1 chat)**
+### 1. Guest AI Assistant (1-on-1 Chat)
 - Guest asks question
 - AI queries "ground truth" (host-set facts)
-- If found → answer immediately
+- **Tier 1:** Keyword matching (fast, exact)
+  - "What's the address?" → keyword "address" → instant answer
+- **Tier 2:** Semantic search (flexible, contextual)
+  - "Where can I leave my car?" → matches "parking" fact
 - If not found → show "Escalate to Host" button
 
-**2. Group Chat (WhatsApp-like)**
+### 2. Group Chat (WhatsApp-like)
 - Everyone chats normally
 - AI observes and extracts preferences:
   - "I'm vegetarian btw" → dietary restriction
   - "Can we keep it under $50?" → budget preference
 - AI sends suggestions to host ("3 people mentioned photo booth")
 
-**3. Host Interface (Dashboard)**
+### 3. Host Interface (Dashboard)
 - Edit ground truth (address, parking, dress code, etc.)
 - See guest preferences summary
 - Respond to escalated questions
 - Manage to-do list
 - View change log (transparency for co-hosts)
 
-### The Magic: Two-Tier Query System
+---
 
-Instead of just using GPT to answer questions (expensive, slow, hallucination risk), we built a smart two-tier system:
+## 🎯 Key Design Decisions
+
+### **Why Railway for Backend + Database?**
+- Zero-config deployment (Dockerfile auto-detected)
+- Automatic HTTPS
+- Free tier covers development ($5/month credit)
+- Easy DATABASE_PRIVATE_URL connection (no egress charges)
+- Auto-deploy from GitHub
+- Built-in health checks and monitoring
+
+**Future migration path to EC2:**
+- If you scale big and need to optimize costs
+- All Railway deployment → EC2: Easy (Dockerfile works anywhere)
+- Split deployment (backend EC2, DB Railway): Expensive (egress charges)
+- Recommended: Keep both on Railway OR move both to EC2
+
+### **Why Vercel for Frontend?**
+- Made by Next.js creators (optimized for Next.js)
+- Free tier is generous
+- Auto-deploy from GitHub
+- Global CDN built-in
+- No configuration needed
+- Supports SSR, ISR, Edge functions
+
+### **Why Socket.io Instead of Native WebSockets?**
+- Auto-reconnection built-in
+- Room management (perfect for event-based chat)
+- Broadcasting to room with one line of code
+- Fallback to polling if WebSocket blocked
+- Battle-tested in production
+- Way less code to write than native WebSockets
+
+---
+
+## 📁 Updated Project Structure
 
 ```
-Question: "What's the address?"
-  ↓
-TIER 1: Keyword match
-  - Keywords: ["address", "location", "where"]
-  - MATCH! → Return "123 Main St, LA"
-  - Confidence: 100%
-
-Question: "Where can I leave my car?"
-  ↓
-TIER 1: Keyword match
-  - No direct match for "leave" or "car"
-  ↓
-TIER 2: Semantic search
-  - Embed question using OpenAI
-  - Compare to all ground truth embeddings
-  - Best match: "parking" fact (cosine similarity 0.92)
-  - MATCH! → Return "Street parking on Oak St..."
-  - Confidence: 92%
-
-Question: "Is there a gift registry?"
-  ↓
-TIER 1: No match
-TIER 2: Low similarity (<0.8)
-  ↓
-Is question event-related? YES
-  → ESCALATE to host
-  → Show "Escalate to Host" button
-
-Question: "Tell me a joke"
-  ↓
-Is question event-related? NO
-  → OFF-TOPIC
-  → "I can only answer questions about this event"
+yorru/
+├── backend/                    # FastAPI backend (deployed on Railway)
+│   ├── routes/                # API endpoints
+│   ├── models/                # SQLAlchemy models
+│   ├── services/              # Business logic, embeddings, ground truth
+│   ├── config.py              # Environment-based config
+│   ├── main.py                # FastAPI entry point
+│   └── requirements.txt       # Python dependencies
+│
+├── database/                  # Database schema & migrations
+│   ├── schema.sql             # PostgreSQL schema (13 tables)
+│   ├── seed_data_comprehensive.sql  # Test data (dev only)
+│   └── README.md              # Database setup guide
+│
+├── docs/                      # Documentation
+│   ├── deployment/
+│   │   └── CHECKLIST.md       # Deployment progress tracker
+│   ├── development/
+│   │   ├── CONTEXT_HANDOFF.md # Context for session continuity
+│   │   └── WHEN_YOU_RETURN.md # Quick start guide
+│   └── PROGRESS_SUMMARY.md    # This file!
+│
+├── frontend/                  # Next.js app (to build)
+│
+├── .env.example               # Environment variables template
+├── Dockerfile                 # Railway deployment (optimized)
+├── railway.json               # Railway config
+├── Procfile                   # Fallback start command
+├── runtime.txt                # Python 3.12
+└── README.md                  # Main documentation
 ```
 
-**Benefits**:
-- Fast (keyword matching is instant)
-- Flexible (semantic search handles creative phrasing)
-- Accurate (no hallucinations - only returns what host set)
-- Cost-effective (embeddings are cheap, no GPT calls for Q&A)
-
 ---
 
-## 📊 Stats
+## 🔥 Session Summary
 
-- **2000+ lines** of Python code
-- **1500+ lines** of SQL
-- **1000+ lines** of documentation
-- **30+ unit tests** (all passing)
-- **13 database tables** with proper indexes
-- **6 tasks completed**, ~144 remaining
+### **What Changed in This Session**
 
----
+**Repository Restructure:**
+- Removed v0/v1 nesting
+- Created docs/ folder structure
+- Updated all documentation
 
-## 🚀 What's Next? (When You Wake Up)
+**Railway Deployment:**
+- Created optimized Dockerfile
+- Configured railway.json
+- Deployed backend + pgvector database
+- Fixed DATABASE_URL to use private URL
+- Loaded production schema (no seed data)
 
-### Immediate Next Steps (Phase 2: Backend API)
+**Documentation Updates:**
+- Updated deployment checklist
+- Updated main README
+- Updated quick start guide
+- Updated progress summary (this file)
 
-1. **Create SQLAlchemy models** (map database tables to Python classes)
-2. **Implement auth**:
-   - Google OAuth flow
-   - Email/password registration + login
-   - JWT token generation
-3. **Build API endpoints**:
-   - `POST /api/events` - Create event
-   - `GET /api/events/{id}` - Get event details
-   - `POST /api/events/{id}/ground-truth` - Add/edit ground truth
-   - WebSocket `/ws/events/{id}/assistant` - Guest AI chat
-4. **Test everything** as you go
+**Decisions Made:**
+- Use Socket.io for WebSockets (not native)
+- Use Vercel for frontend hosting (not EC2)
+- Keep Railway for backend + database (for now)
+- No staging environment yet (just dev + prod)
 
-See `/dev/tasks.md` for the full breakdown.
+### **Questions Answered**
 
-### How to Continue
+**Q: Why not use EC2?**
+A: Railway is cheaper for low-traffic apps, faster to deploy, zero DevOps. Move to EC2 later if scaling demands it.
 
-1. **Read the dev docs first**:
-   - Start with `/dev/plan.md` (understand the big picture)
-   - Then `/dev/context.md` (understand what exists)
-   - Finally `/dev/tasks.md` (see what's next)
+**Q: Why not host frontend on Railway?**
+A: Vercel is optimized for Next.js (same creators), better free tier, built for frontend hosting.
 
-2. **Set up your environment**:
-   ```bash
-   cd database
-   createdb houseparty
-   psql houseparty -c "CREATE EXTENSION vector;"
-   psql houseparty < schema.sql
-   psql houseparty < seed_data.sql
+**Q: What about egress costs?**
+A: Using DATABASE_PRIVATE_URL (internal network) = no egress for backend↔database. Frontend on Vercel = client-side API calls, no Vercel→Railway server traffic.
 
-   cd ../backend
-   python -m venv venv
-   source venv/bin/activate
-   pip install -r requirements.txt
+**Q: Native WebSockets or Socket.io?**
+A: Socket.io - built-in rooms, broadcasting, auto-reconnection. Perfect for event-based chat. "Nativeness" is not a real concern (pandas isn't "native" either).
 
-   # Create .env file
-   echo "DATABASE_URL=postgresql://localhost:5432/houseparty" > .env
-   echo "OPENAI_API_KEY=your_key_here" >> .env
-   ```
-
-3. **Test the ground truth system**:
-   ```bash
-   cd backend
-   pytest tests/unit/ -v
-
-   # Or run the example:
-   python -m services.ground_truth_query
-   ```
-
-4. **Start building the backend API** (see tasks.md)
-
----
-
-## 🎯 Key Design Decisions (Answered Your Questions)
-
-### 1. Co-hosts: Equal or Hierarchical?
-**Decision**: Main host + co-hosts with equal permissions
-
-**Why**: If you trust someone to co-host, trust them to edit ground truth.
-
-**Edge case protection**: Change log shows who edited what, when. Main host can revert if needed.
-
-### 2. Event Form Fields?
-**Part 1: Event Basics**
-- Name, date, time, address
-- Budget per person
-- Event type (tight_knit, big_party, frat_party)
-- Group (optional)
-
-**Part 2: Host Preferences**
-- Reminders (yes/no)
-- Email notifications (yes/no)
-- Auto-generate to-dos (yes/no)
-- Track guest preferences (yes/no)
-
-### 3. Bot Capabilities?
-**Guest AI Assistant**:
-- Answer questions from ground truth
-- Escalate when doesn't know
-- Commands: `/address`, `/parking`, `/time`
-
-**Group Chat**:
-- Observe messages
-- Extract preferences (dietary, budget, venue)
-- Suggest to host ("3 people asked about photo booth")
-- Bot commands: `/poll`, `/vote`
-
-### 4. Event Types?
-Different event types get different prefilled to-do lists:
-
-**Tight-knit** (small hangout):
-- Plan menu
-- Send invites (no +1s)
-- Prepare playlist
-
-**Big party** (large event):
-- Book venue
-- Coordinate vendors
-- Plan parking logistics
-- Set up photo album
-
-**Frat party**:
-- Get frat house approval
-- Book DJ
-- Assign door duty
-- Plan cleanup crew
-
-### 5. Monetization?
-- Ads in group chat (for free tier)
-- Premium features (Plus/Pro):
-  - Photo album auto-collection
-  - More customization
-  - Larger guest lists
-  - Vendor referrals/commissions
-
----
-
-## 🔥 What I Applied from That Reddit Post
-
-1. **Dev docs BEFORE coding** ✅
-   - plan.md, context.md, tasks.md
-   - Prevents "losing the plot"
-
-2. **Build core logic first** ✅
-   - Ground truth query system is THE most important piece
-   - Got it working and tested before anything else
-
-3. **Comprehensive documentation** ✅
-   - Every function has docstrings
-   - Examples in every file
-   - READMEs at every level
-
-4. **Test immediately** ✅
-   - 30+ unit tests for ground truth system
-   - All passing
-
-5. **Planning is king** ✅
-   - Spent time thinking through architecture
-   - Documented all decisions
-   - Clear task breakdown
-
----
-
-## 📁 Quick File Reference
-
-**Must-read**:
-- `/dev/plan.md` - Start here!
-- `/README.md` - Quick start guide
-
-**Core code**:
-- `/backend/services/ground_truth_query.py` - The magic
-- `/backend/services/embeddings.py` - OpenAI embeddings
-- `/database/schema.sql` - All your tables
-
-**Testing**:
-- `/tests/unit/test_ground_truth_query.py` - Run these!
-
-**Next steps**:
-- `/dev/tasks.md` - What to build next
-
----
-
-## 💬 Questions to Clarify (When You're Ready)
-
-Just a few quick things before I continue:
-
-1. **OpenAI API Key**: Do you have one? Need help setting it up?
-
-2. **Database**: Want me to create a Docker setup so you don't have to install PostgreSQL locally?
-
-3. **Auth**: Should I prioritize Google OAuth or email/password first? Or both together?
-
-4. **Testing**: Want me to set up a test database too (so you don't mess up your data while testing)?
-
-5. **Priority**: Should I continue with backend API, or do you want to review what's built first?
+**Q: What about EC2 now?**
+A: Probably don't need it anymore. Backend on Railway, database on Railway. Can shut down EC2 to save costs.
 
 ---
 
 ## 🎊 Bottom Line
 
-You now have:
-- ✅ Complete architectural plan
-- ✅ Working database schema
-- ✅ Core AI query system (tested!)
-- ✅ Clear roadmap for next steps
-- ✅ Professional documentation
+**Current State:**
+- ✅ Backend deployed and (hopefully) healthy
+- ✅ Database deployed with production schema
+- ✅ Environment variables configured
+- ✅ Dockerfile optimized for fast rebuilds
+- ⏳ Pending: Health check verification
 
-**Ready to build the backend API!** 🚀
+**What You Need to Do:**
+1. Check Railway deployment status
+2. Test the live API
+3. If healthy → start building Next.js frontend
+4. If unhealthy → debug and fix
 
-Just let me know when you wake up and I'll keep going. Or review the dev docs first and ask any questions!
+**Next Big Phase:**
+Frontend development (Next.js + NextAuth.js + Vercel deployment)
 
 ---
 
-*P.S. - All code is committed and pushed to branch: `claude/claude-code-workflow-01EfZBdHdpWkkkv1KPFNdZiP`*
+**Ready to test and move forward! 🚀**
+
+Questions or issues? Check the docs in `/docs/` or the main README.

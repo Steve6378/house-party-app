@@ -1,36 +1,36 @@
 # 🌙 Yorru - Night Event Planning with AI
 
-[![Status](https://img.shields.io/badge/status-v0.0.1_complete-brightgreen)]()
-[![Phase](https://img.shields.io/badge/phase-ready_for_deployment-blue)]()
+[![Status](https://img.shields.io/badge/status-railway_deployed-brightgreen)]()
+[![Phase](https://img.shields.io/badge/phase-backend_deployed-blue)]()
 [![Stack](https://img.shields.io/badge/stack-FastAPI%20%7C%20PostgreSQL%20%7C%20Next.js-orange)]()
 
 **Yorru** (夜 - "yoru" meaning night in Japanese) - AI-assisted event planning platform with three interaction modes: Guest AI Assistant (1-on-1), Group Chat (observer), and Host Interface (dashboard).
 
 ---
 
-## 🚀 **Current Status: Foundation Complete ✅**
+## 🚀 **Current Status: Backend Deployed on Railway ✅**
 
-### ✅ **Phase 0: Foundation (DONE)**
-- [x] Project restructured (v0/ old, / new)
-- [x] **Comprehensive dev docs** (1,420 lines: plan, context, tasks)
-- [x] **Database schema** (13 tables with pgvector)
-- [x] **Seed data** (2,100+ lines: 16 events, 50+ messages, 100+ facts)
-- [x] **Ground truth query system** (keyword + semantic search)
-- [x] **Unit tests** (30+ tests passing)
-- [x] **Claude Code infrastructure** (skills, commands, settings)
-- [x] **Implementation guide** (150 tasks with code examples)
+### ✅ **Phase 1: Repository & Deployment (DONE)**
+- [x] Repository restructured (clean paths: backend/, database/, docs/)
+- [x] Python 3.12, environment-based config
+- [x] **Railway backend deployed** (FastAPI + Dockerfile)
+- [x] **Railway database deployed** (PostgreSQL + pgvector-pg17)
+- [x] **Database schema loaded** (production-ready)
+- [x] **Environment variables configured**
+- [x] **Dockerfile optimized** (layer caching for fast rebuilds)
 
-### ⏳ **Phase 1: EC2 Setup** (Tomorrow - Day 1)
-- [ ] Install PostgreSQL 15 + pgvector
-- [ ] Install Python 3.11 + virtual environment
-- [ ] Load database schema + seed data
-- [ ] Generate embeddings for ground truth facts
+### ⏳ **Phase 2: Frontend Development** (Next Up)
+- [ ] Initialize Next.js 14 + TypeScript project
+- [ ] Configure NextAuth.js (JWT integration)
+- [ ] Build core pages (login, events, chat, dashboard)
+- [ ] Integrate Socket.io for real-time chat
+- [ ] Deploy to Vercel
 
-### ⏳ **Phase 2-4: Implementation** (Days 2-12)
-- [ ] Backend API (FastAPI + SQLAlchemy + JWT auth)
-- [ ] WebSocket chat (Guest AI + Group Chat)
-- [ ] Next.js frontend (3 views: Guest, Group, Host)
+### 🔜 **Phase 3-4: Features & Launch**
+- [ ] WebSocket chat implementation (Socket.io)
+- [ ] Photo storage (Cloudflare R2 / Firebase / MongoDB)
 - [ ] Testing & polish
+- [ ] Public launch
 
 ---
 
@@ -38,49 +38,36 @@
 
 ```
 yorru/
-├── v0/                          # Old Yelp project (archived)
+├── backend/                    # FastAPI backend (deployed on Railway)
+│   ├── routes/                # API endpoints
+│   ├── models/                # SQLAlchemy models
+│   ├── services/              # Business logic, embeddings, ground truth
+│   ├── config.py              # Environment-based config
+│   ├── main.py                # FastAPI entry point
+│   └── requirements.txt       # Python dependencies
 │
-├── /                          # Yorru - Night Event Planning Platform
-│   ├── dev/                     # Dev Documentation (START HERE!)
-│   │   ├── plan.md             # Architecture & tech decisions (478 lines)
-│   │   ├── context.md          # Project state & file structure (461 lines)
-│   │   └── tasks.md            # 150 tasks breakdown (481 lines)
-│   │
-│   ├── database/
-│   │   ├── schema.sql          # PostgreSQL schema (13 tables) ✅
-│   │   ├── seed_data_comprehensive.sql  # 2100+ lines test data ✅
-│   │   ├── SEED_DATA_SUMMARY.md         # What's in the seed data
-│   │   └── README.md           # Database setup instructions
-│   │
-│   ├── backend/
-│   │   ├── services/
-│   │   │   ├── embeddings.py   # OpenAI embedding generation ✅
-│   │   │   └── ground_truth_query.py  # Query system (keyword + semantic) ✅
-│   │   ├── models/             # SQLAlchemy models (to build)
-│   │   ├── api/                # FastAPI routers (to build)
-│   │   ├── auth/               # JWT + OAuth (to build)
-│   │   ├── requirements.txt    # Python dependencies ✅
-│   │   └── main.py             # FastAPI entry point (to build)
-│   │
-│   ├── frontend/               # Next.js app (to build)
-│   │
-│   ├── tests/
-│   │   └── unit/
-│   │       └── test_ground_truth_query.py  # 30+ tests ✅
-│   │
-│   ├── IMPLEMENTATION_GUIDE.md # 150 tasks with code examples ✅
-│   └── README.md               # Quick start guide ✅
+├── database/                  # Database schema & migrations
+│   ├── schema.sql             # PostgreSQL schema (13 tables)
+│   ├── seed_data_comprehensive.sql  # Test data (dev only)
+│   ├── migrations/            # Database migrations
+│   └── README.md              # Database setup guide
 │
-├── .claude/                    # Claude Code Infrastructure
-│   ├── skills/
-│   │   ├── skill-rules.json    # Auto-trigger domain patterns
-│   │   ├── python-rag-patterns/SKILL.md  # pgvector, embeddings
-│   │   └── fastapi-patterns/SKILL.md     # SQLAlchemy, auth, CRUD
-│   ├── commands/
-│   │   └── dev-docs-update.md  # /dev-docs-update command
-│   └── settings.json
+├── docs/                      # Documentation
+│   ├── deployment/
+│   │   └── CHECKLIST.md       # Deployment progress tracker
+│   ├── development/
+│   │   ├── CONTEXT_HANDOFF.md # Context for session continuity
+│   │   └── WHEN_YOU_RETURN.md # Quick start guide
+│   └── PROGRESS_SUMMARY.md    # Overall progress
 │
-└── README.md                   # This file
+├── frontend/                  # Next.js app (to build)
+│
+├── .env.example               # Environment variables template
+├── Dockerfile                 # Railway deployment (optimized)
+├── railway.json               # Railway config
+├── Procfile                   # Fallback start command
+├── runtime.txt                # Python 3.12
+└── README.md                  # This file
 ```
 
 ---
@@ -134,14 +121,16 @@ Embedding similarity search with pgvector
 
 | Layer | Technology | Why |
 |-------|-----------|-----|
-| **Backend** | FastAPI + Python 3.11 | Async, fast, great docs |
-| **Database** | PostgreSQL 15 + pgvector | Vector similarity search |
+| **Backend** | FastAPI + Python 3.12 | Async, fast, great docs |
+| **Database** | PostgreSQL + pgvector | Vector similarity search |
+| **Hosting** | Railway (backend + DB) | Zero-config deployment |
 | **ORM** | SQLAlchemy 2.0 | Python ORM with relationships |
 | **Auth** | JWT + bcrypt | Token-based auth, password hashing |
 | **Embeddings** | OpenAI text-embedding-3-small | 1536 dims, $0.02 per 100 facts |
 | **Frontend** | Next.js 14 + TypeScript | SSR, built-in routing |
+| **Frontend Host** | Vercel | Optimized for Next.js |
 | **Styling** | Tailwind CSS | Fast, professional look |
-| **Real-time** | WebSocket | Chat without polling |
+| **Real-time** | Socket.io | Chat with auto-reconnection, rooms |
 
 ---
 
@@ -160,80 +149,75 @@ Embedding similarity search with pgvector
 
 ---
 
-## 🚀 **Quick Start (Tomorrow - Day 1)**
+## 🚀 **Deployment**
 
-### **1. EC2 Setup**
+### **Current Deployment (Railway)**
+
+**Backend + Database are live on Railway!**
+
+- **Backend:** Deployed with Dockerfile, auto-deploys from `main` branch
+- **Database:** pgvector-pg17 on Railway (production schema loaded)
+- **Environment:** Production mode (`DEBUG=False`)
+
+**Next Step:** Verify health check and test API endpoints
+
+### **Local Development Setup**
 
 ```bash
-# Install PostgreSQL + pgvector
-sudo apt update && sudo apt upgrade -y
-sudo apt install -y postgresql postgresql-contrib postgresql-15-pgvector
-
-# Install Python 3.11
-sudo apt install -y python3.11 python3.11-venv python3-pip
-
 # Clone repository
-git clone https://github.com/Steve6378/house-party-app.git
-cd house-party-app
-git checkout claude/expand-seed-data-continued-01BcWwGkQ9yE8QcHMyAy7UU9
-```
-
-### **2. Database Setup**
-
-```bash
-# Create database
-sudo -u postgres psql
-CREATE DATABASE yorru_db;
-CREATE USER yorru_admin WITH PASSWORD 'your_password';
-GRANT ALL PRIVILEGES ON DATABASE yorru_db TO yorru_admin;
-
-# Enable extensions
-\c yorru_db
-CREATE EXTENSION vector;
-CREATE EXTENSION "uuid-ossp";
-\q
-
-# Load schema and seed data
-cd database
-psql -U yorru_admin -d yorru_db -f schema.sql
-psql -U yorru_admin -d yorru_db -f seed_data_comprehensive.sql
-```
-
-### **3. Backend Setup**
-
-```bash
-cd backend
-
-# Create virtual environment
-python3.11 -m venv venv
-source venv/bin/activate
+git clone https://github.com/Steve6378/yorru.git
+cd yorru
 
 # Install dependencies
+cd backend
+python3.12 -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate
 pip install -r requirements.txt
 
-# Create .env file
-cat > .env << EOF
-DATABASE_URL=postgresql://yorru_admin:your_password@localhost:5432/yorru_db
-OPENAI_API_KEY=sk-your-openai-key-here
-JWT_SECRET=your-random-secret-key
-EOF
+# Create .env file (copy from .env.example)
+cp ../.env.example .env
+# Edit .env with your values:
+# - DATABASE_URL (local PostgreSQL or Railway)
+# - OPENAI_API_KEY
+# - JWT_SECRET_KEY
 
-# Generate embeddings
-python generate_embeddings.py
-
-# Run backend
+# Run backend locally
 uvicorn main:app --reload --host 0.0.0.0 --port 8000
 ```
 
-### **4. Test**
+### **Test API**
 
 ```bash
 # Health check
 curl http://localhost:8000/health
-# Should return: {"status": "healthy"}
 
-# API docs
-open http://localhost:8000/api/docs
+# API documentation (Swagger UI)
+open http://localhost:8000/docs
+
+# Register a user
+curl -X POST http://localhost:8000/api/auth/register \
+  -H "Content-Type: application/json" \
+  -d '{"email": "test@example.com", "password": "SecurePass123!", "name": "Test User"}'
+```
+
+### **Database Setup (Local Development)**
+
+If you want to run PostgreSQL locally:
+
+```bash
+# Install PostgreSQL + pgvector
+# macOS: brew install postgresql pgvector
+# Ubuntu: sudo apt install postgresql postgresql-contrib
+
+# Create database
+createdb yorru_dev
+psql yorru_dev -c "CREATE EXTENSION vector;"
+
+# Load schema
+psql yorru_dev < database/schema.sql
+
+# Load seed data (optional, for testing)
+psql yorru_dev < database/seed_data_comprehensive.sql
 ```
 
 ---
