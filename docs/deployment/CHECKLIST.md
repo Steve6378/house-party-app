@@ -31,7 +31,7 @@
 - [ ] Database connection tested
 
 ### **Configuration**
-- [ ] `.env` file created in `v1/backend/`
+- [ ] `.env` file created in `backend/`
 - [ ] `DATABASE_URL` configured
 - [ ] `OPENAI_API_KEY` added
 - [ ] `JWT_SECRET_KEY` generated and added

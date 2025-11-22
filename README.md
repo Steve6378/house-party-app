@@ -11,7 +11,7 @@
 ## 🚀 **Current Status: Foundation Complete ✅**
 
 ### ✅ **Phase 0: Foundation (DONE)**
-- [x] Project restructured (v0/ old, v1/ new)
+- [x] Project restructured (v0/ old, / new)
 - [x] **Comprehensive dev docs** (1,420 lines: plan, context, tasks)
 - [x] **Database schema** (13 tables with pgvector)
 - [x] **Seed data** (2,100+ lines: 16 events, 50+ messages, 100+ facts)
@@ -40,7 +40,7 @@
 yorru/
 ├── v0/                          # Old Yelp project (archived)
 │
-├── v1/                          # Yorru - Night Event Planning Platform
+├── /                          # Yorru - Night Event Planning Platform
 │   ├── dev/                     # Dev Documentation (START HERE!)
 │   │   ├── plan.md             # Architecture & tech decisions (478 lines)
 │   │   ├── context.md          # Project state & file structure (461 lines)
@@ -148,11 +148,11 @@ Embedding similarity search with pgvector
 ## 📖 **Documentation**
 
 ### **Start Here** (In Order)
-1. **`/v1/IMPLEMENTATION_GUIDE.md`** - Full guide with 150 tasks + code examples
-2. **`/v1/dev/plan.md`** - Architecture decisions (why we chose this approach)
-3. **`/v1/dev/context.md`** - Current state, file structure, decisions
-4. **`/v1/dev/tasks.md`** - Task breakdown (150 tasks)
-5. **`/v1/database/SEED_DATA_SUMMARY.md`** - Test data overview
+1. **`/IMPLEMENTATION_GUIDE.md`** - Full guide with 150 tasks + code examples
+2. **`/dev/plan.md`** - Architecture decisions (why we chose this approach)
+3. **`/dev/context.md`** - Current state, file structure, decisions
+4. **`/dev/tasks.md`** - Task breakdown (150 tasks)
+5. **`/database/SEED_DATA_SUMMARY.md`** - Test data overview
 
 ### **Skills** (Auto-activated)
 - **`/.claude/skills/python-rag-patterns/SKILL.md`** - pgvector queries, embeddings, ground truth
@@ -194,7 +194,7 @@ CREATE EXTENSION "uuid-ossp";
 \q
 
 # Load schema and seed data
-cd v1/database
+cd database
 psql -U yorru_admin -d yorru_db -f schema.sql
 psql -U yorru_admin -d yorru_db -f seed_data_comprehensive.sql
 ```
@@ -202,7 +202,7 @@ psql -U yorru_admin -d yorru_db -f seed_data_comprehensive.sql
 ### **3. Backend Setup**
 
 ```bash
-cd v1/backend
+cd backend
 
 # Create virtual environment
 python3.11 -m venv venv
@@ -331,7 +331,7 @@ MIT (or your choice)
 
 ## 🔥 **Next Steps**
 
-**Tomorrow (Day 1)**: Follow `/v1/IMPLEMENTATION_GUIDE.md` Phase 1
+**Tomorrow (Day 1)**: Follow `/IMPLEMENTATION_GUIDE.md` Phase 1
 
 **Days 2-12**: Build backend API → WebSocket chat → Frontend
 
