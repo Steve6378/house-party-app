@@ -21,26 +21,53 @@ USER_MAP = {
     'Maya': '66666666-6666-6666-6666-666666666666',
 }
 
-# Event ID mapping based on timeframes
-# Assign messages to different events based on date ranges
+# Event ID mapping based on actual synthetic chat event files
+# Maps date ranges to event IDs in yorru_dev database
+# Note: synthetic chat has event_00 through event_15 (16 events)
+# These map to event001 through event016 in the database
 EVENT_MAP = [
-    ('2024-05-01', '2024-05-05', 'event001-0001-0001-0001-000000000001'),  # Coffee Study Session
-    ('2024-05-06', '2024-05-10', 'event002-0002-0002-0002-000000000002'),  # Movie Night
-    ('2024-05-11', '2024-05-15', 'event003-0003-0003-0003-000000000003'),  # Thanksgiving
-    ('2024-05-16', '2024-05-20', 'event004-0004-0004-0004-000000000004'),  # Maya's Birthday
-    ('2024-05-21', '2024-05-31', 'event005-0005-0005-0005-000000000005'),  # Frat Party
+    ('2024-05-01', '2024-05-01', 'event001-0001-0001-0001-000000000001'),  # event_00: Group Creation
+    ('2024-05-03', '2024-05-03', 'event002-0002-0002-0002-000000000002'),  # event_01: Coffee Study
+    ('2024-05-09', '2024-05-11', 'event003-0003-0003-0003-000000000003'),  # event_02: Brunch
+    ('2024-05-15', '2024-05-18', 'event004-0004-0004-0004-000000000004'),  # event_03: Beach Day
+    ('2024-05-24', '2024-05-25', 'event005-0005-0005-0005-000000000005'),  # event_04: Thai Restaurant
+    ('2024-06-01', '2024-06-02', 'event006-0006-0006-0006-000000000006'),  # event_05: Runyon Canyon
+    ('2024-06-10', '2024-06-14', 'event007-0007-0007-0007-000000000007'),  # event_06: Game Night
+    ('2024-06-20', '2024-07-28', 'event008-0008-0008-0008-000000000008'),  # event_07: K-Pop Concert
+    ('2024-08-08', '2024-08-11', 'event009-0009-0009-0009-000000000009'),  # event_08: Farmers Market
+    ('2024-08-22', '2024-08-24', 'event010-0010-0010-0010-000000000010'),  # event_09: Escape Room
+    ('2024-09-03', '2024-09-06', 'event011-0011-0011-0011-000000000011'),  # event_10: Outdoor Movie
+    ('2024-09-18', '2024-09-21', 'event012-0012-0012-0012-000000000012'),  # event_11: Potluck Dinner
+    ('2024-10-03', '2024-10-05', 'event013-0013-0013-0013-000000000013'),  # event_12: Malibu Trip
+    ('2024-10-15', '2024-10-19', 'event014-0014-0014-0014-000000000014'),  # event_13: Underground Concert
+    ('2024-10-28', '2024-11-02', 'event015-0015-0015-0015-000000000015'),  # event_14: Piano Recital
+    ('2024-11-12', '2024-11-16', 'event016-0016-0016-0016-000000000016'),  # event_15: Mahiru Birthday
 ]
 
 def get_event_id_for_timestamp(timestamp_str):
-    """Determine which event a message belongs to based on timestamp"""
+    """Determine which event a message belongs to based on timestamp
+
+    Messages within event date ranges are assigned to that event.
+    Messages between events are assigned to the most recent previous event.
+    Messages before all events go to event 1, after all events go to event 16.
+    """
     msg_date = datetime.fromisoformat(timestamp_str).date()
 
+    # Check if message falls within an event's date range
     for start, end, event_id in EVENT_MAP:
         if datetime.fromisoformat(start).date() <= msg_date <= datetime.fromisoformat(end).date():
             return event_id
 
-    # Default to first event if out of range
-    return EVENT_MAP[0][2]
+    # For messages between events, assign to the most recent previous event
+    previous_event_id = EVENT_MAP[0][2]  # Default to first event
+    for start, end, event_id in EVENT_MAP:
+        event_end = datetime.fromisoformat(end).date()
+        if msg_date > event_end:
+            previous_event_id = event_id
+        else:
+            break
+
+    return previous_event_id
 
 def escape_sql_string(s):
     """Escape single quotes for SQL"""
