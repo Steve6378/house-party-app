@@ -2,11 +2,15 @@ FROM python:3.12-slim
 
 WORKDIR /app
 
-# Copy the entire repo
-COPY . .
+# Copy requirements FIRST (before other code)
+# This allows Docker to cache the pip install layer
+COPY backend/requirements.txt backend/requirements.txt
 
-# Install dependencies from backend/
+# Install dependencies (cached unless requirements.txt changes)
 RUN pip install --no-cache-dir -r backend/requirements.txt
+
+# THEN copy the rest of the code
+COPY . .
 
 # Set working directory to backend for runtime
 WORKDIR /app/backend
