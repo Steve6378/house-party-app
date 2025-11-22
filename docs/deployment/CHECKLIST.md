@@ -1,106 +1,204 @@
 # 🚀 Yorru Deployment Checklist
 
-**Last Updated:** 2025-11-21
-**Current Phase:** EC2 Setup + Deployment Prep
+**Last Updated:** 2025-11-22
+**Current Phase:** Railway Deployment (Backend + Database)
 
 ---
 
-## 📦 Phase 1: EC2 Backend Setup
+## 📦 Phase 1: Repository Restructure ✅
 
 ### **Repository & Code**
 - [x] Repository renamed to `yorru`
 - [x] Code rebranded from Festivio to Yorru
-- [x] Deployment files created (Procfile, railway.toml, runtime.txt)
-- [x] All code pushed to GitHub
-- [ ] Latest code pulled on EC2
-
-### **Python Environment**
-- [ ] Python 3.11 installed on EC2
-- [ ] Virtual environment created (`~/yorru_env/`)
-- [ ] Dependencies installed from `requirements.txt`
-- [ ] Environment activated successfully
-
-### **PostgreSQL Database**
-- [ ] PostgreSQL 15+ installed on EC2
-- [ ] Database user created (`yorru_admin` or custom)
-- [ ] Database created (`yorru_db`)
-- [ ] pgvector extension enabled
-- [ ] uuid-ossp extension enabled
-- [ ] Schema loaded (`schema.sql`)
-- [ ] Seed data loaded (`seed_data_comprehensive.sql`)
-- [ ] Database connection tested
-
-### **Configuration**
-- [ ] `.env` file created in `backend/`
-- [ ] `DATABASE_URL` configured
-- [ ] `OPENAI_API_KEY` added
-- [ ] `JWT_SECRET_KEY` generated and added
-- [ ] Environment variables verified
-
-### **Backend Testing**
-- [ ] API starts successfully (`python3 main.py`)
-- [ ] Health check works (`/health` returns healthy)
-- [ ] Root endpoint works (`/` returns Yorru API info)
-- [ ] Database connection confirmed in health check
-- [ ] Can create test user (`POST /api/auth/register`)
-- [ ] Can login (`POST /api/auth/login`)
-- [ ] JWT token works on protected routes
-
-### **Production Setup (EC2)**
-- [ ] Systemd service file created (`/etc/systemd/system/yorru.service`)
-- [ ] Service enabled and started
-- [ ] Service auto-starts on reboot
-- [ ] Nginx installed
-- [ ] Nginx config created (`/etc/nginx/sites-available/yorru`)
-- [ ] Nginx config enabled (symlink to sites-enabled)
-- [ ] Nginx reverse proxy working (port 80 → 8000)
-- [ ] SSL certificate obtained (Certbot + Let's Encrypt)
-- [ ] HTTPS working (`https://api.yorru.net`)
-- [ ] Auto-renewal configured for SSL
+- [x] Repository restructured (removed v0/v1 nesting)
+- [x] Moved to backend/ and database/ at root
+- [x] Created docs/ folder (deployment/, development/)
+- [x] Deployment files created (Dockerfile, railway.json, Procfile)
+- [x] Python updated to 3.12
+- [x] Environment-based config (.env, .env.staging, .env.example)
+- [x] All code pushed to GitHub (`main` branch)
 
 ---
 
-## 🌐 Phase 2: DNS & Domain Setup
+## ☁️ Phase 2: Railway Deployment ✅ (Mostly Complete)
+
+### **Railway Setup**
+- [x] Railway account created
+- [x] GitHub repository connected
+- [x] Branch deployed: `main`
+- [x] pgvector-pg17 database deployed
+- [x] Backend service deployed (FastAPI)
+- [x] Environment variables configured:
+  - [x] `DATABASE_URL` → `${{pgvector.DATABASE_PRIVATE_URL}}`
+  - [x] `OPENAI_API_KEY`
+  - [x] `JWT_SECRET_KEY`
+  - [x] `ENVIRONMENT=production`
+  - [x] `DEBUG=False`
+
+### **Railway Deployment**
+- [x] Dockerfile created (optimized with layer caching)
+- [x] railway.json configured (DOCKERFILE builder, health check)
+- [x] Database schema loaded into pgvector database
+- [ ] **Health check verification** (pending user confirmation)
+- [ ] **Test API endpoints** (pending)
+- [ ] Auto-deploy from GitHub enabled (likely already enabled)
+
+### **Cost Optimization**
+- [x] Dockerfile optimized for fast rebuilds (requirements.txt cached)
+- [x] Using DATABASE_PRIVATE_URL (internal network, no egress)
+- [x] Free tier ($5/month credit) should cover development
+
+---
+
+## 🌐 Phase 3: DNS & Domain Setup
 
 ### **Cloudflare Configuration**
 - [x] Domain purchased (`yorru.net`)
 - [x] Cloudflare account created
 - [x] Nameservers updated to Cloudflare
-- [ ] DNS A record added (`api.yorru.net` → EC2 IP)
-- [ ] DNS verified (propagation complete)
-- [ ] SSL mode set to "Full" in Cloudflare
-
-### **Subdomains Planned**
-- [ ] `yorru.net` → Landing page
-- [ ] `app.yorru.net` → Frontend (Next.js)
-- [ ] `api.yorru.net` → Backend (FastAPI)
-- [ ] `docs.yorru.net` → Documentation (optional)
+- [ ] DNS records configured:
+  - [ ] `yorru.net` → Landing page (future)
+  - [ ] `app.yorru.net` → Frontend (Vercel, future)
+  - [ ] `api.yorru.net` → Railway backend (optional custom domain)
 
 ---
 
-## ☁️ Phase 3: Railway Deployment (Alternative/Production)
+## 🎨 Phase 4: Frontend Development (Next Up)
 
-### **Railway Setup**
-- [ ] Railway account created
+### **Vercel + Next.js Setup**
+- [ ] Next.js 14 project initialized (`frontend/`)
+- [ ] TypeScript configured
+- [ ] Tailwind CSS installed
+- [ ] NextAuth.js configured
+- [ ] Credentials provider (email/password)
+- [ ] JWT integration with Railway backend
+- [ ] Protected routes setup
+
+### **Core Pages**
+- [ ] Login page (`/login`)
+- [ ] Register page (`/register`)
+- [ ] Dashboard (`/dashboard`)
+- [ ] Event list (`/events`)
+- [ ] Event detail (`/events/[id]`)
+- [ ] Event creation (`/events/create`)
+- [ ] Chat interface (`/events/[id]/chat`)
+- [ ] Host dashboard (`/host/[id]`)
+
+### **Vercel Deployment**
+- [ ] Vercel account created
 - [ ] GitHub repository connected
-- [ ] Branch selected for deployment
-- [ ] PostgreSQL database added
-- [ ] `DATABASE_URL` auto-configured
-- [ ] Environment variables set:
-  - [ ] `OPENAI_API_KEY`
-  - [ ] `JWT_SECRET_KEY`
-  - [ ] `ENVIRONMENT=production`
-  - [ ] `DEBUG=False`
+- [ ] Auto-deploy from `main` configured
+- [ ] Environment variables set (API URL, NextAuth secret)
+- [ ] Custom domain configured (`app.yorru.net`)
 
-### **Railway Deployment**
-- [ ] First deployment successful
-- [ ] Health check endpoint working
-- [ ] Database migrations run
-- [ ] Seed data loaded
-- [ ] Embeddings generated
-- [ ] Custom domain added (`api.yorru.net`)
-- [ ] SSL configured (automatic on Railway)
-- [ ] Auto-deploy from GitHub enabled
+---
+
+## 🔌 Phase 5: Real-time Features (WebSocket)
+
+### **Socket.io Implementation**
+- [ ] `python-socketio` installed on backend
+- [ ] `socket.io-client` installed on frontend
+- [ ] WebSocket endpoint created (`/ws/events/{id}`)
+- [ ] Room management (join event room)
+- [ ] Broadcasting to event participants
+- [ ] Guest AI assistant integration
+- [ ] Group chat functionality
+- [ ] Auto-reconnection handling
+- [ ] Frontend WebSocket hook created
+
+---
+
+## 📸 Phase 6: Photo Storage (Future)
+
+### **Storage Solution (TBD)**
+- [ ] Decision: Cloudflare R2 vs Firebase vs MongoDB
+- [ ] Bucket/storage created
+- [ ] Upload endpoint (`POST /api/events/{id}/photos`)
+- [ ] Photo metadata in PostgreSQL
+- [ ] Image optimization
+- [ ] Frontend upload UI
+
+---
+
+## 🧪 Phase 7: Testing & Polish
+
+### **API Testing**
+- [ ] Health check verified
+- [ ] User registration tested
+- [ ] Login tested
+- [ ] Event CRUD tested
+- [ ] Ground truth Q&A tested
+- [ ] WebSocket chat tested
+- [ ] Permission system verified
+
+### **Frontend Testing**
+- [ ] User flows tested
+- [ ] Mobile responsiveness
+- [ ] Cross-browser testing
+- [ ] Performance (Lighthouse score)
+
+---
+
+## 🚀 Phase 8: Launch
+
+### **Pre-launch**
+- [ ] Documentation complete
+- [ ] Security audit (CORS, rate limiting, input validation)
+- [ ] Monitoring setup (error tracking, logging)
+- [ ] Database backups configured
+
+### **Launch**
+- [ ] Soft launch to beta testers
+- [ ] Collect feedback
+- [ ] Fix critical bugs
+- [ ] Public launch
+
+---
+
+## 📊 Current Progress Summary
+
+**Completed:** Repository restructure, Railway backend + database deployment
+**Current Status:** Waiting for health check verification
+**Next Immediate:** Test Railway deployment, then start Next.js frontend
+
+### **Recently Completed (This Session):**
+- ✅ Repository restructured (clean paths, docs/ folder)
+- ✅ Dockerfile created with layer caching optimization
+- ✅ Railway backend deployed
+- ✅ Railway pgvector database deployed
+- ✅ Database schema loaded (production, no seed data)
+- ✅ Environment variables configured
+- ✅ DATABASE_URL fixed to use private URL
+
+### **Next Up:**
+- ⏭️ Verify Railway health check passes
+- ⏭️ Test API endpoints (register, login, events)
+- ⏭️ Initialize Next.js frontend
+- ⏭️ Configure NextAuth.js
+
+---
+
+## 🎯 Quick Reference
+
+**Repository:** https://github.com/Steve6378/yorru
+**Branch:** `main`
+**Domain:** yorru.net
+**Backend:** Railway (yorru-production.up.railway.app)
+**Database:** Railway pgvector-pg17
+**Frontend (planned):** Vercel
+**WebSocket (planned):** Socket.io
+
+**Tech Stack:**
+- Backend: FastAPI (Python 3.12) on Railway
+- Database: PostgreSQL + pgvector on Railway
+- Frontend: Next.js 14 + TypeScript on Vercel (future)
+- Real-time: Socket.io (future)
+- Auth: NextAuth.js + JWT
+
+---
+
+**Last Session:** Railway deployment completed, health check pending verification
+**Next Session:** Verify deployment, start frontend development
 
 ---
 
