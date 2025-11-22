@@ -24,8 +24,9 @@ class Settings(BaseSettings):
 
     class Config:
         # Look for .env in parent directory (yorru/.env)
+        # Override with ENV_FILE environment variable for staging/testing
         # In production (Railway), environment variables override .env
-        env_file = "../.env"
+        env_file = os.getenv("ENV_FILE", "../.env")
         case_sensitive = True
 
 settings = Settings()

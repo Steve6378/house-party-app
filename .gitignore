@@ -1,10 +1,12 @@
 # Environment variables (contains secrets!)
 .env
 .env.local
+.env.staging
 .env.*.local
 
-# Allow .env.example (template without secrets)
+# Allow .env example files (templates without secrets)
 !.env.example
+!.env.staging.example
 
 # Python
 venv/
