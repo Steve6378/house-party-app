@@ -8,7 +8,7 @@ from sqlalchemy.orm import Session
 from sqlalchemy import text
 from utils.database import get_db
 from config import settings
-from routes import events_router, ground_truth_router, auth_router, messages_router, message_router
+from routes import events_router, ground_truth_router, auth_router, messages_router, message_router, groups_router
 
 app = FastAPI(
     title="Yorru API",
@@ -22,6 +22,7 @@ app.include_router(events_router, prefix="/api")
 app.include_router(ground_truth_router, prefix="/api")
 app.include_router(messages_router, prefix="/api")  # Event messages: /api/events/{id}/messages
 app.include_router(message_router, prefix="/api")  # Message operations: /api/messages/{id}
+app.include_router(groups_router, prefix="/api")  # Group management: /api/groups
 
 # CORS middleware for frontend
 app.add_middleware(
