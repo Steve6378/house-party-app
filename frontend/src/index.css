@@ -1,0 +1,48 @@
+/* URL IMPORTS (SUCH AS FONT IMPORTS) SHOULD BE KEPT ABOVE TAILWIND IMPORTS - DO NOT DELETE THIS COMMENT */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+/* PLEASE NOTE: THESE TAILWIND IMPORTS SHOULD NEVER BE DELETED - DO NOT DELETE THIS COMMENT */
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+/* DO NOT DELETE THESE TAILWIND IMPORTS, OTHERWISE THE STYLING WILL NOT RENDER AT ALL - DO NOT DELETE THIS COMMENT */
+
+:root {
+  --primary: #4f46e5;
+  --primary-hover: #4338ca;
+  --secondary: #10b981;
+  --secondary-hover: #059669;
+  --background: #f9fafb;
+  --foreground: #111827;
+  --muted: #9ca3af;
+  --border: #e5e7eb;
+  --radius: 0.5rem;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background: linear-gradient(135deg, #131515 0%, #281F5B 50%, #4E626A 100%);
+  background-attachment: fixed;
+  color: var(--foreground);
+  min-height: 100vh;
+}
+
+@layer components {
+  .btn {
+    @apply px-4 py-2 rounded-md font-medium transition-colors;
+  }
+  .btn-primary {
+    @apply bg-indigo-600 text-white hover:bg-indigo-700;
+  }
+  .btn-secondary {
+    @apply bg-emerald-600 text-white hover:bg-emerald-700;
+  }
+  .btn-outline {
+    @apply border border-gray-300 bg-white hover:bg-gray-50;
+  }
+  .card {
+    @apply bg-white rounded-lg border border-gray-200 shadow-sm p-6;
+  }
+  .input {
+    @apply w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500;
+  }
+}
