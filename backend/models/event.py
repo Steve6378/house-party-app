@@ -42,6 +42,9 @@ class Event(Base, TimestampMixin):
     
     # Location
     address = Column(Text)
+
+    # Media
+    cover_image_url = Column(Text)  # URL to event cover image
     
     # Budget/capacity
     budget_per_person = Column(Numeric(10, 2))

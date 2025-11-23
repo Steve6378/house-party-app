@@ -120,6 +120,7 @@ def create_event(
         date=event_data.date,
         time=event_data.time,
         address=sanitized_address,
+        cover_image_url=event_data.cover_image_url,
         main_host_id=current_user.id,  # Auto-set to logged-in user
         group_id=event_data.group_id,
         budget_per_person=event_data.budget_per_person,
