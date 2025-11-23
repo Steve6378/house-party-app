@@ -28,9 +28,10 @@ class UserBasic(BaseModel):
 
 
 class MessageResponse(BaseModel):
-    """Schema for message response"""
+    """Schema for message response (group general chat or event chat)"""
     id: str
-    event_id: str
+    event_id: Optional[str] = None  # Set if event chat
+    group_id: Optional[str] = None  # Set if group general chat
     sender_id: Optional[str]
     message_type: str
     content: str
