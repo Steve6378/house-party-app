@@ -537,7 +537,7 @@ def send_group_message(
         )
 
     # Sanitize message content
-    sanitized_content = sanitize_text(message_data.content, allow_basic_formatting=True)
+    sanitized_content = sanitize_message_content(message_data.content, allow_formatting=True)
 
     # Create message
     message_id = f"msg-{uuid.uuid4()}"
