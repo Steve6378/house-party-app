@@ -41,10 +41,10 @@ psql "postgresql://postgres:PASSWORD@shinkansen.proxy.rlwy.net:12930/railway" \
   -f database/migrations/002_fix_table_names_and_missing_columns.sql
 
 psql "postgresql://postgres:PASSWORD@shinkansen.proxy.rlwy.net:12930/railway" \
-  -f database/migrations/004_add_group_chat_support.sql
+  -f database/migrations/003_add_group_chat_support.sql
 
 psql "postgresql://postgres:PASSWORD@shinkansen.proxy.rlwy.net:12930/railway" \
-  -f database/migrations/005_add_image_url_support.sql
+  -f database/migrations/004_add_image_url_support.sql
 ```
 
 **Expected output for each:**
@@ -364,8 +364,8 @@ Example: `https://yorru-production.up.railway.app/docs`
 
 **Common Errors:**
 - `403 Forbidden` → Not a group member (shouldn't happen if you created it)
-- `500 Internal Server Error` → Migration 004 not run! Go back to Part 1.
-- `column messages.group_id does not exist` → Migration 004 NOT run!
+- `500 Internal Server Error` → Migration 003 not run! Go back to Part 1.
+- `column messages.group_id does not exist` → Migration 003 NOT run!
 
 ---
 
@@ -540,7 +540,7 @@ GET /api/events/{event_id}/messages
 - No overlap!
 
 **If you see the same messages in both:**
-- ❌ Migration 004 didn't work properly
+- ❌ Migration 003 didn't work properly
 - Check database: `psql "YOUR_DB_URL" -c "SELECT event_id, group_id FROM messages;"`
 - One should have `event_id` set, one should have `group_id` set
 
@@ -642,9 +642,9 @@ Each chat is independent:
 
 **Symptom:** `column messages.group_id does not exist`
 
-**Fix:** Run migration 004:
+**Fix:** Run migration 003:
 ```bash
-psql "YOUR_DB_URL" -f database/migrations/004_add_group_chat_support.sql
+psql "YOUR_DB_URL" -f database/migrations/003_add_group_chat_support.sql
 ```
 
 ---
@@ -694,7 +694,8 @@ Copy this checklist and check off as you test:
 ✅ Migrations Run:
   [ ] Migration 001 - status columns
   [ ] Migration 002 - table fixes
-  [ ] Migration 004 - group chat support
+  [ ] Migration 003 - group chat support
+  [ ] Migration 004 - image URL support
 
 ✅ Authentication:
   [ ] Can register new user

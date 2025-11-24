@@ -16,12 +16,12 @@
 \i database/migrations/002_fix_table_names_and_missing_columns.sql
 
 \echo ''
-\echo '--- Migration 004: Add group chat support ---'
-\i database/migrations/004_add_group_chat_support.sql
+\echo '--- Migration 003: Add group chat support ---'
+\i database/migrations/003_add_group_chat_support.sql
 
 \echo ''
-\echo '--- Migration 005: Add image URL support ---'
-\i database/migrations/005_add_image_url_support.sql
+\echo '--- Migration 004: Add image URL support ---'
+\i database/migrations/004_add_image_url_support.sql
 
 \echo ''
 \echo '==============================================='
