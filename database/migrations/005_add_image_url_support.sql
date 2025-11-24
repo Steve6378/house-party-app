@@ -1,15 +1,7 @@
--- Migration: Add image URL support for users and events
+-- Migration: Add image URL support for events
 -- Version: 0.0.1
 -- Date: 2025-11-23
-
--- ============================================
--- Add profile picture URL to users
--- ============================================
-
-ALTER TABLE users
-  ADD COLUMN IF NOT EXISTS profile_picture_url TEXT;
-
-COMMENT ON COLUMN users.profile_picture_url IS 'URL to user profile picture (e.g., from Imgur, Cloudflare R2, etc.)';
+-- Note: profile_picture_url already exists in users table (from original schema.sql)
 
 -- ============================================
 -- Add cover image URL to events
