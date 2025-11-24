@@ -42,6 +42,9 @@ psql "postgresql://postgres:PASSWORD@shinkansen.proxy.rlwy.net:12930/railway" \
 
 psql "postgresql://postgres:PASSWORD@shinkansen.proxy.rlwy.net:12930/railway" \
   -f database/migrations/004_add_group_chat_support.sql
+
+psql "postgresql://postgres:PASSWORD@shinkansen.proxy.rlwy.net:12930/railway" \
+  -f database/migrations/005_add_image_url_support.sql
 ```
 
 **Expected output for each:**
