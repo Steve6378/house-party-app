@@ -1,9 +1,35 @@
 # Yorru - User Model
 # Version: 0.0.1
 
-from sqlalchemy import Column, String, Boolean, DateTime
+from sqlalchemy import Column, String, Boolean, DateTime, ForeignKey
 from sqlalchemy.orm import relationship
 from .base import Base, TimestampMixin
+
+
+class GroupMembership(Base):
+    """
+    Group membership linking users to groups with roles.
+
+    Relationships:
+    - group: The group this membership belongs to
+    - user: The user who is a member
+    """
+    __tablename__ = "group_memberships"
+
+    # Composite primary key
+    group_id = Column(String, ForeignKey("groups.id", ondelete="CASCADE"), primary_key=True)
+    user_id = Column(String, ForeignKey("users.id", ondelete="CASCADE"), primary_key=True)
+
+    # Membership info
+    role = Column(String, default="member", nullable=False)  # 'member' or 'admin'
+    joined_at = Column(DateTime, nullable=False)
+
+    # Relationships
+    group = relationship("Group", back_populates="members")
+    user = relationship("User", back_populates="group_memberships")
+
+    def __repr__(self):
+        return f"<GroupMembership(group_id={self.group_id}, user_id={self.user_id}, role={self.role})>"
 
 
 class User(Base, TimestampMixin):

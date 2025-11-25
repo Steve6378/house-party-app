@@ -10,6 +10,7 @@ import uuid
 
 from models.group import Group
 from models.user import User, GroupMembership
+from models.message import Message
 from schemas.group import (
     GroupCreate,
     GroupUpdate,
@@ -18,7 +19,9 @@ from schemas.group import (
     GroupMemberAdd,
     GroupMemberResponse
 )
+from schemas.message import MessageCreate, MessageResponse, MessageListResponse
 from services.permissions import get_current_user
+from services.sanitize import sanitize_text
 from utils.database import get_db
 
 router = APIRouter(tags=["groups"])
@@ -443,3 +446,112 @@ def list_group_events(
         "event_count": len(events),
         "events": events
     }
+
+
+@router.get("/groups/{group_id}/messages", response_model=MessageListResponse)
+def get_group_messages(
+    group_id: str,
+    skip: int = 0,
+    limit: int = 50,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    """
+    Get general chat messages for a group.
+
+    - Returns messages in the group's general chat (not event-specific)
+    - Only group members can view messages
+    - Messages are ordered by creation time (newest first)
+    """
+    # Check if group exists
+    group = db.query(Group).filter(Group.id == group_id).first()
+    if not group:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Group not found"
+        )
+
+    # Check if user is a member
+    is_member = db.query(GroupMembership).filter(
+        GroupMembership.group_id == group_id,
+        GroupMembership.user_id == current_user.id
+    ).first()
+
+    if not is_member:
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="You must be a member of this group to view messages"
+        )
+
+    # Get total count
+    total = db.query(func.count(Message.id)).filter(
+        Message.group_id == group_id,
+        Message.is_deleted == False
+    ).scalar()
+
+    # Get messages
+    messages = db.query(Message).filter(
+        Message.group_id == group_id,
+        Message.is_deleted == False
+    ).order_by(Message.created_at.desc()).offset(skip).limit(limit).all()
+
+    return {
+        "total": total,
+        "messages": messages,
+        "skip": skip,
+        "limit": limit
+    }
+
+
+@router.post("/groups/{group_id}/messages", response_model=MessageResponse, status_code=status.HTTP_201_CREATED)
+def send_group_message(
+    group_id: str,
+    message_data: MessageCreate,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    """
+    Send a message to the group's general chat.
+
+    - Only group members can send messages
+    - Message content is sanitized to prevent XSS
+    """
+    # Check if group exists
+    group = db.query(Group).filter(Group.id == group_id).first()
+    if not group:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Group not found"
+        )
+
+    # Check if user is a member
+    is_member = db.query(GroupMembership).filter(
+        GroupMembership.group_id == group_id,
+        GroupMembership.user_id == current_user.id
+    ).first()
+
+    if not is_member:
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="You must be a member of this group to send messages"
+        )
+
+    # Sanitize message content
+    sanitized_content = sanitize_message_content(message_data.content, allow_formatting=True)
+
+    # Create message
+    message_id = f"msg-{uuid.uuid4()}"
+    new_message = Message(
+        id=message_id,
+        group_id=group_id,  # Group general chat
+        event_id=None,  # Not event-specific
+        sender_id=current_user.id,
+        message_type=message_data.message_type,
+        content=sanitized_content
+    )
+
+    db.add(new_message)
+    db.commit()
+    db.refresh(new_message)
+
+    return new_message

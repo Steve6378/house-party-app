@@ -484,3 +484,116 @@ def seed_database():
 
 ---
 
+
+---
+
+## Admin & Moderation System
+**Status:** Planned for later (after MVP launch)
+**Priority:** High (before public launch)
+
+### Platform Admin Roles
+
+**User Role Hierarchy:**
+```sql
+-- Migration 005: Add platform roles
+ALTER TABLE users
+  ADD COLUMN platform_role VARCHAR(50) DEFAULT 'user' NOT NULL;
+  -- Values: 'user', 'moderator', 'admin', 'super_admin'
+```
+
+- **user** - Regular users (default)
+- **moderator** - Can review reports, hide content
+- **admin** - Can ban users, delete groups  
+- **super_admin** - Full access (founders/core team)
+
+### Content Reporting System
+
+**New Tables:**
+```sql
+CREATE TABLE content_reports (
+    id TEXT PRIMARY KEY,
+    reporter_id TEXT REFERENCES users(id),
+    reported_user_id TEXT REFERENCES users(id),
+    
+    -- What's being reported
+    report_type VARCHAR(50) NOT NULL,  -- 'message', 'event', 'user', 'group'
+    message_id TEXT REFERENCES messages(id),
+    event_id TEXT REFERENCES events(id),
+    group_id TEXT REFERENCES groups(id),
+    
+    -- Report details
+    reason VARCHAR(50) NOT NULL,  -- 'spam', 'harassment', 'inappropriate', 'other'
+    description TEXT,
+    
+    -- Moderation
+    status VARCHAR(50) DEFAULT 'pending',  -- 'pending', 'reviewing', 'resolved', 'dismissed'
+    reviewed_by TEXT REFERENCES users(id),
+    reviewed_at TIMESTAMP,
+    action_taken TEXT,  -- 'content_removed', 'user_warned', 'user_banned', 'no_action'
+    
+    created_at TIMESTAMP DEFAULT NOW()
+);
+
+CREATE TABLE moderation_actions (
+    id TEXT PRIMARY KEY,
+    moderator_id TEXT REFERENCES users(id),
+    action_type VARCHAR(50),  -- 'hide_message', 'ban_user', 'delete_group'
+    target_type VARCHAR(50),
+    target_id TEXT,
+    reason TEXT,
+    created_at TIMESTAMP DEFAULT NOW()
+);
+```
+
+### Admin Endpoints
+
+**User Reporting:**
+- `POST /api/reports` - Report inappropriate content (any user)
+- `GET /api/admin/reports` - View reports queue (admins only)
+- `POST /api/admin/reports/{report_id}/resolve` - Resolve report (moderators)
+- `POST /api/admin/users/{user_id}/ban` - Ban user (admins only)
+- `POST /api/admin/users/{user_id}/warn` - Warn user (moderators)
+
+**Content Moderation:**
+- `DELETE /api/admin/messages/{message_id}` - Hide/delete message
+- `DELETE /api/admin/events/{event_id}` - Delete event  
+- `DELETE /api/admin/groups/{group_id}` - Delete group
+
+**Analytics:**
+- `GET /api/admin/stats` - Platform statistics
+- `GET /api/admin/audit-log` - View all admin actions
+
+### Admin Dashboard Features
+
+```
+Admin Panel:
+├─ Reports Queue (pending reports with priority)
+├─ User Management (search, ban, view history, warnings)
+├─ Content Moderation (hide messages/events, delete groups)
+├─ Analytics Dashboard (reports per day, banned users, trends)
+├─ Audit Log (all admin actions with timestamps)
+└─ Moderator Tools (assign reports, escalate issues)
+```
+
+### Implementation Priority
+
+**Phase 1 (Before Public Launch):**
+- Basic reporting system
+- Hide/delete content
+- Ban users
+- Admin audit log
+
+**Phase 2 (Post-Launch):**
+- Advanced moderation tools
+- Auto-flagging system (ML/AI)
+- User warnings system
+- Appeals process
+
+### Security Considerations
+
+- Only super_admins can grant/revoke moderator status
+- All moderation actions are logged (transparency)
+- Moderators cannot moderate their own content
+- Rate limiting on reports (prevent spam)
+- IP tracking for banned users
+

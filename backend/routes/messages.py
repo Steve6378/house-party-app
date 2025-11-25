@@ -225,19 +225,40 @@ def get_message(
 
     **Authentication required.**
 
-    You must have access to the event to view this message.
+    You must have access to the event or group to view this message.
     """
+    from models.group import Group
+    from models.user import GroupMembership
+
     message = db.query(Message).filter(Message.id == message_id).first()
 
     if not message:
         raise HTTPException(status_code=404, detail="Message not found")
 
-    # Get the event to check permissions
-    event = db.query(Event).filter(Event.id == message.event_id).first()
-    if not event:
-        raise HTTPException(status_code=404, detail="Event not found")
+    # Check permissions based on message type
+    if message.group_id:
+        # Group general chat message - check group membership
+        is_member = db.query(GroupMembership).filter(
+            GroupMembership.group_id == message.group_id,
+            GroupMembership.user_id == current_user.id
+        ).first()
 
-    # Check if user has permission to view this event's messages
-    require_event_access(current_user, event, db, action="view")
+        if not is_member:
+            raise HTTPException(
+                status_code=403,
+                detail="You must be a member of this group to view this message"
+            )
+
+    elif message.event_id:
+        # Event chat message - check event access
+        event = db.query(Event).filter(Event.id == message.event_id).first()
+        if not event:
+            raise HTTPException(status_code=404, detail="Event not found")
+
+        require_event_access(current_user, event, db, action="view")
+
+    else:
+        # Message has neither group_id nor event_id (should never happen due to DB constraint)
+        raise HTTPException(status_code=500, detail="Invalid message state")
 
     return message
