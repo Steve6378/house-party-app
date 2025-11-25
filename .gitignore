@@ -1,41 +1,56 @@
-# Environment variables (contains secrets!)
-.env
-.env.local
-.env.staging
-.env.*.local
-
-# Allow .env example files (templates without secrets)
-!.env.example
-!.env.staging.example
-
 # Python
-venv/
-env/
 __pycache__/
-*.pyc
-*.pyo
-*.pyd
-.Python
+*.py[cod]
+*$py.class
 *.so
-*.egg
+.Python
+env/
+venv/
+ENV/
 *.egg-info/
 dist/
 build/
+
+# Environment variables
+.env
+.env.local
+backend/.env
+
+# Database
+*.db
+*.sqlite3
 
 # IDEs
 .vscode/
 .idea/
 *.swp
 *.swo
-*~
 
 # OS
 .DS_Store
 Thumbs.db
 
+# Node
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# Frontend build
+frontend/dist/
+frontend/build/
+
 # Logs
 *.log
+logs/
 
-# Database
-*.db
-*.sqlite
+# Temporary files
+*.tmp
+temp/
+tmp/
+
+# Other project files
+labb10/
+Open_ai_model/
+frontend/yorru-claude-expand-seed-data-continued-01BcWwGkQ9yE8QcHMyAy7UU9/

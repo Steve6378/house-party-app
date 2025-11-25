@@ -8,7 +8,8 @@ from sqlalchemy import text
 import uuid
 
 from models.user import User
-from schemas.auth import UserRegister, UserLogin, Token, UserResponse, UserUpdate
+from models.attendance import EventAttendance
+from schemas.auth import UserRegister, UserLogin, Token, UserResponse
 from services.auth import hash_password, verify_password, create_access_token, decode_access_token
 from services.sanitize import sanitize_text
 from utils.database import get_db
@@ -62,10 +63,25 @@ def register(user_data: UserRegister, db: Session = Depends(get_db)):
     db.add(new_user)
     db.commit()
     db.refresh(new_user)
-    
+
+    # Link any pending invitations for this email
+    # Find attendance records with PENDING_EMAIL: prefix in rsvp_notes
+    pending_invites = db.query(EventAttendance).filter(
+        EventAttendance.user_id == None,
+        EventAttendance.rsvp_notes.like(f"%PENDING_EMAIL:{user_data.email}%")
+    ).all()
+
+    for invite in pending_invites:
+        # Link the invitation to the new user
+        invite.user_id = new_user.id
+        invite.rsvp_notes = None  # Clear the pending email marker
+
+    if pending_invites:
+        db.commit()
+
     # Create access token
     access_token = create_access_token(data={"sub": new_user.id})
-    
+
     return {
         "access_token": access_token,
         "token_type": "bearer",
@@ -165,39 +181,7 @@ def get_current_user(
 def get_current_user_profile(current_user: User = Depends(get_current_user)):
     """
     Get the current user's profile.
-
+    
     Requires authentication (Bearer token in Authorization header).
     """
-    return current_user
-
-
-@router.put("/me", response_model=UserResponse)
-def update_current_user_profile(
-    user_data: UserUpdate,
-    current_user: User = Depends(get_current_user),
-    db: Session = Depends(get_db)
-):
-    """
-    Update the current user's profile.
-
-    Allows updating:
-    - name
-    - phone
-    - profile_picture_url (provide URL from Imgur, etc.)
-
-    Requires authentication.
-    """
-    # Update fields if provided
-    if user_data.name is not None:
-        current_user.name = sanitize_text(user_data.name, allow_basic_formatting=False)
-
-    if user_data.phone is not None:
-        current_user.phone = sanitize_text(user_data.phone, allow_basic_formatting=False)
-
-    if user_data.profile_picture_url is not None:
-        current_user.profile_picture_url = user_data.profile_picture_url
-
-    db.commit()
-    db.refresh(current_user)
-
     return current_user

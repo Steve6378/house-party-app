@@ -1,7 +1,9 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { useParams } from 'react-router-dom';
-import { SendIcon, InfoIcon } from 'lucide-react';
-import { useAuth } from '../context/AuthContext';
+import { useParams, useNavigate } from 'react-router-dom';
+import { SendIcon, InfoIcon, ArrowLeft } from 'lucide-react';
+import { useAuthStore } from '../stores/authStore';
+import { messagesAPI, eventsAPI } from '../utils/api';
+import { toast } from 'sonner';
 interface Message {
   id: string;
   content: string;

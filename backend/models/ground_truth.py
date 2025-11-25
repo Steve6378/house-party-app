@@ -3,41 +3,41 @@
 
 from sqlalchemy import Column, String, Text, ForeignKey, ARRAY, DateTime
 from sqlalchemy.orm import relationship
-from pgvector.sqlalchemy import Vector
+# from pgvector.sqlalchemy import Vector  # TODO: Install pgvector extension in PostgreSQL
 from .base import Base, TimestampMixin
 
 
 class GroundTruthFact(Base, TimestampMixin):
     """
     Host-verified factual information about events.
-    
+
     Examples:
     - address: "123 Main St, Los Angeles, CA"
     - parking: "Free street parking available"
     - dress_code: "Casual, comfortable clothing"
-    
+
     The 'embedding' field enables semantic search.
-    
+
     Relationships:
     - event: The event this fact belongs to
     - change_logs: History of edits to this fact
     - escalated_question: Question that created this fact (if any)
     """
     __tablename__ = "ground_truth_facts"
-    
+
     # Primary key
     id = Column(String, primary_key=True)
-    
+
     # Foreign key
     event_id = Column(String, ForeignKey("events.id", ondelete="CASCADE"), nullable=False)
-    
+
     # Fact data
     key = Column(String, nullable=False)  # "address", "parking", etc.
     value = Column(Text, nullable=False)  # The actual information
     keywords = Column(ARRAY(Text))  # For keyword matching
-    
+
     # Semantic search
-    embedding = Column(Vector(1536))  # OpenAI text-embedding-3-small
+    # embedding = Column(Vector(1536))  # TODO: Enable after installing pgvector in PostgreSQL
     
     # Metadata
     importance = Column(String, default="medium")

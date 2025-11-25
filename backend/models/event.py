@@ -42,9 +42,6 @@ class Event(Base, TimestampMixin):
     
     # Location
     address = Column(Text)
-
-    # Media
-    cover_image_url = Column(Text)  # URL to event cover image
     
     # Budget/capacity
     budget_per_person = Column(Numeric(10, 2))
@@ -77,6 +74,8 @@ class Event(Base, TimestampMixin):
     todos = relationship("Todo", back_populates="event")
     guest_preferences = relationship("GuestPreferences", back_populates="event")
     polls = relationship("Poll", back_populates="event")
-    
+    documents = relationship("EventDocument", back_populates="event")
+    questionnaire = relationship("EventQuestionnaire", back_populates="event", uselist=False)
+
     def __repr__(self):
         return f"<Event(id={self.id}, name={self.name}, date={self.date})>"
