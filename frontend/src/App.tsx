@@ -18,19 +18,19 @@ export function App() {
 
   return (
     <div className="min-h-screen bg-black relative overflow-hidden flex flex-col items-center justify-center px-4">
-      {/* Top-left blue gradient - gentle angle, extended vertically */}
+      {/* Top-left blue gradient - elliptical curve */}
       <div
-        className="absolute top-0 left-0 w-[55%] h-[80%] opacity-35"
+        className="absolute inset-0 opacity-40"
         style={{
-          background: 'linear-gradient(155deg, #1a3550 0%, #1a3550 15%, transparent 55%)',
+          background: 'radial-gradient(ellipse 120% 80% at 0% 0%, #1a3550 0%, transparent 70%)',
         }}
       />
 
-      {/* Bottom-right purple gradient - gentle angle */}
+      {/* Bottom-right purple gradient - elliptical curve */}
       <div
-        className="absolute bottom-0 right-0 w-[50%] h-[60%] opacity-30"
+        className="absolute inset-0 opacity-35"
         style={{
-          background: 'linear-gradient(340deg, #3d1a4a 0%, transparent 50%)',
+          background: 'radial-gradient(ellipse 100% 90% at 100% 100%, #3d1a4a 0%, transparent 70%)',
         }}
       />
 
