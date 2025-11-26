@@ -9,31 +9,35 @@ from .base import Base, TimestampMixin
 class EventAttendance(Base, TimestampMixin):
     """
     Many-to-many relationship: Users ↔ Events
-    
+
     Tracks who's attending which events and their RSVP status.
-    
+    Supports inviting unregistered users (user_id can be NULL).
+
     Relationships:
     - event: The event being attended
-    - user: The user attending
+    - user: The user attending (None for pending unregistered invitations)
     """
     __tablename__ = "event_attendance"
-    
-    # Composite primary key
-    event_id = Column(String, ForeignKey("events.id", ondelete="CASCADE"), primary_key=True)
-    user_id = Column(String, ForeignKey("users.id", ondelete="CASCADE"), primary_key=True)
-    
+
+    # Primary key
+    id = Column(String, primary_key=True)
+
+    # Foreign keys (user_id nullable for unregistered users)
+    event_id = Column(String, ForeignKey("events.id", ondelete="CASCADE"), nullable=False)
+    user_id = Column(String, ForeignKey("users.id", ondelete="CASCADE"), nullable=True)
+
     # RSVP data
     rsvp_status = Column(String, default="pending", nullable=False)
     # Values: "pending", "yes", "no", "maybe"
     plus_ones = Column(Integer, default=0)
-    rsvp_notes = Column(String)  # "Bringing my sister"
-    
+    rsvp_notes = Column(String)  # "Bringing my sister" or "PENDING_EMAIL:user@example.com"
+
     # Relationships
     event = relationship("Event", back_populates="attendees")
     user = relationship("User", back_populates="event_attendance")
-    
+
     def __repr__(self):
-        return f"<EventAttendance(event_id={self.event_id}, user_id={self.user_id}, status={self.rsvp_status})>"
+        return f"<EventAttendance(id={self.id}, event_id={self.event_id}, user_id={self.user_id}, status={self.rsvp_status})>"
 
 
 class EventCoHost(Base, TimestampMixin):

@@ -53,7 +53,6 @@ class User(Base, TimestampMixin):
     name = Column(String, nullable=False)
     email = Column(String, unique=True, nullable=False)
     phone = Column(String)
-    profile_picture_url = Column(String)  # URL to profile picture
     
     # Authentication
     password_hash = Column(String)  # For email/password login

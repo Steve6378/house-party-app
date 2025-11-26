@@ -3,17 +3,20 @@
 
 from fastapi import APIRouter, Depends, HTTPException, Query
 from sqlalchemy.orm import Session
+from sqlalchemy import text as sql_text
 from typing import Optional
 from datetime import datetime
 import uuid
 
 from models.event import Event
 from models.user import User
+from models.ground_truth import GroundTruthFact
 from schemas.event import EventCreate, EventUpdate, EventResponse, EventListResponse, EventListItem
 from utils.database import get_db
 from routes.auth import get_current_user
 from services.permissions import get_user_events, require_event_access
 from services.sanitize import sanitize_event_name, sanitize_event_address
+from services.embeddings import embed_text
 
 router = APIRouter(prefix="/events", tags=["events"])
 
@@ -120,7 +123,6 @@ def create_event(
         date=event_data.date,
         time=event_data.time,
         address=sanitized_address,
-        cover_image_url=event_data.cover_image_url,
         main_host_id=current_user.id,  # Auto-set to logged-in user
         group_id=event_data.group_id,
         budget_per_person=event_data.budget_per_person,
@@ -174,6 +176,88 @@ def update_event(
     # Apply updates
     for field, value in update_data.items():
         setattr(event, field, value)
+
+    # Sync ground truth facts when event details change
+    # This ensures ground truth stays in sync with event data
+    ground_truth_mappings = {
+        "time": "event_time",
+        "date": "event_date",
+        "address": "event_address",
+        "budget_per_person": "budget_per_person",
+        "expected_guests": "expected_guests"
+    }
+
+    for event_field, gt_key in ground_truth_mappings.items():
+        if event_field in update_data:
+            # Find existing ground truth fact
+            gt_fact = db.query(GroundTruthFact).filter(
+                GroundTruthFact.event_id == event_id,
+                GroundTruthFact.key == gt_key
+            ).first()
+
+            new_value = str(update_data[event_field])
+
+            if gt_fact:
+                # Update existing fact
+                gt_fact.value = new_value
+                gt_fact.updated_at = datetime.utcnow()
+
+                # Try to regenerate embedding (if pgvector is available)
+                try:
+                    text_to_embed = f"{gt_key}: {new_value}"
+                    embedding = embed_text(text_to_embed)
+                    embedding_str = '[' + ','.join(map(str, embedding)) + ']'
+
+                    db.execute(sql_text("""
+                        UPDATE ground_truth_facts
+                        SET embedding = :embedding::vector, updated_at = NOW()
+                        WHERE id = :id
+                    """), {
+                        "embedding": embedding_str,
+                        "id": gt_fact.id
+                    })
+                except Exception:
+                    # Embedding column doesn't exist - just update the value without embedding
+                    pass
+            else:
+                # Create new ground truth fact
+                gt_id = f"gt-{event_id[:8]}-{gt_key}-{uuid.uuid4().hex[:8]}"
+
+                try:
+                    # Try to create with embedding (if pgvector is available)
+                    text_to_embed = f"{gt_key}: {new_value}"
+                    embedding = embed_text(text_to_embed)
+                    embedding_str = '[' + ','.join(map(str, embedding)) + ']'
+
+                    db.execute(sql_text("""
+                        INSERT INTO ground_truth_facts
+                        (id, event_id, key, value, keywords, embedding, importance, created_at, updated_at)
+                        VALUES
+                        (:id, :event_id, :key, :value, :keywords, :embedding::vector, :importance, NOW(), NOW())
+                    """), {
+                        "id": gt_id,
+                        "event_id": event_id,
+                        "key": gt_key,
+                        "value": new_value,
+                        "keywords": None,
+                        "embedding": embedding_str,
+                        "importance": "high"
+                    })
+                except Exception:
+                    # Embedding column doesn't exist - create without embedding
+                    db.execute(sql_text("""
+                        INSERT INTO ground_truth_facts
+                        (id, event_id, key, value, keywords, importance, created_at, updated_at)
+                        VALUES
+                        (:id, :event_id, :key, :value, :keywords, :importance, NOW(), NOW())
+                    """), {
+                        "id": gt_id,
+                        "event_id": event_id,
+                        "key": gt_key,
+                        "value": new_value,
+                        "keywords": None,
+                        "importance": "high"
+                    })
 
     # Save changes
     db.commit()
