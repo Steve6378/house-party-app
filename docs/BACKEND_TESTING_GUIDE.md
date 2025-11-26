@@ -1,7 +1,7 @@
 # Backend Testing Guide - Complete Walkthrough
 
-**Version:** 0.0.2
-**Last Updated:** 2025-11-23
+**Version:** 0.0.3
+**Last Updated:** 2025-11-26
 **Purpose:** Step-by-step guide to test your deployed Railway backend
 
 ---
@@ -45,6 +45,18 @@ psql "postgresql://postgres:PASSWORD@shinkansen.proxy.rlwy.net:12930/railway" \
 
 psql "postgresql://postgres:PASSWORD@shinkansen.proxy.rlwy.net:12930/railway" \
   -f database/migrations/004_add_image_url_support.sql
+
+psql "postgresql://postgres:PASSWORD@shinkansen.proxy.rlwy.net:12930/railway" \
+  -f database/migrations/005_migrate_event_attendance.sql
+
+psql "postgresql://postgres:PASSWORD@shinkansen.proxy.rlwy.net:12930/railway" \
+  -f database/migrations/006_add_document_tables.sql
+```
+
+**Or run all migrations at once:**
+```bash
+psql "postgresql://postgres:PASSWORD@shinkansen.proxy.rlwy.net:12930/railway" \
+  -f database/run_all_migrations.sql
 ```
 
 **Expected output for each:**
@@ -696,6 +708,8 @@ Copy this checklist and check off as you test:
   [ ] Migration 002 - table fixes
   [ ] Migration 003 - group chat support
   [ ] Migration 004 - image URL support
+  [ ] Migration 005 - event attendance PK change
+  [ ] Migration 006 - document tables
 
 ✅ Authentication:
   [ ] Can register new user

@@ -24,6 +24,14 @@
 \i database/migrations/004_add_image_url_support.sql
 
 \echo ''
+\echo '--- Migration 005: Migrate event_attendance table ---'
+\i database/migrations/005_migrate_event_attendance.sql
+
+\echo ''
+\echo '--- Migration 006: Add document tables ---'
+\i database/migrations/006_add_document_tables.sql
+
+\echo ''
 \echo '==============================================='
 \echo 'All migrations completed successfully!'
 \echo '==============================================='

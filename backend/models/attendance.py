@@ -40,34 +40,6 @@ class EventAttendance(Base, TimestampMixin):
         return f"<EventAttendance(id={self.id}, event_id={self.event_id}, user_id={self.user_id}, status={self.rsvp_status})>"
 
 
-class GroupMembership(Base, TimestampMixin):
-    """
-    Many-to-many relationship: Users ↔ Groups
-    
-    Tracks which users belong to which friend groups.
-    
-    Relationships:
-    - group: The friend group
-    - user: The member
-    """
-    __tablename__ = "group_memberships"
-    
-    # Composite primary key
-    group_id = Column(String, ForeignKey("groups.id", ondelete="CASCADE"), primary_key=True)
-    user_id = Column(String, ForeignKey("users.id", ondelete="CASCADE"), primary_key=True)
-    
-    # Membership data
-    role = Column(String, default="member")
-    # Values: "admin", "member"
-    
-    # Relationships
-    group = relationship("Group", back_populates="members")
-    user = relationship("User", back_populates="group_memberships")
-    
-    def __repr__(self):
-        return f"<GroupMembership(group_id={self.group_id}, user_id={self.user_id}, role={self.role})>"
-
-
 class EventCoHost(Base, TimestampMixin):
     """
     Co-hosts for events (in addition to main_host_id).

@@ -14,6 +14,8 @@ from .attendance import EventAttendance, EventCoHost
 from .preferences import GuestPreferences, GroupPreferences
 from .poll import Poll, PollVote
 from .audit_log import AuditLog
+from .event_document import EventDocument
+from .questionnaire import EventQuestionnaire
 
 __all__ = [
     "Base",
@@ -35,4 +37,6 @@ __all__ = [
     "Poll",
     "PollVote",
     "AuditLog",
+    "EventDocument",
+    "EventQuestionnaire",
 ]

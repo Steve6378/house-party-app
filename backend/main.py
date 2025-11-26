@@ -8,7 +8,7 @@ from sqlalchemy.orm import Session
 from sqlalchemy import text
 from utils.database import get_db
 from config import settings
-from routes import events_router, ground_truth_router, auth_router, messages_router, message_router
+from routes import events_router, ground_truth_router, auth_router, messages_router, message_router, groups_router
 from routes.ai import router as ai_router
 from routes.attendance import router as attendance_router
 from routes.chat import router as chat_router
@@ -33,6 +33,7 @@ app.include_router(ai_router, prefix="/api")  # AI endpoints: /api/ai/guest-quer
 app.include_router(chat_router, prefix="/api")  # Chat with WebSocket: /api/events/{id}/ws, /api/events/{id}/messages
 app.include_router(documents_router, prefix="/api")  # Documents: /api/events/{id}/documents
 app.include_router(questionnaire_router, prefix="/api")  # Questionnaire: /api/events/{id}/questionnaire
+app.include_router(groups_router, prefix="/api")  # Group management: /api/groups
 
 # CORS middleware for frontend
 app.add_middleware(
