@@ -9,15 +9,14 @@ from typing import Optional
 class EventCreate(BaseModel):
     """Schema for creating a new event (main_host_id is auto-set to logged-in user)"""
     name: str = Field(..., min_length=1, max_length=255)
-    event_type: str = Field(..., min_length=1, max_length=50, description="Custom event type (e.g., 'tight_knit', 'big_party', 'birthday', etc.)")
+    event_type: str = Field(default="custom", min_length=1, max_length=50, description="Custom event type (e.g., 'tight_knit', 'big_party', 'birthday', etc.)")
     date: date
-    time: Optional[time] = None
+    time: Optional[str] = None
     address: Optional[str] = None
-    cover_image_url: Optional[str] = Field(None, description="URL to event cover image (e.g., from Imgur)")
     group_id: Optional[str] = None
     budget_per_person: Optional[float] = None
     expected_guests: Optional[int] = Field(None, ge=1)
-    visibility: str = Field("private", pattern="^(private|group_only|public)$")
+    visibility: Optional[str] = Field(default="public", pattern="^(private|group_only|public)$")
 
 
 class EventUpdate(BaseModel):
@@ -27,7 +26,6 @@ class EventUpdate(BaseModel):
     date: Optional[date] = None
     time: Optional[time] = None
     address: Optional[str] = None
-    cover_image_url: Optional[str] = Field(None, description="URL to event cover image")
     budget_per_person: Optional[float] = None
     expected_guests: Optional[int] = Field(None, ge=1)
     visibility: Optional[str] = Field(None, pattern="^(private|group_only|public)$")
@@ -52,18 +50,17 @@ class EventResponse(BaseModel):
     date: date
     time: Optional[time]
     address: Optional[str]
-    cover_image_url: Optional[str]
     budget_per_person: Optional[float]
     expected_guests: Optional[int]
     status: str
     visibility: str
     created_at: datetime
     updated_at: datetime
-
+    
     # Related data
     main_host_id: str
     group_id: Optional[str]
-
+    
     class Config:
         from_attributes = True
 

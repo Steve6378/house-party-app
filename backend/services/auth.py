@@ -9,7 +9,14 @@ from config import settings
 import hashlib
 
 # Password hashing
-pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
+# Use bcrypt with a lower cost factor (12) for reasonable performance
+# Default is 13 which can be very slow on some systems
+# 12 rounds is still very secure (~250ms per hash) but much faster than 13 (~500ms)
+pwd_context = CryptContext(
+    schemes=["bcrypt"],
+    deprecated="auto",
+    bcrypt__rounds=12
+)
 
 def _prehash_password(password: str) -> str:
     """
