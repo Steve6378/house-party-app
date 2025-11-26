@@ -54,11 +54,11 @@ mypy==1.8.0  # Type checker
 # Utilities
 numpy==1.26.3  # For embeddings calculations
 
-# LangChain for RAG
-langchain==0.1.0
-langchain-openai==0.0.2
-langchain-community==0.0.10
-langsmith==0.0.77  # Pin compatible version
+# LangChain for RAG (Python 3.12 compatible versions)
+langchain>=0.1.17
+langchain-openai>=0.1.0
+langchain-community>=0.0.38
+langsmith>=0.1.63
 docarray==0.39.1  # For in-memory vector store
 
 # PDF processing
