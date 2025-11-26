@@ -89,7 +89,11 @@
 4. **Set Environment Variables**
    ```
    VITE_API_URL=https://your-app.up.railway.app
+   VITE_GOOGLE_MAPS_API_KEY=<your-google-maps-api-key>  # Optional: for location features
+   VITE_OPENAI_API_KEY=<your-openai-api-key>  # Optional: for client-side AI features
    ```
+
+   **Note:** `VITE_API_URL` is required. The others are optional depending on features used.
 
 5. **Deploy**
    - Click "Deploy"
@@ -114,16 +118,47 @@
 
 ## Post-Deployment
 
-### Update CORS in Backend
+### Update CORS in Backend (Production Security)
 
-Once you have your Vercel URL, update the CORS settings in `backend/main.py`:
+The backend currently allows all origins (`allow_origins=["*"]`). For production, restrict CORS to your frontend domain.
 
+**Option 1: Environment Variable (Recommended)**
+
+1. Add to Railway environment variables:
+   ```
+   FRONTEND_URL=https://your-app.vercel.app
+   ```
+
+2. Update `backend/main.py`:
+   ```python
+   import os
+
+   frontend_url = os.getenv("FRONTEND_URL", "http://localhost:5173")
+
+   app.add_middleware(
+       CORSMiddleware,
+       allow_origins=[
+           "http://localhost:5173",   # Vite dev server
+           "http://localhost:5174",   # Alternate port
+           frontend_url,              # Production frontend
+       ],
+       allow_credentials=True,
+       allow_methods=["*"],
+       allow_headers=["*"],
+   )
+   ```
+
+**Option 2: Hardcoded (Simpler)**
+
+Update `backend/main.py` directly:
 ```python
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
-        "http://localhost:5174",  # Local development
-        "https://your-app.vercel.app",  # Production
+        "http://localhost:5173",
+        "http://localhost:5174",
+        "https://your-app.vercel.app",  # Your Vercel domain
+        "https://app.yorru.net",        # Custom domain (if configured)
     ],
     allow_credentials=True,
     allow_methods=["*"],

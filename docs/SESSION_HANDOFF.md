@@ -135,9 +135,9 @@ Testing:
 [ ] Check /health endpoint works (requires database)
 
 Documentation:
-[ ] Update BACKEND_TESTING_GUIDE.md with new migrations
-[ ] Document Vercel env vars needed
-[ ] Note migrate_attendance.py must run before 005 migration
+[x] Update BACKEND_TESTING_GUIDE.md with new migrations
+[x] Document Vercel env vars needed
+[x] Document CORS configuration for production
 ```
 
 ---
