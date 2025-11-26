@@ -22,7 +22,7 @@ authlib==1.3.0  # Google OAuth
 bleach==6.1.0  # HTML sanitization
 
 # OpenAI
-openai==1.10.0  # Embeddings + GPT
+openai==1.40.0  # Embeddings + GPT + Compatible w/ LangChain
 
 # Data validation
 pydantic==2.5.3
