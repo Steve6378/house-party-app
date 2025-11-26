@@ -1,135 +1,89 @@
-import { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import { Toaster } from 'sonner';
-import { useAuthStore } from './stores/authStore';
-import SplashScreen from './components/SplashScreen';
-import LoginPage from './pages/LoginPage';
-import RegisterPage from './pages/RegisterPage';
-import DashboardPage from './pages/DashboardPage';
-import CreateEventPage from './pages/CreateEventPage';
-import JoinEventPage from './pages/JoinEventPage';
-import EventPage from './pages/EventPage';
-import CalendarPage from './pages/CalendarPage';
-import HostInterfaceEnhanced from './pages/HostInterfaceEnhanced';
-import GuestInterfaceEnhanced from './pages/GuestInterfaceEnhanced';
-import GroupsPage from './pages/GroupsPage';
-import GroupChatWorking from './pages/GroupChatWorking';
+import { useEffect, useState } from 'react';
+import logo from './assets/logo.png';
 
-function ProtectedRoute({ children }: { children: React.ReactNode }) {
-  const isAuthenticated = useAuthStore((state: any) => state.isAuthenticated);
-  return isAuthenticated ? <>{children}</> : <Navigate to="/login" />;
-}
+// Generate random stars
+const generateStars = (count: number) => {
+  return Array.from({ length: count }, (_, i) => ({
+    id: i,
+    left: Math.random() * 100,
+    top: Math.random() * 100,
+    size: Math.random() * 2 + 1,
+    opacity: Math.random() * 0.5 + 0.5,
+    animationDelay: Math.random() * 3,
+  }));
+};
 
 export function App() {
-  const [showSplash, setShowSplash] = useState(true);
-
-  useEffect(() => {
-    // Check if splash has been shown in this session
-    const splashShown = sessionStorage.getItem('splashShown');
-    if (splashShown) {
-      setShowSplash(false);
-    }
-  }, []);
-
-  const handleSplashComplete = () => {
-    sessionStorage.setItem('splashShown', 'true');
-    setShowSplash(false);
-  };
-
-  if (showSplash) {
-    return <SplashScreen onComplete={handleSplashComplete} />;
-  }
+  const [stars] = useState(() => generateStars(80));
 
   return (
-    <Router>
-      <div className="min-h-screen">
-        <Routes>
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/register" element={<RegisterPage />} />
-          <Route
-            path="/dashboard"
-            element={
-              <ProtectedRoute>
-                <DashboardPage />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/create-event"
-            element={
-              <ProtectedRoute>
-                <CreateEventPage />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/join-event"
-            element={
-              <ProtectedRoute>
-                <JoinEventPage />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/event/:id"
-            element={
-              <ProtectedRoute>
-                <EventPage />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/calendar"
-            element={
-              <ProtectedRoute>
-                <CalendarPage />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/event/:id/host"
-            element={
-              <ProtectedRoute>
-                <HostInterfaceEnhanced />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/event/:id/guest"
-            element={
-              <ProtectedRoute>
-                <GuestInterfaceEnhanced />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/event/:id/chat"
-            element={
-              <ProtectedRoute>
-                <GroupChatWorking />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/groups"
-            element={
-              <ProtectedRoute>
-                <GroupsPage />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/group/:groupId/channel/:channelId"
-            element={
-              <ProtectedRoute>
-                <GroupChatWorking />
-              </ProtectedRoute>
-            }
-          />
-          <Route path="/" element={<Navigate to="/login" />} />
-        </Routes>
-        <Toaster position="top-right" richColors />
+    <div className="min-h-screen bg-black relative overflow-hidden flex flex-col items-center justify-center px-4">
+      {/* Top-left blue gradient - elliptical curve */}
+      <div
+        className="absolute inset-0 opacity-40"
+        style={{
+          background: 'radial-gradient(ellipse 105% 70% at 0% 0%, #1a3550 0%, transparent 65%)',
+        }}
+      />
+
+      {/* Bottom-right purple gradient - elliptical curve */}
+      <div
+        className="absolute inset-0 opacity-35"
+        style={{
+          background: 'radial-gradient(ellipse 90% 80% at 100% 100%, #3d1a4a 0%, transparent 65%)',
+        }}
+      />
+
+      {/* Stars */}
+      {stars.map((star) => (
+        <div
+          key={star.id}
+          className="absolute rounded-full bg-white animate-pulse"
+          style={{
+            left: `${star.left}%`,
+            top: `${star.top}%`,
+            width: `${star.size}px`,
+            height: `${star.size}px`,
+            opacity: star.opacity,
+            animationDelay: `${star.animationDelay}s`,
+            animationDuration: '3s',
+          }}
+        />
+      ))}
+
+      {/* Content */}
+      <div className="relative z-10 flex flex-col items-center">
+        {/* Logo */}
+        <img
+          src={logo}
+          alt="Yorru"
+          className="w-28 h-28 md:w-36 md:h-36 mb-6 rounded-2xl"
+        />
+
+        {/* Title */}
+        <h1 className="text-4xl md:text-5xl font-bold text-white mb-3 tracking-tight">
+          Yorru
+        </h1>
+
+        {/* Tagline */}
+        <p className="text-gray-400 text-base md:text-lg mb-8 text-center">
+          the assistant that never sleeps.
+        </p>
+
+        {/* Coming Soon */}
+        <div className="bg-white/5 backdrop-blur-sm rounded-full px-8 py-3 border border-white/10">
+          <p className="text-gray-300 text-lg font-medium">
+            coming soon
+          </p>
+        </div>
       </div>
-    </Router>
+
+      {/* Footer */}
+      <p className="absolute bottom-6 text-gray-600 text-sm">
+        &copy; 2025 Yorru
+      </p>
+    </div>
   );
 }
+
+export default App;
