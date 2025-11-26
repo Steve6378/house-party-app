@@ -20,7 +20,7 @@ from schemas.group import (
     GroupMemberResponse
 )
 from schemas.message import MessageCreate, MessageResponse, MessageListResponse
-from services.permissions import get_current_user
+from routes.auth import get_current_user
 from services.sanitize import sanitize_text
 from utils.database import get_db
 
