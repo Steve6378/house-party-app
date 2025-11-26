@@ -67,13 +67,13 @@ export function App() {
 
         {/* Tagline */}
         <p className="text-gray-400 text-base md:text-lg mb-8 text-center">
-          the assistant that never sleeps
+          the assistant that never sleeps.
         </p>
 
         {/* Coming Soon */}
         <div className="bg-white/5 backdrop-blur-sm rounded-full px-8 py-3 border border-white/10">
           <p className="text-gray-300 text-lg font-medium">
-            Coming Soon
+            coming soon
           </p>
         </div>
       </div>
