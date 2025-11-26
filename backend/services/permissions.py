@@ -15,8 +15,8 @@ Permission Levels:
 from sqlalchemy.orm import Session
 from fastapi import HTTPException
 from models.event import Event
-from models.attendance import EventAttendance, EventCoHost, GroupMembership
-from models.user import User
+from models.attendance import EventAttendance, EventCoHost
+from models.user import User, GroupMembership
 
 
 def is_event_host(user_id: str, event: Event) -> bool:
