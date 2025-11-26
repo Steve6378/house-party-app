@@ -17,20 +17,20 @@ export function App() {
   const [stars] = useState(() => generateStars(80));
 
   return (
-    <div className="min-h-screen bg-[#0a0a0a] relative overflow-hidden flex flex-col items-center justify-center px-4">
-      {/* Top-left blue gradient */}
+    <div className="min-h-screen bg-black relative overflow-hidden flex flex-col items-center justify-center px-4">
+      {/* Top-left blue gradient - gentle angle */}
       <div
-        className="absolute top-0 left-0 w-[40%] h-[40%] opacity-40"
+        className="absolute top-0 left-0 w-[50%] h-[60%] opacity-30"
         style={{
-          background: 'linear-gradient(135deg, #1e3a5f 0%, transparent 60%)',
+          background: 'linear-gradient(160deg, #1a3550 0%, transparent 50%)',
         }}
       />
 
-      {/* Bottom-right purple gradient */}
+      {/* Bottom-right purple gradient - gentle angle */}
       <div
-        className="absolute bottom-0 right-0 w-[40%] h-[40%] opacity-40"
+        className="absolute bottom-0 right-0 w-[50%] h-[60%] opacity-30"
         style={{
-          background: 'linear-gradient(315deg, #4a1a6b 0%, transparent 60%)',
+          background: 'linear-gradient(340deg, #3d1a4a 0%, transparent 50%)',
         }}
       />
 
