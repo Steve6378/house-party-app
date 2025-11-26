@@ -8,7 +8,7 @@ const generateStars = (count: number) => {
     left: Math.random() * 100,
     top: Math.random() * 100,
     size: Math.random() * 2 + 1,
-    opacity: Math.random() * 0.7 + 0.3,
+    opacity: Math.random() * 0.5 + 0.5,
     animationDelay: Math.random() * 3,
   }));
 };
@@ -18,11 +18,11 @@ export function App() {
 
   return (
     <div className="min-h-screen bg-black relative overflow-hidden flex flex-col items-center justify-center px-4">
-      {/* Top-left blue gradient - gentle angle */}
+      {/* Top-left blue gradient - gentle angle, extended vertically */}
       <div
-        className="absolute top-0 left-0 w-[50%] h-[60%] opacity-30"
+        className="absolute top-0 left-0 w-[55%] h-[80%] opacity-35"
         style={{
-          background: 'linear-gradient(160deg, #1a3550 0%, transparent 50%)',
+          background: 'linear-gradient(155deg, #1a3550 0%, #1a3550 15%, transparent 55%)',
         }}
       />
 
@@ -67,7 +67,7 @@ export function App() {
 
         {/* Tagline */}
         <p className="text-gray-400 text-base md:text-lg mb-8 text-center">
-          Night Event Planning
+          the assistant that never sleeps
         </p>
 
         {/* Coming Soon */}
