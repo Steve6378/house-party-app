@@ -22,7 +22,7 @@ export function App() {
       <div
         className="absolute inset-0 opacity-40"
         style={{
-          background: 'radial-gradient(ellipse 120% 80% at 0% 0%, #1a3550 0%, transparent 70%)',
+          background: 'radial-gradient(ellipse 90% 60% at 0% 0%, #1a3550 0%, transparent 60%)',
         }}
       />
 
@@ -30,7 +30,7 @@ export function App() {
       <div
         className="absolute inset-0 opacity-35"
         style={{
-          background: 'radial-gradient(ellipse 100% 90% at 100% 100%, #3d1a4a 0%, transparent 70%)',
+          background: 'radial-gradient(ellipse 80% 70% at 100% 100%, #3d1a4a 0%, transparent 60%)',
         }}
       />
 
