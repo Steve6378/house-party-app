@@ -32,6 +32,8 @@
 002_fix_table_names_and_missing_columns.sql - Table renames, event_attendance
 003_add_group_chat_support.sql      - Multi-room chat (group + event)
 004_add_image_url_support.sql       - Event cover images
+005_migrate_event_attendance.sql    - EventAttendance PK change (id instead of composite)
+006_add_document_tables.sql         - EventDocument + EventQuestionnaire tables
 ```
 
 ---
@@ -116,21 +118,21 @@ git merge origin/main
 
 ```
 Backend Code:
-[ ] Preserve GroupMembership duplicate fix (attendance.py)
-[ ] Restore bcrypt==4.1.2 in requirements.txt
-[ ] Add EventDocument, EventQuestionnaire to models/__init__.py
-[ ] Restore groups_router in main.py and routes/__init__.py
+[x] Preserve GroupMembership duplicate fix (attendance.py)
+[x] Restore bcrypt==4.1.2 in requirements.txt
+[x] Add EventDocument, EventQuestionnaire to models/__init__.py
+[x] Restore groups_router in main.py and routes/__init__.py
 
 Migrations:
-[ ] Delete database/migrations/003_add_missing_user_columns.sql (redundant)
-[ ] Create migration 005_migrate_event_attendance.sql (PK change)
-[ ] Create migration 006_add_document_tables.sql (new tables)
-[ ] Update run_all_migrations.sql to include 005, 006
+[x] Delete database/migrations/003_add_missing_user_columns.sql (redundant)
+[x] Create migration 005_migrate_event_attendance.sql (PK change)
+[x] Create migration 006_add_document_tables.sql (new tables)
+[x] Update run_all_migrations.sql to include 005, 006
 
 Testing:
-[ ] Start backend (uvicorn backend.main:app)
-[ ] Verify no SQLAlchemy errors
-[ ] Check /health endpoint works
+[x] Start backend (uvicorn backend.main:app)
+[x] Verify no SQLAlchemy errors
+[ ] Check /health endpoint works (requires database)
 
 Documentation:
 [ ] Update BACKEND_TESTING_GUIDE.md with new migrations
@@ -246,8 +248,8 @@ psql "$DATABASE_PUBLIC_URL" -f database/run_all_migrations.sql
 
 ---
 
-**Last commit:** `2daa009 Fix duplicate GroupMembership model definition`
+**Last commit:** `e14dcbb Integrate PR #10 with fixes for all identified issues`
 **Files staged:** None
 **Working tree:** Clean ✅
 
-Ready for PR #10 merge → integration → testing → deploy! 🎉
+PR #10 integrated! All critical and medium priority issues resolved. 🎉
