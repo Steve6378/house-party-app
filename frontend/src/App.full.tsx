@@ -7,6 +7,7 @@ import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import DashboardPage from './pages/DashboardPage';
 import CreateEventPage from './pages/CreateEventPage';
+import EditEventPage from './pages/EditEventPage';
 import JoinEventPage from './pages/JoinEventPage';
 import EventPage from './pages/EventPage';
 import CalendarPage from './pages/CalendarPage';
@@ -61,6 +62,14 @@ export function App() {
             element={
               <ProtectedRoute>
                 <CreateEventPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/event/:id/edit"
+            element={
+              <ProtectedRoute>
+                <EditEventPage />
               </ProtectedRoute>
             }
           />

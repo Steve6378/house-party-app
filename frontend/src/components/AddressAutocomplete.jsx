@@ -29,21 +29,28 @@ function AddressAutocomplete({
     const initPlaces = async () => {
       try {
         // Use centralized Google Maps initialization
-        await initGoogleMaps();
+        const google = await initGoogleMaps();
+
+        if (!google || !google.maps || !google.maps.places) {
+          console.error('Google Maps Places library not available');
+          return;
+        }
 
         // Create services
-        autocompleteServiceRef.current = new window.google.maps.places.AutocompleteService();
+        autocompleteServiceRef.current = new google.maps.places.AutocompleteService();
 
         // Create a dummy div for PlacesService (required)
         const dummyDiv = document.createElement('div');
-        placesServiceRef.current = new window.google.maps.places.PlacesService(dummyDiv);
+        placesServiceRef.current = new google.maps.places.PlacesService(dummyDiv);
 
         // Create session token for billing efficiency
-        sessionTokenRef.current = new window.google.maps.places.AutocompleteSessionToken();
+        sessionTokenRef.current = new google.maps.places.AutocompleteSessionToken();
 
         setInitialized(true);
+        console.log('Google Places API initialized successfully');
       } catch (error) {
         console.error('Failed to initialize Google Places:', error);
+        console.error('Error details:', error.message);
       }
     };
 
@@ -75,7 +82,7 @@ function AddressAutocomplete({
         const request = {
           input: value,
           sessionToken: sessionTokenRef.current,
-          types: ['address', 'establishment', 'geocode']
+          types: ['establishment']
         };
 
         autocompleteServiceRef.current.getPlacePredictions(

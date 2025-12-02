@@ -1,47 +1,86 @@
 // Centralized Google Maps initialization
 // This ensures the API key is set once before any libraries are loaded
+// Updated to use dynamic script loading (the @googlemaps/js-api-loader Loader class is deprecated)
 
-import { Loader } from '@googlemaps/js-api-loader';
 import { GOOGLE_MAPS_API_KEY } from '../config/api';
 
-let loaderInstance = null;
 let isInitialized = false;
+let googleInstance = null;
 
-// Create a single loader instance with the API key
-const getLoader = () => {
-  if (!loaderInstance) {
-    loaderInstance = new Loader({
-      apiKey: GOOGLE_MAPS_API_KEY,
-      version: 'weekly',
-      libraries: ['places']
-    });
-  }
-  return loaderInstance;
-};
-
-// Initialize Google Maps - call this before using any Google Maps features
+// Initialize Google Maps using the new functional API
 export const initGoogleMaps = async () => {
-  if (isInitialized) {
+  if (isInitialized && googleInstance) {
+    return googleInstance;
+  }
+
+  // Check if already loaded via script tag
+  if (window.google && window.google.maps) {
+    isInitialized = true;
+    googleInstance = window.google;
+    console.log('Google Maps already loaded');
     return window.google;
   }
-
-  const loader = getLoader();
 
   try {
-    await loader.load();
-    isInitialized = true;
-    console.log('Google Maps initialized successfully');
-    return window.google;
+    // Load Google Maps using dynamic script injection
+    await loadGoogleMapsScript();
+
+    // Wait for places library to be available
+    if (window.google && window.google.maps) {
+      // Import the places library
+      await window.google.maps.importLibrary('places');
+
+      isInitialized = true;
+      googleInstance = window.google;
+      console.log('Google Maps initialized successfully');
+      return window.google;
+    }
+
+    throw new Error('Google Maps failed to load');
   } catch (error) {
     console.error('Failed to load Google Maps:', error);
     throw error;
   }
 };
 
-// Check if Google Maps is ready
-export const isGoogleMapsReady = () => {
-  return isInitialized && window.google;
+// Load Google Maps script dynamically
+const loadGoogleMapsScript = () => {
+  return new Promise((resolve, reject) => {
+    // Check if already loaded
+    if (window.google && window.google.maps) {
+      resolve();
+      return;
+    }
+
+    // Check if script is already being loaded
+    const existingScript = document.querySelector('script[src*="maps.googleapis.com"]');
+    if (existingScript) {
+      existingScript.addEventListener('load', resolve);
+      existingScript.addEventListener('error', reject);
+      return;
+    }
+
+    // Create and load the script
+    const script = document.createElement('script');
+    script.src = `https://maps.googleapis.com/maps/api/js?key=${GOOGLE_MAPS_API_KEY}&libraries=places&v=weekly`;
+    script.async = true;
+    script.defer = true;
+
+    script.onload = () => {
+      console.log('Google Maps script loaded');
+      resolve();
+    };
+
+    script.onerror = (error) => {
+      console.error('Failed to load Google Maps script:', error);
+      reject(new Error('Failed to load Google Maps script'));
+    };
+
+    document.head.appendChild(script);
+  });
 };
 
-// Get the loader instance (for advanced use cases)
-export { getLoader };
+// Check if Google Maps is ready
+export const isGoogleMapsReady = () => {
+  return isInitialized && window.google && window.google.maps;
+};

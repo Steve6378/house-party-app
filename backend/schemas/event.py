@@ -40,8 +40,8 @@ class EventUpdate(BaseModel):
     """Schema for updating an existing event (all fields optional)"""
     name: Optional[str] = Field(None, min_length=1, max_length=255)
     event_type: Optional[str] = Field(None, min_length=1, max_length=50, description="Custom event type")
-    date: Optional[date] = None
-    time: Optional[time] = None
+    date: Optional[str] = None  # Accept string like "2025-01-15" - will be parsed in route
+    time: Optional[str] = None  # Accept string like "14:30" to match EventCreate
     address: Optional[str] = None
     budget_per_person: Optional[float] = None
     expected_guests: Optional[int] = Field(None, ge=1)

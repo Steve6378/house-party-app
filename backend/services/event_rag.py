@@ -1,16 +1,14 @@
 # Yorru - Event-Specific RAG Pipeline
-# Version: 0.0.2
-# Intelligent query routing with selective context retrieval
+# Version: 0.0.3
+# Intelligent query routing with selective context retrieval and conversation history
 
-from typing import List, Tuple, Dict
+from typing import List, Tuple, Dict, Optional
 from sqlalchemy.orm import Session
 from langchain_openai import OpenAIEmbeddings, ChatOpenAI
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain_community.vectorstores import DocArrayInMemorySearch
-from langchain.schema import Document
+from langchain.schema import Document, HumanMessage
 from langchain.prompts import ChatPromptTemplate
-from langchain.schema.runnable import RunnablePassthrough
-from langchain.schema.output_parser import StrOutputParser
 import json
 
 from models.event import Event
@@ -178,9 +176,16 @@ Description: {event.description if event.description else 'No description'}"""
 
         return documents
 
-    def answer_question(self, question: str) -> Tuple[str, List[str]]:
+    def answer_question(self, question: str, conversation_history: Optional[List[dict]] = None) -> Tuple[str, List[str]]:
         """
         Answer a question using intelligent routing and selective RAG.
+
+        Args:
+            question: User's question
+            conversation_history: Optional list of previous messages for context
+
+        Returns:
+            Tuple of (answer, sources)
         """
         # Step 1: Route the query
         routing = self._route_query(question)
@@ -208,16 +213,29 @@ Description: {event.description if event.description else 'No description'}"""
 
         # Step 5: Retrieve relevant chunks
         search_query = routing.get("search_focus") or question
-        retriever = self.vector_store.as_retriever(search_kwargs={"k": 4})
+        retriever = self.vector_store.as_retriever(search_kwargs={"k": 5})
 
-        # Step 6: Generate response
-        template = """You are a helpful assistant for an event. Answer based on the context provided.
-Be concise (1-3 sentences). If the info isn't in the context, say so briefly.
+        # Build conversation context if provided
+        conv_context = ""
+        if conversation_history:
+            conv_context = "\n\nPrevious conversation:\n"
+            for msg in conversation_history[-6:]:  # Last 6 messages for context
+                role = "User" if msg.get("role") == "user" else "Assistant"
+                conv_context += f"{role}: {msg.get('content', '')}\n"
 
-Context:
+        # Step 6: Generate response with conversation-aware prompt
+        template = """You are a concise AI assistant helping with questions about an event.
+Answer ONLY based on the context provided. Be brief and direct - 1-3 sentences max.
+If the info isn't in the context, just say "I don't see that in the event details yet."
+
+IMPORTANT: If there's previous conversation context, use it to understand follow-up questions.
+For example, if the previous answer mentioned someone is cooking salmon and the user asks "what should I make",
+suggest something that complements what others are making.
+
+Context from event:
 {context}
-
-Question: {question}
+{conv_history}
+Current question: {question}
 
 Answer:"""
 
@@ -226,27 +244,57 @@ Answer:"""
         def format_docs(docs):
             return "\n\n".join([doc.page_content for doc in docs])
 
-        chain = (
-            {"context": retriever | format_docs, "question": RunnablePassthrough()}
-            | prompt
-            | self.llm
-            | StrOutputParser()
+        # Get context documents
+        context_docs = retriever.get_relevant_documents(search_query)
+        context_text = format_docs(context_docs)
+
+        # Format the prompt with all variables
+        formatted_prompt = prompt.format(
+            context=context_text,
+            conv_history=conv_context,
+            question=question
         )
 
-        answer = chain.invoke(search_query)
+        # Get answer using LLM
+        answer = self.llm.invoke([HumanMessage(content=formatted_prompt)]).content
 
-        # Get sources
-        source_docs = retriever.get_relevant_documents(search_query)
-        sources = list(set([
-            doc.metadata.get("source", "unknown").replace("_", " ").title()
-            for doc in source_docs
-        ]))
+        # Get source documents with better formatting
+        sources = []
+        for doc in context_docs:
+            source_type = doc.metadata.get("source", "unknown")
+            if source_type == "uploaded_document":
+                sources.append(f"Document: {doc.metadata.get('filename', 'Unknown')}")
+            elif source_type == "questionnaire":
+                sources.append("Host Questionnaire")
+            elif source_type == "chat":
+                sources.append("Chat History")
+            elif source_type == "event_info":
+                sources.append("Event Details")
+
+        # Remove duplicates
+        sources = list(set(sources))
 
         return answer, sources
 
 
-async def query_event_ai(event_id: str, question: str, db: Session) -> dict:
-    """Query the event-specific AI with a question."""
+async def query_event_ai(event_id: str, question: str, db: Session, conversation_history: Optional[List[dict]] = None) -> dict:
+    """
+    Query the event-specific AI with a question.
+
+    Args:
+        event_id: ID of the event
+        question: User's question
+        db: Database session
+        conversation_history: Optional list of previous messages [{"role": "user/assistant", "content": "..."}]
+
+    Returns:
+        Dictionary with answer and sources
+    """
     rag = EventRAG(event_id, db)
-    answer, sources = rag.answer_question(question)
-    return {"answer": answer, "sources": sources, "event_id": event_id}
+    answer, sources = rag.answer_question(question, conversation_history)
+
+    return {
+        "answer": answer,
+        "sources": sources,
+        "event_id": event_id
+    }
