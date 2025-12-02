@@ -517,19 +517,34 @@ async def auto_locate(
     import httpx
     from config import settings
 
-    # Get client IP from request
-    client_ip = request.client.host
+    # Get client IP - check X-Forwarded-For first (for proxies like Railway/Vercel)
+    forwarded_for = request.headers.get("X-Forwarded-For")
+    if forwarded_for:
+        # X-Forwarded-For can be comma-separated, first one is the original client
+        client_ip = forwarded_for.split(",")[0].strip()
+    else:
+        client_ip = request.client.host
 
-    # For local development, use a test IP or skip
-    if client_ip in ["127.0.0.1", "localhost", "::1"]:
-        # In dev, try to get public IP or use a default
+    # Skip internal/private IPs
+    private_prefixes = ["127.", "localhost", "::1", "10.", "192.168.", "172.16.", "100.64."]
+    is_private = any(client_ip.startswith(p) for p in private_prefixes)
+
+    if is_private:
+        # Try to get public IP
         try:
             async with httpx.AsyncClient() as client:
                 resp = await client.get("https://api.ipify.org?format=json", timeout=5)
                 if resp.status_code == 200:
                     client_ip = resp.json().get("ip")
+                    is_private = False
         except:
             pass
+
+    if is_private:
+        return {
+            "detected": False,
+            "message": "Could not detect location from private IP. Please enter your address manually."
+        }
 
     try:
         async with httpx.AsyncClient() as client:
@@ -563,6 +578,7 @@ async def auto_locate(
             address = ", ".join(address_parts)
 
             return {
+                "detected": True,
                 "address": address,
                 "city": city,
                 "region": region,
