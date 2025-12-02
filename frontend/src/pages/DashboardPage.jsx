@@ -14,7 +14,8 @@ import {
   ChevronDown,
   Home,
   User,
-  Settings
+  Settings,
+  Pencil
 } from 'lucide-react';
 import { toast } from 'sonner';
 import { eventsAPI } from '../utils/api.ts';
@@ -119,9 +120,21 @@ function DashboardPage() {
             </div>
           )}
           {isHost && (
-            <span className="absolute top-2 right-2 bg-gradient-to-r from-primary-600 to-secondary-600 text-white text-xs px-3 py-1 rounded-full font-semibold shadow-lg">
-              Host
-            </span>
+            <div className="absolute top-2 right-2 flex items-center gap-2">
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  navigate(`/event/${event.id}/edit`);
+                }}
+                className="bg-dark-800/80 hover:bg-dark-700 text-white p-1.5 rounded-full shadow-lg transition"
+                title="Edit event"
+              >
+                <Pencil className="w-3.5 h-3.5" />
+              </button>
+              <span className="bg-gradient-to-r from-primary-600 to-secondary-600 text-white text-xs px-3 py-1 rounded-full font-semibold shadow-lg">
+                Host
+              </span>
+            </div>
           )}
         </div>
 

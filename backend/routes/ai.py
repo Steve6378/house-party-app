@@ -7,6 +7,7 @@ from pydantic import BaseModel
 from typing import Optional, List
 import openai
 import json
+import httpx
 
 from models.event import Event
 from models.user import User
@@ -16,10 +17,12 @@ from models.event_photo import EventPhoto
 from models.event_document import EventDocument
 from models.event_faq import EventFAQ
 import uuid
+from datetime import datetime
 from utils.database import get_db
 from routes.auth import get_current_user
 from services.permissions import require_event_access
 from services.event_rag import query_event_ai
+from services.websocket_manager import manager
 from config import settings
 
 router = APIRouter(prefix="/ai", tags=["ai"])
@@ -28,11 +31,18 @@ router = APIRouter(prefix="/ai", tags=["ai"])
 openai.api_key = settings.OPENAI_API_KEY
 
 
+class ConversationMessage(BaseModel):
+    """A single conversation message for history"""
+    role: str  # 'user' or 'assistant'
+    content: str
+
+
 class HostAssistRequest(BaseModel):
     """Request schema for host assist"""
     event_id: str
     task: str
     context: Optional[dict] = None
+    conversation_history: Optional[List[ConversationMessage]] = None
 
 
 class HostAssistResponse(BaseModel):
@@ -44,6 +54,7 @@ class GuestQueryRequest(BaseModel):
     """Request schema for guest query"""
     event_id: str
     question: str
+    conversation_history: Optional[List[ConversationMessage]] = None
 
 
 class GuestQueryResponse(BaseModel):
@@ -148,19 +159,32 @@ User Request: {request.task}
         event_context += f"\n\nAdditional Context: {request.context}"
 
     try:
+        # Build messages array with conversation history for context
+        messages = [
+            {
+                "role": "system",
+                "content": "You are a helpful event planning assistant. Help the host plan and organize their event. Be concise, practical, and actionable. Provide specific suggestions based on the event details. When there's conversation history, use it to understand follow-up questions and maintain context."
+            }
+        ]
+
+        # Add conversation history if provided
+        if request.conversation_history:
+            for msg in request.conversation_history[-6:]:  # Last 6 messages for context
+                messages.append({
+                    "role": msg.role,
+                    "content": msg.content
+                })
+
+        # Add current request with event context
+        messages.append({
+            "role": "user",
+            "content": event_context
+        })
+
         # Call OpenAI API
         response = openai.chat.completions.create(
             model="gpt-4o-mini",
-            messages=[
-                {
-                    "role": "system",
-                    "content": "You are a helpful event planning assistant. Help the host plan and organize their event. Be concise, practical, and actionable. Provide specific suggestions based on the event details."
-                },
-                {
-                    "role": "user",
-                    "content": event_context
-                }
-            ],
+            messages=messages,
             temperature=0.7,
             max_tokens=500
         )
@@ -207,8 +231,13 @@ async def guest_query(
     require_event_access(current_user, event, db, action="view")
 
     try:
-        # Query event-specific RAG system
-        result = await query_event_ai(request.event_id, request.question, db)
+        # Convert conversation history to list of dicts if provided
+        conv_history = None
+        if request.conversation_history:
+            conv_history = [{"role": msg.role, "content": msg.content} for msg in request.conversation_history]
+
+        # Query event-specific RAG system with conversation history
+        result = await query_event_ai(request.event_id, request.question, db, conv_history)
 
         return GuestQueryResponse(
             answer=result["answer"],
@@ -227,6 +256,8 @@ async def guest_query(
 class GeneralQueryRequest(BaseModel):
     """Request schema for general AI query (ChatGPT-like)"""
     question: str
+    conversation_history: Optional[List[ConversationMessage]] = None
+    event_id: Optional[str] = None  # Optional: include event documents in context
 
 
 class GeneralQueryResponse(BaseModel):
@@ -237,29 +268,66 @@ class GeneralQueryResponse(BaseModel):
 @router.post("/general-query", response_model=GeneralQueryResponse)
 async def general_query(
     request: GeneralQueryRequest,
-    current_user: User = Depends(get_current_user)
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
 ):
     """
     General AI assistant (ChatGPT-like responses).
 
     **Authentication required.**
 
-    Answers any general question without event-specific context.
-    Use this for general knowledge questions like recipes, tips, etc.
+    Answers any general question. If event_id is provided, includes
+    uploaded documents in the context for event-specific questions.
     """
     try:
+        # Build document context if event_id provided
+        document_context = ""
+        if request.event_id:
+            # Get uploaded documents for this event
+            uploaded_documents = db.query(EventDocument).filter(
+                EventDocument.event_id == request.event_id
+            ).all()
+
+            if uploaded_documents:
+                document_context = "\n\nUploaded Documents for this event:\n"
+                for doc in uploaded_documents:
+                    if doc.extracted_text:
+                        # Limit each document to 3000 chars
+                        doc_preview = doc.extracted_text[:3000]
+                        if len(doc.extracted_text) > 3000:
+                            doc_preview += "... [truncated]"
+                        document_context += f"\n--- {doc.filename} ---\n{doc_preview}\n"
+
+        # Build system message
+        system_content = "You are a helpful assistant. Be concise and direct in your responses. When there's conversation history, use it to understand follow-up questions and maintain context."
+        if document_context:
+            system_content += f"\n\nYou have access to the following event documents. Use them to answer questions about the event:{document_context}"
+
+        # Build messages array with conversation history for context
+        messages = [
+            {
+                "role": "system",
+                "content": system_content
+            }
+        ]
+
+        # Add conversation history if provided
+        if request.conversation_history:
+            for msg in request.conversation_history[-6:]:  # Last 6 messages for context
+                messages.append({
+                    "role": msg.role,
+                    "content": msg.content
+                })
+
+        # Add current question
+        messages.append({
+            "role": "user",
+            "content": request.question
+        })
+
         response = openai.chat.completions.create(
             model="gpt-4o-mini",
-            messages=[
-                {
-                    "role": "system",
-                    "content": "You are a helpful assistant. Be concise and direct in your responses."
-                },
-                {
-                    "role": "user",
-                    "content": request.question
-                }
-            ],
+            messages=messages,
             temperature=0.7,
             max_tokens=500
         )
@@ -626,3 +694,210 @@ Write only the description, no quotes or additional text."""
             status_code=500,
             detail="Failed to generate description. Please try again."
         )
+
+
+# ==================== BROADCAST ENDPOINT ====================
+
+class BroadcastRequest(BaseModel):
+    """Request schema for broadcasting a message to event chat"""
+    event_id: str
+    message: str
+    message_type: str = "announcement"
+
+
+class BroadcastResponse(BaseModel):
+    """Response schema for broadcast"""
+    success: bool
+    message_id: str
+    message: str
+
+
+@router.post("/broadcast", response_model=BroadcastResponse)
+async def broadcast_message(
+    request: BroadcastRequest,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    """
+    Broadcast a message to the event's group chat.
+
+    **Authentication required.**
+
+    This endpoint allows hosts/co-hosts to send announcements
+    to all event attendees. The message is saved to the event chat
+    and broadcast via WebSocket to connected clients.
+
+    Only the host and co-hosts can use this feature.
+    """
+    # Get the event
+    event = db.query(Event).filter(Event.id == request.event_id).first()
+
+    if not event:
+        raise HTTPException(status_code=404, detail="Event not found")
+
+    # Check if user has permission (must be host or co-host)
+    require_event_access(current_user, event, db, action="edit")
+
+    # Create the message in the event chat
+    message = Message(
+        id=str(uuid.uuid4()),
+        event_id=request.event_id,
+        sender_id=current_user.id,
+        message_type=request.message_type,
+        content=request.message
+    )
+    db.add(message)
+    db.commit()
+    db.refresh(message)
+
+    # Broadcast via WebSocket to all connected clients in this event
+    await manager.broadcast_to_event(request.event_id, {
+        "type": "message",
+        "data": {
+            "id": message.id,
+            "sender_id": current_user.id,
+            "sender_name": current_user.name,
+            "message_type": request.message_type,
+            "content": message.content,
+            "created_at": message.created_at.isoformat(),
+            "is_broadcast": True
+        }
+    })
+
+    return BroadcastResponse(
+        success=True,
+        message_id=message.id,
+        message="Message broadcast successfully to event chat"
+    )
+
+
+# ==================== RECOMMENDATION ENDPOINT (Google Places API) ====================
+
+class PlaceResult(BaseModel):
+    """A single place result from Google Places"""
+    name: str
+    address: str
+    rating: Optional[float] = None
+    total_ratings: Optional[int] = None
+    price_level: Optional[int] = None
+    place_id: str
+    types: List[str] = []
+    opening_hours: Optional[str] = None
+    maps_url: Optional[str] = None
+
+
+class RecommendationRequest(BaseModel):
+    """Request schema for place recommendations"""
+    event_id: str
+    query: str  # e.g., "Italian restaurants", "coffee shops", "florists"
+    radius: int = 5000  # meters (default 5km)
+
+
+class RecommendationResponse(BaseModel):
+    """Response schema for recommendations"""
+    places: List[PlaceResult]
+    message: str
+    total_found: int
+
+
+@router.post("/recommendation", response_model=RecommendationResponse)
+async def get_recommendations(
+    request: RecommendationRequest,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    """
+    Get place recommendations near the event location using Google Places API.
+
+    **Authentication required.**
+
+    Searches for places matching the query near the event's location.
+    Returns real Google Places results with ratings, addresses, etc.
+    """
+    # Get the event
+    event = db.query(Event).filter(Event.id == request.event_id).first()
+    if not event:
+        raise HTTPException(status_code=404, detail="Event not found")
+
+    # Check if user has access to view the event
+    require_event_access(current_user, event, db, action="view")
+
+    # Check if event has location data
+    if not event.latitude or not event.longitude:
+        # Fall back to user's location if available
+        if current_user.latitude and current_user.longitude:
+            lat, lng = current_user.latitude, current_user.longitude
+        else:
+            return RecommendationResponse(
+                places=[],
+                message="No location set for this event. Please add an address to get nearby recommendations.",
+                total_found=0
+            )
+    else:
+        lat, lng = event.latitude, event.longitude
+
+    try:
+        # Use Google Places Text Search API
+        base_url = "https://maps.googleapis.com/maps/api/place/textsearch/json"
+
+        params = {
+            "query": request.query,
+            "location": f"{lat},{lng}",
+            "radius": request.radius,
+            "key": settings.GOOGLE_MAPS_API_KEY
+        }
+
+        async with httpx.AsyncClient() as client:
+            response = await client.get(base_url, params=params)
+            data = response.json()
+
+        if data.get("status") != "OK":
+            if data.get("status") == "ZERO_RESULTS":
+                return RecommendationResponse(
+                    places=[],
+                    message=f"No places found matching '{request.query}' near this location.",
+                    total_found=0
+                )
+            print(f"Google Places API error: {data.get('status')} - {data.get('error_message', 'Unknown error')}")
+            raise HTTPException(status_code=500, detail="Failed to fetch recommendations")
+
+        # Parse results
+        places = []
+        for result in data.get("results", [])[:10]:  # Limit to top 10
+            # Get opening hours status
+            opening_hours = None
+            if result.get("opening_hours"):
+                opening_hours = "Open now" if result["opening_hours"].get("open_now") else "Closed"
+
+            # Generate Google Maps URL
+            maps_url = f"https://www.google.com/maps/place/?q=place_id:{result['place_id']}"
+
+            places.append(PlaceResult(
+                name=result.get("name", "Unknown"),
+                address=result.get("formatted_address", "Address unavailable"),
+                rating=result.get("rating"),
+                total_ratings=result.get("user_ratings_total"),
+                price_level=result.get("price_level"),
+                place_id=result["place_id"],
+                types=result.get("types", []),
+                opening_hours=opening_hours,
+                maps_url=maps_url
+            ))
+
+        if places:
+            message = f"Found {len(places)} places matching '{request.query}' near your event!"
+        else:
+            message = f"No places found matching '{request.query}' near this location."
+
+        return RecommendationResponse(
+            places=places,
+            message=message,
+            total_found=len(places)
+        )
+
+    except httpx.RequestError as e:
+        print(f"HTTP request error: {e}")
+        raise HTTPException(status_code=500, detail="Failed to connect to Google Places API")
+    except Exception as e:
+        print(f"Recommendation error: {e}")
+        raise HTTPException(status_code=500, detail="Failed to fetch recommendations")

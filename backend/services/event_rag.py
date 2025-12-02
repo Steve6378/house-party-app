@@ -157,12 +157,13 @@ Budget per Person: ${event.budget_per_person if event.budget_per_person else 'TB
             embedding=self.embeddings
         )
 
-    def answer_question(self, question: str) -> Tuple[str, List[str]]:
+    def answer_question(self, question: str, conversation_history: Optional[List[dict]] = None) -> Tuple[str, List[str]]:
         """
         Answer a question using RAG pipeline.
 
         Args:
             question: User's question
+            conversation_history: Optional list of previous messages for context
 
         Returns:
             Tuple of (answer, sources)
@@ -175,15 +176,27 @@ Budget per Person: ${event.budget_per_person if event.budget_per_person else 'TB
             search_kwargs={"k": 5}  # Retrieve top 5 most relevant chunks
         )
 
-        # Create prompt template
+        # Build conversation context if provided
+        conv_context = ""
+        if conversation_history:
+            conv_context = "\n\nPrevious conversation:\n"
+            for msg in conversation_history[-6:]:  # Last 6 messages for context
+                role = "User" if msg.get("role") == "user" else "Assistant"
+                conv_context += f"{role}: {msg.get('content', '')}\n"
+
+        # Create prompt template with conversation history
         template = """You are a concise AI assistant helping with questions about an event's group chat.
 Answer ONLY based on the chat messages and documents provided. Be brief and direct - 1-3 sentences max.
 If the info isn't in the context, just say "I don't see that discussed in the chat yet."
 
+IMPORTANT: If there's previous conversation context, use it to understand follow-up questions.
+For example, if the previous answer mentioned someone is cooking salmon and the user asks "what should I make",
+suggest something that complements what others are making.
+
 Context from chat and documents:
 {context}
-
-Question: {question}
+{conv_history}
+Current question: {question}
 
 Brief answer:"""
 
@@ -193,20 +206,24 @@ Brief answer:"""
         def format_docs(docs):
             return "\n\n".join([doc.page_content for doc in docs])
 
-        chain = (
-            {"context": retriever | format_docs, "question": RunnablePassthrough()}
-            | prompt
-            | self.llm
-            | StrOutputParser()
+        # Get context documents
+        context_docs = retriever.get_relevant_documents(question)
+        context_text = format_docs(context_docs)
+
+        # Format the prompt with all variables
+        formatted_prompt = prompt.format(
+            context=context_text,
+            conv_history=conv_context,
+            question=question
         )
 
-        # Get answer
-        answer = chain.invoke(question)
+        # Get answer using LLM directly
+        from langchain.schema import HumanMessage
+        answer = self.llm.invoke([HumanMessage(content=formatted_prompt)]).content
 
         # Get source documents
-        source_docs = retriever.get_relevant_documents(question)
         sources = []
-        for doc in source_docs:
+        for doc in context_docs:
             source_type = doc.metadata.get("source", "unknown")
             if source_type == "uploaded_document":
                 sources.append(f"Document: {doc.metadata.get('filename', 'Unknown')}")
@@ -223,7 +240,7 @@ Brief answer:"""
         return answer, sources
 
 
-async def query_event_ai(event_id: str, question: str, db: Session) -> dict:
+async def query_event_ai(event_id: str, question: str, db: Session, conversation_history: Optional[List[dict]] = None) -> dict:
     """
     Query the event-specific AI with a question.
 
@@ -231,12 +248,13 @@ async def query_event_ai(event_id: str, question: str, db: Session) -> dict:
         event_id: ID of the event
         question: User's question
         db: Database session
+        conversation_history: Optional list of previous messages [{"role": "user/assistant", "content": "..."}]
 
     Returns:
         Dictionary with answer and sources
     """
     rag = EventRAG(event_id, db)
-    answer, sources = rag.answer_question(question)
+    answer, sources = rag.answer_question(question, conversation_history)
 
     return {
         "answer": answer,

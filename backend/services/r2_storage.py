@@ -3,7 +3,8 @@
 
 import boto3
 from botocore.config import Config
-from typing import Optional, BinaryIO
+from typing import Optional, Union, BinaryIO
+from io import BytesIO
 import uuid
 import os
 
@@ -46,7 +47,7 @@ class R2Storage:
 
     def upload_file(
         self,
-        file_data: BinaryIO,
+        file_data: Union[bytes, BinaryIO],
         event_id: str,
         file_ext: str,
         content_type: str
@@ -54,23 +55,36 @@ class R2Storage:
         """
         Upload a file to R2 or local storage.
 
+        Args:
+            file_data: Either raw bytes or a file-like object with .read() method
+            event_id: Event ID for organizing files
+            file_ext: File extension (e.g., '.jpg', '.png')
+            content_type: MIME type of the file
+
         Returns:
             dict with 'file_path' (R2 key or local path) and 'public_url' if available
         """
         # Generate unique filename
         file_id = str(uuid.uuid4())
+        # Ensure file_ext starts with a dot
+        if not file_ext.startswith('.'):
+            file_ext = f".{file_ext}"
         filename = f"{file_id}{file_ext}"
         key = f"photos/{event_id}/{filename}"
 
+        # Convert to bytes if needed
+        if isinstance(file_data, bytes):
+            data_bytes = file_data
+        else:
+            data_bytes = file_data.read()
+
         if self.use_r2:
-            # Upload to R2
-            self.s3_client.upload_fileobj(
-                file_data,
-                self.bucket_name,
-                key,
-                ExtraArgs={
-                    'ContentType': content_type
-                }
+            # Upload to R2 using put_object (works with bytes directly)
+            self.s3_client.put_object(
+                Bucket=self.bucket_name,
+                Key=key,
+                Body=data_bytes,
+                ContentType=content_type
             )
 
             # Generate public URL if configured
@@ -91,7 +105,7 @@ class R2Storage:
             local_path = f"{local_dir}/{filename}"
 
             with open(local_path, 'wb') as f:
-                f.write(file_data.read())
+                f.write(data_bytes)
 
             return {
                 'file_id': file_id,
