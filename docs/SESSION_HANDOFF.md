@@ -1,212 +1,133 @@
-# Session Handoff - Yorru Backend Integration
+# Session Handoff - Yorru MVP Polish
 
-**Date:** 2025-11-26
-**Branch:** `claude/review-seed-data-expansion-01YYKeQNCMcS2EAH7HWUEs5t`
-**Status:** Ready for PR #10 integration
-**Next Model:** Opus (upgraded from legacy Sonnet)
-
----
-
-## 🎯 Current Status
-
-### ✅ Completed This Session
-
-1. **Fixed duplicate GroupMembership model**
-   - Was defined in both `user.py` and `attendance.py`
-   - Removed from `attendance.py`, kept in `user.py`
-   - Committed: `2daa009 "Fix duplicate GroupMembership model definition"`
-
-2. **Renumbered migrations for consistency**
-   - Changed: `004, 005` → `003, 004`
-   - Updated `run_all_migrations.sql` and `BACKEND_TESTING_GUIDE.md`
-   - Committed: `1585641 "Renumber migrations for consistency"`
-
-3. **Reviewed PR #10** (https://github.com/Steve6378/yorru/pull/10)
-   - **Good:** Complete React frontend + WebSocket + RAG features
-   - **Issues:** Found 9 issues requiring integration fixes
-
-### 📊 Current Migrations
-
-```
-001_add_status_columns.sql          - Status tracking, RSVP, visibility
-002_fix_table_names_and_missing_columns.sql - Table renames, event_attendance
-003_add_group_chat_support.sql      - Multi-room chat (group + event)
-004_add_image_url_support.sql       - Event cover images
-005_migrate_event_attendance.sql    - EventAttendance PK change (id instead of composite)
-006_add_document_tables.sql         - EventDocument + EventQuestionnaire tables
-```
+**Date:** 2025-12-02
+**Branch:** `claude/resume-session-01Pg3uT3jRz6D9DtPoaahMD2`
+**Status:** MVP Bug Fixes Complete
+**Platform:** Yorru - AI-assisted night event planning
 
 ---
 
-## ⏭️ Next Steps: PR #10 Integration
+## Current Status
 
-**User will merge PR #10 → main, then we integrate.**
+### Completed This Session
 
-### Integration Workflow
+1. **PR #16 Integration Fixes** (previous session continued)
+   - Fixed numpy/opencv version conflict
+   - Added boto3 for R2 storage
+   - Created migrations 008, 009, 010 for new columns
+   - Fixed topics JSON parsing
+   - Fixed calendar page API calls
+   - Fixed navigation links in legacy components
 
-```bash
-# 1. Pull merged main
-git fetch origin main
-git merge origin/main
+2. **Face Recognition Enable/Disable**
+   - Added `has_face_encoding` to UserResponse schema
+   - Added `DELETE /api/auth/me/face-recognition` endpoint
+   - Added confirmation modals for enable/disable
+   - Privacy-focused messaging in modals
 
-# 2. Fix all issues (details below)
-# 3. Test backend starts cleanly
-# 4. Commit integration fixes
-# 5. Push for review
-```
+3. **AI Greeting Fix**
+   - Added greeting detection in `event_rag.py`
+   - AI now responds naturally to "hi", "hello", "thanks" etc.
+   - No more event planning responses to casual chat
 
----
+4. **Image Cropping**
+   - Added `react-easy-crop` package
+   - Created reusable `ImageCropper` component
+   - Profile photo: round crop, 1:1 aspect ratio
+   - Event cover: selectable aspect ratios (16:9, 4:3, 1:1, 2:1)
 
-## 🔧 PR #10 Issues to Fix (9 Total)
-
-### Critical (Must Fix) 🔴
-
-**Issue 1: GroupMembership Duplicate**
-- ✅ Already fixed in our branch
-- Conflict: PR #10 only has it in `attendance.py`, main will have both
-- Action: Verify fix is preserved during merge
-
-**Issue 4: EventAttendance Schema Change**
-- PR #10 changes primary key from composite `(event_id, user_id)` to single `id`
-- Makes `user_id` nullable (for unregistered user invitations)
-- Includes Python migration script: `backend/migrate_attendance.py`
-- Action: Convert to SQL migration or document manual execution required
-
-**Issue 5: Missing Database Tables**
-- New models: `EventDocument`, `EventQuestionnaire`
-- Routes exist: `routes/documents.py`, `routes/questionnaire.py`
-- No migrations to create tables!
-- Action: Create migration for both tables
-
-### Medium Priority ⚠️
-
-**Issue 2: bcrypt Dependency Regression**
-- PR #10 reverts to `passlib[bcrypt]`
-- We fixed this with explicit `bcrypt==4.1.2` for Python 3.12
-- Action: Restore bcrypt fix in `requirements.txt`
-
-**Issue 3: Migration 003 Conflict**
-- Our branch: `003_add_group_chat_support.sql`
-- PR #10: `003_add_missing_user_columns.sql`
-- Extra: PR #10's migration 003 duplicates migration 001 columns!
-- Action: Delete PR #10's migration 003, renumber our 003→005, 004→006
-
-**Issue 6: Missing Model Imports**
-- `EventDocument` and `EventQuestionnaire` not in `models/__init__.py`
-- Works but breaks convention
-- Action: Add to imports and `__all__`
-
-**Issue 7: Groups Router Not Registered**
-- PR #10's `main.py` missing `groups_router`
-- Our branch has it
-- Action: Preserve groups router registration in `main.py`
-
-### Low Priority ℹ️
-
-**Issue 8: CORS Too Permissive**
-- Currently: `allow_origins=["*"]`
-- Production: Should restrict to Vercel domain
-- Action: Optional - restrict to `app.yorru.net` in production
-
-**Issue 9: Vercel Environment Variables**
-- Frontend needs: `VITE_GOOGLE_MAPS_API_KEY`, `VITE_OPENAI_API_KEY`
-- Action: Document in deployment guide
+5. **Documentation Updates**
+   - Updated `docs/deployment/CHECKLIST.md` with current state
+   - Updated this handoff document
 
 ---
 
-## 📝 Integration Fix Checklist
+## Database Migrations
 
 ```
-Backend Code:
-[x] Preserve GroupMembership duplicate fix (attendance.py)
-[x] Restore bcrypt==4.1.2 in requirements.txt
-[x] Add EventDocument, EventQuestionnaire to models/__init__.py
-[x] Restore groups_router in main.py and routes/__init__.py
-
-Migrations:
-[x] Delete database/migrations/003_add_missing_user_columns.sql (redundant)
-[x] Create migration 005_migrate_event_attendance.sql (PK change)
-[x] Create migration 006_add_document_tables.sql (new tables)
-[x] Update run_all_migrations.sql to include 005, 006
-
-Testing:
-[x] Start backend (uvicorn backend.main:app)
-[x] Verify no SQLAlchemy errors
-[ ] Check /health endpoint works (requires database)
-
-Documentation:
-[x] Update BACKEND_TESTING_GUIDE.md with new migrations
-[x] Document Vercel env vars needed
-[x] Document CORS configuration for production
+001_add_status_columns.sql
+002_fix_table_names_and_missing_columns.sql
+003_add_group_chat_support.sql
+004_add_image_url_support.sql
+005_migrate_event_attendance.sql
+006_add_document_tables.sql
+007_add_photos_and_faqs.sql
+008_add_user_profile_columns.sql      <- PR #16
+009_add_event_columns.sql             <- PR #16
+010_add_face_encodings_column.sql     <- PR #16
 ```
 
 ---
 
-## 🗂️ Key File Locations
+## Key Files Changed
 
-### Models
-- `backend/models/user.py` - GroupMembership (canonical)
-- `backend/models/attendance.py` - EventAttendance, EventCoHost
-- `backend/models/event_document.py` - NEW (needs table)
-- `backend/models/questionnaire.py` - NEW (needs table)
+### Backend
+- `backend/services/event_rag.py` - Greeting detection
+- `backend/routes/auth.py` - Face recognition disable endpoint
+- `backend/schemas/auth.py` - has_face_encoding field
 
-### Routes
-- `backend/routes/groups.py` - Group management (our code)
-- `backend/routes/ai.py` - NEW from PR #10
-- `backend/routes/chat.py` - NEW WebSocket implementation
-- `backend/routes/documents.py` - NEW (needs migration)
-- `backend/routes/questionnaire.py` - NEW (needs migration)
-- `backend/routes/attendance.py` - NEW invitation system
-
-### Migrations
-- `database/migrations/` - Four current migrations
-- `database/run_all_migrations.sql` - Runs all sequentially
-- `backend/migrate_attendance.py` - Python migration script
+### Frontend
+- `frontend/src/components/ImageCropper.jsx` - NEW
+- `frontend/src/pages/ProfilePage.jsx` - Cropper + face recog modals
+- `frontend/src/pages/CreateEventPage.jsx` - Cover image cropper
+- `frontend/src/pages/CalendarPage.jsx` - Fixed API calls
 
 ---
 
-## 🎨 What PR #10 Adds
+## Outstanding Items
 
-### Frontend (Production Ready)
-- **11 pages:** Login, Register, Dashboard, Events, Calendar, Host/Guest interfaces, Groups, Chat
-- **Real API integration:** axios with JWT interceptors
-- **State management:** Zustand stores
-- **WebSocket ready:** socket.io-client installed
-- **Styling:** Complete Tailwind setup with custom theme
-- **Vercel config:** vercel.json with SPA routing
+### Environment Variables (Vercel)
+- [x] VITE_API_URL - Set
+- [x] VITE_GOOGLE_MAPS_API_KEY - Set (Nov 26)
+- [ ] Test address autocomplete in production
 
-### Backend (Feature Complete)
-- **WebSocket chat:** Real-time messaging with JWT auth
-- **RAG system:** LangChain integration for AI Q&A
-- **PDF processing:** Document upload and text extraction
-- **Invitations:** Invite unregistered users by email
-- **Questionnaires:** Host pre-event questionnaire system
-- **Ground truth auto-sync:** AI updates sync to database
-
-### Dependencies Added
-- **Frontend:** axios, zustand, socket.io-client, react-big-calendar, date-fns
-- **Backend:** langchain, pypdf, pdfplumber, docarray
+### Nice to Have (Post-MVP)
+- Email verification flow
+- Password reset
+- Push notifications
+- Event reminders
+- Payment integration (Stripe)
+- Social login (Google, Apple)
 
 ---
 
-## 🔍 Project Context
+## Recent Commits
 
-**Yorru** (夜 - "yoru" = night in Japanese)
-Night event planning platform with AI assistant
-
-### Current Architecture
-- **Backend:** FastAPI on Railway (Python 3.12)
-- **Database:** PostgreSQL + pgvector on Railway
-- **Frontend:** React + Vite (deploying to Vercel)
-- **Features:** Multi-room chat, RAG Q&A, group management
-
-### Branch Structure
-- `main` - Production (will have PR #10 merged)
-- `claude/review-seed-data-expansion-01YYKeQNCMcS2EAH7HWUEs5t` - Our integration branch
+```
+c9bd3c5 Add confirmation modals for face recognition enable/disable
+1f7f6c6 Add face recognition disable functionality
+94be1ee Fix broken navigation links in legacy components
+e54ee27 Fix multiple frontend bugs from PR #16
+d4513c2 Add migration 010 for face_encodings column
+33dfc4d Fix topics field: parse JSON string from DB before validation
+fb0b95b Add migration 009 for event columns
+eb6984e Add migration 008 for user profile columns
+2eb231a Add boto3 dependency for R2 storage
+7d8b486 Fix migration numbering from PR #16
+2e61236 Fix numpy/opencv version conflict
+```
 
 ---
 
-## 🚀 Quick Start Commands
+## Quick Reference
+
+**Repository:** https://github.com/Steve6378/yorru
+**Frontend:** app.yorru.net (Vercel)
+**Backend:** Railway (yorru-production.up.railway.app)
+**Database:** Railway pgvector-pg17
+
+**Tech Stack:**
+- Backend: FastAPI (Python 3.12)
+- Database: PostgreSQL + pgvector
+- Frontend: React + Vite + TypeScript
+- Real-time: Socket.io
+- AI: OpenAI GPT-4o-mini + LangChain RAG
+- Storage: Cloudflare R2
+- Auth: JWT tokens
+
+---
+
+## Quick Start
 
 ```bash
 # Backend (local)
@@ -227,29 +148,5 @@ psql "$DATABASE_PUBLIC_URL" -f database/run_all_migrations.sql
 
 ---
 
-## 📞 Contact Points
-
-**User:** Steve6378
-**Teammate:** Nirali Modi (created PR #10)
-**Railway:** yorru-production.up.railway.app
-**Domain:** yorru.net (Cloudflare DNS)
-
----
-
-## 💡 Notes for Next Session
-
-1. **Migration 003 redundancy:** PR #10's migration 003 adds columns already in migration 001 (phone, email_verified, status, deleted_at). Safe to delete.
-
-2. **EventAttendance migration:** The Python script `migrate_attendance.py` should ideally be a SQL migration. Consider converting or documenting manual execution.
-
-3. **Testing priority:** After integration, test documents and questionnaire routes since they have no tables yet.
-
-4. **CORS:** Consider updating to restrict origins in production environment.
-
----
-
-**Last commit:** `e14dcbb Integrate PR #10 with fixes for all identified issues`
-**Files staged:** None
-**Working tree:** Clean ✅
-
-PR #10 integrated! All critical and medium priority issues resolved. 🎉
+**Working tree:** Check `git status`
+**Next steps:** Test in production, address any remaining issues

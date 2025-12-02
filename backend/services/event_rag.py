@@ -157,6 +157,36 @@ Budget per Person: ${event.budget_per_person if event.budget_per_person else 'TB
             embedding=self.embeddings
         )
 
+    def _is_greeting(self, text: str) -> bool:
+        """Check if the message is a simple greeting or casual chat."""
+        greetings = [
+            'hi', 'hey', 'hello', 'yo', 'sup', 'hiya', 'heya',
+            'good morning', 'good afternoon', 'good evening', 'good night',
+            'morning', 'afternoon', 'evening',
+            'whats up', "what's up", 'wassup', 'wazzup',
+            'how are you', "how's it going", 'how are things',
+            'thanks', 'thank you', 'thx', 'ty',
+            'bye', 'goodbye', 'see ya', 'later', 'cya',
+            'ok', 'okay', 'k', 'cool', 'nice', 'great', 'awesome',
+            'lol', 'haha', 'lmao', 'hehe',
+            '👋', '😊', '🙂', '👍'
+        ]
+        cleaned = text.lower().strip().rstrip('!?.,:;')
+        # Check exact match or starts with greeting
+        return cleaned in greetings or any(cleaned.startswith(g + ' ') for g in greetings[:10])
+
+    def _get_greeting_response(self, text: str) -> str:
+        """Return an appropriate casual response."""
+        cleaned = text.lower().strip()
+        if any(g in cleaned for g in ['bye', 'goodbye', 'later', 'cya', 'see ya']):
+            return "Goodbye! Feel free to ask if you have any questions about the event."
+        if any(g in cleaned for g in ['thanks', 'thank', 'thx', 'ty']):
+            return "You're welcome! Let me know if you need anything else."
+        if any(g in cleaned for g in ['how are', "how's it", 'how are things']):
+            return "I'm doing well, thanks for asking! How can I help you with the event?"
+        # Default greeting
+        return "Hey! I'm here to help answer questions about this event. What would you like to know?"
+
     def answer_question(self, question: str) -> Tuple[str, List[str]]:
         """
         Answer a question using RAG pipeline.
@@ -167,6 +197,10 @@ Budget per Person: ${event.budget_per_person if event.budget_per_person else 'TB
         Returns:
             Tuple of (answer, sources)
         """
+        # Handle greetings and casual chat without RAG
+        if self._is_greeting(question):
+            return self._get_greeting_response(question), []
+
         # Build/rebuild vector store with latest event data
         self.build_vector_store()
 

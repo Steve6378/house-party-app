@@ -20,6 +20,7 @@ import {
 import { toast } from 'sonner';
 import { authAPI } from '../utils/api.ts';
 import { API_URL } from '../config/api';
+import ImageCropper from '../components/ImageCropper';
 
 function ProfilePage() {
   const navigate = useNavigate();
@@ -43,6 +44,8 @@ function ProfilePage() {
   const [faceEncodingLoading, setFaceEncodingLoading] = useState(false);
   const [locationLoading, setLocationLoading] = useState(false);
   const [showFaceModal, setShowFaceModal] = useState(null); // 'enable' or 'disable' or null
+  const [showCropper, setShowCropper] = useState(false);
+  const [cropperImage, setCropperImage] = useState(null);
 
   useEffect(() => {
     if (!isAuthenticated) {
@@ -80,8 +83,8 @@ function ProfilePage() {
   const handlePhotoSelect = async (e) => {
     const file = e.target.files?.[0];
     if (file) {
-      if (file.size > 5 * 1024 * 1024) {
-        toast.error('Photo must be less than 5MB');
+      if (file.size > 10 * 1024 * 1024) { // Allow larger for cropping, will compress
+        toast.error('Photo must be less than 10MB');
         return;
       }
       if (!file.type.startsWith('image/')) {
@@ -89,33 +92,51 @@ function ProfilePage() {
         return;
       }
 
-      setProfilePhoto(file);
-      // Show local preview immediately
+      // Show cropper instead of uploading directly
       const reader = new FileReader();
       reader.onloadend = () => {
-        setPhotoPreview(reader.result);
+        setCropperImage(reader.result);
+        setShowCropper(true);
       };
       reader.readAsDataURL(file);
-
-      // Upload to backend
-      setPhotoUploading(true);
-      try {
-        const updatedUser = await authAPI.uploadProfilePhoto(file);
-        updateUser(updatedUser);
-        toast.success('Profile photo updated!');
-      } catch (error) {
-        console.error('Failed to upload photo:', error);
-        toast.error('Failed to upload photo');
-        // Revert preview on error
-        if (user?.profile_photo) {
-          setPhotoPreview(`${API_URL}/api/auth/me/photo?token=${token}&t=${Date.now()}`);
-        } else {
-          setPhotoPreview(null);
-        }
-      } finally {
-        setPhotoUploading(false);
-      }
     }
+  };
+
+  const handleCropComplete = async (croppedFile) => {
+    setShowCropper(false);
+    setCropperImage(null);
+    setProfilePhoto(croppedFile);
+
+    // Show local preview
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      setPhotoPreview(reader.result);
+    };
+    reader.readAsDataURL(croppedFile);
+
+    // Upload to backend
+    setPhotoUploading(true);
+    try {
+      const updatedUser = await authAPI.uploadProfilePhoto(croppedFile);
+      updateUser(updatedUser);
+      toast.success('Profile photo updated!');
+    } catch (error) {
+      console.error('Failed to upload photo:', error);
+      toast.error('Failed to upload photo');
+      // Revert preview on error
+      if (user?.profile_photo) {
+        setPhotoPreview(`${API_URL}/api/auth/me/photo?token=${token}&t=${Date.now()}`);
+      } else {
+        setPhotoPreview(null);
+      }
+    } finally {
+      setPhotoUploading(false);
+    }
+  };
+
+  const handleCropCancel = () => {
+    setShowCropper(false);
+    setCropperImage(null);
   };
 
   const handleSubmit = async (e) => {
@@ -492,6 +513,18 @@ function ProfilePage() {
           </div>
         </form>
       </div>
+
+      {/* Profile Photo Cropper */}
+      {showCropper && cropperImage && (
+        <ImageCropper
+          image={cropperImage}
+          onCropComplete={handleCropComplete}
+          onCancel={handleCropCancel}
+          aspectRatio={1}
+          cropShape="round"
+          title="Crop Profile Photo"
+        />
+      )}
 
       {/* Face Recognition Confirmation Modal */}
       {showFaceModal && (

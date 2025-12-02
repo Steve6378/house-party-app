@@ -27,6 +27,7 @@ import { toast } from 'sonner';
 import { eventsAPI, aiAPI } from '../utils/api.ts';
 import { initGoogleMaps } from '../utils/googleMaps';
 import AddressAutocomplete from '../components/AddressAutocomplete';
+import ImageCropper from '../components/ImageCropper';
 
 function CreateEventPage() {
   const navigate = useNavigate();
@@ -59,6 +60,16 @@ function CreateEventPage() {
   const [uploadingCover, setUploadingCover] = useState(false);
   const [generatingCover, setGeneratingCover] = useState(false);
   const [createdEventId, setCreatedEventId] = useState(null);
+  const [showCropper, setShowCropper] = useState(false);
+  const [cropperImage, setCropperImage] = useState(null);
+
+  // Aspect ratio options for cover images
+  const coverAspectRatios = [
+    { label: '16:9', value: 16 / 9 },
+    { label: '4:3', value: 4 / 3 },
+    { label: '1:1', value: 1 },
+    { label: '2:1', value: 2 / 1 }
+  ];
 
   // Available topics based on the topics.png reference
   const availableTopics = [
@@ -102,17 +113,36 @@ function CreateEventPage() {
         toast.error('Please select an image file');
         return;
       }
-      if (file.size > 10 * 1024 * 1024) {
-        toast.error('Image must be less than 10MB');
+      if (file.size > 15 * 1024 * 1024) { // Allow larger for cropping
+        toast.error('Image must be less than 15MB');
         return;
       }
-      setCoverImage(file);
+      // Show cropper instead of setting directly
       const reader = new FileReader();
       reader.onloadend = () => {
-        setCoverImagePreview(reader.result);
+        setCropperImage(reader.result);
+        setShowCropper(true);
       };
       reader.readAsDataURL(file);
     }
+  };
+
+  const handleCropComplete = (croppedFile) => {
+    setShowCropper(false);
+    setCropperImage(null);
+    setCoverImage(croppedFile);
+    // Show preview
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      setCoverImagePreview(reader.result);
+    };
+    reader.readAsDataURL(croppedFile);
+    toast.success('Image cropped successfully!');
+  };
+
+  const handleCropCancel = () => {
+    setShowCropper(false);
+    setCropperImage(null);
   };
 
   const handleRemoveCoverImage = () => {
@@ -791,6 +821,18 @@ function CreateEventPage() {
           </div>
         </div>
       </div>
+
+      {/* Cover Image Cropper */}
+      {showCropper && cropperImage && (
+        <ImageCropper
+          image={cropperImage}
+          onCropComplete={handleCropComplete}
+          onCancel={handleCropCancel}
+          aspectRatio={16 / 9}
+          aspectRatioOptions={coverAspectRatios}
+          title="Crop Cover Image"
+        />
+      )}
     </div>
   );
 }
