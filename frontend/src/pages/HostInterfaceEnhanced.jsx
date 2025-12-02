@@ -389,7 +389,7 @@ function HostInterfaceEnhanced() {
     setUploadingDocument(true);
     try {
       const result = await documentsAPI.upload(id, file);
-      toast.success(`Document "${file.name}" uploaded! AI extracted ${result.extracted_text_length || 0} characters.`);
+      toast.success(`"${file.name}" uploaded! AI extracted ${result.extracted_text_length || 0} characters.`);
       fetchDocuments();
     } catch (error) {
       toast.error('Failed to upload document');
@@ -777,12 +777,12 @@ function HostInterfaceEnhanced() {
                 ) : (
                   <Upload className="w-5 h-5" />
                 )}
-                Upload Document
+                Upload File
               </button>
               <input
                 ref={fileInputRef}
                 type="file"
-                accept=".pdf,.doc,.docx"
+                accept=".pdf,.txt,.jpg,.jpeg,.png,.gif,.webp"
                 onChange={handleDocumentUpload}
                 className="hidden"
               />
@@ -818,8 +818,8 @@ function HostInterfaceEnhanced() {
             ) : (
               <div className="text-center py-12">
                 <FileText className="w-16 h-16 text-gray-500 mx-auto mb-4" />
-                <p className="text-gray-400">No documents uploaded yet</p>
-                <p className="text-gray-500 text-sm mt-2">Upload PDFs, contracts, or event materials</p>
+                <p className="text-gray-400">No files uploaded yet</p>
+                <p className="text-gray-500 text-sm mt-2">Upload PDFs, images, menus, schedules - AI will read them</p>
               </div>
             )}
           </div>
