@@ -35,7 +35,7 @@ function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-dark-900 via-primary-900 to-secondary-900 flex items-center justify-center px-4">
+    <div className="min-h-screen glow-bg flex items-center justify-center px-4">
       <div className="max-w-md w-full">
         <div className="text-center mb-8">
           <div className="flex items-center justify-center mb-4">
@@ -45,7 +45,7 @@ function LoginPage() {
           <p className="text-primary-200">Your AI-powered event planning assistant</p>
         </div>
 
-        <div className="bg-dark-800/50 backdrop-blur-xl rounded-2xl shadow-2xl p-8 border border-primary-500/20">
+        <div className="glass-card shadow-2xl p-8">
           <h2 className="text-2xl font-bold text-white mb-6">Welcome Back</h2>
 
           <form onSubmit={handleSubmit} className="space-y-6">
@@ -58,7 +58,7 @@ function LoginPage() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
-                className="w-full px-4 py-3 bg-dark-700/50 border border-primary-500/30 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition"
+                className="w-full px-4 py-3 glass-input rounded-lg transition"
                 placeholder="you@example.com"
               />
             </div>
@@ -72,7 +72,7 @@ function LoginPage() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
-                className="w-full px-4 py-3 bg-dark-700/50 border border-primary-500/30 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition"
+                className="w-full px-4 py-3 glass-input rounded-lg transition"
                 placeholder="••••••••"
               />
             </div>
@@ -107,15 +107,15 @@ function LoginPage() {
         </div>
 
         <div className="mt-8 grid grid-cols-3 gap-4 text-center">
-          <div className="bg-dark-800/30 backdrop-blur-xl rounded-lg p-4 border border-accent-500/20">
+          <div className="glass-card p-4">
             <Calendar className="w-6 h-6 text-accent-400 mx-auto mb-2" />
             <p className="text-xs text-gray-300">Smart Planning</p>
           </div>
-          <div className="bg-dark-800/30 backdrop-blur-xl rounded-lg p-4 border border-secondary-500/20">
+          <div className="glass-card p-4">
             <Sparkles className="w-6 h-6 text-secondary-400 mx-auto mb-2" />
             <p className="text-xs text-gray-300">AI Assistant</p>
           </div>
-          <div className="bg-dark-800/30 backdrop-blur-xl rounded-lg p-4 border border-primary-500/20">
+          <div className="glass-card p-4">
             <Users className="w-6 h-6 text-primary-400 mx-auto mb-2" />
             <p className="text-xs text-gray-300">Easy Invites</p>
           </div>

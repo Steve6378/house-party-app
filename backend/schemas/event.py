@@ -114,6 +114,10 @@ class EventResponse(BaseModel):
     latitude: Optional[float] = None
     longitude: Optional[float] = None
 
+    # Cover image
+    cover_image_url: Optional[str] = None
+    cover_image_type: Optional[str] = None  # "uploaded", "ai_generated", "none"
+
     # Related data
     main_host_id: str
     group_id: Optional[str]
@@ -159,6 +163,10 @@ class EventListItem(BaseModel):
     created_at: datetime
     expected_guests: Optional[int] = None
     attendees: List[AttendeeBasic] = []
+
+    # Cover image
+    cover_image_url: Optional[str] = None
+    cover_image_type: Optional[str] = None
 
     @field_serializer('time')
     def serialize_time(self, v: Any) -> Optional[str]:

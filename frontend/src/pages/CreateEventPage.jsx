@@ -17,7 +17,11 @@ import {
   Sparkles,
   Tag,
   X,
-  Search
+  Search,
+  Image,
+  Upload,
+  Wand2,
+  Trash2
 } from 'lucide-react';
 import { toast } from 'sonner';
 import { eventsAPI, aiAPI } from '../utils/api.ts';
@@ -50,6 +54,11 @@ function CreateEventPage() {
   const [map, setMap] = useState(null);
   const [selectedLocation, setSelectedLocation] = useState(null);
   const [topicSearch, setTopicSearch] = useState('');
+  const [coverImage, setCoverImage] = useState(null);
+  const [coverImagePreview, setCoverImagePreview] = useState(null);
+  const [uploadingCover, setUploadingCover] = useState(false);
+  const [generatingCover, setGeneratingCover] = useState(false);
+  const [createdEventId, setCreatedEventId] = useState(null);
 
   // Available topics based on the topics.png reference
   const availableTopics = [
@@ -84,6 +93,31 @@ function CreateEventPage() {
       ...prev,
       topics: prev.topics.filter(t => t !== topic)
     }));
+  };
+
+  const handleCoverImageSelect = (e) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      if (!file.type.startsWith('image/')) {
+        toast.error('Please select an image file');
+        return;
+      }
+      if (file.size > 10 * 1024 * 1024) {
+        toast.error('Image must be less than 10MB');
+        return;
+      }
+      setCoverImage(file);
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setCoverImagePreview(reader.result);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const handleRemoveCoverImage = () => {
+    setCoverImage(null);
+    setCoverImagePreview(null);
   };
 
   const handleGenerateDescription = async () => {
@@ -312,9 +346,23 @@ function CreateEventPage() {
       }
 
       const response = await eventsAPI.create(payload);
+      const eventId = response.id;
+
+      // Upload cover image if selected
+      if (coverImage) {
+        setUploadingCover(true);
+        try {
+          await eventsAPI.uploadCoverImage(eventId, coverImage);
+        } catch (err) {
+          console.error('Failed to upload cover image:', err);
+          toast.error('Event created but cover image upload failed');
+        } finally {
+          setUploadingCover(false);
+        }
+      }
 
       toast.success('Event created successfully!');
-      navigate(`/event/${response.id}/host`);
+      navigate(`/event/${eventId}/host`);
     } catch (error) {
       console.error('Create event error:', error);
       console.error('Error response data:', error.response?.data);
@@ -371,6 +419,56 @@ function CreateEventPage() {
                 className="w-full px-4 py-3 bg-dark-700/50 border border-primary-500/30 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition"
                 placeholder="e.g., Summer BBQ Party"
               />
+            </div>
+
+            {/* Cover Image */}
+            <div>
+              <label className="block text-sm font-medium text-primary-200 mb-2 flex items-center gap-2">
+                <Image className="w-4 h-4" />
+                Cover Image
+              </label>
+
+              {coverImagePreview ? (
+                <div className="relative">
+                  <img
+                    src={coverImagePreview}
+                    alt="Cover preview"
+                    className="w-full h-48 object-cover rounded-lg border border-primary-500/30"
+                  />
+                  <button
+                    type="button"
+                    onClick={handleRemoveCoverImage}
+                    className="absolute top-2 right-2 p-2 bg-red-600 hover:bg-red-700 text-white rounded-full transition"
+                  >
+                    <Trash2 className="w-4 h-4" />
+                  </button>
+                </div>
+              ) : (
+                <div className="border-2 border-dashed border-primary-500/30 rounded-lg p-6 text-center hover:border-primary-500/50 transition">
+                  <div className="flex flex-col items-center gap-3">
+                    <div className="p-3 bg-dark-700/50 rounded-full">
+                      <Upload className="w-6 h-6 text-primary-400" />
+                    </div>
+                    <div>
+                      <p className="text-gray-300 text-sm">Upload a cover image for your event</p>
+                      <p className="text-gray-500 text-xs mt-1">PNG, JPG up to 10MB</p>
+                    </div>
+                    <label className="px-4 py-2 bg-primary-600/50 hover:bg-primary-600 text-white text-sm rounded-lg cursor-pointer transition flex items-center gap-2">
+                      <Upload className="w-4 h-4" />
+                      Choose Image
+                      <input
+                        type="file"
+                        accept="image/*"
+                        onChange={handleCoverImageSelect}
+                        className="hidden"
+                      />
+                    </label>
+                  </div>
+                  <p className="text-xs text-gray-500 mt-4">
+                    Or leave empty - AI will generate one based on your event details
+                  </p>
+                </div>
+              )}
             </div>
 
             {/* Description with AI Assist */}

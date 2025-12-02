@@ -86,48 +86,77 @@ function DashboardPage() {
       year: 'numeric'
     });
 
+    // Default gradient backgrounds based on event type
+    const getDefaultGradient = () => {
+      const gradients = [
+        'from-purple-600/40 to-pink-600/40',
+        'from-blue-600/40 to-cyan-600/40',
+        'from-orange-600/40 to-red-600/40',
+        'from-green-600/40 to-teal-600/40',
+        'from-indigo-600/40 to-purple-600/40',
+      ];
+      // Use event id hash to pick a consistent gradient
+      const hash = event.id?.charCodeAt(0) || 0;
+      return gradients[hash % gradients.length];
+    };
+
     return (
       <div
         onClick={() => navigate(`/event/${event.id}/${isHost ? 'host' : 'guest'}`)}
-        className="bg-dark-800/50 backdrop-blur-xl border border-primary-500/20 rounded-xl p-6 hover:border-primary-500/40 transition cursor-pointer"
+        className="glass-card glass-card-hover overflow-hidden transition cursor-pointer"
       >
-        <div className="flex items-start justify-between mb-4">
-          <div>
-            <h3 className="text-xl font-bold text-white">{event.name}</h3>
-            {event.event_type && (
-              <span className="text-xs text-primary-300 mt-1 inline-block">{event.event_type}</span>
-            )}
-          </div>
+        {/* Cover Image */}
+        <div className={`h-32 w-full relative ${!event.cover_image_url ? `bg-gradient-to-r ${getDefaultGradient()}` : ''}`}>
+          {event.cover_image_url ? (
+            <img
+              src={event.cover_image_url}
+              alt={event.name}
+              className="w-full h-full object-cover"
+            />
+          ) : (
+            <div className="w-full h-full flex items-center justify-center">
+              <Calendar className="w-12 h-12 text-white/30" />
+            </div>
+          )}
           {isHost && (
-            <span className="bg-gradient-to-r from-primary-600 to-secondary-600 text-white text-xs px-3 py-1 rounded-full font-semibold">
+            <span className="absolute top-2 right-2 bg-gradient-to-r from-primary-600 to-secondary-600 text-white text-xs px-3 py-1 rounded-full font-semibold shadow-lg">
               Host
             </span>
           )}
         </div>
 
-        <div className="space-y-2 text-gray-300">
-          <div className="flex items-center gap-2">
-            <Calendar className="w-4 h-4 text-accent-400" />
-            <span className="text-sm">{formattedDate}</span>
+        <div className="p-4">
+          <div className="mb-3">
+            <h3 className="text-lg font-bold text-white truncate">{event.name}</h3>
+            {event.event_type && (
+              <span className="text-xs text-primary-300 mt-1 inline-block">{event.event_type}</span>
+            )}
           </div>
-          {event.time && (
+
+          <div className="space-y-1.5 text-gray-300">
             <div className="flex items-center gap-2">
-              <Clock className="w-4 h-4 text-accent-400" />
-              <span className="text-sm">{event.time}</span>
+              <Calendar className="w-4 h-4 text-accent-400 flex-shrink-0" />
+              <span className="text-sm truncate">{formattedDate}</span>
             </div>
-          )}
-          {event.address && (
-            <div className="flex items-center gap-2">
-              <MapPin className="w-4 h-4 text-accent-400" />
-              <span className="text-sm">{event.address}</span>
-            </div>
-          )}
-          {event.expected_guests && (
-            <div className="flex items-center gap-2">
-              <Users className="w-4 h-4 text-accent-400" />
-              <span className="text-sm">{event.expected_guests} expected guests</span>
-            </div>
-          )}
+            {event.time && (
+              <div className="flex items-center gap-2">
+                <Clock className="w-4 h-4 text-accent-400 flex-shrink-0" />
+                <span className="text-sm">{event.time}</span>
+              </div>
+            )}
+            {event.address && (
+              <div className="flex items-center gap-2">
+                <MapPin className="w-4 h-4 text-accent-400 flex-shrink-0" />
+                <span className="text-sm truncate">{event.address}</span>
+              </div>
+            )}
+            {event.expected_guests && (
+              <div className="flex items-center gap-2">
+                <Users className="w-4 h-4 text-accent-400 flex-shrink-0" />
+                <span className="text-sm">{event.expected_guests} expected</span>
+              </div>
+            )}
+          </div>
         </div>
       </div>
     );
@@ -145,8 +174,8 @@ function DashboardPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-dark-900 via-primary-900 to-secondary-900">
-      <nav className="bg-dark-800/50 backdrop-blur-xl border-b border-primary-500/20">
+    <div className="min-h-screen glow-bg">
+      <nav className="glass-card border-t-0 border-l-0 border-r-0 rounded-none relative z-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             <div className="flex items-center gap-3">
@@ -168,7 +197,7 @@ function DashboardPage() {
               <div className="relative" ref={dropdownRef}>
                 <button
                   onClick={() => setDropdownOpen(!dropdownOpen)}
-                  className="flex items-center gap-2 bg-dark-700/50 hover:bg-dark-700 text-gray-300 hover:text-white px-4 py-2 rounded-lg transition"
+                  className="flex items-center gap-2 bg-white/10 hover:bg-white/20 text-white px-4 py-2 rounded-lg transition"
                 >
                   <div className="w-8 h-8 rounded-full bg-gradient-to-r from-primary-500 to-secondary-500 flex items-center justify-center text-white font-semibold text-sm">
                     {user?.name?.charAt(0).toUpperCase() || 'U'}
@@ -179,7 +208,7 @@ function DashboardPage() {
 
                 {/* Dropdown Menu */}
                 {dropdownOpen && (
-                  <div className="absolute right-0 mt-2 w-56 bg-dark-800 border border-primary-500/20 rounded-xl shadow-lg overflow-hidden z-50">
+                  <div className="absolute right-0 mt-2 w-56 glass-card shadow-lg overflow-hidden z-50">
                     <div className="px-4 py-3 border-b border-primary-500/20">
                       <p className="text-sm font-semibold text-white">{user?.name}</p>
                       <p className="text-xs text-gray-400">{user?.email}</p>
@@ -267,7 +296,7 @@ function DashboardPage() {
                 ))}
               </div>
             ) : (
-              <div className="bg-dark-800/30 backdrop-blur-xl border border-primary-500/20 rounded-xl p-8 text-center">
+              <div className="glass-card p-8 text-center">
                 <Calendar className="w-12 h-12 text-gray-500 mx-auto mb-4" />
                 <p className="text-gray-400">No events hosted yet</p>
                 <button
@@ -292,7 +321,7 @@ function DashboardPage() {
                 ))}
               </div>
             ) : (
-              <div className="bg-dark-800/30 backdrop-blur-xl border border-primary-500/20 rounded-xl p-8 text-center">
+              <div className="glass-card p-8 text-center">
                 <Users className="w-12 h-12 text-gray-500 mx-auto mb-4" />
                 <p className="text-gray-400">No events joined yet</p>
                 <button
@@ -318,7 +347,7 @@ function DashboardPage() {
               ))}
             </div>
           ) : (
-            <div className="bg-dark-800/30 backdrop-blur-xl border border-primary-500/20 rounded-xl p-8 text-center">
+            <div className="glass-card p-8 text-center">
               <History className="w-12 h-12 text-gray-500 mx-auto mb-4" />
               <p className="text-gray-400">No past events</p>
             </div>

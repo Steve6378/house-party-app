@@ -181,6 +181,28 @@ export const eventsAPI = {
     const response = await api.post(`/api/events/${eventId}/join`);
     return response.data;
   },
+
+  // Cover image methods
+  uploadCoverImage: async (eventId: string, file: File) => {
+    const formData = new FormData();
+    formData.append('file', file);
+    const response = await api.post(`/api/events/${eventId}/cover-image`, formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
+    return response.data;
+  },
+
+  generateCoverImage: async (eventId: string) => {
+    const response = await api.post(`/api/events/${eventId}/cover-image/generate`);
+    return response.data;
+  },
+
+  deleteCoverImage: async (eventId: string) => {
+    const response = await api.delete(`/api/events/${eventId}/cover-image`);
+    return response.data;
+  },
 };
 
 // Messages API

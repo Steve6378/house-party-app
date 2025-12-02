@@ -78,6 +78,11 @@ class Event(Base, TimestampMixin):
     latitude = Column(Numeric(10, 7))
     longitude = Column(Numeric(10, 7))
 
+    # Cover image
+    cover_image_path = Column(Text)  # R2 key or local path for uploaded cover image
+    cover_image_url = Column(Text)  # Public URL for cover image (R2 public URL or AI-generated)
+    cover_image_type = Column(String, default="none")  # "uploaded", "ai_generated", "none"
+
     # Relationships
     host = relationship("User", back_populates="hosted_events", foreign_keys=[main_host_id])
     group = relationship("Group", back_populates="events")

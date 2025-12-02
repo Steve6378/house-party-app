@@ -3,11 +3,11 @@
 @tailwind components;
 @tailwind utilities;
 
-/* ABeeZee font - custom font for Yorru */
+/* Nunito font - custom font for Yorru */
 @font-face {
-  font-family: 'ABeeZee';
-  src: url('/fonts/ABeeZee-Regular.ttf') format('truetype');
-  font-weight: 400;
+  font-family: 'Nunito';
+  src: url('/fonts/Nunito-VariableFont_wght.ttf') format('truetype');
+  font-weight: 200 1000;
   font-style: normal;
   font-display: swap;
 }
@@ -25,11 +25,59 @@
 }
 
 body {
-  font-family: 'ABeeZee', sans-serif;
-  background: linear-gradient(135deg, #131515 0%, #281F5B 50%, #4E626A 100%);
+  font-family: 'Nunito', sans-serif;
+  background: #0a0a0f;
   background-attachment: fixed;
-  color: var(--foreground);
+  color: white;
   min-height: 100vh;
+}
+
+/* Purple/blue gradient glow effect at top */
+.glow-bg {
+  position: relative;
+}
+
+.glow-bg::before {
+  content: '';
+  position: fixed;
+  top: -50%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 150%;
+  height: 100%;
+  background: radial-gradient(ellipse at center, rgba(139, 92, 246, 0.3) 0%, rgba(59, 130, 246, 0.15) 30%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Glassmorphic card style */
+.glass-card {
+  background: rgba(30, 30, 40, 0.6);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(139, 92, 246, 0.2);
+  border-radius: 16px;
+}
+
+.glass-card-hover:hover {
+  background: rgba(40, 40, 55, 0.7);
+  border-color: rgba(139, 92, 246, 0.4);
+}
+
+/* Glass input style */
+.glass-input {
+  background: rgba(30, 30, 40, 0.8);
+  border: 1px solid rgba(139, 92, 246, 0.3);
+  color: white;
+}
+
+.glass-input:focus {
+  border-color: rgba(139, 92, 246, 0.6);
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.2);
+}
+
+.glass-input::placeholder {
+  color: rgba(255, 255, 255, 0.4);
 }
 
 @layer components {

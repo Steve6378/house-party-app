@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useAuthStore } from '../stores/authStore';
-import { Calendar, Sparkles } from 'lucide-react';
+import { Sparkles } from 'lucide-react';
 import { toast } from 'sonner';
 import { authAPI } from '../utils/api.ts';
 import logo from '../assets/logo.png';
@@ -48,7 +48,7 @@ function RegisterPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-dark-900 via-primary-900 to-secondary-900 flex items-center justify-center px-4">
+    <div className="min-h-screen glow-bg flex items-center justify-center px-4">
       <div className="max-w-md w-full">
         <div className="text-center mb-8">
           <div className="flex items-center justify-center mb-4">
@@ -58,7 +58,7 @@ function RegisterPage() {
           <p className="text-primary-200">Join the smartest way to plan events</p>
         </div>
 
-        <div className="bg-dark-800/50 backdrop-blur-xl rounded-2xl shadow-2xl p-8 border border-primary-500/20">
+        <div className="glass-card shadow-2xl p-8">
           <h2 className="text-2xl font-bold text-white mb-6">Create Account</h2>
 
           <form onSubmit={handleSubmit} className="space-y-6">
@@ -71,7 +71,7 @@ function RegisterPage() {
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 required
-                className="w-full px-4 py-3 bg-dark-700/50 border border-primary-500/30 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition"
+                className="w-full px-4 py-3 glass-input rounded-lg transition"
                 placeholder="John Doe"
               />
             </div>
@@ -85,7 +85,7 @@ function RegisterPage() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
-                className="w-full px-4 py-3 bg-dark-700/50 border border-primary-500/30 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition"
+                className="w-full px-4 py-3 glass-input rounded-lg transition"
                 placeholder="you@example.com"
               />
             </div>
@@ -100,7 +100,7 @@ function RegisterPage() {
                 onChange={(e) => setPassword(e.target.value)}
                 required
                 minLength={8}
-                className="w-full px-4 py-3 bg-dark-700/50 border border-primary-500/30 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition"
+                className="w-full px-4 py-3 glass-input rounded-lg transition"
                 placeholder="••••••••"
               />
             </div>
@@ -115,7 +115,7 @@ function RegisterPage() {
                 onChange={(e) => setConfirmPassword(e.target.value)}
                 required
                 minLength={8}
-                className="w-full px-4 py-3 bg-dark-700/50 border border-primary-500/30 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition"
+                className="w-full px-4 py-3 glass-input rounded-lg transition"
                 placeholder="••••••••"
               />
             </div>

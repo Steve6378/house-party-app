@@ -1,13 +1,17 @@
 # Yorru - Event Routes
 # Version: 0.0.1
 
-from fastapi import APIRouter, Depends, HTTPException, Query
+from fastapi import APIRouter, Depends, HTTPException, Query, UploadFile, File
+from fastapi.responses import Response
 from sqlalchemy.orm import Session
 from sqlalchemy import text as sql_text
 from typing import Optional
 from datetime import datetime
 import uuid
 import json
+import openai
+
+from config import settings
 
 from models.event import Event
 from models.user import User
@@ -555,3 +559,242 @@ def join_public_event(
         "status": attendance.status,
         "event_id": event_id
     }
+
+
+# ==================== COVER IMAGE ENDPOINTS ====================
+
+@router.post("/{event_id}/cover-image")
+async def upload_cover_image(
+    event_id: str,
+    file: UploadFile = File(...),
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    """
+    Upload a cover image for an event.
+
+    **Authentication required.**
+
+    Only the host and co-hosts can upload cover images.
+
+    Supported formats: jpg, jpeg, png, gif, webp
+    Max file size: 10MB
+    """
+    from services.r2_storage import R2Storage
+
+    # Get the event
+    event = db.query(Event).filter(Event.id == event_id).first()
+    if not event:
+        raise HTTPException(status_code=404, detail="Event not found")
+
+    # Check if user has permission to edit
+    require_event_access(current_user, event, db, action="edit")
+
+    # Validate file type
+    allowed_types = {".jpg", ".jpeg", ".png", ".gif", ".webp"}
+    file_ext = "." + file.filename.split(".")[-1].lower() if "." in file.filename else ""
+    if file_ext not in allowed_types:
+        raise HTTPException(
+            status_code=400,
+            detail=f"Invalid file type. Allowed: {', '.join(allowed_types)}"
+        )
+
+    # Read file data
+    file_data = await file.read()
+
+    # Validate file size (10MB max)
+    if len(file_data) > 10 * 1024 * 1024:
+        raise HTTPException(status_code=400, detail="File too large. Max size: 10MB")
+
+    # Determine content type
+    content_type_map = {
+        ".jpg": "image/jpeg",
+        ".jpeg": "image/jpeg",
+        ".png": "image/png",
+        ".gif": "image/gif",
+        ".webp": "image/webp"
+    }
+    content_type = content_type_map.get(file_ext, "image/jpeg")
+
+    # Upload to R2 storage
+    storage = R2Storage()
+    result = storage.upload_file(
+        file_data=file_data,
+        event_id=event_id,
+        file_ext=file_ext.lstrip("."),
+        content_type=content_type
+    )
+
+    # Update event with cover image info
+    event.cover_image_path = result["file_path"]
+    event.cover_image_url = result.get("public_url") or f"/api/events/{event_id}/cover-image"
+    event.cover_image_type = "uploaded"
+
+    db.commit()
+
+    return {
+        "message": "Cover image uploaded successfully",
+        "cover_image_url": event.cover_image_url,
+        "cover_image_type": "uploaded"
+    }
+
+
+@router.get("/{event_id}/cover-image")
+async def get_cover_image(
+    event_id: str,
+    db: Session = Depends(get_db)
+):
+    """
+    Get the cover image for an event.
+
+    Returns the image file directly.
+    """
+    from services.r2_storage import R2Storage
+
+    # Get the event
+    event = db.query(Event).filter(Event.id == event_id).first()
+    if not event:
+        raise HTTPException(status_code=404, detail="Event not found")
+
+    if not event.cover_image_path:
+        raise HTTPException(status_code=404, detail="No cover image found")
+
+    # Get file from storage
+    storage = R2Storage()
+    file_data = storage.get_file(event.cover_image_path)
+
+    if not file_data:
+        raise HTTPException(status_code=404, detail="Cover image file not found")
+
+    # Determine content type from path
+    file_ext = event.cover_image_path.split(".")[-1].lower()
+    content_type_map = {
+        "jpg": "image/jpeg",
+        "jpeg": "image/jpeg",
+        "png": "image/png",
+        "gif": "image/gif",
+        "webp": "image/webp"
+    }
+    content_type = content_type_map.get(file_ext, "image/jpeg")
+
+    return Response(content=file_data, media_type=content_type)
+
+
+@router.post("/{event_id}/cover-image/generate")
+async def generate_cover_image(
+    event_id: str,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    """
+    Generate an AI cover image for an event based on its title and description.
+
+    **Authentication required.**
+
+    Only the host and co-hosts can generate cover images.
+    Uses OpenAI DALL-E to generate an event-appropriate image.
+    """
+    # Get the event
+    event = db.query(Event).filter(Event.id == event_id).first()
+    if not event:
+        raise HTTPException(status_code=404, detail="Event not found")
+
+    # Check if user has permission to edit
+    require_event_access(current_user, event, db, action="edit")
+
+    # Build prompt for image generation
+    event_type = event.event_type or "event"
+    topics = ""
+    if event.topics:
+        try:
+            topics_list = json.loads(event.topics)
+            if topics_list:
+                topics = ", ".join(topics_list[:3])
+        except (json.JSONDecodeError, TypeError):
+            pass
+
+    prompt = f"A beautiful, modern event cover image for a {event_type} event"
+    if event.name:
+        prompt += f" called '{event.name}'"
+    if topics:
+        prompt += f" featuring themes of {topics}"
+    if event.description:
+        # Add a snippet of the description
+        desc_snippet = event.description[:100] if len(event.description) > 100 else event.description
+        prompt += f". Event description: {desc_snippet}"
+
+    prompt += ". Professional, high-quality, vibrant colors, no text or words in the image."
+
+    try:
+        # Configure OpenAI
+        openai.api_key = settings.OPENAI_API_KEY
+
+        # Generate image using DALL-E
+        response = openai.images.generate(
+            model="dall-e-3",
+            prompt=prompt,
+            size="1792x1024",  # Wide format for cover images
+            quality="standard",
+            n=1
+        )
+
+        # Get the generated image URL
+        generated_url = response.data[0].url
+
+        # Update event with the generated image URL
+        event.cover_image_url = generated_url
+        event.cover_image_type = "ai_generated"
+        event.cover_image_path = None  # No local path for AI-generated images
+
+        db.commit()
+
+        return {
+            "message": "Cover image generated successfully",
+            "cover_image_url": generated_url,
+            "cover_image_type": "ai_generated"
+        }
+
+    except Exception as e:
+        print(f"AI image generation error: {e}")
+        raise HTTPException(
+            status_code=500,
+            detail="Failed to generate cover image. Please try again or upload an image manually."
+        )
+
+
+@router.delete("/{event_id}/cover-image")
+async def delete_cover_image(
+    event_id: str,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    """
+    Delete the cover image for an event.
+
+    **Authentication required.**
+
+    Only the host and co-hosts can delete cover images.
+    """
+    from services.r2_storage import R2Storage
+
+    # Get the event
+    event = db.query(Event).filter(Event.id == event_id).first()
+    if not event:
+        raise HTTPException(status_code=404, detail="Event not found")
+
+    # Check if user has permission to edit
+    require_event_access(current_user, event, db, action="edit")
+
+    # Delete from storage if it's an uploaded image
+    if event.cover_image_path:
+        storage = R2Storage()
+        storage.delete_file(event.cover_image_path)
+
+    # Clear cover image fields
+    event.cover_image_path = None
+    event.cover_image_url = None
+    event.cover_image_type = "none"
+
+    db.commit()
+
+    return {"message": "Cover image deleted successfully"}
