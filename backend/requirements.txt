@@ -68,3 +68,6 @@ pdfplumber==0.10.3
 # Face recognition (using OpenCV for easy installation)
 opencv-python-headless==4.9.0.80  # For face detection (4.9.x supports numpy<2.0)
 Pillow==10.2.0  # Image processing
+
+# Cloud storage (Cloudflare R2)
+boto3==1.34.0  # S3-compatible API for R2 storage
