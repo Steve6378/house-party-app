@@ -36,6 +36,10 @@
 \i database/migrations/007_add_photos_and_faqs.sql
 
 \echo ''
+\echo '--- Migration 008: Add user profile columns ---'
+\i database/migrations/008_add_user_profile_columns.sql
+
+\echo ''
 \echo '==============================================='
 \echo 'All migrations completed successfully!'
 \echo '==============================================='
