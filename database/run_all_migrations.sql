@@ -44,6 +44,10 @@
 \i database/migrations/009_add_event_columns.sql
 
 \echo ''
+\echo '--- Migration 010: Add face_encodings to event_photos ---'
+\i database/migrations/010_add_face_encodings_column.sql
+
+\echo ''
 \echo '==============================================='
 \echo 'All migrations completed successfully!'
 \echo '==============================================='
