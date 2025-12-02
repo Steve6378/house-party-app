@@ -134,7 +134,7 @@ User Request: {request.task}
     if ground_truth_facts:
         event_context += "\n\nHost-Provided Information (Ground Truth):\n"
         for fact in ground_truth_facts:
-            event_context += f"- {fact.content}\n"
+            event_context += f"- {fact.key}: {fact.value}\n"
 
     # Add uploaded document content
     if uploaded_documents:

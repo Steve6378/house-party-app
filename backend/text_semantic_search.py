@@ -24,21 +24,22 @@ def semantic_search(question: str, event_id: str, limit: int = 3):
     # Convert list to PostgreSQL vector literal
     embedding_str = '[' + ','.join(map(str, query_embedding)) + ']'
     
-    # Search using cosine distance (embed the vector literal directly)
+    # Search using cosine distance (use CAST for safe parameterization)
     with engine.connect() as conn:
-        query = f"""
-            SELECT 
+        query = """
+            SELECT
                 key,
                 value,
-                (embedding <=> '{embedding_str}'::vector) as distance
+                (embedding <=> CAST(:embedding AS vector)) as distance
             FROM ground_truth_facts
             WHERE event_id = :event_id
             ORDER BY distance ASC
             LIMIT :limit
         """
-        
+
         result = conn.execute(text(query), {
             "event_id": event_id,
+            "embedding": embedding_str,
             "limit": limit
         })
         
