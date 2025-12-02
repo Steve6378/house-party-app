@@ -244,7 +244,7 @@ function GroupChatWorking() {
       // Get general AI response (no event context)
       setAiLoading(true);
       try {
-        const response = await aiAPI.generalQuery(question);
+        const response = await aiAPI.generalQuery(question, undefined, eventId);
 
         // Post AI response to chat
         await messagesAPI.send(eventId, {

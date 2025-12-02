@@ -193,6 +193,14 @@ async def update_event(
     if "address" in update_data and update_data["address"]:
         update_data["address"] = sanitize_event_address(update_data["address"])
 
+    # Parse date string to date object if provided
+    if "date" in update_data and update_data["date"]:
+        from datetime import datetime as dt
+        try:
+            update_data["date"] = dt.strptime(update_data["date"], "%Y-%m-%d").date()
+        except (ValueError, TypeError):
+            raise HTTPException(status_code=422, detail="Invalid date format. Use YYYY-MM-DD")
+
     # Apply updates
     for field, value in update_data.items():
         setattr(event, field, value)

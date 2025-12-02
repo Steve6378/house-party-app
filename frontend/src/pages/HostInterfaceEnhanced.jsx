@@ -248,6 +248,13 @@ function HostInterfaceEnhanced() {
         content: aiRequest,
         timestamp: new Date()
       };
+
+      // Build conversation history for context (include previous exchanges)
+      const historyForAPI = aiConversation
+        .filter(msg => msg.role === 'user' || msg.role === 'assistant')
+        .slice(-10)
+        .map(msg => ({ role: msg.role, content: msg.content }));
+
       setAiConversation(prev => [...prev, userMessage]);
 
       // Extract the actual question (remove #general prefix)
@@ -256,7 +263,7 @@ function HostInterfaceEnhanced() {
       setAiLoading(true);
 
       try {
-        const response = await aiAPI.generalQuery(cleanQuestion || 'Hello');
+        const response = await aiAPI.generalQuery(cleanQuestion || 'Hello', historyForAPI, id);
         const aiMessage = {
           role: 'assistant',
           content: response.answer || 'I couldn\'t generate a response.',
@@ -291,6 +298,13 @@ function HostInterfaceEnhanced() {
         content: aiRequest,
         timestamp: new Date()
       };
+
+      // Build conversation history for context (include previous groupchat exchanges)
+      const historyForAPI = aiConversation
+        .filter(msg => msg.role === 'user' || msg.role === 'assistant')
+        .slice(-10)
+        .map(msg => ({ role: msg.role, content: msg.content }));
+
       setAiConversation(prev => [...prev, userMessage]);
 
       // Extract the actual question (remove #groupchat prefix)
@@ -299,8 +313,8 @@ function HostInterfaceEnhanced() {
       setAiLoading(true);
 
       try {
-        // Use guestQuery which uses RAG to search chat history
-        const response = await aiAPI.guestQuery(id, cleanQuestion || 'What has everyone been talking about?');
+        // Use guestQuery which uses RAG to search chat history - pass conversation history for context
+        const response = await aiAPI.guestQuery(id, cleanQuestion || 'What has everyone been talking about?', historyForAPI);
         const aiMessage = {
           role: 'assistant',
           content: response.answer || 'I couldn\'t find any relevant information in the chat.',
@@ -313,6 +327,176 @@ function HostInterfaceEnhanced() {
         const errorMessage = {
           role: 'assistant',
           content: 'Sorry, I had trouble searching the chat history. Please try again.',
+          timestamp: new Date()
+        };
+        setAiConversation(prev => [...prev, errorMessage]);
+      } finally {
+        setAiLoading(false);
+        setSelectedMode(null);
+      }
+      return;
+    }
+
+    // Check if this is a #recommendation request (Google Places search)
+    // Also check if lastUsedMode was recommendation and no new hashtag was specified (for follow-up questions)
+    const isRecommendationRequest = selectedMode === 'recommendation' ||
+      aiRequest.toLowerCase().startsWith('#recommendation') ||
+      (!messageHasHashtag && lastUsedMode === 'recommendation');
+
+    if (isRecommendationRequest) {
+      const userMessage = {
+        role: 'user',
+        content: aiRequest,
+        timestamp: new Date()
+      };
+
+      setAiConversation(prev => [...prev, userMessage]);
+
+      // Extract the actual query (remove #recommendation prefix)
+      const cleanQuery = aiRequest.replace(/^#recommendation\s*/i, '').trim();
+      setAiRequest('');
+      setAiLoading(true);
+
+      try {
+        const response = await aiAPI.recommendation(id, cleanQuery || 'restaurants nearby');
+
+        let content = response.message || `Found ${response.total_found} places nearby`;
+
+        // Format places into a nice display
+        if (response.places && response.places.length > 0) {
+          content += '\n\n';
+          response.places.forEach((place, index) => {
+            content += `**${index + 1}. ${place.name}**\n`;
+            content += `📍 ${place.address}\n`;
+            if (place.rating) {
+              content += `⭐ ${place.rating}${place.total_ratings ? ` (${place.total_ratings} reviews)` : ''}\n`;
+            }
+            if (place.price_level) {
+              content += `💰 ${'$'.repeat(place.price_level)}\n`;
+            }
+            if (place.opening_hours) {
+              content += `🕐 ${place.opening_hours}\n`;
+            }
+            if (place.maps_url) {
+              content += `🔗 [View on Google Maps](${place.maps_url})\n`;
+            }
+            content += '\n';
+          });
+        }
+
+        const aiMessage = {
+          role: 'assistant',
+          content: content,
+          timestamp: new Date()
+        };
+        setAiConversation(prev => [...prev, aiMessage]);
+        setLastUsedMode('recommendation'); // Remember this mode for follow-up questions
+      } catch (error) {
+        console.error('Recommendation error:', error);
+        const errorMessage = {
+          role: 'assistant',
+          content: 'Sorry, I had trouble searching for recommendations. Make sure the event has a location set, or try setting your location in Settings.',
+          timestamp: new Date()
+        };
+        setAiConversation(prev => [...prev, errorMessage]);
+      } finally {
+        setAiLoading(false);
+        setSelectedMode(null);
+      }
+      return;
+    }
+
+    // Check if this is a #broadcast request (send message to all guests)
+    // Also check if lastUsedMode was broadcast and no new hashtag was specified
+    const isBroadcastRequest = selectedMode === 'broadcast' ||
+      aiRequest.toLowerCase().startsWith('#broadcast') ||
+      (!messageHasHashtag && lastUsedMode === 'broadcast');
+
+    if (isBroadcastRequest) {
+      const userMessage = {
+        role: 'user',
+        content: aiRequest,
+        timestamp: new Date()
+      };
+
+      setAiConversation(prev => [...prev, userMessage]);
+
+      // Extract the actual message (remove #broadcast prefix)
+      const cleanMessage = aiRequest.replace(/^#broadcast\s*/i, '').trim();
+      setAiRequest('');
+      setAiLoading(true);
+
+      try {
+        const response = await aiAPI.broadcast(id, cleanMessage || 'Hello everyone!');
+
+        const aiMessage = {
+          role: 'assistant',
+          content: response.success
+            ? `✅ Message broadcast successfully to all guests in the event chat!\n\n**Your announcement:**\n"${cleanMessage}"`
+            : 'Failed to broadcast message. Please try again.',
+          timestamp: new Date()
+        };
+        setAiConversation(prev => [...prev, aiMessage]);
+        setLastUsedMode('broadcast');
+      } catch (error) {
+        console.error('Broadcast error:', error);
+        const errorMessage = {
+          role: 'assistant',
+          content: 'Sorry, I had trouble broadcasting your message. Please try again.',
+          timestamp: new Date()
+        };
+        setAiConversation(prev => [...prev, errorMessage]);
+      } finally {
+        setAiLoading(false);
+        setSelectedMode(null);
+      }
+      return;
+    }
+
+    // Check if this is a #create request (generate AI invitation/cover image)
+    // Also check if lastUsedMode was create and no new hashtag was specified
+    const isCreateRequest = selectedMode === 'create' ||
+      aiRequest.toLowerCase().startsWith('#create') ||
+      (!messageHasHashtag && lastUsedMode === 'create');
+
+    if (isCreateRequest) {
+      const userMessage = {
+        role: 'user',
+        content: aiRequest || 'Generate an AI invitation image for my event',
+        timestamp: new Date()
+      };
+
+      setAiConversation(prev => [...prev, userMessage]);
+      setAiRequest('');
+      setAiLoading(true);
+
+      try {
+        // Call the DALL-E cover image generation endpoint
+        const response = await eventsAPI.generateCoverImage(id);
+
+        let content = '✨ AI invitation image generated successfully!\n\n';
+        content += 'Your new event cover image has been created using DALL-E and is now set as the event\'s cover image.\n\n';
+
+        if (response.cover_image_url) {
+          content += 'You can view it on your event page or share it with guests.';
+        }
+
+        const aiMessage = {
+          role: 'assistant',
+          content: content,
+          timestamp: new Date(),
+          coverImageUrl: response.cover_image_url
+        };
+        setAiConversation(prev => [...prev, aiMessage]);
+        setLastUsedMode('create');
+
+        // Refresh event data to show the new cover image
+        fetchEvent();
+      } catch (error) {
+        console.error('Create invitation error:', error);
+        const errorMessage = {
+          role: 'assistant',
+          content: 'Sorry, I had trouble generating the invitation image. This could be due to content policy restrictions or API limits. Please try again or upload a custom cover image from the event page.',
           timestamp: new Date()
         };
         setAiConversation(prev => [...prev, errorMessage]);
@@ -693,6 +877,24 @@ function HostInterfaceEnhanced() {
                                     />
                                   </div>
                                 ))}
+                              </div>
+                            </div>
+                          )}
+
+                          {/* Display generated cover image if present */}
+                          {msg.coverImageUrl && (
+                            <div className="mt-3">
+                              <div className="flex items-center gap-2 mb-2">
+                                <Palette className="w-4 h-4 text-pink-400" />
+                                <span className="text-xs text-gray-400">Generated Cover Image</span>
+                              </div>
+                              <div className="relative">
+                                <img
+                                  src={msg.coverImageUrl}
+                                  alt="Generated event cover"
+                                  className="w-full max-w-md rounded-lg border border-pink-500/30 hover:border-pink-500 transition-colors cursor-pointer"
+                                  onClick={() => window.open(msg.coverImageUrl, '_blank')}
+                                />
                               </div>
                             </div>
                           )}
