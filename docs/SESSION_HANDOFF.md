@@ -1,44 +1,99 @@
 # Session Handoff - Yorru MVP Polish
 
 **Date:** 2025-12-02
-**Branch:** `claude/resume-session-01Pg3uT3jRz6D9DtPoaahMD2`
-**Status:** MVP Bug Fixes Complete
+**Branch:** `claude/resolve-pr-conflicts-01JT3X23pVMvdVmwxfxZiZJP`
+**Status:** Bug Fixes + Codebase Audit Complete
 **Platform:** Yorru - AI-assisted night event planning
 
 ---
 
-## Current Status
+## Codebase Statistics
 
-### Completed This Session
+| Category | Lines of Code |
+|----------|---------------|
+| **Total** | ~22,200 LOC |
+| Backend Python | ~9,700 LOC |
+| Frontend TSX/JSX | ~8,900 LOC |
+| Database SQL | ~1,750 LOC |
+| Config/Utils | ~1,850 LOC |
 
-1. **PR #16 Integration Fixes** (previous session continued)
-   - Fixed numpy/opencv version conflict
-   - Added boto3 for R2 storage
-   - Created migrations 008, 009, 010 for new columns
-   - Fixed topics JSON parsing
-   - Fixed calendar page API calls
-   - Fixed navigation links in legacy components
+**Largest Files:**
+- HostInterfaceEnhanced.jsx (1,295 LOC)
+- ai.py routes (903 LOC)
+- CreateEventPage.jsx (833 LOC)
+- events.py routes (808 LOC)
 
-2. **Face Recognition Enable/Disable**
-   - Added `has_face_encoding` to UserResponse schema
-   - Added `DELETE /api/auth/me/face-recognition` endpoint
-   - Added confirmation modals for enable/disable
-   - Privacy-focused messaging in modals
+---
 
-3. **AI Greeting Fix**
-   - Added greeting detection in `event_rag.py`
-   - AI now responds naturally to "hi", "hello", "thanks" etc.
-   - No more event planning responses to casual chat
+## Current Session Completed
 
-4. **Image Cropping**
-   - Added `react-easy-crop` package
-   - Created reusable `ImageCropper` component
-   - Profile photo: round crop, 1:1 aspect ratio
-   - Event cover: selectable aspect ratios (16:9, 4:3, 1:1, 2:1)
+### 1. **PR #21 Conflict Resolution**
+- Merged event editing feature with conversation history support
+- Kept intelligent query routing from main
+- Added `conversation_history` parameter to RAG for follow-up questions
 
-5. **Documentation Updates**
-   - Updated `docs/deployment/CHECKLIST.md` with current state
-   - Updated this handoff document
+### 2. **SQL Syntax Fixes**
+- Fixed `:embedding::vector` SQLAlchemy parsing issue
+- Changed to `CAST(:embedding AS vector)` in all files:
+  - `backend/routes/events.py`
+  - `backend/routes/ground_truth.py`
+  - `backend/scripts/generate_embeddings.py`
+  - `backend/scripts/test_semantic_search.py`
+
+### 3. **R2 Storage Bug Fix**
+- Fixed double-read bug in local storage fallback
+- Was trying to read `file_data.read()` twice (stream consumed)
+- Now uses pre-extracted `data_bytes`
+
+### 4. **Image Cropper for EditEventPage**
+- EditEventPage was missing the cropper that CreateEventPage has
+- Added ImageCropper with width slider (2:1 to 4:1)
+- Added crop states and handlers
+
+### 5. **Face Recognition Toggle Fix**
+- Added `user_to_response()` helper function
+- Fixed GET/PUT/POST endpoints to return `has_face_encoding` correctly
+- Added `has_face_encoding` to frontend User interface
+
+---
+
+## Critical Issues Found (Codebase Audit)
+
+### BLOCKING BUGS (Will crash at runtime)
+
+| File | Line | Issue |
+|------|------|-------|
+| `chat.py` | 37 | **ImportError:** `verify_token` function doesn't exist in auth.py |
+| `ai.py` | 137 | **AttributeError:** Uses `fact.content` but should be `fact.value` |
+| `groups.py` | 540 | **NameError:** `sanitize_message_content()` is undefined |
+| `ground_truth.py` | 137 | **AttributeError:** Uses `fact.content` but should be `fact.value` |
+
+### SECURITY ISSUES
+
+| File | Line | Issue |
+|------|------|-------|
+| `ground_truth_query.py` | 79-89 | **SQL INJECTION:** embedding_str formatted directly into SQL |
+| `events.py` | 651 | **No Auth:** Cover image endpoint has no authentication |
+| `photos.py` | 345-352 | **Path Traversal:** FileResponse with user-controlled path |
+| `documents.py` | 23-24 | **Relative Path:** Upload dir depends on CWD |
+
+### DATABASE ISSUES
+
+| Issue | Impact |
+|-------|--------|
+| `audit_log.event_id` references `users(id)` instead of `events(id)` | FK constraint error |
+| Migration 009 adds same columns as 001 | "Column already exists" error |
+| `poll_votes` index created on wrong table (`polls`) | Index useless |
+| `escalated_questions` missing columns expected by ORM | Write failures |
+
+### FRONTEND ISSUES
+
+| File | Issue |
+|------|-------|
+| `HostInterfaceEnhanced.jsx` | `fetchContacts()` and `fetchGroups()` are empty placeholders (lines 117-132) |
+| `HostInterfaceEnhanced.jsx` | Document download/delete buttons have no handlers (lines 1010-1014) |
+| Multiple pages | Auth token in URL query params is security risk |
+| Multiple pages | Inconsistent auth pattern (Zustand vs React Context) |
 
 ---
 
@@ -52,59 +107,38 @@
 005_migrate_event_attendance.sql
 006_add_document_tables.sql
 007_add_photos_and_faqs.sql
-008_add_user_profile_columns.sql      <- PR #16
-009_add_event_columns.sql             <- PR #16
-010_add_face_encodings_column.sql     <- PR #16
+008_add_user_profile_columns.sql
+009_add_event_columns.sql          <- DUPLICATES COLS FROM 001
+010_add_face_encodings_column.sql
 ```
 
----
-
-## Key Files Changed
-
-### Backend
-- `backend/services/event_rag.py` - Greeting detection
-- `backend/routes/auth.py` - Face recognition disable endpoint
-- `backend/schemas/auth.py` - has_face_encoding field
-
-### Frontend
-- `frontend/src/components/ImageCropper.jsx` - NEW
-- `frontend/src/pages/ProfilePage.jsx` - Cropper + face recog modals
-- `frontend/src/pages/CreateEventPage.jsx` - Cover image cropper
-- `frontend/src/pages/CalendarPage.jsx` - Fixed API calls
+**Warning:** Migration 009 will fail if run after 001 (duplicate columns)
 
 ---
 
-## Outstanding Items
+## Environment Requirements
 
-### Environment Variables (Vercel)
-- [x] VITE_API_URL - Set
-- [x] VITE_GOOGLE_MAPS_API_KEY - Set (Nov 26)
-- [ ] Test address autocomplete in production
+### Railway Backend
+- **Volume Mount REQUIRED:** `/app/backend/uploads`
+  - Without this, uploaded images disappear on redeploy
+  - Add in Railway Dashboard > Backend Service > Settings > Volumes
 
-### Nice to Have (Post-MVP)
-- Email verification flow
-- Password reset
-- Push notifications
-- Event reminders
-- Payment integration (Stripe)
-- Social login (Google, Apple)
+### Environment Variables
+- `OPENAI_API_KEY` - For AI features
+- `GOOGLE_MAPS_API_KEY` - For location features
+- `IPINFO_API_KEY` - For auto-locate (optional)
+- `R2_*` - For Cloudflare R2 storage (optional, falls back to local)
 
 ---
 
 ## Recent Commits
 
 ```
-c9bd3c5 Add confirmation modals for face recognition enable/disable
-1f7f6c6 Add face recognition disable functionality
-94be1ee Fix broken navigation links in legacy components
-e54ee27 Fix multiple frontend bugs from PR #16
-d4513c2 Add migration 010 for face_encodings column
-33dfc4d Fix topics field: parse JSON string from DB before validation
-fb0b95b Add migration 009 for event columns
-eb6984e Add migration 008 for user profile columns
-2eb231a Add boto3 dependency for R2 storage
-7d8b486 Fix migration numbering from PR #16
-2e61236 Fix numpy/opencv version conflict
+813c5c5 Fix face recognition toggle and user response serialization
+37efd2a Add image cropper to EditEventPage
+bc08808 Fix SQL syntax errors and R2 storage bug
+962ed75 Resolve PR #21 conflicts: event editing and AI conversation history
+2e08cc7 Merge PR #21: Add event editing and conversation history support
 ```
 
 ---
@@ -122,31 +156,15 @@ eb6984e Add migration 008 for user profile columns
 - Frontend: React + Vite + TypeScript
 - Real-time: Socket.io
 - AI: OpenAI GPT-4o-mini + LangChain RAG
-- Storage: Cloudflare R2
+- Storage: Cloudflare R2 (with local fallback)
 - Auth: JWT tokens
 
 ---
 
-## Quick Start
+## Next Priority Fixes
 
-```bash
-# Backend (local)
-cd backend
-python -m venv venv
-source venv/bin/activate
-pip install -r requirements.txt
-uvicorn main:app --reload
-
-# Frontend (local)
-cd frontend
-npm install
-npm run dev
-
-# Migrations (Railway)
-psql "$DATABASE_PUBLIC_URL" -f database/run_all_migrations.sql
-```
-
----
-
-**Working tree:** Check `git status`
-**Next steps:** Test in production, address any remaining issues
+1. **Fix blocking bugs** (chat.py, ai.py, groups.py, ground_truth.py)
+2. **Add Railway volume mount** for image persistence
+3. **Fix SQL injection** in ground_truth_query.py
+4. **Fix migration 009** to conditionally add columns
+5. **Implement fetchContacts/fetchGroups** in HostInterfaceEnhanced
