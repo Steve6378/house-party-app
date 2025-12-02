@@ -42,7 +42,7 @@ def semantic_search(question: str, event_id: str, limit: int = 3):
             SELECT 
                 key,
                 value,
-                (embedding <=> :query_embedding::vector) as distance
+                (embedding <=> CAST(:query_embedding AS vector)) as distance
             FROM ground_truth_facts
             WHERE event_id = :event_id
               AND embedding IS NOT NULL
