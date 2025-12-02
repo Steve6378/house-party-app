@@ -32,6 +32,10 @@
 \i database/migrations/006_add_document_tables.sql
 
 \echo ''
+\echo '--- Migration 007: Add photos and FAQs tables ---'
+\i database/migrations/007_add_photos_and_faqs.sql
+
+\echo ''
 \echo '==============================================='
 \echo 'All migrations completed successfully!'
 \echo '==============================================='
