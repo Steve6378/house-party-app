@@ -389,7 +389,7 @@ function HostInterfaceEnhanced() {
     setUploadingDocument(true);
     try {
       const result = await documentsAPI.upload(id, file);
-      toast.success(`Document "${file.name}" uploaded! AI extracted ${result.extracted_text_length || 0} characters.`);
+      toast.success(`"${file.name}" uploaded! AI extracted ${result.extracted_text_length || 0} characters.`);
       fetchDocuments();
     } catch (error) {
       toast.error('Failed to upload document');
@@ -737,7 +737,7 @@ function HostInterfaceEnhanced() {
                           setSelectedMode(null);
                         }
                       }}
-                      onKeyDown={(e) => e.key === 'Enter' && handleAiRequest()}
+                      onKeyDown={(e) => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); handleAiRequest(); } }}
                       placeholder={selectedMode ? `Ask about ${selectedMode}...` : "Ask AI to help (e.g., '#recommendation find Italian food nearby')..."}
                       className="flex-1 px-4 py-3 bg-dark-700/50 border border-primary-500/30 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition"
                     />
@@ -777,12 +777,12 @@ function HostInterfaceEnhanced() {
                 ) : (
                   <Upload className="w-5 h-5" />
                 )}
-                Upload Document
+                Upload File
               </button>
               <input
                 ref={fileInputRef}
                 type="file"
-                accept=".pdf,.doc,.docx"
+                accept=".pdf,.txt,.jpg,.jpeg,.png,.gif,.webp"
                 onChange={handleDocumentUpload}
                 className="hidden"
               />
@@ -800,7 +800,7 @@ function HostInterfaceEnhanced() {
                       <div>
                         <p className="text-white font-semibold">{doc.filename}</p>
                         <p className="text-sm text-gray-400">
-                          Uploaded {new Date(doc.uploaded_at).toLocaleDateString()}
+                          Uploaded {doc.created_at ? new Date(doc.created_at).toLocaleDateString() : 'recently'}
                         </p>
                       </div>
                     </div>
@@ -818,8 +818,8 @@ function HostInterfaceEnhanced() {
             ) : (
               <div className="text-center py-12">
                 <FileText className="w-16 h-16 text-gray-500 mx-auto mb-4" />
-                <p className="text-gray-400">No documents uploaded yet</p>
-                <p className="text-gray-500 text-sm mt-2">Upload PDFs, contracts, or event materials</p>
+                <p className="text-gray-400">No files uploaded yet</p>
+                <p className="text-gray-500 text-sm mt-2">Upload PDFs, images, menus, schedules - AI will read them</p>
               </div>
             )}
           </div>
@@ -1004,7 +1004,7 @@ function HostInterfaceEnhanced() {
                     type="email"
                     value={newContactEmail}
                     onChange={(e) => setNewContactEmail(e.target.value)}
-                    onKeyDown={(e) => e.key === 'Enter' && handleAddContact()}
+                    onKeyDown={(e) => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); handleAddContact(); } }}
                     placeholder="Enter email address..."
                     className="flex-1 px-4 py-3 bg-dark-700/50 border border-primary-500/30 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition"
                   />

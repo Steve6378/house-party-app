@@ -72,15 +72,15 @@ const EventDetail: React.FC = () => {
         <div className="flex flex-col md:flex-row md:items-center md:justify-between">
           <h1 className="text-2xl font-bold text-gray-900">{event.title}</h1>
           <div className="mt-2 md:mt-0 flex space-x-2">
-            <Link to={`/host/${id}`} className="inline-flex items-center px-3 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+            <Link to={`/event/${id}/host`} className="inline-flex items-center px-3 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
               <UserIcon className="h-4 w-4 mr-2" />
               Host Chat
             </Link>
-            <Link to={`/group/${id}`} className="inline-flex items-center px-3 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+            <Link to={`/event/${id}/chat`} className="inline-flex items-center px-3 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
               <Users2Icon className="h-4 w-4 mr-2" />
               Group Chat
             </Link>
-            <Link to={`/guest/${id}`} className="inline-flex items-center px-3 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+            <Link to={`/event/${id}/guest`} className="inline-flex items-center px-3 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
               <MessageCircleIcon className="h-4 w-4 mr-2" />
               Guest Chat
             </Link>

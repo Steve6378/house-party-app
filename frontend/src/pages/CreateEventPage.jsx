@@ -27,6 +27,7 @@ import { toast } from 'sonner';
 import { eventsAPI, aiAPI } from '../utils/api.ts';
 import { initGoogleMaps } from '../utils/googleMaps';
 import AddressAutocomplete from '../components/AddressAutocomplete';
+import ImageCropper from '../components/ImageCropper';
 
 function CreateEventPage() {
   const navigate = useNavigate();
@@ -59,6 +60,8 @@ function CreateEventPage() {
   const [uploadingCover, setUploadingCover] = useState(false);
   const [generatingCover, setGeneratingCover] = useState(false);
   const [createdEventId, setCreatedEventId] = useState(null);
+  const [showCropper, setShowCropper] = useState(false);
+  const [cropperImage, setCropperImage] = useState(null);
 
   // Available topics based on the topics.png reference
   const availableTopics = [
@@ -102,17 +105,36 @@ function CreateEventPage() {
         toast.error('Please select an image file');
         return;
       }
-      if (file.size > 10 * 1024 * 1024) {
-        toast.error('Image must be less than 10MB');
+      if (file.size > 15 * 1024 * 1024) { // Allow larger for cropping
+        toast.error('Image must be less than 15MB');
         return;
       }
-      setCoverImage(file);
+      // Show cropper instead of setting directly
       const reader = new FileReader();
       reader.onloadend = () => {
-        setCoverImagePreview(reader.result);
+        setCropperImage(reader.result);
+        setShowCropper(true);
       };
       reader.readAsDataURL(file);
     }
+  };
+
+  const handleCropComplete = (croppedFile) => {
+    setShowCropper(false);
+    setCropperImage(null);
+    setCoverImage(croppedFile);
+    // Show preview
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      setCoverImagePreview(reader.result);
+    };
+    reader.readAsDataURL(croppedFile);
+    toast.success('Image cropped successfully!');
+  };
+
+  const handleCropCancel = () => {
+    setShowCropper(false);
+    setCropperImage(null);
   };
 
   const handleRemoveCoverImage = () => {
@@ -791,6 +813,19 @@ function CreateEventPage() {
           </div>
         </div>
       </div>
+
+      {/* Cover Image Cropper */}
+      {showCropper && cropperImage && (
+        <ImageCropper
+          image={cropperImage}
+          onCropComplete={handleCropComplete}
+          onCancel={handleCropCancel}
+          title="Crop Cover Image"
+          widthSlider={true}
+          minAspect={2}
+          maxAspect={4}
+        />
+      )}
     </div>
   );
 }

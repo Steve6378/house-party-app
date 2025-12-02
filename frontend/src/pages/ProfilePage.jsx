@@ -12,11 +12,15 @@ import {
   Loader2,
   Scan,
   MapPin,
-  Navigation
+  Navigation,
+  X,
+  ShieldCheck,
+  ShieldOff
 } from 'lucide-react';
 import { toast } from 'sonner';
 import { authAPI } from '../utils/api.ts';
 import { API_URL } from '../config/api';
+import ImageCropper from '../components/ImageCropper';
 
 function ProfilePage() {
   const navigate = useNavigate();
@@ -39,6 +43,9 @@ function ProfilePage() {
   const [photoPreview, setPhotoPreview] = useState(null);
   const [faceEncodingLoading, setFaceEncodingLoading] = useState(false);
   const [locationLoading, setLocationLoading] = useState(false);
+  const [showFaceModal, setShowFaceModal] = useState(null); // 'enable' or 'disable' or null
+  const [showCropper, setShowCropper] = useState(false);
+  const [cropperImage, setCropperImage] = useState(null);
 
   useEffect(() => {
     if (!isAuthenticated) {
@@ -76,8 +83,8 @@ function ProfilePage() {
   const handlePhotoSelect = async (e) => {
     const file = e.target.files?.[0];
     if (file) {
-      if (file.size > 5 * 1024 * 1024) {
-        toast.error('Photo must be less than 5MB');
+      if (file.size > 10 * 1024 * 1024) { // Allow larger for cropping, will compress
+        toast.error('Photo must be less than 10MB');
         return;
       }
       if (!file.type.startsWith('image/')) {
@@ -85,33 +92,51 @@ function ProfilePage() {
         return;
       }
 
-      setProfilePhoto(file);
-      // Show local preview immediately
+      // Show cropper instead of uploading directly
       const reader = new FileReader();
       reader.onloadend = () => {
-        setPhotoPreview(reader.result);
+        setCropperImage(reader.result);
+        setShowCropper(true);
       };
       reader.readAsDataURL(file);
-
-      // Upload to backend
-      setPhotoUploading(true);
-      try {
-        const updatedUser = await authAPI.uploadProfilePhoto(file);
-        updateUser(updatedUser);
-        toast.success('Profile photo updated!');
-      } catch (error) {
-        console.error('Failed to upload photo:', error);
-        toast.error('Failed to upload photo');
-        // Revert preview on error
-        if (user?.profile_photo) {
-          setPhotoPreview(`${API_URL}/api/auth/me/photo?token=${token}&t=${Date.now()}`);
-        } else {
-          setPhotoPreview(null);
-        }
-      } finally {
-        setPhotoUploading(false);
-      }
     }
+  };
+
+  const handleCropComplete = async (croppedFile) => {
+    setShowCropper(false);
+    setCropperImage(null);
+    setProfilePhoto(croppedFile);
+
+    // Show local preview
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      setPhotoPreview(reader.result);
+    };
+    reader.readAsDataURL(croppedFile);
+
+    // Upload to backend
+    setPhotoUploading(true);
+    try {
+      const updatedUser = await authAPI.uploadProfilePhoto(croppedFile);
+      updateUser(updatedUser);
+      toast.success('Profile photo updated!');
+    } catch (error) {
+      console.error('Failed to upload photo:', error);
+      toast.error('Failed to upload photo');
+      // Revert preview on error
+      if (user?.profile_photo) {
+        setPhotoPreview(`${API_URL}/api/auth/me/photo?token=${token}&t=${Date.now()}`);
+      } else {
+        setPhotoPreview(null);
+      }
+    } finally {
+      setPhotoUploading(false);
+    }
+  };
+
+  const handleCropCancel = () => {
+    setShowCropper(false);
+    setCropperImage(null);
   };
 
   const handleSubmit = async (e) => {
@@ -144,18 +169,41 @@ function ProfilePage() {
     return name?.split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2) || 'U';
   };
 
-  const handleEnableFaceRecognition = async () => {
+  const handleEnableFaceRecognition = () => {
     if (!user?.profile_photo) {
       toast.error('Please upload a profile photo first');
       return;
     }
+    setShowFaceModal('enable');
+  };
+
+  const handleDisableFaceRecognition = () => {
+    setShowFaceModal('disable');
+  };
+
+  const confirmFaceRecognitionAction = async () => {
+    const action = showFaceModal;
+    setShowFaceModal(null);
     setFaceEncodingLoading(true);
+
     try {
-      const result = await authAPI.refreshFaceEncoding();
-      toast.success(result.message || 'Face recognition enabled! You can now use #photos to find yourself in event photos.');
+      if (action === 'enable') {
+        const result = await authAPI.refreshFaceEncoding();
+        const updatedUser = await authAPI.getProfile();
+        updateUser(updatedUser);
+        toast.success(result.message || 'Face recognition enabled! You can now use #photos to find yourself in event photos.');
+      } else {
+        const result = await authAPI.disableFaceRecognition();
+        const updatedUser = await authAPI.getProfile();
+        updateUser(updatedUser);
+        toast.success(result.message || 'Face recognition disabled.');
+      }
     } catch (error) {
-      console.error('Failed to enable face recognition:', error);
-      const errorMessage = error.response?.data?.detail || 'Failed to enable face recognition. Make sure your profile photo has a clear, visible face.';
+      console.error(`Failed to ${action} face recognition:`, error);
+      const errorMessage = error.response?.data?.detail ||
+        (action === 'enable'
+          ? 'Failed to enable face recognition. Make sure your profile photo has a clear, visible face.'
+          : 'Failed to disable face recognition.');
       toast.error(errorMessage);
     } finally {
       setFaceEncodingLoading(false);
@@ -252,27 +300,58 @@ function ProfilePage() {
                     <p className="text-white font-medium flex items-center gap-2">
                       <Scan className="w-4 h-4" />
                       Face Recognition
+                      {user?.has_face_encoding && (
+                        <span className="text-xs bg-green-500/20 text-green-400 px-2 py-0.5 rounded-full">
+                          Enabled
+                        </span>
+                      )}
                     </p>
-                    <p className="text-gray-400 text-sm">Enable to find yourself in event photos using #photos</p>
+                    <p className="text-gray-400 text-sm">
+                      {user?.has_face_encoding
+                        ? 'You can find yourself in event photos using #photos'
+                        : 'Enable to find yourself in event photos using #photos'
+                      }
+                    </p>
                   </div>
-                  <button
-                    type="button"
-                    onClick={handleEnableFaceRecognition}
-                    disabled={faceEncodingLoading}
-                    className="bg-secondary-600 hover:bg-secondary-700 text-white px-4 py-2 rounded-lg font-medium transition flex items-center gap-2 disabled:opacity-50"
-                  >
-                    {faceEncodingLoading ? (
-                      <>
-                        <Loader2 className="w-4 h-4 animate-spin" />
-                        Processing...
-                      </>
-                    ) : (
-                      <>
-                        <Scan className="w-4 h-4" />
-                        Enable Face Recognition
-                      </>
-                    )}
-                  </button>
+                  {user?.has_face_encoding ? (
+                    <button
+                      type="button"
+                      onClick={handleDisableFaceRecognition}
+                      disabled={faceEncodingLoading}
+                      className="bg-red-600/20 hover:bg-red-600/30 text-red-400 border border-red-500/30 px-4 py-2 rounded-lg font-medium transition flex items-center gap-2 disabled:opacity-50"
+                    >
+                      {faceEncodingLoading ? (
+                        <>
+                          <Loader2 className="w-4 h-4 animate-spin" />
+                          Processing...
+                        </>
+                      ) : (
+                        <>
+                          <Scan className="w-4 h-4" />
+                          Disable
+                        </>
+                      )}
+                    </button>
+                  ) : (
+                    <button
+                      type="button"
+                      onClick={handleEnableFaceRecognition}
+                      disabled={faceEncodingLoading}
+                      className="bg-secondary-600 hover:bg-secondary-700 text-white px-4 py-2 rounded-lg font-medium transition flex items-center gap-2 disabled:opacity-50"
+                    >
+                      {faceEncodingLoading ? (
+                        <>
+                          <Loader2 className="w-4 h-4 animate-spin" />
+                          Processing...
+                        </>
+                      ) : (
+                        <>
+                          <Scan className="w-4 h-4" />
+                          Enable
+                        </>
+                      )}
+                    </button>
+                  )}
                 </div>
               </div>
             )}
@@ -434,6 +513,113 @@ function ProfilePage() {
           </div>
         </form>
       </div>
+
+      {/* Profile Photo Cropper */}
+      {showCropper && cropperImage && (
+        <ImageCropper
+          image={cropperImage}
+          onCropComplete={handleCropComplete}
+          onCancel={handleCropCancel}
+          aspectRatio={1}
+          cropShape="round"
+          title="Crop Profile Photo"
+        />
+      )}
+
+      {/* Face Recognition Confirmation Modal */}
+      {showFaceModal && (
+        <div className="fixed inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center z-50 p-4">
+          <div className="bg-dark-800 border border-primary-500/30 rounded-2xl max-w-md w-full p-6 shadow-2xl">
+            <div className="flex items-center justify-between mb-4">
+              <div className="flex items-center gap-3">
+                {showFaceModal === 'enable' ? (
+                  <div className="p-2 bg-green-500/20 rounded-lg">
+                    <ShieldCheck className="w-6 h-6 text-green-400" />
+                  </div>
+                ) : (
+                  <div className="p-2 bg-red-500/20 rounded-lg">
+                    <ShieldOff className="w-6 h-6 text-red-400" />
+                  </div>
+                )}
+                <h3 className="text-xl font-bold text-white">
+                  {showFaceModal === 'enable' ? 'Enable Face Recognition' : 'Disable Face Recognition'}
+                </h3>
+              </div>
+              <button
+                onClick={() => setShowFaceModal(null)}
+                className="text-gray-400 hover:text-white transition"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+
+            {showFaceModal === 'enable' ? (
+              <div className="space-y-4 mb-6">
+                <p className="text-gray-300">
+                  By enabling face recognition, you agree to the following:
+                </p>
+                <ul className="space-y-2 text-sm text-gray-400">
+                  <li className="flex items-start gap-2">
+                    <span className="text-green-400 mt-0.5">•</span>
+                    <span>We will create a facial encoding from your profile photo</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-green-400 mt-0.5">•</span>
+                    <span>This encoding is used <strong className="text-gray-300">only</strong> to find photos of you at events you attend</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-green-400 mt-0.5">•</span>
+                    <span>Your face data is stored securely and never shared with third parties</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-green-400 mt-0.5">•</span>
+                    <span>You can disable this feature anytime and we will delete your face data</span>
+                  </li>
+                </ul>
+              </div>
+            ) : (
+              <div className="space-y-4 mb-6">
+                <p className="text-gray-300">
+                  Are you sure you want to disable face recognition?
+                </p>
+                <ul className="space-y-2 text-sm text-gray-400">
+                  <li className="flex items-start gap-2">
+                    <span className="text-red-400 mt-0.5">•</span>
+                    <span>Your facial encoding will be <strong className="text-gray-300">permanently deleted</strong> from our servers</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-red-400 mt-0.5">•</span>
+                    <span>You will no longer be able to use <strong className="text-gray-300">#photos</strong> to find yourself in event photos</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-gray-500 mt-0.5">•</span>
+                    <span>You can re-enable this feature anytime by uploading a new profile photo</span>
+                  </li>
+                </ul>
+              </div>
+            )}
+
+            <div className="flex gap-3">
+              <button
+                onClick={() => setShowFaceModal(null)}
+                className="flex-1 px-4 py-3 bg-dark-700 hover:bg-dark-600 text-gray-300 rounded-lg font-medium transition"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={confirmFaceRecognitionAction}
+                className={`flex-1 px-4 py-3 rounded-lg font-medium transition ${
+                  showFaceModal === 'enable'
+                    ? 'bg-green-600 hover:bg-green-700 text-white'
+                    : 'bg-red-600 hover:bg-red-700 text-white'
+                }`}
+              >
+                {showFaceModal === 'enable' ? 'Yes, Enable' : 'Yes, Disable'}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

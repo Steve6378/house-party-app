@@ -659,12 +659,25 @@ function GroupChatWorking() {
                 <FileText className="w-5 h-5" />
               </button>
 
-              <input
-                type="text"
+              <textarea
                 value={message}
                 onChange={(e) => setMessage(e.target.value)}
-                placeholder={selectedImage ? "Add a caption (optional)..." : "Type a message..."}
-                className="flex-1 py-3 px-4 bg-dark-700/50 border border-primary-500/30 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition"
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' && !e.shiftKey) {
+                    e.preventDefault();
+                    if (message.trim() || selectedImage) {
+                      if (selectedImage) {
+                        handleUploadImage();
+                      } else {
+                        handleSendMessage(e);
+                      }
+                    }
+                  }
+                }}
+                placeholder={selectedImage ? "Add a caption (optional)..." : "Type a message... (Shift+Enter for new line)"}
+                rows={1}
+                className="flex-1 py-3 px-4 bg-dark-700/50 border border-primary-500/30 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition resize-none"
+                style={{ minHeight: '48px', maxHeight: '120px' }}
               />
               <button
                 type="submit"

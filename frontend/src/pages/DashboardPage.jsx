@@ -18,6 +18,7 @@ import {
 } from 'lucide-react';
 import { toast } from 'sonner';
 import { eventsAPI } from '../utils/api.ts';
+import { API_URL } from '../config/api';
 
 function DashboardPage() {
   const navigate = useNavigate();
@@ -109,7 +110,7 @@ function DashboardPage() {
         <div className={`h-32 w-full relative ${!event.cover_image_url ? `bg-gradient-to-r ${getDefaultGradient()}` : ''}`}>
           {event.cover_image_url ? (
             <img
-              src={event.cover_image_url}
+              src={event.cover_image_url.startsWith('/api/') ? `${API_URL}${event.cover_image_url}` : event.cover_image_url}
               alt={event.name}
               className="w-full h-full object-cover"
             />

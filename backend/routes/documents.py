@@ -26,8 +26,8 @@ os.makedirs(UPLOAD_DIR, exist_ok=True)
 # Max file size: 10MB
 MAX_FILE_SIZE = 10 * 1024 * 1024
 
-# Allowed file types
-ALLOWED_EXTENSIONS = {".pdf", ".txt"}
+# Allowed file types (images processed via Vision API)
+ALLOWED_EXTENSIONS = {".pdf", ".txt", ".jpg", ".jpeg", ".png", ".gif", ".webp"}
 
 
 @router.post("/{event_id}/documents", response_model=DocumentUploadResponse)
@@ -44,7 +44,8 @@ async def upload_document(
 
     Any user with event access can upload documents.
     The AI will be able to answer questions about uploaded documents.
-    Supported formats: PDF, TXT
+    Supported formats: PDF, TXT, JPG, PNG, GIF, WEBP
+    Images are processed using Vision AI to extract text and describe content.
     Max file size: 10MB
     """
     # Verify event exists and user has permission (view access is enough to upload)
@@ -59,7 +60,7 @@ async def upload_document(
     if file_ext not in ALLOWED_EXTENSIONS:
         raise HTTPException(
             status_code=400,
-            detail=f"Unsupported file type. Allowed: {', '.join(ALLOWED_EXTENSIONS)}"
+            detail=f"Unsupported file type. Allowed: PDF, TXT, JPG, PNG, GIF, WEBP"
         )
 
     # Check file size

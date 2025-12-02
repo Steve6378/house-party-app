@@ -5,8 +5,8 @@ import { Calendar as CalendarComponent, momentLocalizer } from 'react-big-calend
 import moment from 'moment';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import { ArrowLeft, Calendar as CalendarIcon } from 'lucide-react';
-import axios from 'axios';
 import { toast } from 'sonner';
+import { eventsAPI } from '../utils/api.ts';
 
 // Setup the localizer for react-big-calendar
 const localizer = momentLocalizer(moment);
@@ -29,26 +29,24 @@ function CalendarPage() {
 
   const fetchAllEvents = async () => {
     try {
-      const [hosting, attending] = await Promise.all([
-        axios.get(`http://localhost:3000/api/events?userId=${user.id}&type=hosting`),
-        axios.get(`http://localhost:3000/api/events?userId=${user.id}&type=attending`),
-      ]);
-
-      const allEvents = [...hosting.data, ...attending.data];
+      // Get all events the user has access to
+      const data = await eventsAPI.list();
+      const allEvents = data.events || data || [];
       setEvents(allEvents);
 
       // Convert to calendar events format
       const formattedEvents = allEvents.map(event => {
-        const startDate = moment(`${event.date} ${event.time}`, 'YYYY-MM-DD HH:mm').toDate();
+        const timeStr = event.time || '18:00';
+        const startDate = moment(`${event.date} ${timeStr}`, 'YYYY-MM-DD HH:mm').toDate();
         const endDate = moment(startDate).add(2, 'hours').toDate(); // Default 2 hour duration
 
         return {
-          id: event._id,
+          id: event.id,
           title: event.name,
           start: startDate,
           end: endDate,
           resource: event,
-          isHost: event.hostId === user.id
+          isHost: event.main_host_id === user?.id
         };
       });
 
@@ -148,11 +146,11 @@ function CalendarPage() {
 
         <div className="mt-6 grid grid-cols-1 md:grid-cols-3 gap-4">
           <div className="bg-dark-800/30 backdrop-blur-xl border border-primary-500/20 rounded-xl p-6 text-center">
-            <div className="text-3xl font-bold text-white mb-2">{events.filter(e => e.hostId === user.id).length}</div>
+            <div className="text-3xl font-bold text-white mb-2">{events.filter(e => e.main_host_id === user?.id).length}</div>
             <p className="text-gray-300">Events Hosting</p>
           </div>
           <div className="bg-dark-800/30 backdrop-blur-xl border border-accent-500/20 rounded-xl p-6 text-center">
-            <div className="text-3xl font-bold text-white mb-2">{events.filter(e => e.hostId !== user.id).length}</div>
+            <div className="text-3xl font-bold text-white mb-2">{events.filter(e => e.main_host_id !== user?.id).length}</div>
             <p className="text-gray-300">Events Attending</p>
           </div>
           <div className="bg-dark-800/30 backdrop-blur-xl border border-secondary-500/20 rounded-xl p-6 text-center">

@@ -32,7 +32,7 @@ const ChatOptions: React.FC = () => {
           <p className="text-gray-600">{event.date}</p>
         </div>
         <div className="space-y-4">
-          <Link to={`/group/${id}`} className="block p-6 border-2 border-gray-200 rounded-lg hover:border-indigo-500 hover:shadow-md transition-all">
+          <Link to={`/event/${id}/chat`} className="block p-6 border-2 border-gray-200 rounded-lg hover:border-indigo-500 hover:shadow-md transition-all">
             <div className="flex items-center">
               <div className="flex-shrink-0 w-12 h-12 bg-indigo-100 rounded-lg flex items-center justify-center">
                 <Users2Icon className="h-6 w-6 text-indigo-600" />
@@ -48,7 +48,7 @@ const ChatOptions: React.FC = () => {
               <ArrowLeftIcon className="h-5 w-5 text-gray-400 transform rotate-180" />
             </div>
           </Link>
-          {isHost ? <Link to={`/host/${id}`} className="block p-6 border-2 border-gray-200 rounded-lg hover:border-indigo-500 hover:shadow-md transition-all">
+          {isHost ? <Link to={`/event/${id}/host`} className="block p-6 border-2 border-gray-200 rounded-lg hover:border-indigo-500 hover:shadow-md transition-all">
               <div className="flex items-center">
                 <div className="flex-shrink-0 w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center">
                   <UserIcon className="h-6 w-6 text-purple-600" />
@@ -63,7 +63,7 @@ const ChatOptions: React.FC = () => {
                 </div>
                 <ArrowLeftIcon className="h-5 w-5 text-gray-400 transform rotate-180" />
               </div>
-            </Link> : <Link to={`/guest/${id}`} className="block p-6 border-2 border-gray-200 rounded-lg hover:border-indigo-500 hover:shadow-md transition-all">
+            </Link> : <Link to={`/event/${id}/guest`} className="block p-6 border-2 border-gray-200 rounded-lg hover:border-indigo-500 hover:shadow-md transition-all">
               <div className="flex items-center">
                 <div className="flex-shrink-0 w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center">
                   <MessageCircleIcon className="h-6 w-6 text-green-600" />
