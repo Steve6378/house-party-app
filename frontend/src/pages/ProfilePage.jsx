@@ -12,7 +12,10 @@ import {
   Loader2,
   Scan,
   MapPin,
-  Navigation
+  Navigation,
+  X,
+  ShieldCheck,
+  ShieldOff
 } from 'lucide-react';
 import { toast } from 'sonner';
 import { authAPI } from '../utils/api.ts';
@@ -39,6 +42,7 @@ function ProfilePage() {
   const [photoPreview, setPhotoPreview] = useState(null);
   const [faceEncodingLoading, setFaceEncodingLoading] = useState(false);
   const [locationLoading, setLocationLoading] = useState(false);
+  const [showFaceModal, setShowFaceModal] = useState(null); // 'enable' or 'disable' or null
 
   useEffect(() => {
     if (!isAuthenticated) {
@@ -144,38 +148,41 @@ function ProfilePage() {
     return name?.split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2) || 'U';
   };
 
-  const handleEnableFaceRecognition = async () => {
+  const handleEnableFaceRecognition = () => {
     if (!user?.profile_photo) {
       toast.error('Please upload a profile photo first');
       return;
     }
-    setFaceEncodingLoading(true);
-    try {
-      const result = await authAPI.refreshFaceEncoding();
-      // Refresh user data to get updated has_face_encoding
-      const updatedUser = await authAPI.getProfile();
-      updateUser(updatedUser);
-      toast.success(result.message || 'Face recognition enabled! You can now use #photos to find yourself in event photos.');
-    } catch (error) {
-      console.error('Failed to enable face recognition:', error);
-      const errorMessage = error.response?.data?.detail || 'Failed to enable face recognition. Make sure your profile photo has a clear, visible face.';
-      toast.error(errorMessage);
-    } finally {
-      setFaceEncodingLoading(false);
-    }
+    setShowFaceModal('enable');
   };
 
-  const handleDisableFaceRecognition = async () => {
+  const handleDisableFaceRecognition = () => {
+    setShowFaceModal('disable');
+  };
+
+  const confirmFaceRecognitionAction = async () => {
+    const action = showFaceModal;
+    setShowFaceModal(null);
     setFaceEncodingLoading(true);
+
     try {
-      const result = await authAPI.disableFaceRecognition();
-      // Refresh user data to get updated has_face_encoding
-      const updatedUser = await authAPI.getProfile();
-      updateUser(updatedUser);
-      toast.success(result.message || 'Face recognition disabled.');
+      if (action === 'enable') {
+        const result = await authAPI.refreshFaceEncoding();
+        const updatedUser = await authAPI.getProfile();
+        updateUser(updatedUser);
+        toast.success(result.message || 'Face recognition enabled! You can now use #photos to find yourself in event photos.');
+      } else {
+        const result = await authAPI.disableFaceRecognition();
+        const updatedUser = await authAPI.getProfile();
+        updateUser(updatedUser);
+        toast.success(result.message || 'Face recognition disabled.');
+      }
     } catch (error) {
-      console.error('Failed to disable face recognition:', error);
-      const errorMessage = error.response?.data?.detail || 'Failed to disable face recognition.';
+      console.error(`Failed to ${action} face recognition:`, error);
+      const errorMessage = error.response?.data?.detail ||
+        (action === 'enable'
+          ? 'Failed to enable face recognition. Make sure your profile photo has a clear, visible face.'
+          : 'Failed to disable face recognition.');
       toast.error(errorMessage);
     } finally {
       setFaceEncodingLoading(false);
@@ -485,6 +492,101 @@ function ProfilePage() {
           </div>
         </form>
       </div>
+
+      {/* Face Recognition Confirmation Modal */}
+      {showFaceModal && (
+        <div className="fixed inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center z-50 p-4">
+          <div className="bg-dark-800 border border-primary-500/30 rounded-2xl max-w-md w-full p-6 shadow-2xl">
+            <div className="flex items-center justify-between mb-4">
+              <div className="flex items-center gap-3">
+                {showFaceModal === 'enable' ? (
+                  <div className="p-2 bg-green-500/20 rounded-lg">
+                    <ShieldCheck className="w-6 h-6 text-green-400" />
+                  </div>
+                ) : (
+                  <div className="p-2 bg-red-500/20 rounded-lg">
+                    <ShieldOff className="w-6 h-6 text-red-400" />
+                  </div>
+                )}
+                <h3 className="text-xl font-bold text-white">
+                  {showFaceModal === 'enable' ? 'Enable Face Recognition' : 'Disable Face Recognition'}
+                </h3>
+              </div>
+              <button
+                onClick={() => setShowFaceModal(null)}
+                className="text-gray-400 hover:text-white transition"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+
+            {showFaceModal === 'enable' ? (
+              <div className="space-y-4 mb-6">
+                <p className="text-gray-300">
+                  By enabling face recognition, you agree to the following:
+                </p>
+                <ul className="space-y-2 text-sm text-gray-400">
+                  <li className="flex items-start gap-2">
+                    <span className="text-green-400 mt-0.5">•</span>
+                    <span>We will create a facial encoding from your profile photo</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-green-400 mt-0.5">•</span>
+                    <span>This encoding is used <strong className="text-gray-300">only</strong> to find photos of you at events you attend</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-green-400 mt-0.5">•</span>
+                    <span>Your face data is stored securely and never shared with third parties</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-green-400 mt-0.5">•</span>
+                    <span>You can disable this feature anytime and we will delete your face data</span>
+                  </li>
+                </ul>
+              </div>
+            ) : (
+              <div className="space-y-4 mb-6">
+                <p className="text-gray-300">
+                  Are you sure you want to disable face recognition?
+                </p>
+                <ul className="space-y-2 text-sm text-gray-400">
+                  <li className="flex items-start gap-2">
+                    <span className="text-red-400 mt-0.5">•</span>
+                    <span>Your facial encoding will be <strong className="text-gray-300">permanently deleted</strong> from our servers</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-red-400 mt-0.5">•</span>
+                    <span>You will no longer be able to use <strong className="text-gray-300">#photos</strong> to find yourself in event photos</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-gray-500 mt-0.5">•</span>
+                    <span>You can re-enable this feature anytime by uploading a new profile photo</span>
+                  </li>
+                </ul>
+              </div>
+            )}
+
+            <div className="flex gap-3">
+              <button
+                onClick={() => setShowFaceModal(null)}
+                className="flex-1 px-4 py-3 bg-dark-700 hover:bg-dark-600 text-gray-300 rounded-lg font-medium transition"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={confirmFaceRecognitionAction}
+                className={`flex-1 px-4 py-3 rounded-lg font-medium transition ${
+                  showFaceModal === 'enable'
+                    ? 'bg-green-600 hover:bg-green-700 text-white'
+                    : 'bg-red-600 hover:bg-red-700 text-white'
+                }`}
+              >
+                {showFaceModal === 'enable' ? 'Yes, Enable' : 'Yes, Disable'}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
