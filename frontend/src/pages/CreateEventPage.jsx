@@ -63,14 +63,6 @@ function CreateEventPage() {
   const [showCropper, setShowCropper] = useState(false);
   const [cropperImage, setCropperImage] = useState(null);
 
-  // Aspect ratio options for cover images (wide banners)
-  const coverAspectRatios = [
-    { label: '2:1', value: 2 / 1 },
-    { label: '2.5:1', value: 2.5 / 1 },
-    { label: '3:1', value: 3 / 1 },
-    { label: '4:1', value: 4 / 1 }
-  ];
-
   // Available topics based on the topics.png reference
   const availableTopics = [
     'Technology', 'Networking', 'Travel', 'Photography', 'Art',
@@ -828,9 +820,10 @@ function CreateEventPage() {
           image={cropperImage}
           onCropComplete={handleCropComplete}
           onCancel={handleCropCancel}
-          aspectRatio={2 / 1}
-          aspectRatioOptions={coverAspectRatios}
           title="Crop Cover Image"
+          widthSlider={true}
+          minAspect={2}
+          maxAspect={4}
         />
       )}
     </div>
