@@ -91,7 +91,11 @@ class R2Storage:
             local_path = f"{local_dir}/{filename}"
 
             with open(local_path, 'wb') as f:
-                f.write(file_data.read())
+                # Handle both bytes and file-like objects
+                if hasattr(file_data, 'read'):
+                    f.write(file_data.read())
+                else:
+                    f.write(file_data)
 
             return {
                 'file_id': file_id,
