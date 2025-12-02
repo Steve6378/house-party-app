@@ -1,9 +1,10 @@
 # Yorru - Event Schemas
 # Version: 0.0.1
 
-from pydantic import BaseModel, Field, field_serializer
+from pydantic import BaseModel, Field, field_serializer, field_validator
 from datetime import date, time, datetime
 from typing import Optional, Union, Any, List
+import json
 
 
 class EventCreate(BaseModel):
@@ -122,6 +123,19 @@ class EventResponse(BaseModel):
     main_host_id: str
     group_id: Optional[str]
 
+    @field_validator('topics', mode='before')
+    @classmethod
+    def parse_topics(cls, v: Any) -> Optional[List[str]]:
+        """Parse topics from JSON string (stored in DB) to list"""
+        if v is None:
+            return None
+        if isinstance(v, str):
+            try:
+                return json.loads(v)
+            except (json.JSONDecodeError, TypeError):
+                return None
+        return v
+
     @field_serializer('time')
     def serialize_time(self, v: Any) -> Optional[str]:
         if v is None:
@@ -129,18 +143,6 @@ class EventResponse(BaseModel):
         if isinstance(v, time):
             return v.strftime('%H:%M')
         return str(v)
-
-    @field_serializer('topics')
-    def serialize_topics(self, v: Any) -> Optional[List[str]]:
-        if v is None:
-            return None
-        if isinstance(v, str):
-            import json
-            try:
-                return json.loads(v)
-            except (json.JSONDecodeError, TypeError):
-                return None
-        return v
 
     class Config:
         from_attributes = True
