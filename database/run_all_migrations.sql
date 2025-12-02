@@ -40,6 +40,10 @@
 \i database/migrations/008_add_user_profile_columns.sql
 
 \echo ''
+\echo '--- Migration 009: Add event columns ---'
+\i database/migrations/009_add_event_columns.sql
+
+\echo ''
 \echo '==============================================='
 \echo 'All migrations completed successfully!'
 \echo '==============================================='
