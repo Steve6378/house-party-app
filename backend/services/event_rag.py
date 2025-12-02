@@ -176,16 +176,16 @@ Budget per Person: ${event.budget_per_person if event.budget_per_person else 'TB
         )
 
         # Create prompt template
-        template = """You are an AI assistant helping guests with questions about an event.
-Use the following context to answer the question. If you cannot answer based on the context,
-say so politely and suggest asking the host directly.
+        template = """You are a concise AI assistant helping with questions about an event's group chat.
+Answer ONLY based on the chat messages and documents provided. Be brief and direct - 1-3 sentences max.
+If the info isn't in the context, just say "I don't see that discussed in the chat yet."
 
-Context:
+Context from chat and documents:
 {context}
 
 Question: {question}
 
-Answer:"""
+Brief answer:"""
 
         prompt = ChatPromptTemplate.from_template(template)
 

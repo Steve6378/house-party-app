@@ -13,33 +13,74 @@ import {
   Trash2,
   Download,
   Sparkles,
-  Settings
+  Settings,
+  Calendar,
+  Image,
+  Hash,
+  MapPin,
+  MessagesSquare,
+  Radio,
+  Palette,
+  X,
+  ZoomIn,
+  Camera
 } from 'lucide-react';
 import { toast } from 'sonner';
-import { eventsAPI, messagesAPI, aiAPI, attendanceAPI } from '../utils/api.ts';
-import SubscriptionModal from '../components/SubscriptionModal';
+import { eventsAPI, messagesAPI, aiAPI, attendanceAPI, documentsAPI, photosAPI } from '../utils/api.ts';
+import { API_URL } from '../config/api';
 
 function HostInterfaceEnhanced() {
   const { id } = useParams();
   const navigate = useNavigate();
-  const { user } = useAuthStore();
+  const { user, token } = useAuthStore();
 
   const [event, setEvent] = useState(null);
   const [loading, setLoading] = useState(true);
   const [activeTab, setActiveTab] = useState('ai');
   const [message, setMessage] = useState('');
   const [aiRequest, setAiRequest] = useState('');
-  const [aiResponse, setAiResponse] = useState('');
+  const [aiConversation, setAiConversation] = useState([
+    {
+      role: 'assistant',
+      content: "Hi! I'm your AI host assistant. I can help with event planning, recommendations, broadcasting messages, and more. Use hashtags like #recommendation, #broadcast, or #create to access specific features!",
+      timestamp: new Date()
+    }
+  ]);
   const [aiLoading, setAiLoading] = useState(false);
   const [documents, setDocuments] = useState([]);
   const [contacts, setContacts] = useState([]);
   const [groups, setGroups] = useState([]);
   const [selectedGroup, setSelectedGroup] = useState(null);
   const [newContactEmail, setNewContactEmail] = useState('');
-  const [showSubscriptionModal, setShowSubscriptionModal] = useState(false);
   const [attendees, setAttendees] = useState([]);
+  const [uploadingDocument, setUploadingDocument] = useState(false);
+  const [selectedMode, setSelectedMode] = useState(null);
+  const [lastUsedMode, setLastUsedMode] = useState(null); // Track last used mode for follow-up questions
+  const [photos, setPhotos] = useState([]);
+  const [selectedPhoto, setSelectedPhoto] = useState(null);
+  const [uploadingPhoto, setUploadingPhoto] = useState(false);
+  const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
+  const [deleting, setDeleting] = useState(false);
 
   const fileInputRef = useRef(null);
+  const photoInputRef = useRef(null);
+  const aiMessagesEndRef = useRef(null);
+
+  // Auto-scroll AI conversation
+  useEffect(() => {
+    aiMessagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+  }, [aiConversation]);
+
+  // AI Mode options for hosts (includes #broadcast and #create)
+  const aiModes = [
+    { id: 'general', label: '#general', icon: Hash, description: 'General AI chat', color: 'from-gray-500 to-gray-600' },
+    { id: 'event', label: '#event', icon: Calendar, description: 'Event-specific info', color: 'from-blue-500 to-blue-600' },
+    { id: 'recommendation', label: '#recommendation', icon: MapPin, description: 'Find nearby places', color: 'from-green-500 to-green-600' },
+    { id: 'groupchat', label: '#groupchat', icon: MessagesSquare, description: 'Search chat history', color: 'from-purple-500 to-purple-600' },
+    { id: 'photos', label: '#photos', icon: Camera, description: 'Find photos of me', color: 'from-cyan-500 to-cyan-600' },
+    { id: 'broadcast', label: '#broadcast', icon: Radio, description: 'Announce to all guests', color: 'from-red-500 to-red-600' },
+    { id: 'create', label: '#create', icon: Palette, description: 'Generate AI invitations', color: 'from-pink-500 to-purple-600' },
+  ];
   const messagesEndRef = useRef(null);
 
   useEffect(() => {
@@ -48,6 +89,7 @@ function HostInterfaceEnhanced() {
     fetchContacts();
     fetchGroups();
     fetchAttendees();
+    fetchPhotos();
   }, [id]);
 
   const fetchEvent = async () => {
@@ -64,9 +106,8 @@ function HostInterfaceEnhanced() {
 
   const fetchDocuments = async () => {
     try {
-      // Fetch event documents from backend
-      // For now using placeholder
-      setDocuments([]);
+      const data = await documentsAPI.list(id);
+      setDocuments(data.documents || data || []);
     } catch (error) {
       console.error('Failed to fetch documents:', error);
     }
@@ -99,17 +140,236 @@ function HostInterfaceEnhanced() {
     }
   };
 
+  const fetchPhotos = async () => {
+    try {
+      const data = await photosAPI.list(id);
+      setPhotos(data.photos || data || []);
+    } catch (error) {
+      console.error('Failed to fetch photos:', error);
+    }
+  };
+
+  const handlePhotoUpload = async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    if (!file.type.startsWith('image/')) {
+      toast.error('Please select an image file');
+      return;
+    }
+
+    setUploadingPhoto(true);
+    try {
+      await photosAPI.upload(id, file);
+      toast.success('Photo uploaded!');
+      fetchPhotos();
+    } catch (error) {
+      toast.error('Failed to upload photo');
+    } finally {
+      setUploadingPhoto(false);
+    }
+  };
+
+  const handleDeletePhoto = async (photoId) => {
+    if (!confirm('Are you sure you want to delete this photo?')) return;
+
+    try {
+      await photosAPI.delete(id, photoId);
+      toast.success('Photo deleted');
+      fetchPhotos();
+    } catch (error) {
+      toast.error('Failed to delete photo');
+    }
+  };
+
   const handleAiRequest = async () => {
     if (!aiRequest.trim()) return;
 
-    setAiLoading(true);
-    try {
-      const response = await aiAPI.hostAssist(id, 'general', { request: aiRequest });
-      setAiResponse(response.response || response.answer || 'No response received');
+    // Check if message has a hashtag (to determine if it's an explicit mode switch)
+    const messageHasHashtag = aiRequest.trim().startsWith('#');
+
+    // Check if this is a #photos request
+    // Also check if lastUsedMode was photos and no new hashtag was specified (for follow-up questions)
+    const isPhotosRequest = selectedMode === 'photos' ||
+      aiRequest.toLowerCase().startsWith('#photos') ||
+      (!messageHasHashtag && lastUsedMode === 'photos');
+
+    if (isPhotosRequest) {
+      // Handle face recognition photo search
+      const userMessage = {
+        role: 'user',
+        content: aiRequest || 'Find photos of me',
+        timestamp: new Date()
+      };
+      setAiConversation(prev => [...prev, userMessage]);
       setAiRequest('');
-      toast.success('AI processed your request!');
+      setAiLoading(true);
+
+      try {
+        const response = await aiAPI.findMyPhotos(id);
+
+        let content = response.message;
+        if (response.photos && response.photos.length > 0) {
+          content += '\n\nHere are the photos I found:';
+        }
+
+        const aiMessage = {
+          role: 'assistant',
+          content: content,
+          timestamp: new Date(),
+          photos: response.photos || []
+        };
+        setAiConversation(prev => [...prev, aiMessage]);
+        setLastUsedMode('photos'); // Remember this mode for follow-up questions
+      } catch (error) {
+        console.error('Face search error:', error);
+        const errorMessage = {
+          role: 'assistant',
+          content: 'Sorry, I had trouble searching for your photos. Make sure you have uploaded a profile photo with a clear face in Settings.',
+          timestamp: new Date()
+        };
+        setAiConversation(prev => [...prev, errorMessage]);
+      } finally {
+        setAiLoading(false);
+        setSelectedMode(null);
+      }
+      return;
+    }
+
+    // Check if this is a #general request (ChatGPT-like general AI)
+    // Also check if lastUsedMode was general and no new hashtag was specified (for follow-up questions)
+    const isGeneralRequest = selectedMode === 'general' ||
+      aiRequest.toLowerCase().startsWith('#general') ||
+      (!messageHasHashtag && lastUsedMode === 'general');
+
+    if (isGeneralRequest) {
+      const userMessage = {
+        role: 'user',
+        content: aiRequest,
+        timestamp: new Date()
+      };
+      setAiConversation(prev => [...prev, userMessage]);
+
+      // Extract the actual question (remove #general prefix)
+      const cleanQuestion = aiRequest.replace(/^#general\s*/i, '').trim();
+      setAiRequest('');
+      setAiLoading(true);
+
+      try {
+        const response = await aiAPI.generalQuery(cleanQuestion || 'Hello');
+        const aiMessage = {
+          role: 'assistant',
+          content: response.answer || 'I couldn\'t generate a response.',
+          timestamp: new Date()
+        };
+        setAiConversation(prev => [...prev, aiMessage]);
+        setLastUsedMode('general'); // Remember this mode for follow-up questions
+      } catch (error) {
+        console.error('General query error:', error);
+        const errorMessage = {
+          role: 'assistant',
+          content: 'Sorry, I had trouble processing that request. Please try again.',
+          timestamp: new Date()
+        };
+        setAiConversation(prev => [...prev, errorMessage]);
+      } finally {
+        setAiLoading(false);
+        setSelectedMode(null);
+      }
+      return;
+    }
+
+    // Check if this is a #groupchat request (search chat history using RAG)
+    // Also check if lastUsedMode was groupchat and no new hashtag was specified (for follow-up questions)
+    const isGroupchatRequest = selectedMode === 'groupchat' ||
+      aiRequest.toLowerCase().startsWith('#groupchat') ||
+      (!messageHasHashtag && lastUsedMode === 'groupchat');
+
+    if (isGroupchatRequest) {
+      const userMessage = {
+        role: 'user',
+        content: aiRequest,
+        timestamp: new Date()
+      };
+      setAiConversation(prev => [...prev, userMessage]);
+
+      // Extract the actual question (remove #groupchat prefix)
+      const cleanQuestion = aiRequest.replace(/^#groupchat\s*/i, '').trim();
+      setAiRequest('');
+      setAiLoading(true);
+
+      try {
+        // Use guestQuery which uses RAG to search chat history
+        const response = await aiAPI.guestQuery(id, cleanQuestion || 'What has everyone been talking about?');
+        const aiMessage = {
+          role: 'assistant',
+          content: response.answer || 'I couldn\'t find any relevant information in the chat.',
+          timestamp: new Date()
+        };
+        setAiConversation(prev => [...prev, aiMessage]);
+        setLastUsedMode('groupchat'); // Remember this mode for follow-up questions
+      } catch (error) {
+        console.error('Groupchat query error:', error);
+        const errorMessage = {
+          role: 'assistant',
+          content: 'Sorry, I had trouble searching the chat history. Please try again.',
+          timestamp: new Date()
+        };
+        setAiConversation(prev => [...prev, errorMessage]);
+      } finally {
+        setAiLoading(false);
+        setSelectedMode(null);
+      }
+      return;
+    }
+
+    const userMessage = {
+      role: 'user',
+      content: aiRequest,
+      timestamp: new Date()
+    };
+
+    // Build conversation history for API (exclude system messages, limit to last 10)
+    const historyForAPI = aiConversation
+      .filter(msg => msg.role === 'user' || msg.role === 'assistant')
+      .slice(-10)
+      .map(msg => ({ role: msg.role, content: msg.content }));
+
+    setAiConversation(prev => [...prev, userMessage]);
+    const currentRequest = aiRequest;
+    setAiRequest('');
+    setAiLoading(true);
+
+    try {
+      // Send with conversation history for context
+      const response = await aiAPI.hostAssist(id, currentRequest, null, historyForAPI);
+      let responseText = response.response || response.answer || 'No response received';
+      let photoIds = [];
+
+      // Parse photo IDs from response if present [PHOTOS:id1,id2,id3]
+      const photoMatch = responseText.match(/\[PHOTOS:([^\]]+)\]/);
+      if (photoMatch) {
+        photoIds = photoMatch[1].split(',').filter(id => id.trim());
+        // Remove the photo tag from display text
+        responseText = responseText.replace(/\[PHOTOS:[^\]]+\]/, '').trim();
+      }
+
+      const aiMessage = {
+        role: 'assistant',
+        content: responseText,
+        photos: photoIds,
+        timestamp: new Date()
+      };
+      setAiConversation(prev => [...prev, aiMessage]);
+      setSelectedMode(null);
+      setLastUsedMode('event'); // Remember this mode for follow-up questions
     } catch (error) {
-      toast.error('Failed to get AI response');
+      const errorMessage = {
+        role: 'assistant',
+        content: 'I apologize, but I\'m having trouble processing that request right now. Please try again.',
+        timestamp: new Date()
+      };
+      setAiConversation(prev => [...prev, errorMessage]);
     } finally {
       setAiLoading(false);
     }
@@ -119,22 +379,22 @@ function HostInterfaceEnhanced() {
     const file = e.target.files[0];
     if (!file) return;
 
-    // Check file type (PDFs and common doc formats)
-    const allowedTypes = ['application/pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'];
+    // Check file type (PDFs and TXT)
+    const allowedTypes = ['application/pdf', 'text/plain'];
     if (!allowedTypes.includes(file.type)) {
-      toast.error('Please upload PDF or Word documents only');
+      toast.error('Please upload PDF or TXT files only');
       return;
     }
 
-    const formData = new FormData();
-    formData.append('document', file);
-
+    setUploadingDocument(true);
     try {
-      // Upload to backend
-      toast.success('Document uploaded successfully!');
+      const result = await documentsAPI.upload(id, file);
+      toast.success(`Document "${file.name}" uploaded! AI extracted ${result.extracted_text_length || 0} characters.`);
       fetchDocuments();
     } catch (error) {
       toast.error('Failed to upload document');
+    } finally {
+      setUploadingDocument(false);
     }
   };
 
@@ -160,6 +420,21 @@ function HostInterfaceEnhanced() {
       fetchGroups();
     } catch (error) {
       toast.error('Failed to add to group');
+    }
+  };
+
+  const handleDeleteEvent = async () => {
+    setDeleting(true);
+    try {
+      await eventsAPI.delete(id);
+      toast.success('Event deleted successfully');
+      navigate('/dashboard');
+    } catch (error) {
+      console.error('Failed to delete event:', error);
+      toast.error(error.response?.data?.detail || 'Failed to delete event');
+    } finally {
+      setDeleting(false);
+      setShowDeleteConfirm(false);
     }
   };
 
@@ -196,11 +471,60 @@ function HostInterfaceEnhanced() {
       <div className="max-w-7xl mx-auto px-4 py-8">
         {/* Event Header */}
         <div className="bg-dark-800/50 backdrop-blur-xl border border-primary-500/20 rounded-2xl p-8 mb-6">
-          <h1 className="text-4xl font-bold text-white mb-2">{event.name}</h1>
-          <p className="text-primary-200">
-            {event.date} {event.time && `at ${event.time}`} • {event.address || 'Location TBD'}
-          </p>
+          <div className="flex justify-between items-start">
+            <div>
+              <h1 className="text-4xl font-bold text-white mb-2">{event.name}</h1>
+              <p className="text-primary-200">
+                {event.date} {event.time && `at ${event.time}`} • {event.address || 'Location TBD'}
+              </p>
+            </div>
+            <button
+              onClick={() => setShowDeleteConfirm(true)}
+              className="text-red-400 hover:text-red-300 hover:bg-red-500/10 p-2 rounded-lg transition flex items-center gap-2"
+              title="Delete Event"
+            >
+              <Trash2 className="w-5 h-5" />
+            </button>
+          </div>
         </div>
+
+        {/* Delete Confirmation Modal */}
+        {showDeleteConfirm && (
+          <div className="fixed inset-0 z-50 bg-black/70 flex items-center justify-center p-4">
+            <div className="bg-dark-800 border border-red-500/30 rounded-2xl p-6 max-w-md w-full">
+              <h3 className="text-xl font-bold text-white mb-4">Delete Event</h3>
+              <p className="text-gray-300 mb-6">
+                Are you sure you want to delete "<span className="text-white font-semibold">{event.name}</span>"? This action cannot be undone and will remove all associated data including attendees, photos, and documents.
+              </p>
+              <div className="flex gap-3 justify-end">
+                <button
+                  onClick={() => setShowDeleteConfirm(false)}
+                  disabled={deleting}
+                  className="px-4 py-2 bg-dark-700 text-gray-300 rounded-lg hover:bg-dark-600 transition disabled:opacity-50"
+                >
+                  Cancel
+                </button>
+                <button
+                  onClick={handleDeleteEvent}
+                  disabled={deleting}
+                  className="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition flex items-center gap-2 disabled:opacity-50"
+                >
+                  {deleting ? (
+                    <>
+                      <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
+                      Deleting...
+                    </>
+                  ) : (
+                    <>
+                      <Trash2 className="w-4 h-4" />
+                      Delete Event
+                    </>
+                  )}
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
 
         {/* Tab Navigation */}
         <div className="bg-dark-800/50 backdrop-blur-xl border border-primary-500/20 rounded-2xl p-4 mb-6">
@@ -226,6 +550,17 @@ function HostInterfaceEnhanced() {
             >
               <FileText className="w-5 h-5" />
               Documents ({documents.length})
+            </button>
+            <button
+              onClick={() => setActiveTab('photos')}
+              className={`px-6 py-3 rounded-lg font-semibold transition whitespace-nowrap flex items-center gap-2 ${
+                activeTab === 'photos'
+                  ? 'bg-gradient-to-r from-primary-600 to-secondary-600 text-white'
+                  : 'bg-dark-700/50 text-gray-300 hover:text-white'
+              }`}
+            >
+              <Image className="w-5 h-5" />
+              Photos ({photos.length})
             </button>
             <button
               onClick={() => setActiveTab('contacts')}
@@ -268,48 +603,158 @@ function HostInterfaceEnhanced() {
             </h2>
 
             <div className="space-y-6">
-              <div className="bg-dark-700/30 border border-primary-500/20 rounded-xl p-6">
-                <h3 className="text-white font-semibold mb-3">What can I help you with?</h3>
-                <ul className="text-gray-300 space-y-2 text-sm">
-                  <li>• Modify event details (date, time, location)</li>
-                  <li>• Generate invitation messages</li>
-                  <li>• Create to-do lists</li>
-                  <li>• Suggest event improvements</li>
-                  <li>• Draft announcements for guests</li>
-                </ul>
-              </div>
-
-              <div className="flex gap-2">
-                <input
-                  type="text"
-                  value={aiRequest}
-                  onChange={(e) => setAiRequest(e.target.value)}
-                  onKeyPress={(e) => e.key === 'Enter' && handleAiRequest()}
-                  placeholder="Ask AI to help (e.g., 'Change event time to 7 PM' or 'Draft invitation message')..."
-                  className="flex-1 px-4 py-3 bg-dark-700/50 border border-primary-500/30 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition"
-                />
-                <button
-                  onClick={handleAiRequest}
-                  disabled={aiLoading}
-                  className="bg-gradient-to-r from-primary-600 to-secondary-600 hover:from-primary-700 hover:to-secondary-700 text-white px-6 py-3 rounded-lg transition disabled:opacity-50 flex items-center gap-2"
-                >
-                  {aiLoading ? (
-                    <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
-                  ) : (
-                    <Send className="w-5 h-5" />
-                  )}
-                </button>
-              </div>
-
-              {aiResponse && (
-                <div className="bg-dark-700/50 border border-primary-500/20 p-6 rounded-xl">
-                  <div className="flex items-center gap-2 mb-3">
-                    <Sparkles className="w-5 h-5 text-accent-400" />
-                    <span className="font-semibold text-accent-400">AI Response</span>
-                  </div>
-                  <p className="text-gray-200 whitespace-pre-wrap">{aiResponse}</p>
+              {/* AI Mode Selection Buttons */}
+              <div className="bg-dark-700/30 border border-primary-500/20 rounded-xl p-4">
+                <h3 className="text-white font-semibold mb-3 flex items-center gap-2">
+                  <Hash className="w-4 h-4 text-accent-400" />
+                  Select AI Mode
+                </h3>
+                <div className="flex flex-wrap gap-2">
+                  {aiModes.map((mode) => {
+                    const IconComponent = mode.icon;
+                    const isSelected = selectedMode === mode.id;
+                    return (
+                      <button
+                        key={mode.id}
+                        onClick={() => {
+                          if (isSelected) {
+                            setSelectedMode(null);
+                            setAiRequest(aiRequest.replace(new RegExp(`^#${mode.id}\\s*`, 'i'), ''));
+                          } else {
+                            setSelectedMode(mode.id);
+                            const cleanedRequest = aiRequest.replace(/^#\w+\s*/i, '');
+                            setAiRequest(`#${mode.id} ${cleanedRequest}`);
+                          }
+                        }}
+                        className={`flex items-center gap-2 px-4 py-2 rounded-lg font-medium transition-all ${
+                          isSelected
+                            ? `bg-gradient-to-r ${mode.color} text-white shadow-lg scale-105`
+                            : 'bg-dark-600/50 text-gray-300 hover:bg-dark-600 hover:text-white border border-dark-500'
+                        }`}
+                        title={mode.description}
+                      >
+                        <IconComponent className="w-4 h-4" />
+                        {mode.label}
+                      </button>
+                    );
+                  })}
                 </div>
-              )}
+                <p className="text-xs text-gray-400 mt-3">
+                  {selectedMode ? (
+                    <span className="text-accent-400">
+                      {aiModes.find(m => m.id === selectedMode)?.description}
+                    </span>
+                  ) : (
+                    'Click a mode to activate it, or type a hashtag directly in your message'
+                  )}
+                </p>
+              </div>
+
+              {/* Chat Conversation Area */}
+              <div className="bg-dark-700/30 border border-primary-500/20 rounded-xl overflow-hidden">
+                {/* Chat Messages */}
+                <div className="h-96 overflow-y-auto p-4 bg-dark-900/20">
+                  <div className="space-y-4">
+                    {aiConversation.map((msg, index) => (
+                      <div
+                        key={index}
+                        className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}
+                      >
+                        <div
+                          className={`max-w-[80%] p-4 rounded-xl ${
+                            msg.role === 'user'
+                              ? 'bg-gradient-to-r from-primary-600 to-secondary-600 text-white'
+                              : 'bg-dark-700/50 border border-primary-500/20 text-gray-200'
+                          }`}
+                        >
+                          {msg.role === 'assistant' && (
+                            <div className="flex items-center gap-2 mb-2">
+                              <Sparkles className="w-4 h-4 text-accent-400" />
+                              <span className="text-xs font-semibold text-accent-400">AI Assistant</span>
+                            </div>
+                          )}
+                          <p className="whitespace-pre-wrap">{msg.content}</p>
+
+                          {/* Display photos if present in this message */}
+                          {msg.photos && msg.photos.length > 0 && (
+                            <div className="mt-3">
+                              <div className="flex items-center gap-2 mb-2">
+                                <Image className="w-4 h-4 text-primary-400" />
+                                <span className="text-xs text-gray-400">Found Photos</span>
+                              </div>
+                              <div className="grid grid-cols-2 gap-2">
+                                {msg.photos.map((photoId) => (
+                                  <div key={photoId} className="relative group">
+                                    <img
+                                      src={`${API_URL}/api/events/photos/${photoId}/file?token=${token}`}
+                                      alt="Event photo"
+                                      className="w-full h-24 object-cover rounded-lg border border-dark-600 hover:border-primary-500 transition-colors cursor-pointer"
+                                      onClick={() => window.open(`${API_URL}/api/events/photos/${photoId}/file?token=${token}`, '_blank')}
+                                    />
+                                  </div>
+                                ))}
+                              </div>
+                            </div>
+                          )}
+
+                          <p className="text-xs mt-2 opacity-70">
+                            {msg.timestamp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                          </p>
+                        </div>
+                      </div>
+                    ))}
+                    {aiLoading && (
+                      <div className="flex justify-start">
+                        <div className="bg-dark-700/50 border border-primary-500/20 p-4 rounded-xl">
+                          <div className="flex items-center gap-2">
+                            <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-accent-400"></div>
+                            <span className="text-gray-300 text-sm">AI is thinking...</span>
+                          </div>
+                        </div>
+                      </div>
+                    )}
+                    <div ref={aiMessagesEndRef} />
+                  </div>
+                </div>
+
+                {/* Input Area */}
+                <div className="p-4 border-t border-primary-500/20 bg-dark-800/80">
+                  <div className="flex gap-2">
+                    <input
+                      type="text"
+                      value={aiRequest}
+                      onChange={(e) => {
+                        setAiRequest(e.target.value);
+                        // Auto-detect mode from typed hashtag
+                        const hashtagMatch = e.target.value.match(/^#(\w+)/i);
+                        if (hashtagMatch) {
+                          const typedMode = hashtagMatch[1].toLowerCase();
+                          const matchedMode = aiModes.find(m => m.id === typedMode);
+                          if (matchedMode) {
+                            setSelectedMode(typedMode);
+                          }
+                        } else if (!e.target.value.startsWith('#')) {
+                          setSelectedMode(null);
+                        }
+                      }}
+                      onKeyDown={(e) => e.key === 'Enter' && handleAiRequest()}
+                      placeholder={selectedMode ? `Ask about ${selectedMode}...` : "Ask AI to help (e.g., '#recommendation find Italian food nearby')..."}
+                      className="flex-1 px-4 py-3 bg-dark-700/50 border border-primary-500/30 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition"
+                    />
+                    <button
+                      onClick={handleAiRequest}
+                      disabled={aiLoading || !aiRequest.trim()}
+                      className="bg-gradient-to-r from-primary-600 to-secondary-600 hover:from-primary-700 hover:to-secondary-700 text-white px-6 py-3 rounded-lg transition disabled:opacity-50 flex items-center gap-2"
+                    >
+                      {aiLoading ? (
+                        <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
+                      ) : (
+                        <Send className="w-5 h-5" />
+                      )}
+                    </button>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         )}
@@ -323,11 +768,16 @@ function HostInterfaceEnhanced() {
                 Event Documents
               </h2>
               <button
-                onClick={() => setShowSubscriptionModal(true)}
-                className="bg-gradient-to-r from-primary-600 to-secondary-600 hover:from-primary-700 hover:to-secondary-700 text-white px-6 py-3 rounded-lg transition flex items-center gap-2"
+                onClick={() => fileInputRef.current?.click()}
+                disabled={uploadingDocument}
+                className="bg-gradient-to-r from-primary-600 to-secondary-600 hover:from-primary-700 hover:to-secondary-700 text-white px-6 py-3 rounded-lg transition flex items-center gap-2 disabled:opacity-50"
               >
-                <Upload className="w-5 h-5" />
-                Upload PDF
+                {uploadingDocument ? (
+                  <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
+                ) : (
+                  <Upload className="w-5 h-5" />
+                )}
+                Upload Document
               </button>
               <input
                 ref={fileInputRef}
@@ -370,6 +820,112 @@ function HostInterfaceEnhanced() {
                 <FileText className="w-16 h-16 text-gray-500 mx-auto mb-4" />
                 <p className="text-gray-400">No documents uploaded yet</p>
                 <p className="text-gray-500 text-sm mt-2">Upload PDFs, contracts, or event materials</p>
+              </div>
+            )}
+          </div>
+        )}
+
+        {/* Photos Tab */}
+        {activeTab === 'photos' && (
+          <div className="bg-dark-800/50 backdrop-blur-xl border border-primary-500/20 rounded-2xl p-6">
+            <div className="flex justify-between items-center mb-6">
+              <h2 className="text-2xl font-bold text-white flex items-center gap-2">
+                <Image className="w-6 h-6 text-accent-400" />
+                Event Photos
+              </h2>
+              <button
+                onClick={() => photoInputRef.current?.click()}
+                disabled={uploadingPhoto}
+                className="bg-gradient-to-r from-primary-600 to-secondary-600 hover:from-primary-700 hover:to-secondary-700 text-white px-6 py-3 rounded-lg transition flex items-center gap-2 disabled:opacity-50"
+              >
+                {uploadingPhoto ? (
+                  <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
+                ) : (
+                  <Upload className="w-5 h-5" />
+                )}
+                Upload Photo
+              </button>
+              <input
+                ref={photoInputRef}
+                type="file"
+                accept="image/*"
+                onChange={handlePhotoUpload}
+                className="hidden"
+              />
+            </div>
+
+            {photos.length > 0 ? (
+              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                {photos.map((photo) => (
+                  <div
+                    key={photo.id}
+                    className="relative group aspect-square rounded-xl overflow-hidden border border-primary-500/20 cursor-pointer"
+                    onClick={() => setSelectedPhoto(photo)}
+                  >
+                    <img
+                      src={photo.url || `${API_URL}/api/events/photos/${photo.id}/file?token=${token}`}
+                      alt={photo.caption || 'Event photo'}
+                      className="w-full h-full object-cover transition group-hover:scale-105"
+                    />
+                    <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition flex items-center justify-center gap-2">
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          setSelectedPhoto(photo);
+                        }}
+                        className="p-2 bg-white/20 rounded-full hover:bg-white/30 transition"
+                      >
+                        <ZoomIn className="w-5 h-5 text-white" />
+                      </button>
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handleDeletePhoto(photo.id);
+                        }}
+                        className="p-2 bg-red-500/50 rounded-full hover:bg-red-500/70 transition"
+                      >
+                        <Trash2 className="w-5 h-5 text-white" />
+                      </button>
+                    </div>
+                    {photo.caption && (
+                      <div className="absolute bottom-0 left-0 right-0 bg-black/70 p-2">
+                        <p className="text-white text-sm truncate">{photo.caption}</p>
+                      </div>
+                    )}
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <div className="text-center py-12">
+                <Image className="w-16 h-16 text-gray-500 mx-auto mb-4" />
+                <p className="text-gray-400">No photos uploaded yet</p>
+                <p className="text-gray-500 text-sm mt-2">Upload photos from the event or use #create to generate AI invitations</p>
+              </div>
+            )}
+          </div>
+        )}
+
+        {/* Photo Lightbox Modal */}
+        {selectedPhoto && (
+          <div
+            className="fixed inset-0 z-50 bg-black/90 flex items-center justify-center p-4"
+            onClick={() => setSelectedPhoto(null)}
+          >
+            <button
+              onClick={() => setSelectedPhoto(null)}
+              className="absolute top-4 right-4 p-2 text-white/70 hover:text-white transition"
+            >
+              <X className="w-8 h-8" />
+            </button>
+            <img
+              src={selectedPhoto.url || `${API_URL}/api/events/photos/${selectedPhoto.id}/file?token=${token}`}
+              alt={selectedPhoto.caption || 'Event photo'}
+              className="max-w-full max-h-[90vh] object-contain rounded-lg"
+              onClick={(e) => e.stopPropagation()}
+            />
+            {selectedPhoto.caption && (
+              <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 bg-black/70 px-4 py-2 rounded-lg">
+                <p className="text-white">{selectedPhoto.caption}</p>
               </div>
             )}
           </div>
@@ -448,7 +1004,7 @@ function HostInterfaceEnhanced() {
                     type="email"
                     value={newContactEmail}
                     onChange={(e) => setNewContactEmail(e.target.value)}
-                    onKeyPress={(e) => e.key === 'Enter' && handleAddContact()}
+                    onKeyDown={(e) => e.key === 'Enter' && handleAddContact()}
                     placeholder="Enter email address..."
                     className="flex-1 px-4 py-3 bg-dark-700/50 border border-primary-500/30 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition"
                   />
@@ -530,11 +1086,6 @@ function HostInterfaceEnhanced() {
         )}
       </div>
 
-      {/* Subscription Modal */}
-      <SubscriptionModal
-        isOpen={showSubscriptionModal}
-        onClose={() => setShowSubscriptionModal(false)}
-      />
     </div>
   );
 }

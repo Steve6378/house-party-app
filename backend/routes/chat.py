@@ -179,7 +179,7 @@ async def get_event_messages(
         Message.is_deleted == False
     ).order_by(Message.created_at.asc()).offset(skip).limit(limit).all()
 
-    # Add sender names
+    # Add sender names and profile photos
     result = []
     for message in messages:
         message_dict = {
@@ -187,6 +187,7 @@ async def get_event_messages(
             "event_id": message.event_id,
             "sender_id": message.sender_id,
             "sender_name": None,
+            "sender_profile_photo": None,
             "message_type": message.message_type,
             "content": message.content,
             "is_edited": message.is_edited,
@@ -199,6 +200,8 @@ async def get_event_messages(
             sender = db.query(User).filter(User.id == message.sender_id).first()
             if sender:
                 message_dict["sender_name"] = sender.name
+                if sender.profile_photo:
+                    message_dict["sender_profile_photo"] = f"/api/auth/users/{sender.id}/photo"
 
         result.append(message_dict)
 
@@ -290,6 +293,7 @@ async def send_message(
         "event_id": message.event_id,
         "sender_id": message.sender_id,
         "sender_name": current_user.name,
+        "sender_profile_photo": f"/api/auth/users/{current_user.id}/photo" if current_user.profile_photo else None,
         "message_type": message.message_type,
         "content": message.content,
         "is_edited": message.is_edited,

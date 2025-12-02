@@ -17,6 +17,7 @@ class MessageResponse(BaseModel):
     event_id: str
     sender_id: Optional[str]
     sender_name: Optional[str] = None
+    sender_profile_photo: Optional[str] = None  # URL path to profile photo
     message_type: str  # "user", "system", "assistant"
     content: str
     is_edited: bool = False

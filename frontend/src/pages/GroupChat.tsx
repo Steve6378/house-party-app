@@ -1,9 +1,23 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
-import { SendIcon, InfoIcon, ArrowLeft } from 'lucide-react';
-import { useAuthStore } from '../stores/authStore';
-import { messagesAPI, eventsAPI } from '../utils/api';
+import { useParams } from 'react-router-dom';
+import {
+  SendIcon,
+  InfoIcon,
+  ImageIcon,
+  SparklesIcon,
+  SearchIcon,
+  XIcon,
+  MapPinIcon,
+  Loader2Icon,
+  BotIcon,
+  FileTextIcon,
+  PlusIcon
+} from 'lucide-react';
+import { useAuth } from '../context/AuthContext';
+import { messagesAPI, eventsAPI, photosAPI, aiAPI, documentsAPI } from '../utils/api';
 import { toast } from 'sonner';
+import { API_URL } from '../config/api';
+
 interface Message {
   id: string;
   content: string;
@@ -14,141 +28,619 @@ interface Message {
   };
   timestamp: Date;
   isAnnouncement?: boolean;
+  photos?: Photo[];
 }
+
+interface Photo {
+  id: string;
+  file_path: string;
+  description?: string;
+  caption?: string;
+}
+
+interface Vendor {
+  place_id: string;
+  name: string;
+  address: string;
+  rating?: number;
+  total_ratings?: number;
+  price_level?: number;
+  photos: string[];
+  is_open?: boolean;
+}
+
+interface FAQ {
+  id: string;
+  question: string;
+  answer: string;
+  frequency: number;
+}
+
 const GroupChat: React.FC = () => {
-  const {
-    id: eventId
-  } = useParams<{
-    id: string;
-  }>();
-  const {
-    user
-  } = useAuth();
+  const { id: eventId } = useParams<{ id: string }>();
+  const { user } = useAuth();
   const [message, setMessage] = useState('');
   const [messages, setMessages] = useState<Message[]>([]);
+  const [event, setEvent] = useState<any>(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [isSending, setIsSending] = useState(false);
+  const [showPhotoUpload, setShowPhotoUpload] = useState(false);
+  const [uploadingPhoto, setUploadingPhoto] = useState(false);
+  const [showAIPanel, setShowAIPanel] = useState(false);
+  const [aiQuery, setAiQuery] = useState('');
+  const [aiResponse, setAiResponse] = useState('');
+  const [aiLoading, setAiLoading] = useState(false);
+  const [showVendorSearch, setShowVendorSearch] = useState(false);
+  const [vendorType, setVendorType] = useState('restaurant');
+  const [vendors, setVendors] = useState<Vendor[]>([]);
+  const [vendorLoading, setVendorLoading] = useState(false);
+  const [faqs, setFaqs] = useState<FAQ[]>([]);
+  const [showFAQs, setShowFAQs] = useState(false);
+  const [photoSearchQuery, setPhotoSearchQuery] = useState('');
+  const [searchedPhotos, setSearchedPhotos] = useState<Photo[]>([]);
+  const [photoSearchLoading, setPhotoSearchLoading] = useState(false);
+  const [uploadingDocument, setUploadingDocument] = useState(false);
+  const [showUploadMenu, setShowUploadMenu] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
-  const event = {
-    id: '1',
-    title: 'Thanksgiving Potluck',
-    date: 'Nov 24, 2023'
-  };
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  const docInputRef = useRef<HTMLInputElement>(null);
+
+  // Load event and messages
   useEffect(() => {
-    setMessages([{
-      id: '1',
-      content: '📢 Welcome to the Thanksgiving Potluck group chat! The event is on Nov 24, 2023 at 4:00 PM.',
-      sender: {
-        id: 'ai',
-        name: 'Yorru AI',
-        isAI: true
-      },
-      timestamp: new Date(2023, 10, 20, 9, 0, 0),
-      isAnnouncement: true
-    }, {
-      id: '2',
-      content: "Hi everyone! I'm excited for the potluck. I can bring vegetarian lasagna!",
-      sender: {
-        id: 'user2',
-        name: 'Jake'
-      },
-      timestamp: new Date(2023, 10, 20, 9, 5, 0)
-    }, {
-      id: '3',
-      content: "Sounds great Jake! I'll bring dessert.",
-      sender: {
-        id: 'user3',
-        name: 'Maya'
-      },
-      timestamp: new Date(2023, 10, 20, 9, 10, 0)
-    }, {
-      id: '4',
-      content: '📢 Reminder: Guest parking code is 2811',
-      sender: {
-        id: 'ai',
-        name: 'Yorru AI',
-        isAI: true
-      },
-      timestamp: new Date(2023, 10, 20, 10, 0, 0),
-      isAnnouncement: true
-    }]);
-  }, []);
+    const loadData = async () => {
+      if (!eventId) return;
+      try {
+        const [eventData, messagesData] = await Promise.all([
+          eventsAPI.get(eventId),
+          messagesAPI.list(eventId)
+        ]);
+        setEvent(eventData);
+        setMessages(messagesData.map((m: any) => ({
+          id: m.id,
+          content: m.content,
+          sender: {
+            id: m.sender_id || 'system',
+            name: m.sender_name || 'Yorru AI',
+            isAI: m.message_type === 'assistant' || m.message_type === 'system'
+          },
+          timestamp: new Date(m.created_at),
+          isAnnouncement: m.message_type === 'system'
+        })));
+
+        // Load FAQs
+        try {
+          const faqsData = await aiAPI.getFAQs(eventId);
+          setFaqs(faqsData);
+        } catch (e) {
+          console.log('No FAQs available');
+        }
+      } catch (error) {
+        console.error('Failed to load chat:', error);
+        toast.error('Failed to load chat');
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    loadData();
+  }, [eventId]);
+
+  // Scroll to bottom when messages change
   useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({
-      behavior: 'smooth'
-    });
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages]);
-  const handleSendMessage = (e: React.FormEvent) => {
+
+  const handleSendMessage = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (message.trim() === '') return;
-    const newMessage: Message = {
+    if (message.trim() === '' || !eventId || isSending) return;
+
+    const userMessage = message.trim();
+    setMessage('');
+    setIsSending(true);
+
+    // Add user message immediately
+    const newUserMessage: Message = {
       id: Date.now().toString(),
-      content: message,
+      content: userMessage,
       sender: {
         id: user?.id || 'current-user',
         name: user?.name || 'You'
       },
       timestamp: new Date()
     };
-    setMessages(prev => [...prev, newMessage]);
-    setMessage('');
+    setMessages(prev => [...prev, newUserMessage]);
+
+    try {
+      await messagesAPI.send(eventId, { content: userMessage });
+    } catch (error) {
+      console.error('Failed to send message:', error);
+      toast.error('Failed to send message');
+    } finally {
+      setIsSending(false);
+    }
   };
+
+  const handlePhotoUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file || !eventId) return;
+
+    setUploadingPhoto(true);
+    try {
+      const result = await photosAPI.upload(eventId, file);
+      toast.success('Photo uploaded! AI is analyzing it...');
+
+      // Add a message about the photo
+      const photoMessage: Message = {
+        id: Date.now().toString(),
+        content: `Shared a photo${result.description ? `: ${result.description}` : ''}`,
+        sender: {
+          id: user?.id || 'current-user',
+          name: user?.name || 'You'
+        },
+        timestamp: new Date(),
+        photos: [{
+          id: result.id,
+          file_path: `${API_URL}/api/events/photos/${result.id}/file`,
+          description: result.description,
+          caption: result.tags
+        }]
+      };
+      setMessages(prev => [...prev, photoMessage]);
+      setShowPhotoUpload(false);
+    } catch (error) {
+      console.error('Failed to upload photo:', error);
+      toast.error('Failed to upload photo');
+    } finally {
+      setUploadingPhoto(false);
+    }
+  };
+
+  const handleAIQuery = async () => {
+    if (!aiQuery.trim() || !eventId || aiLoading) return;
+
+    setAiLoading(true);
+    try {
+      const result = await aiAPI.guestQuery(eventId, aiQuery);
+      setAiResponse(result.answer);
+    } catch (error) {
+      console.error('AI query failed:', error);
+      setAiResponse('Sorry, I could not process your question. Please try again.');
+    } finally {
+      setAiLoading(false);
+    }
+  };
+
+  const handleVendorSearch = async () => {
+    if (!eventId || vendorLoading) return;
+
+    setVendorLoading(true);
+    try {
+      const result = await aiAPI.searchVendors(eventId, vendorType);
+      setVendors(result.vendors);
+    } catch (error) {
+      console.error('Vendor search failed:', error);
+      toast.error('Failed to search vendors');
+    } finally {
+      setVendorLoading(false);
+    }
+  };
+
+  const handlePhotoSearch = async () => {
+    if (!photoSearchQuery.trim() || photoSearchLoading) return;
+
+    setPhotoSearchLoading(true);
+    try {
+      const result = await aiAPI.searchPhotos(photoSearchQuery, eventId);
+      setSearchedPhotos(result.photos.map((p: any) => ({
+        id: p.id,
+        file_path: p.file_path,
+        description: p.description,
+        caption: p.tags
+      })));
+    } catch (error) {
+      console.error('Photo search failed:', error);
+      toast.error('Failed to search photos');
+    } finally {
+      setPhotoSearchLoading(false);
+    }
+  };
+
+  const handleDocumentUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file || !eventId) return;
+
+    setUploadingDocument(true);
+    setShowUploadMenu(false);
+    try {
+      const result = await documentsAPI.upload(eventId, file);
+      toast.success(`Document "${file.name}" uploaded! AI is extracting content...`);
+
+      // Add a system message about the document
+      const docMessage: Message = {
+        id: Date.now().toString(),
+        content: `Uploaded document: ${file.name} (${result.extracted_text_length} characters extracted for AI context)`,
+        sender: {
+          id: 'system',
+          name: 'Yorru AI',
+          isAI: true
+        },
+        timestamp: new Date(),
+        isAnnouncement: true
+      };
+      setMessages(prev => [...prev, docMessage]);
+    } catch (error) {
+      console.error('Failed to upload document:', error);
+      toast.error('Failed to upload document. Only PDF and TXT files are supported.');
+    } finally {
+      setUploadingDocument(false);
+    }
+  };
+
   const formatTime = (date: Date) => {
-    return date.toLocaleTimeString([], {
-      hour: '2-digit',
-      minute: '2-digit'
-    });
+    return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
   };
+
   const getInitials = (name: string) => {
     return name.split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2);
   };
-  return <div className="container mx-auto h-full flex flex-col">
-      <div className="bg-white/95 backdrop-blur-sm shadow rounded-lg flex-1 flex flex-col overflow-hidden">
-        <div className="px-6 py-4 border-b border-gray-200 flex justify-between items-center bg-white">
-          <div>
-            <h2 className="text-lg font-semibold text-gray-900">
-              {event.title}
-            </h2>
-            <p className="text-sm text-gray-600">Group Chat • {event.date}</p>
-          </div>
-          <button className="p-2 rounded-full hover:bg-gray-100">
-            <InfoIcon className="h-5 w-5 text-gray-600" />
-          </button>
-        </div>
-        <div className="flex-1 overflow-y-auto p-6 bg-gray-50">
-          <div className="space-y-4">
-            {messages.map(msg => <div key={msg.id} className="flex flex-col">
-                {msg.isAnnouncement ? <div className="flex justify-center">
-                    <div className="max-w-md px-4 py-2 rounded-lg bg-blue-100 border border-blue-300 text-blue-900 text-sm text-center">
-                      {msg.content}
-                    </div>
-                  </div> : <>
-                    <div className={`flex items-start gap-3 ${msg.sender.id === (user?.id || 'current-user') ? 'justify-end' : 'justify-start'}`}>
-                      {msg.sender.id !== (user?.id || 'current-user') && <div className={`flex-shrink-0 w-8 h-8 rounded-full ${msg.sender.isAI ? 'bg-indigo-600' : 'bg-gray-700'} flex items-center justify-center text-white font-semibold text-sm`}>
-                          {msg.sender.isAI ? 'Y' : getInitials(msg.sender.name)}
-                        </div>}
-                      <div className={`max-w-lg px-4 py-3 rounded-lg ${msg.sender.id === (user?.id || 'current-user') ? 'bg-indigo-600 text-white' : 'bg-white border border-gray-200 text-gray-900'}`}>
-                        <p className="text-sm">{msg.content}</p>
-                      </div>
-                      {msg.sender.id === (user?.id || 'current-user') && <div className="flex-shrink-0 w-8 h-8 rounded-full bg-gray-700 flex items-center justify-center text-white font-semibold text-xs">
-                          {getInitials(user?.name || 'You')}
-                        </div>}
-                    </div>
-                    <div className={`text-xs text-gray-500 mt-1 ${msg.sender.id === (user?.id || 'current-user') ? 'text-right mr-11' : 'text-left ml-11'}`}>
-                      {formatTime(msg.timestamp)}
-                    </div>
-                  </>}
-              </div>)}
-            <div ref={messagesEndRef} />
-          </div>
-        </div>
-        <div className="p-4 border-t border-gray-200 bg-white">
-          <form onSubmit={handleSendMessage} className="flex items-center space-x-2">
-            <input type="text" value={message} onChange={e => setMessage(e.target.value)} placeholder="Send a message to the group..." className="flex-1 py-3 px-4 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-gray-900" />
-            <button type="submit" className="p-3 rounded-full bg-indigo-600 text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-              <SendIcon className="h-5 w-5" />
-            </button>
-          </form>
+
+  const renderPriceLevel = (level?: number) => {
+    if (level === undefined) return null;
+    return '$'.repeat(level + 1);
+  };
+
+  if (isLoading) {
+    return (
+      <div className="h-full flex items-center justify-center bg-gradient-to-br from-dark-900 via-primary-900/20 to-dark-900">
+        <div className="flex flex-col items-center gap-4">
+          <Loader2Icon className="h-8 w-8 animate-spin text-primary-400" />
+          <p className="text-dark-300">Loading chat...</p>
         </div>
       </div>
-    </div>;
+    );
+  }
+
+  return (
+    <div className="h-full flex flex-col bg-gradient-to-br from-dark-900 via-primary-900/20 to-dark-900">
+      {/* Futuristic Header */}
+      <div className="relative px-6 py-4 border-b border-primary-500/20 bg-dark-900/80 backdrop-blur-xl">
+        <div className="absolute inset-0 bg-gradient-to-r from-primary-500/10 via-transparent to-secondary-500/10" />
+        <div className="relative flex justify-between items-center">
+          <div>
+            <h2 className="text-xl font-bold bg-gradient-to-r from-primary-400 to-secondary-400 bg-clip-text text-transparent">
+              {event?.name || 'Event Chat'}
+            </h2>
+            <p className="text-sm text-dark-400">
+              {event?.date ? new Date(event.date).toLocaleDateString() : 'Group Chat'}
+            </p>
+          </div>
+          <div className="flex items-center gap-2">
+            <button
+              onClick={() => setShowFAQs(!showFAQs)}
+              className="p-2 rounded-xl bg-dark-800/50 border border-dark-700 text-dark-300 hover:text-primary-400 hover:border-primary-500/50 transition-all"
+              title="FAQs"
+            >
+              <InfoIcon className="h-5 w-5" />
+            </button>
+            <button
+              onClick={() => setShowAIPanel(!showAIPanel)}
+              className={`p-2 rounded-xl border transition-all ${
+                showAIPanel
+                  ? 'bg-primary-500/20 border-primary-500 text-primary-400'
+                  : 'bg-dark-800/50 border-dark-700 text-dark-300 hover:text-primary-400 hover:border-primary-500/50'
+              }`}
+              title="AI Assistant"
+            >
+              <SparklesIcon className="h-5 w-5" />
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div className="flex-1 flex overflow-hidden">
+        {/* Main Chat Area */}
+        <div className="flex-1 flex flex-col">
+          {/* Messages */}
+          <div className="flex-1 overflow-y-auto p-4 space-y-4">
+            {messages.map(msg => (
+              <div key={msg.id} className="flex flex-col animate-in fade-in slide-in-from-bottom-2 duration-300">
+                {msg.isAnnouncement ? (
+                  <div className="flex justify-center">
+                    <div className="max-w-md px-4 py-2 rounded-xl bg-gradient-to-r from-primary-500/20 to-secondary-500/20 border border-primary-500/30 text-primary-300 text-sm text-center backdrop-blur-sm">
+                      {msg.content}
+                    </div>
+                  </div>
+                ) : (
+                  <>
+                    <div className={`flex items-start gap-3 ${msg.sender.id === (user?.id || 'current-user') ? 'justify-end' : 'justify-start'}`}>
+                      {msg.sender.id !== (user?.id || 'current-user') && (
+                        <div className={`flex-shrink-0 w-10 h-10 rounded-xl ${
+                          msg.sender.isAI
+                            ? 'bg-gradient-to-br from-primary-500 to-secondary-500'
+                            : 'bg-gradient-to-br from-dark-600 to-dark-700'
+                        } flex items-center justify-center text-white font-semibold text-sm shadow-lg`}>
+                          {msg.sender.isAI ? <BotIcon className="h-5 w-5" /> : getInitials(msg.sender.name)}
+                        </div>
+                      )}
+                      <div className={`max-w-lg px-4 py-3 rounded-2xl shadow-lg ${
+                        msg.sender.isAI
+                          ? 'bg-gradient-to-br from-primary-500/20 to-secondary-500/20 border border-primary-500/30 text-dark-100'
+                          : msg.sender.id === (user?.id || 'current-user')
+                            ? 'bg-gradient-to-br from-primary-600 to-primary-700 text-white'
+                            : 'bg-dark-800/80 border border-dark-700 text-dark-100'
+                      } backdrop-blur-sm`}>
+                        {msg.sender.id !== (user?.id || 'current-user') && (
+                          <div className="font-medium text-xs mb-1 text-primary-400">
+                            {msg.sender.name}
+                          </div>
+                        )}
+                        <p className="text-sm leading-relaxed">{msg.content}</p>
+                        {msg.photos && msg.photos.length > 0 && (
+                          <div className="mt-2 grid gap-2">
+                            {msg.photos.map(photo => (
+                              <img
+                                key={photo.id}
+                                src={photo.file_path}
+                                alt={photo.description || 'Event photo'}
+                                className="rounded-lg max-w-full h-auto"
+                              />
+                            ))}
+                          </div>
+                        )}
+                      </div>
+                      {msg.sender.id === (user?.id || 'current-user') && (
+                        <div className="flex-shrink-0 w-10 h-10 rounded-xl bg-gradient-to-br from-dark-600 to-dark-700 flex items-center justify-center text-white font-semibold text-xs shadow-lg">
+                          {getInitials(user?.name || 'You')}
+                        </div>
+                      )}
+                    </div>
+                    <div className={`text-xs text-dark-500 mt-1 ${msg.sender.id === (user?.id || 'current-user') ? 'text-right mr-14' : 'text-left ml-14'}`}>
+                      {formatTime(msg.timestamp)}
+                    </div>
+                  </>
+                )}
+              </div>
+            ))}
+            <div ref={messagesEndRef} />
+          </div>
+
+          {/* Input Area */}
+          <div className="p-4 border-t border-dark-700/50 bg-dark-900/80 backdrop-blur-xl">
+            <form onSubmit={handleSendMessage} className="flex items-center gap-2">
+              {/* Hidden file inputs */}
+              <input type="file" ref={fileInputRef} onChange={handlePhotoUpload} accept="image/*" className="hidden" />
+              <input type="file" ref={docInputRef} onChange={handleDocumentUpload} accept=".pdf,.txt" className="hidden" />
+
+              {/* Upload Menu Button */}
+              <div className="relative">
+                <button
+                  type="button"
+                  onClick={() => setShowUploadMenu(!showUploadMenu)}
+                  disabled={uploadingPhoto || uploadingDocument}
+                  className="p-3 rounded-xl bg-dark-800 border border-dark-700 text-dark-300 hover:text-primary-400 hover:border-primary-500/50 transition-all disabled:opacity-50"
+                >
+                  {(uploadingPhoto || uploadingDocument) ? (
+                    <Loader2Icon className="h-5 w-5 animate-spin" />
+                  ) : (
+                    <PlusIcon className="h-5 w-5" />
+                  )}
+                </button>
+
+                {/* Upload Menu Dropdown */}
+                {showUploadMenu && (
+                  <div className="absolute bottom-full left-0 mb-2 bg-dark-800 border border-dark-700 rounded-xl shadow-xl overflow-hidden min-w-[160px]">
+                    <button
+                      type="button"
+                      onClick={() => {
+                        fileInputRef.current?.click();
+                        setShowUploadMenu(false);
+                      }}
+                      className="w-full px-4 py-3 flex items-center gap-3 text-dark-200 hover:bg-dark-700 transition-colors text-sm"
+                    >
+                      <ImageIcon className="h-4 w-4 text-primary-400" />
+                      Upload Photo
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        docInputRef.current?.click();
+                        setShowUploadMenu(false);
+                      }}
+                      className="w-full px-4 py-3 flex items-center gap-3 text-dark-200 hover:bg-dark-700 transition-colors text-sm border-t border-dark-700"
+                    >
+                      <FileTextIcon className="h-4 w-4 text-secondary-400" />
+                      Upload Document
+                    </button>
+                  </div>
+                )}
+              </div>
+
+              <input
+                type="text"
+                value={message}
+                onChange={e => setMessage(e.target.value)}
+                placeholder="Type a message..."
+                className="flex-1 py-3 px-4 bg-dark-800/50 border border-dark-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500/50 focus:border-primary-500/50 text-dark-100 placeholder-dark-500 transition-all"
+              />
+              <button
+                type="submit"
+                disabled={isSending || !message.trim()}
+                className="p-3 rounded-xl bg-gradient-to-r from-primary-600 to-secondary-600 text-white hover:from-primary-500 hover:to-secondary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/50 transition-all disabled:opacity-50 disabled:cursor-not-allowed shadow-lg shadow-primary-500/20"
+              >
+                {isSending ? (
+                  <Loader2Icon className="h-5 w-5 animate-spin" />
+                ) : (
+                  <SendIcon className="h-5 w-5" />
+                )}
+              </button>
+            </form>
+            <p className="text-xs text-dark-500 mt-2 text-center">
+              Upload photos or documents (PDF/TXT) to share with the group. Documents are processed by AI for context.
+            </p>
+          </div>
+        </div>
+
+        {/* AI Panel */}
+        {showAIPanel && (
+          <div className="w-96 border-l border-dark-700/50 bg-dark-900/80 backdrop-blur-xl flex flex-col">
+            <div className="p-4 border-b border-dark-700/50">
+              <div className="flex items-center justify-between mb-4">
+                <h3 className="text-lg font-semibold bg-gradient-to-r from-primary-400 to-secondary-400 bg-clip-text text-transparent flex items-center gap-2">
+                  <SparklesIcon className="h-5 w-5 text-primary-400" />
+                  AI Assistant
+                </h3>
+                <button onClick={() => setShowAIPanel(false)} className="text-dark-400 hover:text-dark-200">
+                  <XIcon className="h-5 w-5" />
+                </button>
+              </div>
+
+              {/* AI Query */}
+              <div className="space-y-3">
+                <div className="flex gap-2">
+                  <input
+                    type="text"
+                    value={aiQuery}
+                    onChange={e => setAiQuery(e.target.value)}
+                    placeholder="Ask about the event..."
+                    className="flex-1 py-2 px-3 bg-dark-800 border border-dark-700 rounded-lg text-sm text-dark-100 placeholder-dark-500 focus:outline-none focus:ring-2 focus:ring-primary-500/50"
+                    onKeyDown={e => e.key === 'Enter' && handleAIQuery()}
+                  />
+                  <button
+                    onClick={handleAIQuery}
+                    disabled={aiLoading}
+                    className="px-3 py-2 bg-primary-600 text-white rounded-lg text-sm hover:bg-primary-500 disabled:opacity-50"
+                  >
+                    {aiLoading ? <Loader2Icon className="h-4 w-4 animate-spin" /> : 'Ask'}
+                  </button>
+                </div>
+                {aiResponse && (
+                  <div className="p-3 bg-dark-800/50 rounded-lg border border-dark-700 text-sm text-dark-200">
+                    {aiResponse}
+                  </div>
+                )}
+              </div>
+            </div>
+
+            {/* Photo Search */}
+            <div className="p-4 border-b border-dark-700/50">
+              <h4 className="text-sm font-medium text-dark-300 mb-3 flex items-center gap-2">
+                <SearchIcon className="h-4 w-4" />
+                Search Photos
+              </h4>
+              <div className="flex gap-2">
+                <input
+                  type="text"
+                  value={photoSearchQuery}
+                  onChange={e => setPhotoSearchQuery(e.target.value)}
+                  placeholder="e.g., 'pics from last Sunday'"
+                  className="flex-1 py-2 px-3 bg-dark-800 border border-dark-700 rounded-lg text-sm text-dark-100 placeholder-dark-500 focus:outline-none focus:ring-2 focus:ring-primary-500/50"
+                  onKeyDown={e => e.key === 'Enter' && handlePhotoSearch()}
+                />
+                <button
+                  onClick={handlePhotoSearch}
+                  disabled={photoSearchLoading}
+                  className="px-3 py-2 bg-dark-700 text-dark-200 rounded-lg text-sm hover:bg-dark-600 disabled:opacity-50"
+                >
+                  {photoSearchLoading ? <Loader2Icon className="h-4 w-4 animate-spin" /> : <SearchIcon className="h-4 w-4" />}
+                </button>
+              </div>
+              {searchedPhotos.length > 0 && (
+                <div className="mt-3 grid grid-cols-2 gap-2 max-h-48 overflow-y-auto">
+                  {searchedPhotos.map(photo => (
+                    <img
+                      key={photo.id}
+                      src={`${API_URL}${photo.file_path}`}
+                      alt={photo.description || 'Photo'}
+                      className="rounded-lg w-full h-20 object-cover cursor-pointer hover:opacity-80"
+                    />
+                  ))}
+                </div>
+              )}
+            </div>
+
+            {/* Vendor Search */}
+            <div className="p-4 flex-1 overflow-y-auto">
+              <h4 className="text-sm font-medium text-dark-300 mb-3 flex items-center gap-2">
+                <MapPinIcon className="h-4 w-4" />
+                Find Vendors Nearby
+              </h4>
+              <div className="flex gap-2 mb-3">
+                <select
+                  value={vendorType}
+                  onChange={e => setVendorType(e.target.value)}
+                  className="flex-1 py-2 px-3 bg-dark-800 border border-dark-700 rounded-lg text-sm text-dark-100 focus:outline-none focus:ring-2 focus:ring-primary-500/50"
+                >
+                  <option value="restaurant">Restaurants</option>
+                  <option value="catering">Catering</option>
+                  <option value="hall">Event Halls</option>
+                  <option value="bakery">Bakeries</option>
+                  <option value="florist">Florists</option>
+                  <option value="bar">Bars</option>
+                </select>
+                <button
+                  onClick={handleVendorSearch}
+                  disabled={vendorLoading}
+                  className="px-3 py-2 bg-primary-600 text-white rounded-lg text-sm hover:bg-primary-500 disabled:opacity-50"
+                >
+                  {vendorLoading ? <Loader2Icon className="h-4 w-4 animate-spin" /> : 'Search'}
+                </button>
+              </div>
+
+              {vendors.length > 0 && (
+                <div className="space-y-3">
+                  {vendors.map(vendor => (
+                    <div key={vendor.place_id} className="p-3 bg-dark-800/50 rounded-lg border border-dark-700">
+                      <div className="flex items-start justify-between">
+                        <div>
+                          <h5 className="font-medium text-dark-100 text-sm">{vendor.name}</h5>
+                          <p className="text-xs text-dark-400">{vendor.address}</p>
+                        </div>
+                        {vendor.is_open !== undefined && (
+                          <span className={`text-xs px-2 py-0.5 rounded ${vendor.is_open ? 'bg-green-500/20 text-green-400' : 'bg-red-500/20 text-red-400'}`}>
+                            {vendor.is_open ? 'Open' : 'Closed'}
+                          </span>
+                        )}
+                      </div>
+                      <div className="flex items-center gap-2 mt-2 text-xs text-dark-400">
+                        {vendor.rating && (
+                          <span className="flex items-center gap-1">
+                            <span className="text-yellow-400">★</span>
+                            {vendor.rating} ({vendor.total_ratings})
+                          </span>
+                        )}
+                        {vendor.price_level !== undefined && (
+                          <span className="text-green-400">{renderPriceLevel(vendor.price_level)}</span>
+                        )}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+          </div>
+        )}
+
+        {/* FAQs Panel */}
+        {showFAQs && faqs.length > 0 && (
+          <div className="w-80 border-l border-dark-700/50 bg-dark-900/80 backdrop-blur-xl p-4 overflow-y-auto">
+            <div className="flex items-center justify-between mb-4">
+              <h3 className="text-lg font-semibold text-dark-100">FAQs</h3>
+              <button onClick={() => setShowFAQs(false)} className="text-dark-400 hover:text-dark-200">
+                <XIcon className="h-5 w-5" />
+              </button>
+            </div>
+            <div className="space-y-3">
+              {faqs.map(faq => (
+                <div key={faq.id} className="p-3 bg-dark-800/50 rounded-lg border border-dark-700">
+                  <h4 className="font-medium text-dark-200 text-sm mb-1">{faq.question}</h4>
+                  <p className="text-xs text-dark-400">{faq.answer}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+      </div>
+    </div>
+  );
 };
+
 export default GroupChat;

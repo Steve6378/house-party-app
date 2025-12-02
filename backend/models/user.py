@@ -1,7 +1,7 @@
 # Yorru - User Model
 # Version: 0.0.1
 
-from sqlalchemy import Column, String, Boolean, DateTime, ForeignKey
+from sqlalchemy import Column, String, Boolean, DateTime, ForeignKey, Text, Float
 from sqlalchemy.orm import relationship
 from .base import Base, TimestampMixin
 
@@ -53,7 +53,16 @@ class User(Base, TimestampMixin):
     name = Column(String, nullable=False)
     email = Column(String, unique=True, nullable=False)
     phone = Column(String)
-    
+    age = Column(String)  # Stored as string for flexibility
+    bio = Column(String)
+    profile_photo = Column(String)  # R2 key or local path for profile photo
+    face_encoding = Column(Text)  # JSON: [128 floats] - face encoding from profile photo
+
+    # Location (for directions feature)
+    address = Column(String)  # User's home/default address
+    latitude = Column(Float)  # Latitude coordinate
+    longitude = Column(Float)  # Longitude coordinate
+
     # Authentication
     password_hash = Column(String)  # For email/password login
     google_id = Column(String, unique=True)  # For Google OAuth

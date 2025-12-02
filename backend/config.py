@@ -19,6 +19,20 @@ class Settings(BaseSettings):
     JWT_ALGORITHM: str = "HS256"
     JWT_EXPIRATION_MINUTES: int = 60 * 24 * 7  # 7 days
 
+    # Google Maps API for vendor recommendations
+    GOOGLE_MAPS_API_KEY: str = "AIzaSyArl429AzBBxRq75I44ql0B7U56Gx0dMCo"
+
+    # IPInfo API for location detection
+    IPINFO_API_KEY: str = "66e8a1256f48d9"
+
+
+    # Cloudflare R2 Storage (S3-compatible)
+    R2_ACCOUNT_ID: Optional[str] = None
+    R2_ACCESS_KEY_ID: Optional[str] = None
+    R2_SECRET_ACCESS_KEY: Optional[str] = None
+    R2_BUCKET_NAME: str = "yorru-photos"
+    R2_PUBLIC_URL: Optional[str] = None  # Your R2 public bucket URL or custom domain
+
     ENVIRONMENT: str = "development"  # development, staging, production
     DEBUG: bool = True
 

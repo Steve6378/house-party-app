@@ -14,6 +14,8 @@ import HostInterfaceEnhanced from './pages/HostInterfaceEnhanced';
 import GuestInterfaceEnhanced from './pages/GuestInterfaceEnhanced';
 import GroupsPage from './pages/GroupsPage';
 import GroupChatWorking from './pages/GroupChatWorking';
+import ProfilePage from './pages/ProfilePage';
+import SettingsPage from './pages/SettingsPage';
 
 function ProtectedRoute({ children }: { children: React.ReactNode }) {
   const isAuthenticated = useAuthStore((state: any) => state.isAuthenticated);
@@ -123,6 +125,22 @@ export function App() {
             element={
               <ProtectedRoute>
                 <GroupChatWorking />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/profile"
+            element={
+              <ProtectedRoute>
+                <ProfilePage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/settings"
+            element={
+              <ProtectedRoute>
+                <SettingsPage />
               </ProtectedRoute>
             }
           />

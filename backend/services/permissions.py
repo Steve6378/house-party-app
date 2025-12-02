@@ -12,7 +12,7 @@ Permission Levels:
 - Public: Can view public events only
 """
 
-from sqlalchemy.orm import Session
+from sqlalchemy.orm import Session, joinedload
 from fastapi import HTTPException
 from models.event import Event
 from models.attendance import EventAttendance, EventCoHost
@@ -197,8 +197,8 @@ def get_user_events(user: User, db: Session, status: str = None, event_type: str
     - Group member (for group-only events)
     - Public events
     """
-    # Start with base query
-    query = db.query(Event)
+    # Start with base query, eagerly load attendees for dashboard display
+    query = db.query(Event).options(joinedload(Event.attendees))
 
     # Apply filters
     if status:
