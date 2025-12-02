@@ -9,6 +9,7 @@ interface User {
   age?: string;
   bio?: string;
   profile_photo?: string;
+  has_face_encoding?: boolean;
 }
 
 interface AuthState {
