@@ -98,6 +98,11 @@ export const authAPI = {
     return response.data;
   },
 
+  disableFaceRecognition: async () => {
+    const response = await api.delete('/api/auth/me/face-recognition');
+    return response.data;
+  },
+
   autoLocate: async () => {
     const response = await api.get('/api/auth/me/auto-locate');
     return response.data;

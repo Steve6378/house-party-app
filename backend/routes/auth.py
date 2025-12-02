@@ -424,6 +424,34 @@ async def refresh_face_encoding(
         )
 
 
+@router.delete("/me/face-recognition")
+async def disable_face_recognition(
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    """
+    Disable face recognition by clearing the face encoding.
+
+    This removes your face encoding from the system. You will no longer
+    be able to use the #photos feature to find photos of yourself.
+    """
+    if not current_user.face_encoding:
+        raise HTTPException(
+            status_code=400,
+            detail="Face recognition is not enabled for your account."
+        )
+
+    # Clear the face encoding
+    current_user.face_encoding = None
+    db.commit()
+    db.refresh(current_user)
+
+    return {
+        "message": "Face recognition has been disabled. Your face encoding has been removed.",
+        "has_face_encoding": False
+    }
+
+
 @router.get("/users/{user_id}/photo")
 async def get_user_photo_by_id(
     user_id: str,

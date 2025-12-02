@@ -152,10 +152,30 @@ function ProfilePage() {
     setFaceEncodingLoading(true);
     try {
       const result = await authAPI.refreshFaceEncoding();
+      // Refresh user data to get updated has_face_encoding
+      const updatedUser = await authAPI.getProfile();
+      updateUser(updatedUser);
       toast.success(result.message || 'Face recognition enabled! You can now use #photos to find yourself in event photos.');
     } catch (error) {
       console.error('Failed to enable face recognition:', error);
       const errorMessage = error.response?.data?.detail || 'Failed to enable face recognition. Make sure your profile photo has a clear, visible face.';
+      toast.error(errorMessage);
+    } finally {
+      setFaceEncodingLoading(false);
+    }
+  };
+
+  const handleDisableFaceRecognition = async () => {
+    setFaceEncodingLoading(true);
+    try {
+      const result = await authAPI.disableFaceRecognition();
+      // Refresh user data to get updated has_face_encoding
+      const updatedUser = await authAPI.getProfile();
+      updateUser(updatedUser);
+      toast.success(result.message || 'Face recognition disabled.');
+    } catch (error) {
+      console.error('Failed to disable face recognition:', error);
+      const errorMessage = error.response?.data?.detail || 'Failed to disable face recognition.';
       toast.error(errorMessage);
     } finally {
       setFaceEncodingLoading(false);
@@ -252,27 +272,58 @@ function ProfilePage() {
                     <p className="text-white font-medium flex items-center gap-2">
                       <Scan className="w-4 h-4" />
                       Face Recognition
+                      {user?.has_face_encoding && (
+                        <span className="text-xs bg-green-500/20 text-green-400 px-2 py-0.5 rounded-full">
+                          Enabled
+                        </span>
+                      )}
                     </p>
-                    <p className="text-gray-400 text-sm">Enable to find yourself in event photos using #photos</p>
+                    <p className="text-gray-400 text-sm">
+                      {user?.has_face_encoding
+                        ? 'You can find yourself in event photos using #photos'
+                        : 'Enable to find yourself in event photos using #photos'
+                      }
+                    </p>
                   </div>
-                  <button
-                    type="button"
-                    onClick={handleEnableFaceRecognition}
-                    disabled={faceEncodingLoading}
-                    className="bg-secondary-600 hover:bg-secondary-700 text-white px-4 py-2 rounded-lg font-medium transition flex items-center gap-2 disabled:opacity-50"
-                  >
-                    {faceEncodingLoading ? (
-                      <>
-                        <Loader2 className="w-4 h-4 animate-spin" />
-                        Processing...
-                      </>
-                    ) : (
-                      <>
-                        <Scan className="w-4 h-4" />
-                        Enable Face Recognition
-                      </>
-                    )}
-                  </button>
+                  {user?.has_face_encoding ? (
+                    <button
+                      type="button"
+                      onClick={handleDisableFaceRecognition}
+                      disabled={faceEncodingLoading}
+                      className="bg-red-600/20 hover:bg-red-600/30 text-red-400 border border-red-500/30 px-4 py-2 rounded-lg font-medium transition flex items-center gap-2 disabled:opacity-50"
+                    >
+                      {faceEncodingLoading ? (
+                        <>
+                          <Loader2 className="w-4 h-4 animate-spin" />
+                          Processing...
+                        </>
+                      ) : (
+                        <>
+                          <Scan className="w-4 h-4" />
+                          Disable
+                        </>
+                      )}
+                    </button>
+                  ) : (
+                    <button
+                      type="button"
+                      onClick={handleEnableFaceRecognition}
+                      disabled={faceEncodingLoading}
+                      className="bg-secondary-600 hover:bg-secondary-700 text-white px-4 py-2 rounded-lg font-medium transition flex items-center gap-2 disabled:opacity-50"
+                    >
+                      {faceEncodingLoading ? (
+                        <>
+                          <Loader2 className="w-4 h-4 animate-spin" />
+                          Processing...
+                        </>
+                      ) : (
+                        <>
+                          <Scan className="w-4 h-4" />
+                          Enable
+                        </>
+                      )}
+                    </button>
+                  )}
                 </div>
               </div>
             )}
