@@ -737,7 +737,7 @@ function HostInterfaceEnhanced() {
                           setSelectedMode(null);
                         }
                       }}
-                      onKeyDown={(e) => e.key === 'Enter' && handleAiRequest()}
+                      onKeyDown={(e) => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); handleAiRequest(); } }}
                       placeholder={selectedMode ? `Ask about ${selectedMode}...` : "Ask AI to help (e.g., '#recommendation find Italian food nearby')..."}
                       className="flex-1 px-4 py-3 bg-dark-700/50 border border-primary-500/30 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition"
                     />
@@ -800,7 +800,7 @@ function HostInterfaceEnhanced() {
                       <div>
                         <p className="text-white font-semibold">{doc.filename}</p>
                         <p className="text-sm text-gray-400">
-                          Uploaded {new Date(doc.uploaded_at).toLocaleDateString()}
+                          Uploaded {doc.created_at ? new Date(doc.created_at).toLocaleDateString() : 'recently'}
                         </p>
                       </div>
                     </div>
@@ -1004,7 +1004,7 @@ function HostInterfaceEnhanced() {
                     type="email"
                     value={newContactEmail}
                     onChange={(e) => setNewContactEmail(e.target.value)}
-                    onKeyDown={(e) => e.key === 'Enter' && handleAddContact()}
+                    onKeyDown={(e) => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); handleAddContact(); } }}
                     placeholder="Enter email address..."
                     className="flex-1 px-4 py-3 bg-dark-700/50 border border-primary-500/30 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition"
                   />

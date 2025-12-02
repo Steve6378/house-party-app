@@ -794,7 +794,7 @@ function GuestInterfaceEnhanced() {
                     setSelectedMode(null);
                   }
                 }}
-                onKeyDown={(e) => e.key === 'Enter' && handleAskQuestion()}
+                onKeyDown={(e) => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); handleAskQuestion(); } }}
                 placeholder={selectedMode ? `Ask about ${selectedMode}...` : "Ask a question (e.g., '#recommendation find pizza nearby')..."}
                 className="flex-1 px-4 py-3 bg-dark-700/50 border border-primary-500/30 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition"
               />
