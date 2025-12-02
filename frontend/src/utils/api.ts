@@ -330,8 +330,12 @@ export const aiAPI = {
     return response.data;
   },
 
-  generalQuery: async (question: string) => {
-    const response = await api.post('/api/ai/general-query', { question });
+  generalQuery: async (question: string, conversationHistory?: ConversationMessage[], eventId?: string) => {
+    const response = await api.post('/api/ai/general-query', {
+      question,
+      conversation_history: conversationHistory,
+      event_id: eventId
+    });
     return response.data;
   },
 
@@ -345,6 +349,15 @@ export const aiAPI = {
     is_online?: boolean;
   }) => {
     const response = await api.post('/api/ai/generate-description', data);
+    return response.data;
+  },
+
+  recommendation: async (eventId: string, query: string, radius: number = 5000) => {
+    const response = await api.post('/api/ai/recommendation', {
+      event_id: eventId,
+      query,
+      radius
+    });
     return response.data;
   },
 };

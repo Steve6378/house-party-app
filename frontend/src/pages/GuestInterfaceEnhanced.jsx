@@ -259,7 +259,7 @@ function GuestInterfaceEnhanced() {
       setAiLoading(true);
 
       try {
-        const response = await aiAPI.generalQuery(cleanQuestion || 'Hello');
+        const response = await aiAPI.generalQuery(cleanQuestion || 'Hello', undefined, id);
         const answerText = response.answer || 'I couldn\'t generate a response.';
         const aiMessage = {
           role: 'assistant',
