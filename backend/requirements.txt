@@ -66,5 +66,5 @@ pypdf==3.17.4
 pdfplumber==0.10.3
 
 # Face recognition (using OpenCV for easy installation)
-opencv-python-headless==4.12.0.88  # For face detection
+opencv-python-headless==4.9.0.80  # For face detection (4.9.x supports numpy<2.0)
 Pillow==10.2.0  # Image processing
