@@ -14,6 +14,7 @@ from routes.attendance import router as attendance_router
 from routes.chat import router as chat_router
 from routes.documents import router as documents_router
 from routes.questionnaire import router as questionnaire_router
+from routes.photos import router as photos_router
 
 app = FastAPI(
     title="Yorru API",
@@ -33,6 +34,7 @@ app.include_router(ai_router, prefix="/api")  # AI endpoints: /api/ai/guest-quer
 app.include_router(chat_router, prefix="/api")  # Chat with WebSocket: /api/events/{id}/ws, /api/events/{id}/messages
 app.include_router(documents_router, prefix="/api")  # Documents: /api/events/{id}/documents
 app.include_router(questionnaire_router, prefix="/api")  # Questionnaire: /api/events/{id}/questionnaire
+app.include_router(photos_router, prefix="/api")  # Photos: /api/events/{id}/photos
 app.include_router(groups_router, prefix="/api")  # Group management: /api/groups
 
 # CORS middleware for frontend

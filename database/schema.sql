@@ -359,6 +359,61 @@ COMMENT ON TABLE public.poll_votes IS 'Votes in polls';
 COMMENT ON TABLE public.audit_log IS 'Optional audit log for all actions';
 
 -- ============================================
+-- EVENT PHOTOS (For AI Photo Search)
+-- ============================================
+
+CREATE TABLE public.event_photos (
+    id TEXT PRIMARY KEY,
+    event_id TEXT NOT NULL REFERENCES events(id) ON DELETE CASCADE,
+    uploaded_by TEXT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+    filename VARCHAR(255) NOT NULL,
+    file_path TEXT NOT NULL,
+    file_type VARCHAR(50) NOT NULL,  -- 'jpg', 'png', 'gif', 'webp'
+    file_size INTEGER NOT NULL,
+    description TEXT,  -- AI-generated description
+    tags TEXT,  -- Comma-separated tags
+    caption TEXT,  -- User-provided caption
+    message_id TEXT REFERENCES messages(id) ON DELETE SET NULL,
+    embedding vector(1536),  -- For semantic search
+    created_at TIMESTAMP DEFAULT NOW(),
+    updated_at TIMESTAMP DEFAULT NOW()
+);
+
+CREATE INDEX idx_event_photos_event_id ON public.event_photos(event_id);
+CREATE INDEX idx_event_photos_uploaded_by ON public.event_photos(uploaded_by);
+CREATE INDEX idx_event_photos_created_at ON public.event_photos(created_at DESC);
+
+-- Vector similarity index for photo search
+CREATE INDEX idx_event_photos_embedding ON public.event_photos
+USING ivfflat (embedding vector_cosine_ops) WITH (lists = 100);
+
+-- ============================================
+-- EVENT FAQs (Auto-generated from questions)
+-- ============================================
+
+CREATE TABLE public.event_faqs (
+    id TEXT PRIMARY KEY,
+    event_id TEXT NOT NULL REFERENCES events(id) ON DELETE CASCADE,
+    question TEXT NOT NULL,
+    answer TEXT NOT NULL,
+    frequency INTEGER DEFAULT 1,
+    is_public BOOLEAN DEFAULT FALSE,
+    similar_questions TEXT,  -- JSON array of similar questions
+    last_asked_by TEXT REFERENCES users(id) ON DELETE SET NULL,
+    embedding vector(1536),  -- For finding similar questions
+    created_at TIMESTAMP DEFAULT NOW(),
+    updated_at TIMESTAMP DEFAULT NOW()
+);
+
+CREATE INDEX idx_event_faqs_event_id ON public.event_faqs(event_id);
+CREATE INDEX idx_event_faqs_frequency ON public.event_faqs(frequency DESC);
+CREATE INDEX idx_event_faqs_is_public ON public.event_faqs(is_public) WHERE is_public = TRUE;
+
+-- Vector similarity index for FAQ matching
+CREATE INDEX idx_event_faqs_embedding ON public.event_faqs
+USING ivfflat (embedding vector_cosine_ops) WITH (lists = 100);
+
+-- ============================================
 -- INDEXES SUMMARY
 -- ============================================
 

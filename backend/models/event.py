@@ -42,7 +42,11 @@ class Event(Base, TimestampMixin):
     
     # Location
     address = Column(Text)
-    
+
+    # Description and topics
+    description = Column(Text)  # Event description
+    topics = Column(Text)  # JSON array of topic tags (e.g., '["Technology", "Networking"]')
+
     # Budget/capacity
     budget_per_person = Column(Numeric(10, 2))
     expected_guests = Column(Integer)
@@ -61,7 +65,19 @@ class Event(Base, TimestampMixin):
     # Privacy/visibility
     visibility = Column(String, default="private", nullable=False)
     # Values: "private", "group_only", "public"
-    
+
+    # Online/Offline
+    is_online = Column(Boolean, default=False, nullable=False)
+    online_link = Column(Text)  # Zoom/Meet link for online events
+
+    # Payment
+    is_paid = Column(Boolean, default=False, nullable=False)
+    ticket_price = Column(Numeric(10, 2))  # Price per person if paid
+
+    # Location coordinates for nearby discovery
+    latitude = Column(Numeric(10, 7))
+    longitude = Column(Numeric(10, 7))
+
     # Relationships
     host = relationship("User", back_populates="hosted_events", foreign_keys=[main_host_id])
     group = relationship("Group", back_populates="events")
@@ -76,6 +92,8 @@ class Event(Base, TimestampMixin):
     polls = relationship("Poll", back_populates="event")
     documents = relationship("EventDocument", back_populates="event")
     questionnaire = relationship("EventQuestionnaire", back_populates="event", uselist=False)
+    photos = relationship("EventPhoto", back_populates="event")
+    faqs = relationship("EventFAQ", back_populates="event")
 
     def __repr__(self):
         return f"<Event(id={self.id}, name={self.name}, date={self.date})>"

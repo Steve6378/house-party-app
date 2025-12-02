@@ -60,6 +60,48 @@ export const authAPI = {
     const response = await api.get('/api/auth/me');
     return response.data;
   },
+
+  updateProfile: async (data: { name?: string; phone?: string; age?: string; bio?: string; address?: string; latitude?: number; longitude?: number }) => {
+    const response = await api.put('/api/auth/me', data);
+    return response.data;
+  },
+
+  uploadProfilePhoto: async (file: File) => {
+    const formData = new FormData();
+    formData.append('file', file);
+    const response = await api.post('/api/auth/me/photo', formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
+    return response.data;
+  },
+
+  getProfilePhotoUrl: () => {
+    const authStorage = localStorage.getItem('auth-storage');
+    if (authStorage) {
+      try {
+        const authData = JSON.parse(authStorage);
+        const token = authData.state?.token;
+        if (token) {
+          return `${API_URL}/api/auth/me/photo?token=${token}`;
+        }
+      } catch (error) {
+        console.error('Error parsing auth storage:', error);
+      }
+    }
+    return null;
+  },
+
+  refreshFaceEncoding: async () => {
+    const response = await api.post('/api/auth/me/refresh-face-encoding');
+    return response.data;
+  },
+
+  autoLocate: async () => {
+    const response = await api.get('/api/auth/me/auto-locate');
+    return response.data;
+  },
 };
 
 // Events API
@@ -84,6 +126,14 @@ export const eventsAPI = {
     budget_per_person?: number;
     expected_guests?: number;
     visibility?: string;
+    is_online?: boolean;
+    online_link?: string;
+    is_paid?: boolean;
+    ticket_price?: number;
+    latitude?: number;
+    longitude?: number;
+    description?: string;
+    topics?: string[];
   }) => {
     const response = await api.post('/api/events', data);
     return response.data;
@@ -111,6 +161,24 @@ export const eventsAPI = {
 
   archive: async (eventId: string) => {
     const response = await api.post(`/api/events/${eventId}/archive`);
+    return response.data;
+  },
+
+  discoverPublic: async (params?: {
+    skip?: number;
+    limit?: number;
+    latitude?: number;
+    longitude?: number;
+    radius_km?: number;
+    is_online?: boolean;
+    is_free?: boolean;
+  }) => {
+    const response = await api.get('/api/events/discover/public', { params });
+    return response.data;
+  },
+
+  join: async (eventId: string) => {
+    const response = await api.post(`/api/events/${eventId}/join`);
     return response.data;
   },
 };
@@ -165,15 +233,149 @@ export const groundTruthAPI = {
   },
 };
 
+// Conversation message type for AI chat history
+interface ConversationMessage {
+  role: 'user' | 'assistant';
+  content: string;
+}
+
 // AI Assistant API
 export const aiAPI = {
-  guestQuery: async (eventId: string, question: string) => {
-    const response = await api.post('/api/ai/query', { event_id: eventId, question });
+  guestQuery: async (eventId: string, question: string, conversationHistory?: ConversationMessage[]) => {
+    const response = await api.post('/api/ai/guest-query', {
+      event_id: eventId,
+      question,
+      conversation_history: conversationHistory
+    });
     return response.data;
   },
 
-  hostAssist: async (eventId: string, task: string, context?: any) => {
-    const response = await api.post('/api/ai/host-assist', { event_id: eventId, task, context });
+  hostAssist: async (eventId: string, task: string, context?: any, conversationHistory?: ConversationMessage[]) => {
+    const response = await api.post('/api/ai/host-assist', {
+      event_id: eventId,
+      task,
+      context,
+      conversation_history: conversationHistory
+    });
+    return response.data;
+  },
+
+  searchPhotos: async (query: string, eventId?: string, limit: number = 10) => {
+    const response = await api.post('/api/ai/photo-search', { query, event_id: eventId, limit });
+    return response.data;
+  },
+
+  searchVendors: async (eventId: string, vendorType: string, query?: string, radius: number = 5000) => {
+    const response = await api.post('/api/ai/vendors', {
+      event_id: eventId,
+      vendor_type: vendorType,
+      query,
+      radius
+    });
+    return response.data;
+  },
+
+  broadcast: async (eventId: string, message: string, messageType: string = 'announcement') => {
+    const response = await api.post('/api/ai/broadcast', {
+      event_id: eventId,
+      message,
+      message_type: messageType
+    });
+    return response.data;
+  },
+
+  getFAQs: async (eventId: string) => {
+    const response = await api.get(`/api/ai/faq/${eventId}`);
+    return response.data;
+  },
+
+  recordFAQ: async (eventId: string, question: string, answer: string) => {
+    const response = await api.post('/api/ai/record-faq', {
+      event_id: eventId,
+      question,
+      answer
+    });
+    return response.data;
+  },
+
+  findMyPhotos: async (eventId: string) => {
+    const response = await api.post('/api/ai/find-my-photos', { event_id: eventId });
+    return response.data;
+  },
+
+  generalQuery: async (question: string) => {
+    const response = await api.post('/api/ai/general-query', { question });
+    return response.data;
+  },
+
+  generateDescription: async (data: {
+    name: string;
+    event_type: string;
+    topics?: string[];
+    date?: string;
+    address?: string;
+    expected_guests?: number;
+    is_online?: boolean;
+  }) => {
+    const response = await api.post('/api/ai/generate-description', data);
+    return response.data;
+  },
+};
+
+// Documents API (PDF extraction for AI context)
+export const documentsAPI = {
+  upload: async (eventId: string, file: File) => {
+    const formData = new FormData();
+    formData.append('file', file);
+    const response = await api.post(`/api/events/${eventId}/documents`, formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
+    return response.data;
+  },
+
+  list: async (eventId: string) => {
+    const response = await api.get(`/api/events/${eventId}/documents`);
+    return response.data;
+  },
+
+  delete: async (eventId: string, documentId: string) => {
+    const response = await api.delete(`/api/events/${eventId}/documents/${documentId}`);
+    return response.data;
+  },
+};
+
+// Photos API
+export const photosAPI = {
+  upload: async (eventId: string, file: File, caption?: string) => {
+    const formData = new FormData();
+    formData.append('file', file);
+    if (caption) {
+      formData.append('caption', caption);
+    }
+    const response = await api.post(`/api/events/${eventId}/photos`, formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
+    return response.data;
+  },
+
+  list: async (eventId: string) => {
+    const response = await api.get(`/api/events/${eventId}/photos`);
+    return response.data;
+  },
+
+  getFile: async (photoId: string) => {
+    const response = await api.get(`/api/events/photos/${photoId}/file`, {
+      responseType: 'blob',
+    });
+    return response.data;
+  },
+
+  delete: async (eventId: string, photoId: string) => {
+    const response = await api.delete(`/api/events/${eventId}/photos/${photoId}`);
     return response.data;
   },
 };

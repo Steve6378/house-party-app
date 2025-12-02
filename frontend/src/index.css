@@ -1,10 +1,16 @@
-/* URL IMPORTS (SUCH AS FONT IMPORTS) SHOULD BE KEPT ABOVE TAILWIND IMPORTS - DO NOT DELETE THIS COMMENT */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
-/* PLEASE NOTE: THESE TAILWIND IMPORTS SHOULD NEVER BE DELETED - DO NOT DELETE THIS COMMENT */
-@import 'tailwindcss/base';
-@import 'tailwindcss/components';
-@import 'tailwindcss/utilities';
-/* DO NOT DELETE THESE TAILWIND IMPORTS, OTHERWISE THE STYLING WILL NOT RENDER AT ALL - DO NOT DELETE THIS COMMENT */
+/* TAILWIND DIRECTIVES MUST BE AT TOP - DO NOT DELETE */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ABeeZee font - custom font for Yorru */
+@font-face {
+  font-family: 'ABeeZee';
+  src: url('/fonts/ABeeZee-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
 
 :root {
   --primary: #4f46e5;
@@ -19,7 +25,7 @@
 }
 
 body {
-  font-family: 'Inter', sans-serif;
+  font-family: 'ABeeZee', sans-serif;
   background: linear-gradient(135deg, #131515 0%, #281F5B 50%, #4E626A 100%);
   background-attachment: fixed;
   color: var(--foreground);

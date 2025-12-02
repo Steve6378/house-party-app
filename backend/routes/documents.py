@@ -42,16 +42,17 @@ async def upload_document(
 
     **Authentication required.**
 
-    Only hosts and co-hosts can upload documents.
+    Any user with event access can upload documents.
+    The AI will be able to answer questions about uploaded documents.
     Supported formats: PDF, TXT
     Max file size: 10MB
     """
-    # Verify event exists and user has permission
+    # Verify event exists and user has permission (view access is enough to upload)
     event = db.query(Event).filter(Event.id == event_id).first()
     if not event:
         raise HTTPException(status_code=404, detail="Event not found")
 
-    require_event_access(current_user, event, db, action="edit")
+    require_event_access(current_user, event, db, action="view")
 
     # Validate file extension
     file_ext = os.path.splitext(file.filename)[1].lower()

@@ -7,9 +7,11 @@ from sqlalchemy import text as sql_text
 from typing import Optional
 from datetime import datetime
 import uuid
+import json
 
 from models.event import Event
 from models.user import User
+from models.message import Message
 from models.ground_truth import GroundTruthFact
 from schemas.event import EventCreate, EventUpdate, EventResponse, EventListResponse, EventListItem
 from utils.database import get_db
@@ -17,6 +19,7 @@ from routes.auth import get_current_user
 from services.permissions import get_user_events, require_event_access
 from services.sanitize import sanitize_event_name, sanitize_event_address
 from services.embeddings import embed_text
+from services.websocket_manager import manager
 
 router = APIRouter(prefix="/events", tags=["events"])
 
@@ -115,6 +118,9 @@ def create_event(
     sanitized_name = sanitize_event_name(event_data.name)
     sanitized_address = sanitize_event_address(event_data.address) if event_data.address else None
 
+    # Convert topics list to JSON string for storage
+    topics_json = json.dumps(event_data.topics) if event_data.topics else None
+
     # Create event object (main_host_id is automatically set to current user)
     new_event = Event(
         id=event_id,
@@ -128,7 +134,17 @@ def create_event(
         budget_per_person=event_data.budget_per_person,
         expected_guests=event_data.expected_guests,
         status="active",
-        visibility=event_data.visibility
+        visibility=event_data.visibility,
+        # Description and topics
+        description=event_data.description,
+        topics=topics_json,
+        # Online/Offline
+        is_online=event_data.is_online or False,
+        online_link=event_data.online_link,
+        is_paid=event_data.is_paid or False,
+        ticket_price=event_data.ticket_price,
+        latitude=event_data.latitude,
+        longitude=event_data.longitude
     )
 
     # Save to database
@@ -140,7 +156,7 @@ def create_event(
 
 
 @router.put("/{event_id}", response_model=EventResponse)
-def update_event(
+async def update_event(
     event_id: str,
     updates: EventUpdate,
     current_user: User = Depends(get_current_user),
@@ -263,6 +279,53 @@ def update_event(
     db.commit()
     db.refresh(event)
 
+    # Broadcast changes to group chat if significant fields changed
+    broadcast_fields = {"time", "date", "address", "name"}
+    changed_broadcast_fields = set(update_data.keys()) & broadcast_fields
+
+    if changed_broadcast_fields:
+        # Build change summary
+        changes = []
+        field_labels = {
+            "name": "Event name",
+            "date": "Date",
+            "time": "Time",
+            "address": "Location"
+        }
+        for field in changed_broadcast_fields:
+            label = field_labels.get(field, field)
+            changes.append(f"{label}: {update_data[field]}")
+
+        change_message = f"📢 Event updated! " + ", ".join(changes)
+
+        # Create system message
+        broadcast_msg = Message(
+            id=str(uuid.uuid4()),
+            event_id=event_id,
+            sender_id=None,
+            message_type="system",
+            content=change_message
+        )
+        db.add(broadcast_msg)
+        db.commit()
+
+        # Broadcast via WebSocket
+        try:
+            await manager.broadcast_to_event(event_id, {
+                "type": "message",
+                "data": {
+                    "id": broadcast_msg.id,
+                    "sender_id": None,
+                    "sender_name": "Yorru AI",
+                    "message_type": "system",
+                    "content": change_message,
+                    "created_at": broadcast_msg.created_at.isoformat(),
+                    "is_announcement": True
+                }
+            })
+        except Exception as e:
+            print(f"Failed to broadcast event update: {e}")
+
     return event
 
 
@@ -336,4 +399,159 @@ def archive_event(
         "message": "Event archived successfully",
         "event_id": event_id,
         "archived_at": event.archived_at
+    }
+
+
+@router.get("/discover/public", response_model=EventListResponse)
+def discover_public_events(
+    skip: int = Query(0, ge=0, description="Number of events to skip"),
+    limit: int = Query(20, ge=1, le=100, description="Max events to return"),
+    latitude: Optional[float] = Query(None, description="User's latitude for nearby events"),
+    longitude: Optional[float] = Query(None, description="User's longitude for nearby events"),
+    radius_km: Optional[float] = Query(50, description="Search radius in kilometers"),
+    is_online: Optional[bool] = Query(None, description="Filter for online events only"),
+    is_free: Optional[bool] = Query(None, description="Filter for free events only"),
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    """
+    Discover public events nearby.
+
+    **Authentication required.**
+
+    Returns public events that anyone can join. If coordinates are provided,
+    returns events sorted by distance.
+
+    - **latitude/longitude**: User's location for distance calculation
+    - **radius_km**: Search radius (default: 50km)
+    - **is_online**: Filter online events only
+    - **is_free**: Filter free events only
+    """
+    from datetime import date as date_type
+    from math import radians, cos, sin, asin, sqrt
+
+    # Haversine formula to calculate distance between two points
+    def haversine(lat1, lon1, lat2, lon2):
+        if lat1 is None or lon1 is None or lat2 is None or lon2 is None:
+            return float('inf')
+
+        # Convert to floats
+        lat1, lon1, lat2, lon2 = float(lat1), float(lon1), float(lat2), float(lon2)
+
+        # Convert to radians
+        lat1, lon1, lat2, lon2 = map(radians, [lat1, lon1, lat2, lon2])
+
+        # Haversine formula
+        dlat = lat2 - lat1
+        dlon = lon2 - lon1
+        a = sin(dlat/2)**2 + cos(lat1) * cos(lat2) * sin(dlon/2)**2
+        c = 2 * asin(sqrt(a))
+        km = 6371 * c  # Earth's radius in km
+        return km
+
+    # Query public events that are active and not in the past
+    today = date_type.today()
+    query = db.query(Event).filter(
+        Event.visibility == "public",
+        Event.status == "active",
+        Event.date >= today
+    )
+
+    # Filter by online/offline
+    if is_online is True:
+        query = query.filter(Event.is_online == True)
+    elif is_online is False:
+        query = query.filter(Event.is_online == False)
+
+    # Filter by free/paid
+    if is_free is True:
+        query = query.filter(Event.is_paid == False)
+    elif is_free is False:
+        query = query.filter(Event.is_paid == True)
+
+    events = query.all()
+
+    # Calculate distance and filter by radius if coordinates provided
+    events_with_distance = []
+    for event in events:
+        if latitude is not None and longitude is not None and not event.is_online:
+            distance = haversine(latitude, longitude, event.latitude, event.longitude)
+            if distance <= radius_km:
+                events_with_distance.append((event, distance))
+        else:
+            # Include online events or events without distance filter
+            events_with_distance.append((event, float('inf') if event.is_online else float('inf')))
+
+    # Sort by distance (nearest first), then by date
+    events_with_distance.sort(key=lambda x: (x[1], x[0].date))
+
+    # Get total count
+    total = len(events_with_distance)
+
+    # Apply pagination
+    paginated = events_with_distance[skip:skip + limit]
+    paginated_events = [e[0] for e in paginated]
+
+    return {
+        "total": total,
+        "events": paginated_events,
+        "skip": skip,
+        "limit": limit
+    }
+
+
+@router.post("/{event_id}/join")
+def join_public_event(
+    event_id: str,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    """
+    Join a public event.
+
+    **Authentication required.**
+
+    Allows a user to join a public event. Creates an attendance record.
+    """
+    from models.event_attendance import EventAttendance
+
+    # Get the event
+    event = db.query(Event).filter(Event.id == event_id).first()
+
+    if not event:
+        raise HTTPException(status_code=404, detail="Event not found")
+
+    # Check if event is public
+    if event.visibility != "public":
+        raise HTTPException(status_code=403, detail="This event is not public")
+
+    # Check if event is active
+    if event.status != "active":
+        raise HTTPException(status_code=400, detail="This event is not active")
+
+    # Check if user is already attending
+    existing = db.query(EventAttendance).filter(
+        EventAttendance.event_id == event_id,
+        EventAttendance.user_id == current_user.id
+    ).first()
+
+    if existing:
+        return {"message": "You are already attending this event", "status": existing.status}
+
+    # Create attendance record
+    attendance = EventAttendance(
+        id=f"attend-{uuid.uuid4()}",
+        event_id=event_id,
+        user_id=current_user.id,
+        status="going" if not event.requires_approval else "pending",
+        rsvp_timestamp=datetime.utcnow()
+    )
+
+    db.add(attendance)
+    db.commit()
+
+    return {
+        "message": "Successfully joined the event" if not event.requires_approval else "Join request submitted, awaiting host approval",
+        "status": attendance.status,
+        "event_id": event_id
     }

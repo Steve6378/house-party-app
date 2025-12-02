@@ -64,3 +64,7 @@ docarray==0.40.0  # For in-memory vector store
 # PDF processing
 pypdf==3.17.4
 pdfplumber==0.10.3
+
+# Face recognition (using OpenCV for easy installation)
+opencv-python-headless==4.12.0.88  # For face detection
+Pillow==10.2.0  # Image processing

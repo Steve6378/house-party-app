@@ -16,6 +16,8 @@ from .poll import Poll, PollVote
 from .audit_log import AuditLog
 from .event_document import EventDocument
 from .questionnaire import EventQuestionnaire
+from .event_photo import EventPhoto
+from .event_faq import EventFAQ
 
 __all__ = [
     "Base",
@@ -39,4 +41,6 @@ __all__ = [
     "AuditLog",
     "EventDocument",
     "EventQuestionnaire",
+    "EventPhoto",
+    "EventFAQ",
 ]

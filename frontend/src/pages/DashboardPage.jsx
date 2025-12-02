@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuthStore } from '../stores/authStore';
 import {
@@ -10,7 +10,11 @@ import {
   LogOut,
   Sparkles,
   CalendarDays,
-  History
+  History,
+  ChevronDown,
+  Home,
+  User,
+  Settings
 } from 'lucide-react';
 import { toast } from 'sonner';
 import { eventsAPI } from '../utils/api.ts';
@@ -20,6 +24,19 @@ function DashboardPage() {
   const { user, isAuthenticated, logout } = useAuthStore();
   const [allEvents, setAllEvents] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const dropdownRef = useRef(null);
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setDropdownOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
 
   useEffect(() => {
     if (!isAuthenticated) {
@@ -47,7 +64,10 @@ function DashboardPage() {
   const hostingEvents = allEvents.filter(event => event.main_host_id === user?.id);
   const attendingEvents = allEvents.filter(event =>
     event.main_host_id !== user?.id &&
-    event.attendees?.some(a => a.user_id === user?.id)
+    event.attendees?.some(a =>
+      a.user_id === user?.id &&
+      (a.rsvp_status === 'yes' || a.rsvp_status === 'going' || a.rsvp_status === 'maybe')
+    )
   );
   const pastEvents = []; // We'll handle this when we add archived/past events filter
 
@@ -143,16 +163,62 @@ function DashboardPage() {
                 <CalendarDays className="w-5 h-5" />
                 Calendar
               </button>
-              <div className="text-gray-300">
-                {user?.name}
+
+              {/* User Dropdown Menu */}
+              <div className="relative" ref={dropdownRef}>
+                <button
+                  onClick={() => setDropdownOpen(!dropdownOpen)}
+                  className="flex items-center gap-2 bg-dark-700/50 hover:bg-dark-700 text-gray-300 hover:text-white px-4 py-2 rounded-lg transition"
+                >
+                  <div className="w-8 h-8 rounded-full bg-gradient-to-r from-primary-500 to-secondary-500 flex items-center justify-center text-white font-semibold text-sm">
+                    {user?.name?.charAt(0).toUpperCase() || 'U'}
+                  </div>
+                  <span className="hidden md:block">{user?.name}</span>
+                  <ChevronDown className={`w-4 h-4 transition-transform ${dropdownOpen ? 'rotate-180' : ''}`} />
+                </button>
+
+                {/* Dropdown Menu */}
+                {dropdownOpen && (
+                  <div className="absolute right-0 mt-2 w-56 bg-dark-800 border border-primary-500/20 rounded-xl shadow-lg overflow-hidden z-50">
+                    <div className="px-4 py-3 border-b border-primary-500/20">
+                      <p className="text-sm font-semibold text-white">{user?.name}</p>
+                      <p className="text-xs text-gray-400">{user?.email}</p>
+                    </div>
+                    <div className="py-2">
+                      <button
+                        onClick={() => { navigate('/dashboard'); setDropdownOpen(false); }}
+                        className="w-full px-4 py-2 text-left text-gray-300 hover:bg-dark-700 hover:text-white transition flex items-center gap-3"
+                      >
+                        <Home className="w-4 h-4" />
+                        Home
+                      </button>
+                      <button
+                        onClick={() => { navigate('/profile'); setDropdownOpen(false); }}
+                        className="w-full px-4 py-2 text-left text-gray-300 hover:bg-dark-700 hover:text-white transition flex items-center gap-3"
+                      >
+                        <User className="w-4 h-4" />
+                        Profile
+                      </button>
+                      <button
+                        onClick={() => { navigate('/settings'); setDropdownOpen(false); }}
+                        className="w-full px-4 py-2 text-left text-gray-300 hover:bg-dark-700 hover:text-white transition flex items-center gap-3"
+                      >
+                        <Settings className="w-4 h-4" />
+                        Settings
+                      </button>
+                    </div>
+                    <div className="border-t border-primary-500/20 py-2">
+                      <button
+                        onClick={() => { handleLogout(); setDropdownOpen(false); }}
+                        className="w-full px-4 py-2 text-left text-red-400 hover:bg-red-500/10 hover:text-red-300 transition flex items-center gap-3"
+                      >
+                        <LogOut className="w-4 h-4" />
+                        Logout
+                      </button>
+                    </div>
+                  </div>
+                )}
               </div>
-              <button
-                onClick={handleLogout}
-                className="bg-dark-700/50 hover:bg-dark-700 text-gray-300 hover:text-white px-4 py-2 rounded-lg transition flex items-center gap-2"
-              >
-                <LogOut className="w-4 h-4" />
-                Logout
-              </button>
             </div>
           </div>
         </div>
