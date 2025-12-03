@@ -10,7 +10,7 @@ from utils.database import get_db
 from config import settings
 from routes import events_router, ground_truth_router, auth_router, messages_router, message_router, groups_router
 from routes.ai import router as ai_router
-from routes.attendance import router as attendance_router
+from routes.attendance import router as attendance_router, invite_router
 from routes.chat import router as chat_router
 from routes.documents import router as documents_router
 from routes.questionnaire import router as questionnaire_router
@@ -36,6 +36,7 @@ app.include_router(documents_router, prefix="/api")  # Documents: /api/events/{i
 app.include_router(questionnaire_router, prefix="/api")  # Questionnaire: /api/events/{id}/questionnaire
 app.include_router(photos_router, prefix="/api")  # Photos: /api/events/{id}/photos
 app.include_router(groups_router, prefix="/api")  # Group management: /api/groups
+app.include_router(invite_router, prefix="/api")  # Public invite links: /api/invite/{token}
 
 # CORS middleware for frontend
 app.add_middleware(

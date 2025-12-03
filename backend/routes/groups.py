@@ -1,16 +1,18 @@
 # Yorru - Group Routes
 # Version: 0.0.1
 
-from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi import APIRouter, Depends, HTTPException, status, Request
 from sqlalchemy.orm import Session
 from sqlalchemy import func
 from typing import List
-from datetime import datetime
+from datetime import datetime, timedelta
 import uuid
+import secrets
 
 from models.group import Group
 from models.user import User, GroupMembership
 from models.message import Message
+from models.attendance import InviteLink
 from schemas.group import (
     GroupCreate,
     GroupUpdate,
@@ -18,6 +20,10 @@ from schemas.group import (
     GroupDetailResponse,
     GroupMemberAdd,
     GroupMemberResponse
+)
+from schemas.attendance import (
+    CreateInviteLinkRequest,
+    InviteLinkResponse
 )
 from schemas.message import MessageCreate, MessageResponse, MessageListResponse
 from routes.auth import get_current_user
@@ -555,3 +561,183 @@ def send_group_message(
     db.refresh(new_message)
 
     return new_message
+
+
+# ============================================
+# Group Invite Link Routes
+# ============================================
+
+def generate_token(length: int = 8) -> str:
+    """Generate a short, URL-safe token."""
+    return secrets.token_urlsafe(length)[:length]
+
+
+@router.post("/groups/{group_id}/invite-link", response_model=InviteLinkResponse, status_code=status.HTTP_201_CREATED)
+def create_group_invite_link(
+    group_id: str,
+    request: CreateInviteLinkRequest,
+    req: Request,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    """
+    Create a shareable invite link for a group.
+
+    **Authentication required. Must be a group admin.**
+
+    - role: 'member' (default) or 'admin'
+    - expires_in_hours: Optional expiration (1-720 hours)
+    - max_uses: Optional usage limit (1-1000)
+    """
+    # Check if group exists
+    group = db.query(Group).filter(Group.id == group_id).first()
+    if not group:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Group not found"
+        )
+
+    # Check if user is admin
+    membership = db.query(GroupMembership).filter(
+        GroupMembership.group_id == group_id,
+        GroupMembership.user_id == current_user.id
+    ).first()
+
+    if not membership or membership.role != "admin":
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Only group admins can create invite links"
+        )
+
+    # Validate role
+    role = request.role if request.role in ["member", "admin"] else "member"
+
+    # Generate unique token
+    token = generate_token()
+    while db.query(InviteLink).filter(InviteLink.token == token).first():
+        token = generate_token()
+
+    # Calculate expiration
+    expires_at = None
+    if request.expires_in_hours:
+        expires_at = datetime.now() + timedelta(hours=request.expires_in_hours)
+
+    # Create invite link
+    invite_link = InviteLink(
+        id=f"invite-{uuid.uuid4()}",
+        token=token,
+        link_type="group",
+        target_id=group_id,
+        created_by=current_user.id,
+        role=role,
+        expires_at=expires_at,
+        max_uses=request.max_uses,
+        use_count=0,
+        is_active=True,
+        created_at=datetime.now()
+    )
+
+    db.add(invite_link)
+    db.commit()
+    db.refresh(invite_link)
+
+    # Build full URL
+    base_url = str(req.base_url).rstrip("/")
+    url = f"{base_url}/invite/{token}"
+
+    response = InviteLinkResponse.model_validate(invite_link)
+    response.url = url
+
+    return response
+
+
+@router.get("/groups/{group_id}/invite-links", response_model=List[InviteLinkResponse])
+def list_group_invite_links(
+    group_id: str,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    """
+    List all active invite links for a group.
+
+    **Authentication required. Must be a group admin.**
+    """
+    # Check if group exists
+    group = db.query(Group).filter(Group.id == group_id).first()
+    if not group:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Group not found"
+        )
+
+    # Check if user is admin
+    membership = db.query(GroupMembership).filter(
+        GroupMembership.group_id == group_id,
+        GroupMembership.user_id == current_user.id
+    ).first()
+
+    if not membership or membership.role != "admin":
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Only group admins can view invite links"
+        )
+
+    # Get active invite links
+    links = db.query(InviteLink).filter(
+        InviteLink.target_id == group_id,
+        InviteLink.link_type == "group",
+        InviteLink.is_active == True
+    ).all()
+
+    return [InviteLinkResponse.model_validate(link) for link in links]
+
+
+@router.delete("/groups/{group_id}/invite-link/{token}")
+def revoke_group_invite_link(
+    group_id: str,
+    token: str,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    """
+    Revoke an invite link.
+
+    **Authentication required. Must be a group admin.**
+    """
+    # Check if group exists
+    group = db.query(Group).filter(Group.id == group_id).first()
+    if not group:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Group not found"
+        )
+
+    # Check if user is admin
+    membership = db.query(GroupMembership).filter(
+        GroupMembership.group_id == group_id,
+        GroupMembership.user_id == current_user.id
+    ).first()
+
+    if not membership or membership.role != "admin":
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Only group admins can revoke invite links"
+        )
+
+    # Get the invite link
+    link = db.query(InviteLink).filter(
+        InviteLink.token == token,
+        InviteLink.target_id == group_id
+    ).first()
+
+    if not link:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Invite link not found"
+        )
+
+    # Deactivate instead of delete (for audit purposes)
+    link.is_active = False
+    db.commit()
+
+    return {"message": "Invite link revoked", "token": token}

@@ -1,7 +1,7 @@
 # Yorru - Attendance and Membership Models
 # Version: 0.0.1
 
-from sqlalchemy import Column, String, ForeignKey, Integer, DateTime
+from sqlalchemy import Column, String, ForeignKey, Integer, DateTime, Boolean
 from sqlalchemy.orm import relationship
 from .base import Base, TimestampMixin
 
@@ -67,3 +67,36 @@ class EventCoHost(Base, TimestampMixin):
     
     def __repr__(self):
         return f"<EventCoHost(event_id={self.event_id}, user_id={self.user_id}, permissions={self.permissions})>"
+
+
+class InviteLink(Base):
+    """
+    Shareable invite links for events and groups.
+
+    Supports:
+    - Event invitations (as attendee or co-host)
+    - Group invitations (as member or admin)
+    - Expiration dates and usage limits
+
+    Relationships:
+    - creator: The user who created the invite link
+    """
+    __tablename__ = "invite_links"
+
+    id = Column(String, primary_key=True)
+    token = Column(String(32), unique=True, nullable=False)
+    link_type = Column(String(20), nullable=False)  # 'event', 'group', 'cohost'
+    target_id = Column(String, nullable=False)  # event_id or group_id
+    created_by = Column(String, ForeignKey("users.id", ondelete="SET NULL"))
+    role = Column(String(50), default="attendee")  # 'attendee', 'cohost', 'member', 'admin'
+    expires_at = Column(DateTime, nullable=True)
+    max_uses = Column(Integer, nullable=True)
+    use_count = Column(Integer, default=0)
+    is_active = Column(Boolean, default=True)
+    created_at = Column(DateTime)
+
+    # Relationships
+    creator = relationship("User", foreign_keys=[created_by])
+
+    def __repr__(self):
+        return f"<InviteLink(token={self.token}, type={self.link_type}, target={self.target_id})>"

@@ -48,6 +48,14 @@
 \i database/migrations/010_add_face_encodings_column.sql
 
 \echo ''
+\echo '--- Migration 011: Fix audit_log FK and poll_votes index ---'
+\i database/migrations/011_fix_audit_log_and_poll_votes.sql
+
+\echo ''
+\echo '--- Migration 012: Add invite_links table ---'
+\i database/migrations/012_add_invite_links.sql
+
+\echo ''
 \echo '==============================================='
 \echo 'All migrations completed successfully!'
 \echo '==============================================='
