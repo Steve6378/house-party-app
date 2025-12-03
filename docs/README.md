@@ -1,31 +1,39 @@
 # Yorru Documentation
 
-This directory contains all project documentation organized by purpose.
-
-## Directory Structure
-
-```
-docs/
-├── deployment/          # Deployment guides and checklists
-│   └── CHECKLIST.md    # Comprehensive deployment checklist
-├── development/         # Development guides and context
-│   ├── WHEN_YOU_RETURN.md    # Quick start guide after breaks
-│   └── CONTEXT_HANDOFF.md    # Templates for context recovery
-└── PROGRESS_SUMMARY.md  # Project progress and implementation summary
-```
+**Last Updated:** 2025-12-03
 
 ## Quick Links
 
-### For Development
-- **[When You Return](development/WHEN_YOU_RETURN.md)** - Start here after a break
-- **[Context Handoff](development/CONTEXT_HANDOFF.md)** - Recovering from crashes/resets
+| Document | Purpose |
+|----------|---------|
+| [SESSION_HANDOFF.md](SESSION_HANDOFF.md) | Current state, checklist, next steps |
+| [PROGRESS_SUMMARY.md](PROGRESS_SUMMARY.md) | What's built, tech stack |
+| [ANDROID_APP_GUIDE.md](ANDROID_APP_GUIDE.md) | Complete Android deployment guide |
+| [BACKEND_TESTING_GUIDE.md](BACKEND_TESTING_GUIDE.md) | API testing instructions |
 
-### For Deployment
-- **[Deployment Checklist](deployment/CHECKLIST.md)** - Complete deployment guide
+## Start Here
 
-### For Understanding Progress
-- **[Progress Summary](PROGRESS_SUMMARY.md)** - What's been built so far
+**For new sessions:** Read `SESSION_HANDOFF.md` first.
 
-## Main Documentation
+**To build Android APK:**
+```bash
+cd frontend
+npm run build
+npx cap sync android
+cd android && ./gradlew assembleDebug
+```
 
-See the root [README.md](../README.md) for project overview and setup instructions.
+**To deploy:**
+- Frontend auto-deploys to Vercel on push to main
+- Backend auto-deploys to Railway on push to main
+
+## Project Structure
+
+```
+yorru/
+├── backend/           # FastAPI (Python 3.12)
+├── frontend/          # React + Vite + Capacitor
+│   └── android/       # Android project
+├── database/          # SQL migrations
+└── docs/              # Documentation
+```
