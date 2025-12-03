@@ -447,4 +447,62 @@ export const attendanceAPI = {
   },
 };
 
+// Groups API
+export const groupsAPI = {
+  create: async (data: { name: string; description?: string; is_private?: boolean }) => {
+    const response = await api.post('/api/groups', data);
+    return response.data;
+  },
+
+  list: async () => {
+    const response = await api.get('/api/groups');
+    return response.data;
+  },
+
+  get: async (groupId: string) => {
+    const response = await api.get(`/api/groups/${groupId}`);
+    return response.data;
+  },
+
+  update: async (groupId: string, data: { name?: string; description?: string; is_private?: boolean }) => {
+    const response = await api.put(`/api/groups/${groupId}`, data);
+    return response.data;
+  },
+
+  delete: async (groupId: string) => {
+    const response = await api.delete(`/api/groups/${groupId}`);
+    return response.data;
+  },
+
+  addMember: async (groupId: string, userId: string) => {
+    const response = await api.post(`/api/groups/${groupId}/members`, { user_id: userId });
+    return response.data;
+  },
+
+  removeMember: async (groupId: string, userId: string) => {
+    const response = await api.delete(`/api/groups/${groupId}/members/${userId}`);
+    return response.data;
+  },
+
+  getEvents: async (groupId: string) => {
+    const response = await api.get(`/api/groups/${groupId}/events`);
+    return response.data;
+  },
+
+  getMessages: async (groupId: string, skip?: number, limit?: number) => {
+    const response = await api.get(`/api/groups/${groupId}/messages`, {
+      params: { skip, limit }
+    });
+    return response.data;
+  },
+
+  sendMessage: async (groupId: string, content: string) => {
+    const response = await api.post(`/api/groups/${groupId}/messages`, {
+      content,
+      message_type: 'user'
+    });
+    return response.data;
+  },
+};
+
 export default api;

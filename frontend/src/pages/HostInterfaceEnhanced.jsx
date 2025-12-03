@@ -26,7 +26,7 @@ import {
   Camera
 } from 'lucide-react';
 import { toast } from 'sonner';
-import { eventsAPI, messagesAPI, aiAPI, attendanceAPI, documentsAPI, photosAPI } from '../utils/api.ts';
+import { eventsAPI, messagesAPI, aiAPI, attendanceAPI, documentsAPI, photosAPI, groupsAPI } from '../utils/api.ts';
 import { API_URL } from '../config/api';
 
 function HostInterfaceEnhanced() {
@@ -115,19 +115,22 @@ function HostInterfaceEnhanced() {
 
   const fetchContacts = async () => {
     try {
-      // Fetch attendees and co-hosts
-      setContacts([]);
+      // Contacts = attendees for this event
+      const data = await attendanceAPI.getAttendees(id);
+      setContacts(data || []);
     } catch (error) {
       console.error('Failed to fetch contacts:', error);
+      setContacts([]);
     }
   };
 
   const fetchGroups = async () => {
     try {
-      // Fetch available groups for this event
-      setGroups([]);
+      const data = await groupsAPI.list();
+      setGroups(data.groups || data || []);
     } catch (error) {
       console.error('Failed to fetch groups:', error);
+      setGroups([]);
     }
   };
 
