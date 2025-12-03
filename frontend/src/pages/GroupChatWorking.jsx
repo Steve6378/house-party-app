@@ -663,9 +663,9 @@ function GroupChatWorking() {
                 value={message}
                 onChange={(e) => {
                   setMessage(e.target.value);
-                  // Auto-resize textarea
+                  // Auto-resize textarea (up to ~5 lines)
                   e.target.style.height = 'auto';
-                  e.target.style.height = Math.min(e.target.scrollHeight, 120) + 'px';
+                  e.target.style.height = Math.min(e.target.scrollHeight, 150) + 'px';
                 }}
                 onKeyDown={(e) => {
                   if (e.key === 'Enter' && !e.shiftKey) {

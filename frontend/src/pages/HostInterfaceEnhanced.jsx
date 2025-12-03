@@ -948,9 +948,9 @@ function HostInterfaceEnhanced() {
                       value={aiRequest}
                       onChange={(e) => {
                         setAiRequest(e.target.value);
-                        // Auto-resize textarea
+                        // Auto-resize textarea (up to ~5 lines)
                         e.target.style.height = 'auto';
-                        e.target.style.height = Math.min(e.target.scrollHeight, 120) + 'px';
+                        e.target.style.height = Math.min(e.target.scrollHeight, 150) + 'px';
                         // Auto-detect mode from typed hashtag
                         const hashtagMatch = e.target.value.match(/^#(\w+)/i);
                         if (hashtagMatch) {
@@ -970,7 +970,7 @@ function HostInterfaceEnhanced() {
                         }
                       }}
                       placeholder={selectedMode ? `Ask about ${selectedMode}...` : "Ask AI to help (e.g., '#recommendation find Italian food nearby')..."}
-                      className="flex-1 px-4 py-3 bg-dark-700/50 border border-primary-500/30 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition resize-none min-h-[48px] max-h-[120px]"
+                      className="flex-1 px-4 py-3 bg-dark-700/50 border border-primary-500/30 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition resize-none min-h-[48px] max-h-[150px]"
                       rows={1}
                     />
                     <button
