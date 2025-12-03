@@ -83,14 +83,18 @@ Respond in JSON format only:
 }}
 
 Rules:
-- needs_rag = false for: greetings (hi, hello, hey, yo), thanks, goodbyes, casual chat (how are you, lol, ok), general knowledge NOT about this specific event
+- needs_rag = false for: greetings (hi, hello, hey, yo, sup, how are you, how r u), thanks, goodbyes, casual chat (lol, ok, cool, nice), general knowledge NOT about this specific event
 - needs_rag = true for: questions about event details (when, where, what), what was discussed in chat, uploaded documents, schedules, locations, attendees, food, dress code, anything event-specific
 - context_types: only include what's relevant:
   - "event_info" for date, time, location, budget, guest count
   - "chat_history" for what people said, discussions, decisions
   - "documents" for uploaded PDFs, files, menus, schedules
   - "questionnaire" for host preferences, special requirements
-- direct_response: be friendly and brief for greetings, mention you can help with event questions
+- direct_response: KEEP IT SHORT (1 sentence max). Examples:
+  - "hi" -> "Hey! What can I help you with?"
+  - "how are you" -> "I'm good! Need help with the event?"
+  - "thanks" -> "No problem!"
+  - "lol" -> null (no response needed)
 - search_focus: the specific thing to look for in context
 
 Output ONLY valid JSON."""
