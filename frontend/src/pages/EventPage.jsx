@@ -18,7 +18,8 @@ import {
   MessageCircle,
   Bot,
   Download,
-  Share2
+  Share2,
+  Settings2
 } from 'lucide-react';
 import { toast } from 'sonner';
 import { eventsAPI, messagesAPI, groundTruthAPI, aiAPI } from '../utils/api.ts';
@@ -115,6 +116,11 @@ function EventPage() {
     setAiLoading(true);
     try {
       const response = await aiAPI.guestQuery(id, aiQuestion);
+      // If skip_response is true, AI determined no response is needed
+      if (response.skip_response) {
+        setAiQuestion('');
+        return;
+      }
       setAiResponse(response.answer || response.response || 'No response received');
       setAiQuestion('');
     } catch (error) {
@@ -312,15 +318,15 @@ function EventPage() {
               </div>
             </div>
             <div className="flex gap-2 items-center">
-              {isHost && (
-                <span className="bg-gradient-to-r from-primary-600 to-secondary-600 text-white px-4 py-2 rounded-lg font-semibold">
-                  Host
-                </span>
-              )}
-              {isCoHost && (
-                <span className="bg-gradient-to-r from-accent-600 to-primary-600 text-white px-4 py-2 rounded-lg font-semibold">
-                  Co-Host
-                </span>
+              {(isHost || isCoHost) && (
+                <button
+                  onClick={() => navigate(`/event/${id}/host`)}
+                  className="bg-gradient-to-r from-primary-600 to-secondary-600 hover:from-primary-700 hover:to-secondary-700 text-white px-4 py-2 rounded-lg font-semibold transition flex items-center gap-2"
+                  title="Open Host Interface"
+                >
+                  <Settings2 className="w-4 h-4" />
+                  {isHost ? 'Host Interface' : 'Co-Host Interface'}
+                </button>
               )}
               <button
                 onClick={handleShare}

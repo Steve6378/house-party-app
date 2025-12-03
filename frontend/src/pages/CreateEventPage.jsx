@@ -384,7 +384,7 @@ function CreateEventPage() {
       }
 
       toast.success('Event created successfully!');
-      navigate(`/event/${eventId}/host`);
+      navigate(`/event/${eventId}/host`, { replace: true });
     } catch (error) {
       console.error('Create event error:', error);
       console.error('Error response data:', error.response?.data);
@@ -566,9 +566,24 @@ function CreateEventPage() {
                   type="text"
                   value={topicSearch}
                   onChange={(e) => setTopicSearch(e.target.value)}
-                  className="w-full pl-10 pr-4 py-3 bg-dark-700/50 border border-primary-500/30 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition"
-                  placeholder="Search topics..."
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter' && topicSearch.trim()) {
+                      e.preventDefault();
+                      handleAddTopic(topicSearch.trim());
+                    }
+                  }}
+                  className="w-full pl-10 pr-24 py-3 bg-dark-700/50 border border-primary-500/30 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition"
+                  placeholder="Search or add custom topic..."
                 />
+                {topicSearch.trim() && !availableTopics.includes(topicSearch.trim()) && (
+                  <button
+                    type="button"
+                    onClick={() => handleAddTopic(topicSearch.trim())}
+                    className="absolute right-2 top-1/2 transform -translate-y-1/2 px-3 py-1 bg-primary-600 hover:bg-primary-700 text-white text-xs rounded-lg transition"
+                  >
+                    + Add
+                  </button>
+                )}
               </div>
 
               {/* Available Topics */}
@@ -760,7 +775,16 @@ function CreateEventPage() {
                 <input
                   type="date"
                   value={eventData.date}
-                  onChange={(e) => setEventData({ ...eventData, date: e.target.value })}
+                  min={new Date().toISOString().split('T')[0]}
+                  max="2099-12-31"
+                  onChange={(e) => {
+                    const selectedDate = e.target.value;
+                    const year = parseInt(selectedDate.split('-')[0]);
+                    // Validate year is reasonable (current year to 2099)
+                    if (year >= new Date().getFullYear() && year <= 2099) {
+                      setEventData({ ...eventData, date: selectedDate });
+                    }
+                  }}
                   className="w-full px-4 py-3 bg-dark-700/50 border border-primary-500/30 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition"
                 />
               </div>
@@ -786,11 +810,22 @@ function CreateEventPage() {
               </label>
               <input
                 type="number"
+                min="1"
+                max="100000"
                 value={eventData.expected_guests}
-                onChange={(e) => setEventData({ ...eventData, expected_guests: e.target.value })}
+                onChange={(e) => {
+                  const value = e.target.value;
+                  // Limit to reasonable number
+                  if (value === '' || (parseInt(value) >= 0 && parseInt(value) <= 100000)) {
+                    setEventData({ ...eventData, expected_guests: value });
+                  }
+                }}
                 className="w-full px-4 py-3 bg-dark-700/50 border border-primary-500/30 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition"
                 placeholder="e.g., 50"
               />
+              {eventData.expected_guests && parseInt(eventData.expected_guests) > 10000 && (
+                <p className="text-xs text-yellow-400 mt-1">That's a lot of people! Make sure your venue can handle it.</p>
+              )}
             </div>
 
             <button

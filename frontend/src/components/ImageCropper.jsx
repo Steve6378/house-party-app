@@ -123,15 +123,20 @@ function ImageCropper({
           <div className="flex items-center justify-center gap-4">
             <MoveHorizontal className="w-5 h-5 text-gray-400" />
             <span className="text-gray-400 text-sm w-12">Narrow</span>
-            <input
-              type="range"
-              min={minAspect}
-              max={maxAspect}
-              step={0.1}
-              value={currentAspect}
-              onChange={(e) => setCurrentAspect(Number(e.target.value))}
-              className="w-40 md:w-56 accent-primary-500"
-            />
+            <div className="relative w-48 md:w-64">
+              <input
+                type="range"
+                min={minAspect}
+                max={maxAspect}
+                step={0.05}
+                value={currentAspect}
+                onChange={(e) => setCurrentAspect(Number(e.target.value))}
+                className="w-full h-2 bg-dark-600 rounded-lg appearance-none cursor-pointer slider-thumb"
+                style={{
+                  background: `linear-gradient(to right, #8b5cf6 0%, #8b5cf6 ${((currentAspect - minAspect) / (maxAspect - minAspect)) * 100}%, #374151 ${((currentAspect - minAspect) / (maxAspect - minAspect)) * 100}%, #374151 100%)`
+                }}
+              />
+            </div>
             <span className="text-gray-400 text-sm w-10">Wide</span>
             <span className="text-gray-500 text-xs ml-2">
               {currentAspect.toFixed(1)}:1

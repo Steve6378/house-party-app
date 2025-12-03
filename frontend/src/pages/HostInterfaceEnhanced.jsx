@@ -318,6 +318,13 @@ function HostInterfaceEnhanced() {
       try {
         // Use guestQuery which uses RAG to search chat history - pass conversation history for context
         const response = await aiAPI.guestQuery(id, cleanQuestion || 'What has everyone been talking about?', historyForAPI);
+
+        // If skip_response is true, AI determined no response is needed
+        if (response.skip_response) {
+          setLastUsedMode('groupchat');
+          return;
+        }
+
         const aiMessage = {
           role: 'assistant',
           content: response.answer || 'I couldn\'t find any relevant information in the chat.',
@@ -936,12 +943,14 @@ function HostInterfaceEnhanced() {
 
                 {/* Input Area */}
                 <div className="p-4 border-t border-primary-500/20 bg-dark-800/80">
-                  <div className="flex gap-2">
-                    <input
-                      type="text"
+                  <div className="flex gap-2 items-end">
+                    <textarea
                       value={aiRequest}
                       onChange={(e) => {
                         setAiRequest(e.target.value);
+                        // Auto-resize textarea (up to ~5 lines)
+                        e.target.style.height = 'auto';
+                        e.target.style.height = Math.min(e.target.scrollHeight, 150) + 'px';
                         // Auto-detect mode from typed hashtag
                         const hashtagMatch = e.target.value.match(/^#(\w+)/i);
                         if (hashtagMatch) {
@@ -954,9 +963,15 @@ function HostInterfaceEnhanced() {
                           setSelectedMode(null);
                         }
                       }}
-                      onKeyDown={(e) => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); handleAiRequest(); } }}
+                      onKeyDown={(e) => {
+                        if (e.key === 'Enter' && !e.shiftKey) {
+                          e.preventDefault();
+                          handleAiRequest();
+                        }
+                      }}
                       placeholder={selectedMode ? `Ask about ${selectedMode}...` : "Ask AI to help (e.g., '#recommendation find Italian food nearby')..."}
-                      className="flex-1 px-4 py-3 bg-dark-700/50 border border-primary-500/30 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition"
+                      className="flex-1 px-4 py-3 bg-dark-700/50 border border-primary-500/30 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition resize-none min-h-[48px] max-h-[150px]"
+                      rows={1}
                     />
                     <button
                       onClick={handleAiRequest}
@@ -1164,42 +1179,50 @@ function HostInterfaceEnhanced() {
               My Groups
             </h2>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-              {/* Mock groups - will be replaced with real data */}
-              {[
-                { id: '1', name: 'Sorority', events: 2, members: 45 },
-                { id: '2', name: 'Study Group', events: 1, members: 12 },
-                { id: '3', name: 'Friends', events: 1, members: 8 }
-              ].map((group) => (
-                <div
-                  key={group.id}
-                  className="bg-dark-700/50 border border-primary-500/20 rounded-xl p-6 hover:border-primary-500/40 transition cursor-pointer"
-                  onClick={() => navigate(`/groups`)}
-                >
-                  <h3 className="text-lg font-bold text-white mb-4">{group.name}</h3>
-                  <div className="space-y-2 text-sm text-gray-300">
-                    <div className="flex items-center gap-2">
-                      <Calendar className="w-4 h-4 text-accent-400" />
-                      {group.events} events
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <Users className="w-4 h-4 text-accent-400" />
-                      {group.members} members
-                    </div>
-                  </div>
-                  <button
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      navigate(`/event/${id}/chat`);
-                    }}
-                    className="mt-4 w-full bg-gradient-to-r from-primary-600 to-secondary-600 hover:from-primary-700 hover:to-secondary-700 text-white px-4 py-2 rounded-lg transition flex items-center justify-center gap-2"
+            {groups.length > 0 ? (
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                {groups.map((group) => (
+                  <div
+                    key={group.id}
+                    className="bg-dark-700/50 border border-primary-500/20 rounded-xl p-6 hover:border-primary-500/40 transition cursor-pointer"
+                    onClick={() => navigate(`/group/${group.id}/chat`)}
                   >
-                    <MessageSquare className="w-4 h-4" />
-                    Open Chat
-                  </button>
-                </div>
-              ))}
-            </div>
+                    <h3 className="text-lg font-bold text-white mb-4">{group.name}</h3>
+                    <div className="space-y-2 text-sm text-gray-300">
+                      <div className="flex items-center gap-2">
+                        <Calendar className="w-4 h-4 text-accent-400" />
+                        {group.event_count || 0} events
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <Users className="w-4 h-4 text-accent-400" />
+                        {group.member_count || 0} members
+                      </div>
+                    </div>
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        navigate(`/group/${group.id}/chat`);
+                      }}
+                      className="mt-4 w-full bg-gradient-to-r from-primary-600 to-secondary-600 hover:from-primary-700 hover:to-secondary-700 text-white px-4 py-2 rounded-lg transition flex items-center justify-center gap-2"
+                    >
+                      <MessageSquare className="w-4 h-4" />
+                      Open Chat
+                    </button>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <div className="text-center py-8 bg-dark-700/30 rounded-xl border border-primary-500/20">
+                <Users className="w-12 h-12 text-gray-600 mx-auto mb-3" />
+                <p className="text-gray-400 mb-4">No groups yet</p>
+                <button
+                  onClick={() => navigate('/groups')}
+                  className="bg-gradient-to-r from-primary-600 to-secondary-600 hover:from-primary-700 hover:to-secondary-700 text-white px-4 py-2 rounded-lg transition text-sm font-semibold"
+                >
+                  Create a Group
+                </button>
+              </div>
+            )}
 
             <div className="mt-6 text-center">
               <button

@@ -23,7 +23,7 @@ import { API_URL } from '../config/api';
 
 function DashboardPage() {
   const navigate = useNavigate();
-  const { user, isAuthenticated, logout } = useAuthStore();
+  const { user, isAuthenticated, logout, token } = useAuthStore();
   const [allEvents, setAllEvents] = useState([]);
   const [loading, setLoading] = useState(true);
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -111,11 +111,19 @@ function DashboardPage() {
         <div className={`h-32 w-full relative ${!event.cover_image_url ? `bg-gradient-to-r ${getDefaultGradient()}` : ''}`}>
           {event.cover_image_url ? (
             <img
-              src={event.cover_image_url.startsWith('/api/') ? `${API_URL}${event.cover_image_url}` : event.cover_image_url}
+              src={event.cover_image_url.startsWith('/api/')
+                ? `${API_URL}${event.cover_image_url}${token ? `?token=${token}` : ''}`
+                : event.cover_image_url}
               alt={event.name}
               className="w-full h-full object-cover"
+              onError={(e) => {
+                // Fallback to gradient on error
+                e.target.style.display = 'none';
+                e.target.parentElement.classList.add(`bg-gradient-to-r`, getDefaultGradient());
+              }}
             />
-          ) : (
+          ) : null}
+          {!event.cover_image_url && (
             <div className="w-full h-full flex items-center justify-center">
               <Calendar className="w-12 h-12 text-white/30" />
             </div>

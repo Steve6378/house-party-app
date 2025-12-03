@@ -382,8 +382,8 @@ function GroupChatWorking() {
       <div className="max-w-5xl mx-auto px-4 py-6 h-[calc(100vh-120px)] flex flex-col">
         <div className="bg-dark-800/50 backdrop-blur-xl border border-primary-500/20 rounded-2xl flex-1 flex flex-col overflow-hidden">
           {/* Messages and Photos Timeline */}
-          <div className="flex-1 overflow-y-auto p-6 bg-dark-900/20">
-            <div className="space-y-4">
+          <div className="flex-1 overflow-y-auto overflow-x-hidden p-6 bg-dark-900/20">
+            <div className="space-y-4 overflow-hidden">
               {timeline.length === 0 ? (
                 <div className="text-center py-12">
                   <Users className="w-16 h-16 text-gray-500 mx-auto mb-4" />
@@ -446,7 +446,7 @@ function GroupChatWorking() {
                                 {msg.sender_name || 'Unknown'}
                               </div>
                             )}
-                            <p className="text-sm">{msg.content}</p>
+                            <p className="text-sm whitespace-pre-wrap break-words">{msg.content}</p>
                           </div>
                           {isOwnMessage && (
                             user?.profile_photo ? (
@@ -661,7 +661,12 @@ function GroupChatWorking() {
 
               <textarea
                 value={message}
-                onChange={(e) => setMessage(e.target.value)}
+                onChange={(e) => {
+                  setMessage(e.target.value);
+                  // Auto-resize textarea (up to ~5 lines)
+                  e.target.style.height = 'auto';
+                  e.target.style.height = Math.min(e.target.scrollHeight, 150) + 'px';
+                }}
                 onKeyDown={(e) => {
                   if (e.key === 'Enter' && !e.shiftKey) {
                     e.preventDefault();
@@ -674,9 +679,9 @@ function GroupChatWorking() {
                     }
                   }
                 }}
-                placeholder={selectedImage ? "Add a caption (optional)..." : "Type a message... (Shift+Enter for new line)"}
+                placeholder={selectedImage ? "Add a caption (optional)..." : "Type a message..."}
                 rows={1}
-                className="flex-1 py-3 px-4 bg-dark-700/50 border border-primary-500/30 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition resize-none"
+                className="flex-1 py-3 px-4 bg-dark-700/50 border border-primary-500/30 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition resize-none overflow-hidden"
                 style={{ minHeight: '48px', maxHeight: '120px' }}
               />
               <button
