@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Yorru</string>
+    <string name="title_activity_main">Yorru</string>
+    <string name="package_name">net.yorru.app</string>
+    <string name="custom_url_scheme">net.yorru.app</string>
+</resources>
