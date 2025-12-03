@@ -710,6 +710,8 @@ function EditEventPage() {
                   type="date"
                   value={eventData.date}
                   onChange={(e) => setEventData({ ...eventData, date: e.target.value })}
+                  min={new Date().toISOString().split('T')[0]}
+                  max="2099-12-31"
                   className="w-full px-4 py-3 bg-dark-700/50 border border-primary-500/30 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition"
                 />
               </div>
@@ -738,6 +740,8 @@ function EditEventPage() {
                 type="number"
                 value={eventData.expected_guests}
                 onChange={(e) => setEventData({ ...eventData, expected_guests: e.target.value })}
+                min="1"
+                max="100000"
                 className="w-full px-4 py-3 bg-dark-700/50 border border-primary-500/30 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition"
                 placeholder="e.g., 50"
               />
