@@ -1,170 +1,165 @@
-# Session Handoff - Yorru MVP Polish
+# Session Handoff - Yorru MVP
 
 **Date:** 2025-12-03
 **Branch:** `claude/resolve-pr-conflicts-01JT3X23pVMvdVmwxfxZiZJP`
-**Status:** All Critical Bugs Fixed + Android Guide Created
+**Status:** Android App Ready + All Critical Bugs Fixed
 **Platform:** Yorru - AI-assisted night event planning
 
 ---
 
-## Codebase Statistics
+## What Was Done This Session
 
-| Category | Lines of Code |
-|----------|---------------|
-| **Total** | ~22,200 LOC |
-| Backend Python | ~9,700 LOC |
-| Frontend TSX/JSX | ~8,900 LOC |
-| Database SQL | ~1,750 LOC |
-| Config/Utils | ~1,850 LOC |
+### 1. Capacitor Android Setup (COMPLETE)
+- Initialized Capacitor with app ID `net.yorru.app`
+- Added Android platform
+- Installed 10 native plugins:
+  - Camera, Geolocation, Share, Haptics
+  - Status Bar, Keyboard, Network, Preferences
+  - Splash Screen, App lifecycle
+- Created `frontend/src/utils/native.ts` with platform wrappers
+- Configured Android permissions in `AndroidManifest.xml`
 
-**Largest Files:**
-- HostInterfaceEnhanced.jsx (1,295 LOC)
-- ai.py routes (903 LOC)
-- CreateEventPage.jsx (833 LOC)
-- events.py routes (808 LOC)
+### 2. Native Feature Integration (COMPLETE)
+- **App.full.tsx:** Native init + network status monitoring with toasts
+- **ProfilePage.jsx:** Native camera/gallery picker for profile photos
+- **EventPage.jsx:** Share button (native share on mobile, copy link on web)
+- **useImagePicker.ts:** Reusable hook for image picking
 
----
-
-## Current Session Completed
-
-### 1. **PR #21 Conflict Resolution**
-- Merged event editing feature with conversation history support
-- Kept intelligent query routing from main
-- Added `conversation_history` parameter to RAG for follow-up questions
-
-### 2. **SQL Syntax Fixes**
-- Fixed `:embedding::vector` SQLAlchemy parsing issue
-- Changed to `CAST(:embedding AS vector)` in all files:
-  - `backend/routes/events.py`
-  - `backend/routes/ground_truth.py`
-  - `backend/scripts/generate_embeddings.py`
-  - `backend/scripts/test_semantic_search.py`
-
-### 3. **R2 Storage Bug Fix**
-- Fixed double-read bug in local storage fallback
-- Was trying to read `file_data.read()` twice (stream consumed)
-- Now uses pre-extracted `data_bytes`
-
-### 4. **Image Cropper for EditEventPage**
-- EditEventPage was missing the cropper that CreateEventPage has
-- Added ImageCropper with width slider (2:1 to 4:1)
-- Added crop states and handlers
-
-### 5. **Face Recognition Toggle Fix**
-- Added `user_to_response()` helper function
-- Fixed GET/PUT/POST endpoints to return `has_face_encoding` correctly
-- Added `has_face_encoding` to frontend User interface
+### 3. Previous Session Fixes (COMPLETE)
+All critical bugs from codebase audit fixed:
+- `chat.py:37` - verify_token → decode_access_token
+- `ai.py:137` - fact.content → fact.key: fact.value
+- `groups.py:540` - sanitize_message_content → sanitize_text
+- `ground_truth_query.py` - SQL injection fixed with parameterized query
+- `photos.py` - Path traversal protection added
+- `events.py` - Optional auth for cover images (public events = public covers)
+- `HostInterfaceEnhanced.jsx` - fetchContacts/fetchGroups implemented
+- `HostInterfaceEnhanced.jsx` - Document delete handler added
 
 ---
 
-## Critical Issues Found (Codebase Audit)
+## Checklist for Next Session
 
-### BLOCKING BUGS (Will crash at runtime)
-
-| File | Line | Issue |
-|------|------|-------|
-| `chat.py` | 37 | **ImportError:** `verify_token` function doesn't exist in auth.py |
-| `ai.py` | 137 | **AttributeError:** Uses `fact.content` but should be `fact.value` |
-| `groups.py` | 540 | **NameError:** `sanitize_message_content()` is undefined |
-| `ground_truth.py` | 137 | **AttributeError:** Uses `fact.content` but should be `fact.value` |
-
-### SECURITY ISSUES
-
-| File | Line | Issue |
-|------|------|-------|
-| `ground_truth_query.py` | 79-89 | **SQL INJECTION:** embedding_str formatted directly into SQL |
-| `events.py` | 651 | **No Auth:** Cover image endpoint has no authentication |
-| `photos.py` | 345-352 | **Path Traversal:** FileResponse with user-controlled path |
-| `documents.py` | 23-24 | **Relative Path:** Upload dir depends on CWD |
-
-### DATABASE ISSUES
-
-| Issue | Impact |
-|-------|--------|
-| `audit_log.event_id` references `users(id)` instead of `events(id)` | FK constraint error |
-| Migration 009 adds same columns as 001 | "Column already exists" error |
-| `poll_votes` index created on wrong table (`polls`) | Index useless |
-| `escalated_questions` missing columns expected by ORM | Write failures |
-
-### FRONTEND ISSUES
-
-| File | Issue |
-|------|-------|
-| `HostInterfaceEnhanced.jsx` | `fetchContacts()` and `fetchGroups()` are empty placeholders (lines 117-132) |
-| `HostInterfaceEnhanced.jsx` | Document download/delete buttons have no handlers (lines 1010-1014) |
-| Multiple pages | Auth token in URL query params is security risk |
-| Multiple pages | Inconsistent auth pattern (Zustand vs React Context) |
-
----
-
-## Database Migrations
-
-```
-001_add_status_columns.sql
-002_fix_table_names_and_missing_columns.sql
-003_add_group_chat_support.sql
-004_add_image_url_support.sql
-005_migrate_event_attendance.sql
-006_add_document_tables.sql
-007_add_photos_and_faqs.sql
-008_add_user_profile_columns.sql
-009_add_event_columns.sql          <- DUPLICATES COLS FROM 001
-010_add_face_encodings_column.sql
+### Build Android APK
+```bash
+# On your local machine (needs Android Studio + SDK)
+git pull origin claude/resolve-pr-conflicts-01JT3X23pVMvdVmwxfxZiZJP
+cd frontend
+npm install
+npm run build
+npx cap sync android
+cd android
+./gradlew assembleDebug
+# APK at: frontend/android/app/build/outputs/apk/debug/app-debug.apk
 ```
 
-**Warning:** Migration 009 will fail if run after 001 (duplicate columns)
+### Railway Volume (REQUIRED for image persistence)
+1. Railway Dashboard → Backend Service
+2. Click "Volumes" → "Add Volume"
+3. Name: `uploads`, Mount: `/app/backend/uploads`, Size: 1GB
+4. Deploy
+
+### Run Migration 011
+```bash
+psql "$DATABASE_PUBLIC_URL" -f database/migrations/011_fix_audit_log_and_poll_votes.sql
+```
+
+### Merge to Main
+When ready, merge branch to main and redeploy.
 
 ---
 
-## Environment Requirements
+## File Structure (Key Files)
 
-### Railway Backend
-- **Volume Mount REQUIRED:** `/app/backend/uploads`
-  - Without this, uploaded images disappear on redeploy
-  - Add in Railway Dashboard > Backend Service > Settings > Volumes
+```
+frontend/
+├── android/                    # Capacitor Android project
+│   ├── app/src/main/
+│   │   ├── AndroidManifest.xml # Permissions configured
+│   │   └── res/                # Icons, splash screens
+│   └── gradlew                 # Build script
+├── capacitor.config.ts         # Capacitor config
+├── src/
+│   ├── App.full.tsx            # Main app with native init
+│   ├── utils/
+│   │   ├── native.ts           # Native platform wrappers
+│   │   ├── useImagePicker.ts   # Reusable image picker hook
+│   │   └── api.ts              # API client (incl. groupsAPI)
+│   └── pages/
+│       ├── ProfilePage.jsx     # Native camera integrated
+│       └── EventPage.jsx       # Share button added
 
-### Environment Variables
-- `OPENAI_API_KEY` - For AI features
-- `GOOGLE_MAPS_API_KEY` - For location features
-- `IPINFO_API_KEY` - For auto-locate (optional)
-- `R2_*` - For Cloudflare R2 storage (optional, falls back to local)
+backend/
+├── routes/
+│   ├── auth.py                 # user_to_response() helper
+│   ├── events.py               # Optional auth for cover images
+│   ├── photos.py               # Path traversal protection
+│   └── groups.py               # sanitize_text fix
+├── services/
+│   └── ground_truth_query.py   # SQL injection fixed
+
+docs/
+├── ANDROID_APP_GUIDE.md        # Complete Android deployment guide
+└── SESSION_HANDOFF.md          # This file
+```
 
 ---
 
 ## Recent Commits
 
 ```
-813c5c5 Fix face recognition toggle and user response serialization
-37efd2a Add image cropper to EditEventPage
-bc08808 Fix SQL syntax errors and R2 storage bug
-962ed75 Resolve PR #21 conflicts: event editing and AI conversation history
-2e08cc7 Merge PR #21: Add event editing and conversation history support
+ff1ce7f Integrate native features into React app
+8fb6f0e Add Capacitor Android project for mobile app
+2e5d2a2 Update SESSION_HANDOFF date and status
+fe3be67 Add comprehensive Android app guide with Capacitor
+b9ee188 Add optional auth to cover image and implement groups API
+5cf5cb7 Fix multiple critical bugs found in codebase audit
 ```
 
 ---
 
-## Quick Reference
+## Codebase Stats
 
-**Repository:** https://github.com/Steve6378/yorru
-**Frontend:** app.yorru.net (Vercel)
-**Backend:** Railway (yorru-production.up.railway.app)
-**Database:** Railway pgvector-pg17
-
-**Tech Stack:**
-- Backend: FastAPI (Python 3.12)
-- Database: PostgreSQL + pgvector
-- Frontend: React + Vite + TypeScript
-- Real-time: Socket.io
-- AI: OpenAI GPT-4o-mini + LangChain RAG
-- Storage: Cloudflare R2 (with local fallback)
-- Auth: JWT tokens
+| Category | Lines |
+|----------|-------|
+| Total | ~22,200 LOC |
+| Backend Python | ~9,700 |
+| Frontend TSX/JSX | ~8,900 |
+| Database SQL | ~1,750 |
+| Config/Utils | ~1,850 |
 
 ---
 
-## Next Priority Fixes
+## Tech Stack
 
-1. **Fix blocking bugs** (chat.py, ai.py, groups.py, ground_truth.py)
-2. **Add Railway volume mount** for image persistence
-3. **Fix SQL injection** in ground_truth_query.py
-4. **Fix migration 009** to conditionally add columns
-5. **Implement fetchContacts/fetchGroups** in HostInterfaceEnhanced
+- **Backend:** FastAPI (Python 3.12)
+- **Database:** PostgreSQL + pgvector
+- **Frontend:** React + Vite + TypeScript
+- **Mobile:** Capacitor (Android)
+- **Real-time:** Socket.io
+- **AI:** OpenAI GPT-4o-mini + LangChain RAG
+- **Storage:** Cloudflare R2 (with local fallback)
+- **Auth:** JWT tokens
+
+---
+
+## Environment Variables
+
+```
+OPENAI_API_KEY=...
+GOOGLE_MAPS_API_KEY=...
+IPINFO_API_KEY=... (optional)
+R2_ACCOUNT_ID=... (optional)
+R2_ACCESS_KEY_ID=... (optional)
+R2_SECRET_ACCESS_KEY=... (optional)
+R2_BUCKET_NAME=... (optional)
+```
+
+---
+
+## URLs
+
+- **Repository:** github.com/Steve6378/yorru
+- **Frontend:** app.yorru.net (Vercel)
+- **Backend:** yorru-production.up.railway.app (Railway)
+- **Database:** Railway pgvector-pg17
