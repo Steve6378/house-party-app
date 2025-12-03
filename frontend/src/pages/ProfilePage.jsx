@@ -286,12 +286,17 @@ function ProfilePage() {
                     src={photoPreview}
                     alt="Profile"
                     className="w-24 h-24 rounded-full object-cover border-4 border-primary-500/30"
+                    onError={(e) => {
+                      e.target.style.display = 'none';
+                      e.target.nextSibling.style.display = 'flex';
+                    }}
                   />
-                ) : (
-                  <div className="w-24 h-24 rounded-full bg-gradient-to-r from-primary-500 to-secondary-500 flex items-center justify-center text-white font-bold text-2xl border-4 border-primary-500/30">
-                    {getInitials(formData.name)}
-                  </div>
-                )}
+                ) : null}
+                <div
+                  className={`w-24 h-24 rounded-full bg-gradient-to-r from-primary-500 to-secondary-500 items-center justify-center text-white font-bold text-2xl border-4 border-primary-500/30 ${photoPreview ? 'hidden' : 'flex'}`}
+                >
+                  {getInitials(formData.name)}
+                </div>
                 <button
                   type="button"
                   onClick={handlePhotoButtonClick}
