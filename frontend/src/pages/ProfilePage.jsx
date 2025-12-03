@@ -8,6 +8,7 @@ import {
   Phone,
   Calendar,
   Camera,
+  Image as ImageIcon,
   Save,
   Loader2,
   Scan,
@@ -21,6 +22,7 @@ import { toast } from 'sonner';
 import { authAPI } from '../utils/api.ts';
 import { API_URL } from '../config/api';
 import ImageCropper from '../components/ImageCropper';
+import { isNative, takePicture, pickPhoto } from '../utils/native';
 
 function ProfilePage() {
   const navigate = useNavigate();
@@ -46,6 +48,7 @@ function ProfilePage() {
   const [showFaceModal, setShowFaceModal] = useState(null); // 'enable' or 'disable' or null
   const [showCropper, setShowCropper] = useState(false);
   const [cropperImage, setCropperImage] = useState(null);
+  const [showImageSourcePicker, setShowImageSourcePicker] = useState(false);
 
   useEffect(() => {
     if (!isAuthenticated) {
@@ -137,6 +140,29 @@ function ProfilePage() {
   const handleCropCancel = () => {
     setShowCropper(false);
     setCropperImage(null);
+  };
+
+  // Handle image selection for mobile
+  const handleImageSourceSelect = async (source) => {
+    setShowImageSourcePicker(false);
+    try {
+      const imageUrl = source === 'camera' ? await takePicture() : await pickPhoto();
+      if (imageUrl) {
+        setCropperImage(imageUrl);
+        setShowCropper(true);
+      }
+    } catch (error) {
+      console.error('Failed to pick image:', error);
+      toast.error('Failed to access camera/gallery');
+    }
+  };
+
+  const handlePhotoButtonClick = () => {
+    if (isNative) {
+      setShowImageSourcePicker(true);
+    } else {
+      fileInputRef.current?.click();
+    }
   };
 
   const handleSubmit = async (e) => {
@@ -268,7 +294,7 @@ function ProfilePage() {
                 )}
                 <button
                   type="button"
-                  onClick={() => fileInputRef.current?.click()}
+                  onClick={handlePhotoButtonClick}
                   disabled={photoUploading}
                   className="absolute bottom-0 right-0 p-2 bg-primary-600 rounded-full text-white hover:bg-primary-700 transition disabled:opacity-50"
                 >
@@ -617,6 +643,37 @@ function ProfilePage() {
                 {showFaceModal === 'enable' ? 'Yes, Enable' : 'Yes, Disable'}
               </button>
             </div>
+          </div>
+        </div>
+      )}
+
+      {/* Image Source Picker (Mobile) */}
+      {showImageSourcePicker && (
+        <div className="fixed inset-0 bg-black/70 backdrop-blur-sm flex items-end justify-center z-50 p-4">
+          <div className="bg-dark-800 border border-primary-500/30 rounded-2xl w-full max-w-sm p-4 mb-4 shadow-2xl">
+            <h3 className="text-lg font-semibold text-white mb-4 text-center">Choose Photo Source</h3>
+            <div className="space-y-3">
+              <button
+                onClick={() => handleImageSourceSelect('camera')}
+                className="w-full flex items-center gap-3 p-4 bg-dark-700 hover:bg-dark-600 rounded-xl transition"
+              >
+                <Camera className="w-6 h-6 text-primary-400" />
+                <span className="text-white font-medium">Take Photo</span>
+              </button>
+              <button
+                onClick={() => handleImageSourceSelect('gallery')}
+                className="w-full flex items-center gap-3 p-4 bg-dark-700 hover:bg-dark-600 rounded-xl transition"
+              >
+                <ImageIcon className="w-6 h-6 text-secondary-400" />
+                <span className="text-white font-medium">Choose from Gallery</span>
+              </button>
+            </div>
+            <button
+              onClick={() => setShowImageSourcePicker(false)}
+              className="w-full mt-4 p-3 text-gray-400 hover:text-white transition"
+            >
+              Cancel
+            </button>
           </div>
         </div>
       )}

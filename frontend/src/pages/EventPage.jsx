@@ -17,10 +17,12 @@ import {
   UserPlus,
   MessageCircle,
   Bot,
-  Download
+  Download,
+  Share2
 } from 'lucide-react';
 import { toast } from 'sonner';
 import { eventsAPI, messagesAPI, groundTruthAPI, aiAPI } from '../utils/api.ts';
+import { shareEvent, isNative } from '../utils/native';
 
 function EventPage() {
   const { id } = useParams();
@@ -245,6 +247,20 @@ function EventPage() {
     }
   };
 
+  const handleShare = async () => {
+    if (event) {
+      const shared = await shareEvent({ name: event.name, id: event.id });
+      if (shared) {
+        toast.success('Event shared!');
+      } else if (!isNative) {
+        // Fallback for web: copy link
+        const url = `${window.location.origin}/event/${event.id}`;
+        navigator.clipboard.writeText(url);
+        toast.success('Event link copied to clipboard!');
+      }
+    }
+  };
+
   if (loading) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-dark-900 via-primary-900 to-secondary-900 flex items-center justify-center">
@@ -292,7 +308,7 @@ function EventPage() {
                 </div>
               </div>
             </div>
-            <div className="flex gap-2">
+            <div className="flex gap-2 items-center">
               {isHost && (
                 <span className="bg-gradient-to-r from-primary-600 to-secondary-600 text-white px-4 py-2 rounded-lg font-semibold">
                   Host
@@ -303,6 +319,13 @@ function EventPage() {
                   Co-Host
                 </span>
               )}
+              <button
+                onClick={handleShare}
+                className="p-2 bg-dark-700 hover:bg-dark-600 text-gray-300 hover:text-white rounded-lg transition"
+                title="Share Event"
+              >
+                <Share2 className="w-5 h-5" />
+              </button>
             </div>
           </div>
 

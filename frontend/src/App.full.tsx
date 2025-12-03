@@ -3,6 +3,8 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import { Toaster } from 'sonner';
 import { useAuthStore } from './stores/authStore';
 import SplashScreen from './components/SplashScreen';
+import { initNative, isNative, onNetworkChange } from './utils/native';
+import { toast } from 'sonner';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import DashboardPage from './pages/DashboardPage';
@@ -31,6 +33,23 @@ export function App() {
     const splashShown = sessionStorage.getItem('splashShown');
     if (splashShown) {
       setShowSplash(false);
+    }
+  }, []);
+
+  // Initialize native platform features
+  useEffect(() => {
+    initNative();
+
+    // Show toast when network status changes (mobile)
+    if (isNative) {
+      const listener = onNetworkChange((connected) => {
+        if (!connected) {
+          toast.error('No internet connection');
+        } else {
+          toast.success('Back online');
+        }
+      });
+      return () => { listener.then(l => l.remove()); };
     }
   }, []);
 
