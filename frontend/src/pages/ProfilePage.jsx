@@ -69,7 +69,7 @@ function ProfilePage() {
         longitude: user.longitude || null
       });
       // Set photo preview from user's profile_photo if it exists
-      if (user.profile_photo) {
+      if (user.profile_photo && token) {
         setPhotoPreview(`${API_URL}/api/auth/me/photo?token=${token}&t=${Date.now()}`);
       }
     }
