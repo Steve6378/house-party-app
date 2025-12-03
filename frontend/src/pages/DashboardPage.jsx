@@ -119,7 +119,7 @@ function DashboardPage() {
               onError={(e) => {
                 // Fallback to gradient on error
                 e.target.style.display = 'none';
-                e.target.parentElement.classList.add(`bg-gradient-to-r`, getDefaultGradient());
+                e.target.parentElement.classList.add('bg-gradient-to-r', ...getDefaultGradient().split(' '));
               }}
             />
           ) : null}
@@ -221,7 +221,20 @@ function DashboardPage() {
                   onClick={() => setDropdownOpen(!dropdownOpen)}
                   className="flex items-center gap-2 bg-white/10 hover:bg-white/20 text-white px-4 py-2 rounded-lg transition"
                 >
-                  <div className="w-8 h-8 rounded-full bg-gradient-to-r from-primary-500 to-secondary-500 flex items-center justify-center text-white font-semibold text-sm">
+                  {user?.profile_photo ? (
+                    <img
+                      src={`${API_URL}/api/auth/me/photo?token=${token}`}
+                      alt={user?.name}
+                      className="w-8 h-8 rounded-full object-cover"
+                      onError={(e) => {
+                        e.target.style.display = 'none';
+                        e.target.nextSibling.style.display = 'flex';
+                      }}
+                    />
+                  ) : null}
+                  <div
+                    className={`w-8 h-8 rounded-full bg-gradient-to-r from-primary-500 to-secondary-500 items-center justify-center text-white font-semibold text-sm ${user?.profile_photo ? 'hidden' : 'flex'}`}
+                  >
                     {user?.name?.charAt(0).toUpperCase() || 'U'}
                   </div>
                   <span className="hidden md:block">{user?.name}</span>

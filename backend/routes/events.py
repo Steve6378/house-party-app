@@ -674,8 +674,9 @@ async def get_cover_image(
         if not token:
             raise HTTPException(status_code=401, detail="Authentication required for private event")
         try:
-            payload = decode_access_token(token)
-            user_id = payload.get("sub")
+            user_id = decode_access_token(token)
+            if not user_id:
+                raise HTTPException(status_code=401, detail="Invalid token")
             user = db.query(User).filter(User.id == user_id).first()
             if not user:
                 raise HTTPException(status_code=401, detail="Invalid token")
