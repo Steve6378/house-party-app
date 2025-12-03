@@ -1,106 +1,102 @@
 # Session Handoff - Yorru MVP
 
 **Date:** 2025-12-03
-**Branch:** `claude/resolve-pr-conflicts-01JT3X23pVMvdVmwxfxZiZJP`
-**Status:** Android App Ready + All Critical Bugs Fixed
+**Branch:** `claude/review-yorru-handoff-01Fd9d1wWh4ZfkBSiGUYWdoK`
+**Status:** UI/UX Bug Fixes Complete
 **Platform:** Yorru - AI-assisted night event planning
 
 ---
 
 ## What Was Done This Session
 
-### 1. Capacitor Android Setup (COMPLETE)
-- Initialized Capacitor with app ID `net.yorru.app`
-- Added Android platform
-- Installed 10 native plugins:
-  - Camera, Geolocation, Share, Haptics
-  - Status Bar, Keyboard, Network, Preferences
-  - Splash Screen, App lifecycle
-- Created `frontend/src/utils/native.ts` with platform wrappers
-- Configured Android permissions in `AndroidManifest.xml`
+### 1. Input Validation Fixes
+- Expected attendees: max 100,000 with warning message
+- Date picker: restricted to current year through 2099
+- Custom topics: Enter key + "Add" button support
 
-### 2. Native Feature Integration (COMPLETE)
-- **App.full.tsx:** Native init + network status monitoring with toasts
-- **ProfilePage.jsx:** Native camera/gallery picker for profile photos
-- **EventPage.jsx:** Share button (native share on mobile, copy link on web)
-- **useImagePicker.ts:** Reusable hook for image picking
+### 2. Chat/Textarea Improvements
+- Changed AI chat input from `<input>` to `<textarea>`
+- Added Shift+Enter for new lines, Enter to send
+- Auto-resize up to ~5 lines (150px max)
+- Fixed message display: `whitespace-pre-wrap`, `break-words`
+- Fixed horizontal scroll: `overflow-x-hidden`
 
-### 3. Previous Session Fixes (COMPLETE)
-All critical bugs from codebase audit fixed:
-- `chat.py:37` - verify_token → decode_access_token
-- `ai.py:137` - fact.content → fact.key: fact.value
-- `groups.py:540` - sanitize_message_content → sanitize_text
-- `ground_truth_query.py` - SQL injection fixed with parameterized query
-- `photos.py` - Path traversal protection added
-- `events.py` - Optional auth for cover images (public events = public covers)
-- `HostInterfaceEnhanced.jsx` - fetchContacts/fetchGroups implemented
-- `HostInterfaceEnhanced.jsx` - Document delete handler added
+### 3. AI Behavior Improvements
+- Added `skip_response` logic - AI won't respond to "lol", "ok", "cool", etc.
+- Shortened greeting responses ("hi" → "Hey! What can I help you with?")
+- Updated routing prompt in `event_rag.py`
+
+### 4. Google Places Autocomplete Fix
+- Changed `types: ['establishment']` → `types: ['address']`
+- Now shows actual address suggestions, not just businesses
+
+### 5. Cover Image Authentication
+- Added auth token to API-served image URLs for private events
+- `DashboardPage.jsx`: `?token=${token}` appended to `/api/` URLs
+
+### 6. Host Interface Button
+- Changed static "Host" badge to clickable button in `EventPage.jsx`
+- Now navigates to `/event/${id}/host` for hosts/co-hosts
+
+### 7. Groups Functionality
+- Replaced mock groups with real API calls
+- Added Create Group modal (name + description)
+- Added Invite Link modal with copy functionality
+
+### 8. Image Cropper Slider
+- Improved range slider CSS styling
+- Wider track, better thumb with gradient and shadow
+
+### 9. Navigation Fix
+- Prevented browser back after event creation using `navigate(..., { replace: true })`
+
+---
+
+## Deferred Items (For Next Session)
+
+1. **Timezone Awareness** - Time currently displays as UTC only
+2. **Event End/Archive** - No way to end or archive an event
 
 ---
 
 ## Checklist for Next Session
 
-### Build Android APK
-```bash
-# On your local machine (needs Android Studio + SDK)
-git pull origin claude/resolve-pr-conflicts-01JT3X23pVMvdVmwxfxZiZJP
-cd frontend
-npm install
-npm run build
-npx cap sync android
-cd android
-./gradlew assembleDebug
-# APK at: frontend/android/app/build/outputs/apk/debug/app-debug.apk
-```
+### Merge PR
+Branch `claude/review-yorru-handoff-01Fd9d1wWh4ZfkBSiGUYWdoK` is ready to merge.
 
-### Railway Volume (REQUIRED for image persistence)
+### Railway Volume (If not done)
 1. Railway Dashboard → Backend Service
 2. Click "Volumes" → "Add Volume"
 3. Name: `uploads`, Mount: `/app/backend/uploads`, Size: 1GB
 4. Deploy
 
-### Run Migration 011
-```bash
-psql "$DATABASE_PUBLIC_URL" -f database/migrations/011_fix_audit_log_and_poll_votes.sql
-```
-
-### Merge to Main
-When ready, merge branch to main and redeploy.
+### Deferred Tasks
+- [ ] Add timezone awareness (display in user's local timezone)
+- [ ] Add event end/archive functionality
 
 ---
 
-## File Structure (Key Files)
+## Files Modified This Session
 
 ```
-frontend/
-├── android/                    # Capacitor Android project
-│   ├── app/src/main/
-│   │   ├── AndroidManifest.xml # Permissions configured
-│   │   └── res/                # Icons, splash screens
-│   └── gradlew                 # Build script
-├── capacitor.config.ts         # Capacitor config
-├── src/
-│   ├── App.full.tsx            # Main app with native init
-│   ├── utils/
-│   │   ├── native.ts           # Native platform wrappers
-│   │   ├── useImagePicker.ts   # Reusable image picker hook
-│   │   └── api.ts              # API client (incl. groupsAPI)
-│   └── pages/
-│       ├── ProfilePage.jsx     # Native camera integrated
-│       └── EventPage.jsx       # Share button added
+frontend/src/
+├── components/
+│   ├── AddressAutocomplete.jsx    # types: 'address'
+│   └── ImageCropper.jsx           # slider CSS
+├── pages/
+│   ├── CreateEventPage.jsx        # validation, custom topics, replace nav
+│   ├── DashboardPage.jsx          # cover image auth token
+│   ├── EventPage.jsx              # Host Interface button
+│   ├── GroupChatWorking.jsx       # textarea, newlines, overflow
+│   ├── GroupsPage.jsx             # real API, Create Group modal
+│   └── HostInterfaceEnhanced.jsx  # textarea, real groups
+└── index.css                      # range slider styling
 
 backend/
 ├── routes/
-│   ├── auth.py                 # user_to_response() helper
-│   ├── events.py               # Optional auth for cover images
-│   ├── photos.py               # Path traversal protection
-│   └── groups.py               # sanitize_text fix
-├── services/
-│   └── ground_truth_query.py   # SQL injection fixed
-
-docs/
-├── ANDROID_APP_GUIDE.md        # Complete Android deployment guide
-└── SESSION_HANDOFF.md          # This file
+│   └── ai.py                      # skip_response field
+└── services/
+    └── event_rag.py               # skip_response logic, shorter responses
 ```
 
 ---
@@ -108,25 +104,13 @@ docs/
 ## Recent Commits
 
 ```
-ff1ce7f Integrate native features into React app
-8fb6f0e Add Capacitor Android project for mobile app
-2e5d2a2 Update SESSION_HANDOFF date and status
-fe3be67 Add comprehensive Android app guide with Capacitor
-b9ee188 Add optional auth to cover image and implement groups API
-5cf5cb7 Fix multiple critical bugs found in codebase audit
+c4886ac Increase textarea max height to ~5 lines (150px)
+6a4823b Fix multiple UI/UX issues: Google Places, AI behavior, cover images, Host Interface
+f116935 Replace mock groups with real API, add Create Group modal
+ec213c9 Fix multiple UI/UX bugs and improve validation
+9780cf2 Add co-host management and invite link system
+4729e23 Add migration 011 to run_all_migrations.sql
 ```
-
----
-
-## Codebase Stats
-
-| Category | Lines |
-|----------|-------|
-| Total | ~22,200 LOC |
-| Backend Python | ~9,700 |
-| Frontend TSX/JSX | ~8,900 |
-| Database SQL | ~1,750 |
-| Config/Utils | ~1,850 |
 
 ---
 
@@ -140,20 +124,6 @@ b9ee188 Add optional auth to cover image and implement groups API
 - **AI:** OpenAI GPT-4o-mini + LangChain RAG
 - **Storage:** Cloudflare R2 (with local fallback)
 - **Auth:** JWT tokens
-
----
-
-## Environment Variables
-
-```
-OPENAI_API_KEY=...
-GOOGLE_MAPS_API_KEY=...
-IPINFO_API_KEY=... (optional)
-R2_ACCOUNT_ID=... (optional)
-R2_ACCESS_KEY_ID=... (optional)
-R2_SECRET_ACCESS_KEY=... (optional)
-R2_BUCKET_NAME=... (optional)
-```
 
 ---
 
