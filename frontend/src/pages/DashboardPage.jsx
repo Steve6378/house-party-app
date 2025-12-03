@@ -119,7 +119,7 @@ function DashboardPage() {
               onError={(e) => {
                 // Fallback to gradient on error
                 e.target.style.display = 'none';
-                e.target.parentElement.classList.add(`bg-gradient-to-r`, getDefaultGradient());
+                e.target.parentElement.classList.add('bg-gradient-to-r', ...getDefaultGradient().split(' '));
               }}
             />
           ) : null}
