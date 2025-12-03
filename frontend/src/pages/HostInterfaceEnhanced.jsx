@@ -1164,42 +1164,50 @@ function HostInterfaceEnhanced() {
               My Groups
             </h2>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-              {/* Mock groups - will be replaced with real data */}
-              {[
-                { id: '1', name: 'Sorority', events: 2, members: 45 },
-                { id: '2', name: 'Study Group', events: 1, members: 12 },
-                { id: '3', name: 'Friends', events: 1, members: 8 }
-              ].map((group) => (
-                <div
-                  key={group.id}
-                  className="bg-dark-700/50 border border-primary-500/20 rounded-xl p-6 hover:border-primary-500/40 transition cursor-pointer"
-                  onClick={() => navigate(`/groups`)}
-                >
-                  <h3 className="text-lg font-bold text-white mb-4">{group.name}</h3>
-                  <div className="space-y-2 text-sm text-gray-300">
-                    <div className="flex items-center gap-2">
-                      <Calendar className="w-4 h-4 text-accent-400" />
-                      {group.events} events
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <Users className="w-4 h-4 text-accent-400" />
-                      {group.members} members
-                    </div>
-                  </div>
-                  <button
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      navigate(`/event/${id}/chat`);
-                    }}
-                    className="mt-4 w-full bg-gradient-to-r from-primary-600 to-secondary-600 hover:from-primary-700 hover:to-secondary-700 text-white px-4 py-2 rounded-lg transition flex items-center justify-center gap-2"
+            {groups.length > 0 ? (
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                {groups.map((group) => (
+                  <div
+                    key={group.id}
+                    className="bg-dark-700/50 border border-primary-500/20 rounded-xl p-6 hover:border-primary-500/40 transition cursor-pointer"
+                    onClick={() => navigate(`/group/${group.id}/chat`)}
                   >
-                    <MessageSquare className="w-4 h-4" />
-                    Open Chat
-                  </button>
-                </div>
-              ))}
-            </div>
+                    <h3 className="text-lg font-bold text-white mb-4">{group.name}</h3>
+                    <div className="space-y-2 text-sm text-gray-300">
+                      <div className="flex items-center gap-2">
+                        <Calendar className="w-4 h-4 text-accent-400" />
+                        {group.event_count || 0} events
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <Users className="w-4 h-4 text-accent-400" />
+                        {group.member_count || 0} members
+                      </div>
+                    </div>
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        navigate(`/group/${group.id}/chat`);
+                      }}
+                      className="mt-4 w-full bg-gradient-to-r from-primary-600 to-secondary-600 hover:from-primary-700 hover:to-secondary-700 text-white px-4 py-2 rounded-lg transition flex items-center justify-center gap-2"
+                    >
+                      <MessageSquare className="w-4 h-4" />
+                      Open Chat
+                    </button>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <div className="text-center py-8 bg-dark-700/30 rounded-xl border border-primary-500/20">
+                <Users className="w-12 h-12 text-gray-600 mx-auto mb-3" />
+                <p className="text-gray-400 mb-4">No groups yet</p>
+                <button
+                  onClick={() => navigate('/groups')}
+                  className="bg-gradient-to-r from-primary-600 to-secondary-600 hover:from-primary-700 hover:to-secondary-700 text-white px-4 py-2 rounded-lg transition text-sm font-semibold"
+                >
+                  Create a Group
+                </button>
+              </div>
+            )}
 
             <div className="mt-6 text-center">
               <button
