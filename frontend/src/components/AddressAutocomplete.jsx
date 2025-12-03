@@ -82,7 +82,7 @@ function AddressAutocomplete({
         const request = {
           input: value,
           sessionToken: sessionTokenRef.current,
-          types: ['establishment']
+          types: ['address']
         };
 
         autocompleteServiceRef.current.getPlacePredictions(

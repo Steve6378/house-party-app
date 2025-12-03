@@ -77,13 +77,15 @@ User message: "{question}"
 Respond in JSON format only:
 {{
     "needs_rag": true or false,
+    "skip_response": true or false,
     "context_types": ["event_info", "chat_history", "documents", "questionnaire"],
-    "direct_response": "response if needs_rag is false, otherwise null",
+    "direct_response": "response if needs_rag is false and skip_response is false, otherwise null",
     "search_focus": "what to search for if needs_rag is true, otherwise null"
 }}
 
 Rules:
-- needs_rag = false for: greetings (hi, hello, hey, yo, sup, how are you, how r u), thanks, goodbyes, casual chat (lol, ok, cool, nice), general knowledge NOT about this specific event
+- skip_response = true for: messages that don't need a response like "lol", "ok", "cool", "nice", "haha", "k", single emojis, acknowledgments that don't ask anything
+- needs_rag = false for: greetings (hi, hello, hey, yo, sup, how are you, how r u), thanks, goodbyes, general knowledge NOT about this specific event
 - needs_rag = true for: questions about event details (when, where, what), what was discussed in chat, uploaded documents, schedules, locations, attendees, food, dress code, anything event-specific
 - context_types: only include what's relevant:
   - "event_info" for date, time, location, budget, guest count
@@ -94,7 +96,8 @@ Rules:
   - "hi" -> "Hey! What can I help you with?"
   - "how are you" -> "I'm good! Need help with the event?"
   - "thanks" -> "No problem!"
-  - "lol" -> null (no response needed)
+  - "lol" -> skip_response=true, direct_response=null
+  - "ok" -> skip_response=true, direct_response=null
 - search_focus: the specific thing to look for in context
 
 Output ONLY valid JSON."""
@@ -194,7 +197,11 @@ Description: {event.description if event.description else 'No description'}"""
         # Step 1: Route the query
         routing = self._route_query(question)
 
-        # Step 2: If no RAG needed, return direct response
+        # Step 2: If skip_response is true, return None to indicate no response needed
+        if routing.get("skip_response", False):
+            return None, []
+
+        # Step 3: If no RAG needed, return direct response
         if not routing.get("needs_rag", True):
             direct = routing.get("direct_response")
             if direct:
@@ -292,12 +299,22 @@ async def query_event_ai(event_id: str, question: str, db: Session, conversation
         conversation_history: Optional list of previous messages [{"role": "user/assistant", "content": "..."}]
 
     Returns:
-        Dictionary with answer and sources
+        Dictionary with answer and sources, or skip_response=True if no response needed
     """
     rag = EventRAG(event_id, db)
     answer, sources = rag.answer_question(question, conversation_history)
 
+    # If answer is None, it means no response is needed
+    if answer is None:
+        return {
+            "skip_response": True,
+            "answer": None,
+            "sources": [],
+            "event_id": event_id
+        }
+
     return {
+        "skip_response": False,
         "answer": answer,
         "sources": sources,
         "event_id": event_id

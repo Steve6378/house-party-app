@@ -318,6 +318,13 @@ function HostInterfaceEnhanced() {
       try {
         // Use guestQuery which uses RAG to search chat history - pass conversation history for context
         const response = await aiAPI.guestQuery(id, cleanQuestion || 'What has everyone been talking about?', historyForAPI);
+
+        // If skip_response is true, AI determined no response is needed
+        if (response.skip_response) {
+          setLastUsedMode('groupchat');
+          return;
+        }
+
         const aiMessage = {
           role: 'assistant',
           content: response.answer || 'I couldn\'t find any relevant information in the chat.',
@@ -936,12 +943,14 @@ function HostInterfaceEnhanced() {
 
                 {/* Input Area */}
                 <div className="p-4 border-t border-primary-500/20 bg-dark-800/80">
-                  <div className="flex gap-2">
-                    <input
-                      type="text"
+                  <div className="flex gap-2 items-end">
+                    <textarea
                       value={aiRequest}
                       onChange={(e) => {
                         setAiRequest(e.target.value);
+                        // Auto-resize textarea
+                        e.target.style.height = 'auto';
+                        e.target.style.height = Math.min(e.target.scrollHeight, 120) + 'px';
                         // Auto-detect mode from typed hashtag
                         const hashtagMatch = e.target.value.match(/^#(\w+)/i);
                         if (hashtagMatch) {
@@ -954,9 +963,15 @@ function HostInterfaceEnhanced() {
                           setSelectedMode(null);
                         }
                       }}
-                      onKeyDown={(e) => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); handleAiRequest(); } }}
+                      onKeyDown={(e) => {
+                        if (e.key === 'Enter' && !e.shiftKey) {
+                          e.preventDefault();
+                          handleAiRequest();
+                        }
+                      }}
                       placeholder={selectedMode ? `Ask about ${selectedMode}...` : "Ask AI to help (e.g., '#recommendation find Italian food nearby')..."}
-                      className="flex-1 px-4 py-3 bg-dark-700/50 border border-primary-500/30 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition"
+                      className="flex-1 px-4 py-3 bg-dark-700/50 border border-primary-500/30 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition resize-none min-h-[48px] max-h-[120px]"
+                      rows={1}
                     />
                     <button
                       onClick={handleAiRequest}

@@ -59,9 +59,10 @@ class GuestQueryRequest(BaseModel):
 
 class GuestQueryResponse(BaseModel):
     """Response schema for guest query"""
-    answer: str
-    sources: list[str]
+    answer: Optional[str] = None
+    sources: list[str] = []
     event_id: str
+    skip_response: bool = False
 
 
 @router.post("/host-assist", response_model=HostAssistResponse)
@@ -242,7 +243,8 @@ async def guest_query(
         return GuestQueryResponse(
             answer=result["answer"],
             sources=result["sources"],
-            event_id=result["event_id"]
+            event_id=result["event_id"],
+            skip_response=result.get("skip_response", False)
         )
 
     except Exception as e:
