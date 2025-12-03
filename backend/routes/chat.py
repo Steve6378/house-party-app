@@ -34,8 +34,8 @@ async def websocket_endpoint(
     """
     # Validate token and get user
     try:
-        from routes.auth import verify_token
-        payload = verify_token(token)
+        from routes.auth import decode_access_token
+        payload = decode_access_token(token)
         user_id = payload.get("sub")
         if not user_id:
             await websocket.close(code=1008, reason="Invalid token")

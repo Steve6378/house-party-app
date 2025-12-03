@@ -23,6 +23,26 @@ router = APIRouter(prefix="/auth", tags=["authentication"])
 security = HTTPBearer()
 
 
+def user_to_response(user: User) -> dict:
+    """Convert User model to response dict with has_face_encoding computed."""
+    return {
+        "id": user.id,
+        "email": user.email,
+        "name": user.name,
+        "phone": user.phone,
+        "age": user.age,
+        "bio": user.bio,
+        "profile_photo": user.profile_photo,
+        "address": user.address,
+        "latitude": float(user.latitude) if user.latitude else None,
+        "longitude": float(user.longitude) if user.longitude else None,
+        "status": user.status,
+        "email_verified": user.email_verified,
+        "created_at": user.created_at,
+        "has_face_encoding": bool(user.face_encoding)
+    }
+
+
 @router.post("/register", response_model=Token, status_code=201)
 def register(user_data: UserRegister, db: Session = Depends(get_db)):
     """
@@ -189,7 +209,7 @@ def get_current_user_profile(current_user: User = Depends(get_current_user)):
 
     Requires authentication (Bearer token in Authorization header).
     """
-    return current_user
+    return user_to_response(current_user)
 
 
 @router.put("/me", response_model=UserResponse)
@@ -222,7 +242,7 @@ def update_profile(
     db.commit()
     db.refresh(current_user)
 
-    return current_user
+    return user_to_response(current_user)
 
 
 # Max file size: 5MB for profile photos
@@ -310,7 +330,7 @@ async def upload_profile_photo(
     db.commit()
     db.refresh(current_user)
 
-    return current_user
+    return user_to_response(current_user)
 
 
 @router.get("/me/photo")

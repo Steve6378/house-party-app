@@ -238,7 +238,7 @@ async def update_event(
 
                     db.execute(sql_text("""
                         UPDATE ground_truth_facts
-                        SET embedding = :embedding::vector, updated_at = NOW()
+                        SET embedding = CAST(:embedding AS vector), updated_at = NOW()
                         WHERE id = :id
                     """), {
                         "embedding": embedding_str,
@@ -261,7 +261,7 @@ async def update_event(
                         INSERT INTO ground_truth_facts
                         (id, event_id, key, value, keywords, embedding, importance, created_at, updated_at)
                         VALUES
-                        (:id, :event_id, :key, :value, :keywords, :embedding::vector, :importance, NOW(), NOW())
+                        (:id, :event_id, :key, :value, :keywords, CAST(:embedding AS vector), :importance, NOW(), NOW())
                     """), {
                         "id": gt_id,
                         "event_id": event_id,
@@ -650,19 +650,40 @@ async def upload_cover_image(
 @router.get("/{event_id}/cover-image")
 async def get_cover_image(
     event_id: str,
+    token: Optional[str] = Query(None),
     db: Session = Depends(get_db)
 ):
     """
     Get the cover image for an event.
 
     Returns the image file directly.
+
+    - Public events: No auth required
+    - Private events: Requires token query param with valid JWT
     """
     from services.r2_storage import R2Storage
+    from services.auth import decode_access_token
 
     # Get the event
     event = db.query(Event).filter(Event.id == event_id).first()
     if not event:
         raise HTTPException(status_code=404, detail="Event not found")
+
+    # Check access for private events
+    if event.visibility == "private":
+        if not token:
+            raise HTTPException(status_code=401, detail="Authentication required for private event")
+        try:
+            payload = decode_access_token(token)
+            user_id = payload.get("sub")
+            user = db.query(User).filter(User.id == user_id).first()
+            if not user:
+                raise HTTPException(status_code=401, detail="Invalid token")
+            require_event_access(user, event, db, action="view")
+        except HTTPException:
+            raise
+        except Exception:
+            raise HTTPException(status_code=401, detail="Invalid token")
 
     if not event.cover_image_path:
         raise HTTPException(status_code=404, detail="No cover image found")

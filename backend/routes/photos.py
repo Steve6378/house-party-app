@@ -343,9 +343,14 @@ async def get_photo_file(
 
     if not file_data:
         # Fallback: check if it's a local path that exists
+        # Security: validate path is within uploads directory to prevent traversal
         if os.path.exists(photo.file_path):
+            real_path = os.path.realpath(photo.file_path)
+            uploads_dir = os.path.realpath("uploads")
+            if not real_path.startswith(uploads_dir):
+                raise HTTPException(status_code=403, detail="Invalid file path")
             return FileResponse(
-                photo.file_path,
+                real_path,
                 media_type=f"image/{photo.file_type}",
                 filename=photo.filename
             )

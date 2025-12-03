@@ -187,7 +187,7 @@ def create_fact(
         INSERT INTO ground_truth_facts
         (id, event_id, key, value, keywords, embedding, importance, created_at, updated_at)
         VALUES
-        (:id, :event_id, :key, :value, :keywords, :embedding::vector, :importance, NOW(), NOW())
+        (:id, :event_id, :key, :value, :keywords, CAST(:embedding AS vector), :importance, NOW(), NOW())
     """), {
         "id": fact_id,
         "event_id": event_id,
@@ -254,7 +254,7 @@ def update_fact(
         from sqlalchemy import text as sql_text
         db.execute(sql_text("""
             UPDATE ground_truth_facts 
-            SET embedding = :embedding::vector, updated_at = NOW()
+            SET embedding = CAST(:embedding AS vector), updated_at = NOW()
             WHERE id = :id
         """), {
             "embedding": embedding_str,

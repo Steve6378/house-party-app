@@ -105,11 +105,8 @@ class R2Storage:
             local_path = f"{local_dir}/{filename}"
 
             with open(local_path, 'wb') as f:
-                # Handle both bytes and file-like objects
-                if hasattr(file_data, 'read'):
-                    f.write(file_data.read())
-                else:
-                    f.write(file_data)
+                # Use data_bytes which was already extracted above
+                f.write(data_bytes)
 
             return {
                 'file_id': file_id,

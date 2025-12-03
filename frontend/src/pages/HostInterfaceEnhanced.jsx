@@ -26,7 +26,7 @@ import {
   Camera
 } from 'lucide-react';
 import { toast } from 'sonner';
-import { eventsAPI, messagesAPI, aiAPI, attendanceAPI, documentsAPI, photosAPI } from '../utils/api.ts';
+import { eventsAPI, messagesAPI, aiAPI, attendanceAPI, documentsAPI, photosAPI, groupsAPI } from '../utils/api.ts';
 import { API_URL } from '../config/api';
 
 function HostInterfaceEnhanced() {
@@ -115,19 +115,22 @@ function HostInterfaceEnhanced() {
 
   const fetchContacts = async () => {
     try {
-      // Fetch attendees and co-hosts
-      setContacts([]);
+      // Contacts = attendees for this event
+      const data = await attendanceAPI.getAttendees(id);
+      setContacts(data || []);
     } catch (error) {
       console.error('Failed to fetch contacts:', error);
+      setContacts([]);
     }
   };
 
   const fetchGroups = async () => {
     try {
-      // Fetch available groups for this event
-      setGroups([]);
+      const data = await groupsAPI.list();
+      setGroups(data.groups || data || []);
     } catch (error) {
       console.error('Failed to fetch groups:', error);
+      setGroups([]);
     }
   };
 
@@ -582,6 +585,18 @@ function HostInterfaceEnhanced() {
     }
   };
 
+  const handleDeleteDocument = async (documentId, filename) => {
+    if (!confirm(`Delete "${filename}"? This cannot be undone.`)) return;
+
+    try {
+      await documentsAPI.delete(id, documentId);
+      toast.success(`"${filename}" deleted`);
+      fetchDocuments();
+    } catch (error) {
+      toast.error('Failed to delete document');
+    }
+  };
+
   const handleAddContact = async () => {
     if (!newContactEmail.trim()) {
       toast.error('Please enter an email address');
@@ -1007,10 +1022,18 @@ function HostInterfaceEnhanced() {
                       </div>
                     </div>
                     <div className="flex items-center gap-2">
-                      <button className="text-accent-400 hover:text-accent-300 p-2">
+                      <button
+                        onClick={() => toast.info('Download not available - documents are processed for AI context only')}
+                        className="text-accent-400 hover:text-accent-300 p-2"
+                        title="Download"
+                      >
                         <Download className="w-5 h-5" />
                       </button>
-                      <button className="text-red-400 hover:text-red-300 p-2">
+                      <button
+                        onClick={() => handleDeleteDocument(doc.id, doc.filename)}
+                        className="text-red-400 hover:text-red-300 p-2"
+                        title="Delete"
+                      >
                         <Trash2 className="w-5 h-5" />
                       </button>
                     </div>

@@ -63,7 +63,7 @@ def main():
             # Update database
             conn.execute(text("""
                 UPDATE ground_truth_facts 
-                SET embedding = :embedding::vector
+                SET embedding = CAST(:embedding AS vector)
                 WHERE id = :id
             """), {"embedding": embedding_str, "id": fact_id})
             
