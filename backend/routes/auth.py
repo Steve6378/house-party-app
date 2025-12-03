@@ -202,6 +202,36 @@ def get_current_user(
     return user
 
 
+# Optional security (doesn't fail if no token provided)
+security_optional = HTTPBearer(auto_error=False)
+
+
+def get_current_user_optional(
+    credentials: Optional[HTTPAuthorizationCredentials] = Depends(security_optional),
+    db: Session = Depends(get_db)
+) -> Optional[User]:
+    """
+    Dependency to get the current user if authenticated, or None if not.
+
+    Useful for endpoints that work for both authenticated and anonymous users.
+    """
+    if not credentials:
+        return None
+
+    token = credentials.credentials
+    user_id = decode_access_token(token)
+
+    if not user_id:
+        return None
+
+    user = db.query(User).filter(User.id == user_id).first()
+
+    if not user or user.status != "active":
+        return None
+
+    return user
+
+
 @router.get("/me", response_model=UserResponse)
 def get_current_user_profile(current_user: User = Depends(get_current_user)):
     """

@@ -42,12 +42,15 @@ function EventPage() {
   const [documents, setDocuments] = useState([]);
   const [groundTruthFacts, setGroundTruthFacts] = useState([]);
   const [newGroundTruth, setNewGroundTruth] = useState({ category: '', content: '', keywords: '' });
+  const [todos, setTodos] = useState([]);
+  const [newTodo, setNewTodo] = useState('');
   const chatEndRef = useRef(null);
   const fileInputRef = useRef(null);
   const photoInputRef = useRef(null);
 
   const isHost = event?.main_host_id === user?.id;
-  const hasHostAccess = isHost; // Can extend for co-hosts later
+  const isCoHost = event?.co_hosts?.some(h => h.id === user?.id || h.user_id === user?.id);
+  const hasHostAccess = isHost || isCoHost;
 
   useEffect(() => {
     fetchEvent();
@@ -404,22 +407,22 @@ function EventPage() {
             </h2>
 
             <div className="h-[500px] overflow-y-auto mb-4 space-y-4">
-              {chats.map((chat) => (
+              {messages.map((msg) => (
                 <div
-                  key={chat.id}
-                  className={`flex ${chat.userId === user.id ? 'justify-end' : 'justify-start'}`}
+                  key={msg.id}
+                  className={`flex ${msg.sender_id === user?.id ? 'justify-end' : 'justify-start'}`}
                 >
                   <div
                     className={`max-w-[70%] p-4 rounded-xl ${
-                      chat.userId === user.id
+                      msg.sender_id === user?.id
                         ? 'bg-gradient-to-r from-primary-600 to-secondary-600 text-white'
                         : 'bg-dark-700/50 text-gray-200 border border-primary-500/20'
                     }`}
                   >
-                    <div className="text-xs mb-1 opacity-75">{chat.userName}</div>
-                    <p>{chat.message}</p>
+                    <div className="text-xs mb-1 opacity-75">{msg.sender?.name || 'Unknown'}</div>
+                    <p>{msg.content}</p>
                     <div className="text-xs mt-1 opacity-75">
-                      {new Date(chat.timestamp).toLocaleString()}
+                      {new Date(msg.created_at).toLocaleString()}
                     </div>
                   </div>
                 </div>

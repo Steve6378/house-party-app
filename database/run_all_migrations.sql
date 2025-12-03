@@ -52,6 +52,10 @@
 \i database/migrations/011_fix_audit_log_and_poll_votes.sql
 
 \echo ''
+\echo '--- Migration 012: Add invite_links table ---'
+\i database/migrations/012_add_invite_links.sql
+
+\echo ''
 \echo '==============================================='
 \echo 'All migrations completed successfully!'
 \echo '==============================================='
