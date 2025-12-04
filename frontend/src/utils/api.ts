@@ -445,6 +445,39 @@ export const attendanceAPI = {
     const response = await api.get(`/api/events/${eventId}/attendees`);
     return response.data;
   },
+
+  // Invite link methods
+  createInviteLink: async (eventId: string, options?: {
+    role?: 'attendee' | 'cohost';
+    expires_in_hours?: number;
+    max_uses?: number;
+  }) => {
+    const response = await api.post(`/api/events/${eventId}/invite-link`, options || {});
+    return response.data;
+  },
+
+  listInviteLinks: async (eventId: string) => {
+    const response = await api.get(`/api/events/${eventId}/invite-links`);
+    return response.data;
+  },
+
+  revokeInviteLink: async (eventId: string, token: string) => {
+    const response = await api.delete(`/api/events/${eventId}/invite-link/${token}`);
+    return response.data;
+  },
+};
+
+// Public invite API (for accepting invites)
+export const inviteAPI = {
+  getDetails: async (token: string) => {
+    const response = await api.get(`/api/invite/${token}`);
+    return response.data;
+  },
+
+  accept: async (token: string) => {
+    const response = await api.post(`/api/invite/${token}/accept`);
+    return response.data;
+  },
 };
 
 // Groups API

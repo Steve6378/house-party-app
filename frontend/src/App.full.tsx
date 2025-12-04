@@ -19,6 +19,7 @@ import GroupsPage from './pages/GroupsPage';
 import GroupChatWorking from './pages/GroupChatWorking';
 import ProfilePage from './pages/ProfilePage';
 import SettingsPage from './pages/SettingsPage';
+import InvitePage from './pages/InvitePage';
 
 function ProtectedRoute({ children }: { children: React.ReactNode }) {
   const isAuthenticated = useAuthStore((state: any) => state.isAuthenticated);
@@ -68,6 +69,7 @@ export function App() {
         <Routes>
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
+          <Route path="/invite/:token" element={<InvitePage />} />
           <Route
             path="/dashboard"
             element={
