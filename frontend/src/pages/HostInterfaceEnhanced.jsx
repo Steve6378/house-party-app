@@ -27,7 +27,8 @@ import {
   Share2,
   Link,
   Copy,
-  Check
+  Check,
+  RefreshCw
 } from 'lucide-react';
 import { toast } from 'sonner';
 import { eventsAPI, messagesAPI, aiAPI, attendanceAPI, documentsAPI, photosAPI, groupsAPI } from '../utils/api.ts';
@@ -1016,10 +1017,30 @@ function HostInterfaceEnhanced() {
         {/* AI Assistant Tab */}
         {activeTab === 'ai' && (
           <div className="bg-dark-800/50 backdrop-blur-xl border border-primary-500/20 rounded-2xl p-6">
-            <h2 className="text-2xl font-bold text-white mb-6 flex items-center gap-2">
-              <Sparkles className="w-6 h-6 text-accent-400" />
-              AI Host Assistant
-            </h2>
+            <div className="flex items-center justify-between mb-6">
+              <h2 className="text-2xl font-bold text-white flex items-center gap-2">
+                <Sparkles className="w-6 h-6 text-accent-400" />
+                AI Host Assistant
+              </h2>
+              {aiConversation.length > 1 && (
+                <button
+                  onClick={() => {
+                    setAiConversation([{
+                      role: 'assistant',
+                      content: "Hi! I'm your AI host assistant. I can help with event planning, recommendations, broadcasting messages, and more. Use hashtags like #recommendation, #broadcast, or #create to access specific features!",
+                      timestamp: new Date()
+                    }]);
+                    localStorage.removeItem(`ai-host-chat-${id}`);
+                    setLastUsedMode(null);
+                    toast.success('Chat cleared');
+                  }}
+                  className="px-3 py-1.5 text-xs text-dark-400 hover:text-white border border-dark-600 hover:border-primary-500 rounded-lg transition-colors flex items-center gap-1.5"
+                >
+                  <RefreshCw className="w-3.5 h-3.5" />
+                  New Chat
+                </button>
+              )}
+            </div>
 
             <div className="space-y-6">
               {/* AI Mode Selection Buttons */}

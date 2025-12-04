@@ -21,7 +21,8 @@ import {
   Camera,
   FileText,
   HelpCircle,
-  MessageCircle
+  MessageCircle,
+  RefreshCw
 } from 'lucide-react';
 import { toast } from 'sonner';
 import { eventsAPI, aiAPI, photosAPI, documentsAPI } from '../utils/api.ts';
@@ -671,10 +672,28 @@ function GuestInterfaceEnhanced() {
         {/* AI Chat Interface */}
         <div className="bg-dark-800/50 backdrop-blur-xl border border-primary-500/20 rounded-2xl overflow-hidden">
           <div className="px-6 py-4 border-b border-primary-500/20 bg-dark-800/80">
-            <h2 className="text-xl font-bold text-white flex items-center gap-2">
-              <Bot className="w-6 h-6 text-accent-400" />
-              AI Assistant
-            </h2>
+            <div className="flex items-center justify-between">
+              <h2 className="text-xl font-bold text-white flex items-center gap-2">
+                <Bot className="w-6 h-6 text-accent-400" />
+                AI Assistant
+              </h2>
+              {conversation.length > 0 && (
+                <button
+                  onClick={() => {
+                    setConversation([]);
+                    localStorage.removeItem(`ai-guest-chat-${id}`);
+                    setLastUsedMode(null);
+                    setSelectedMode(null);
+                    toast.success('Chat cleared');
+                  }}
+                  className="flex items-center gap-1 px-2 py-1 text-xs text-gray-400 hover:text-white hover:bg-dark-700/50 rounded-lg transition-colors"
+                  title="Clear chat history"
+                >
+                  <RefreshCw className="w-3.5 h-3.5" />
+                  New Chat
+                </button>
+              )}
+            </div>
             <p className="text-sm text-gray-400 mt-1">Ask me anything about the event</p>
           </div>
 
