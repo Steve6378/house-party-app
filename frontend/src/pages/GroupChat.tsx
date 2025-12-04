@@ -172,7 +172,7 @@ const GroupChat: React.FC = () => {
 
     // Add user message immediately
     const newUserMessage: Message = {
-      id: Date.now().toString(),
+      id: crypto.randomUUID(),
       content: userMessage,
       sender: {
         id: user?.id || 'current-user',
@@ -203,7 +203,7 @@ const GroupChat: React.FC = () => {
 
       // Add a message about the photo
       const photoMessage: Message = {
-        id: Date.now().toString(),
+        id: crypto.randomUUID(),
         content: `Shared a photo${result.description ? `: ${result.description}` : ''}`,
         sender: {
           id: user?.id || 'current-user',
@@ -231,7 +231,7 @@ const GroupChat: React.FC = () => {
     if (!aiQuery.trim() || !eventId || aiLoading) return;
 
     const userMessage: AIMessage = {
-      id: Date.now().toString(),
+      id: crypto.randomUUID(),
       role: 'user',
       content: aiQuery.trim(),
       timestamp: new Date()
@@ -243,7 +243,7 @@ const GroupChat: React.FC = () => {
     try {
       const result = await aiAPI.guestQuery(eventId, userMessage.content);
       const assistantMessage: AIMessage = {
-        id: (Date.now() + 1).toString(),
+        id: crypto.randomUUID(),
         role: 'assistant',
         content: result.answer,
         timestamp: new Date()
@@ -252,7 +252,7 @@ const GroupChat: React.FC = () => {
     } catch (error) {
       console.error('AI query failed:', error);
       const errorMessage: AIMessage = {
-        id: (Date.now() + 1).toString(),
+        id: crypto.randomUUID(),
         role: 'assistant',
         content: 'Sorry, I could not process your question. Please try again.',
         timestamp: new Date()
@@ -310,7 +310,7 @@ const GroupChat: React.FC = () => {
 
       // Add a system message about the document
       const docMessage: Message = {
-        id: Date.now().toString(),
+        id: crypto.randomUUID(),
         content: `Uploaded document: ${file.name} (${result.extracted_text_length} characters extracted for AI context)`,
         sender: {
           id: 'system',

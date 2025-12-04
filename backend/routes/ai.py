@@ -321,6 +321,10 @@ When there's conversation history, use it to understand follow-up questions and 
             max_tokens=500
         )
 
+        # Safety check for empty response
+        if not response.choices or len(response.choices) == 0:
+            raise HTTPException(status_code=500, detail="AI returned empty response")
+
         message = response.choices[0].message
 
         # Check if AI wants to call a tool (modify event)
@@ -556,6 +560,10 @@ async def general_query(
             temperature=0.7,
             max_tokens=500
         )
+
+        # Safety check for empty response
+        if not response.choices or len(response.choices) == 0:
+            raise HTTPException(status_code=500, detail="AI returned empty response")
 
         return GeneralQueryResponse(answer=response.choices[0].message.content)
 
@@ -905,6 +913,10 @@ Write only the description, no quotes or additional text."""
             temperature=0.7,
             max_tokens=200
         )
+
+        # Safety check for empty response
+        if not response.choices or len(response.choices) == 0:
+            raise HTTPException(status_code=500, detail="AI returned empty response")
 
         description = response.choices[0].message.content.strip()
         # Remove any surrounding quotes if present

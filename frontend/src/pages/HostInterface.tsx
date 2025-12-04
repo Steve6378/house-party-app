@@ -62,7 +62,7 @@ const HostInterface: React.FC = () => {
     e.preventDefault();
     if (message.trim() === '') return;
     const newMessage: Message = {
-      id: Date.now().toString(),
+      id: crypto.randomUUID(),
       content: message,
       sender: {
         id: user?.id || 'host',
@@ -74,7 +74,7 @@ const HostInterface: React.FC = () => {
     setMessage('');
     setTimeout(() => {
       const aiResponse: Message = {
-        id: (Date.now() + 1).toString(),
+        id: crypto.randomUUID(),
         content: "Got it! I'll take care of that for you.",
         sender: {
           id: 'ai',

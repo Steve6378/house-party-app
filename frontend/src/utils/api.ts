@@ -223,10 +223,10 @@ export const messagesAPI = {
   },
 };
 
-// Ground Truth API
+// Ground Truth API (backend uses /facts endpoints)
 export const groundTruthAPI = {
   list: async (eventId: string) => {
-    const response = await api.get(`/api/events/${eventId}/ground_truth`);
+    const response = await api.get(`/api/events/${eventId}/facts`);
     return response.data;
   },
 
@@ -235,27 +235,27 @@ export const groundTruthAPI = {
     content: string;
     keywords?: string[];
   }) => {
-    const response = await api.post(`/api/events/${eventId}/ground_truth`, data);
+    const response = await api.post(`/api/events/${eventId}/facts`, data);
     return response.data;
   },
 
-  update: async (factId: string, data: {
+  update: async (eventId: string, factId: string, data: {
     category?: string;
     content?: string;
     keywords?: string[];
     is_active?: boolean;
   }) => {
-    const response = await api.put(`/api/ground_truth/${factId}`, data);
+    const response = await api.put(`/api/events/${eventId}/facts/${factId}`, data);
     return response.data;
   },
 
-  delete: async (factId: string) => {
-    const response = await api.delete(`/api/ground_truth/${factId}`);
+  delete: async (eventId: string, factId: string) => {
+    const response = await api.delete(`/api/events/${eventId}/facts/${factId}`);
     return response.data;
   },
 
   query: async (eventId: string, question: string) => {
-    const response = await api.post(`/api/events/${eventId}/ground_truth/query`, { question });
+    const response = await api.post(`/api/events/${eventId}/ask`, { question });
     return response.data;
   },
 };
@@ -288,18 +288,39 @@ export const aiAPI = {
   },
 
   searchPhotos: async (query: string, eventId?: string, limit: number = 10) => {
-    const response = await api.post('/api/ai/photo-search', { query, event_id: eventId, limit });
+    // Uses find-my-photos endpoint (face recognition based)
+    // Note: text-based search is not implemented, this uses face matching
+    if (!eventId) {
+      return { photos: [], message: 'Event ID required', total_found: 0 };
+    }
+    const response = await api.post('/api/ai/find-my-photos', { event_id: eventId });
     return response.data;
   },
 
   searchVendors: async (eventId: string, vendorType: string, query?: string, radius: number = 5000) => {
-    const response = await api.post('/api/ai/vendors', {
+    // Uses recommendation endpoint (Google Places API)
+    const searchQuery = query || vendorType;
+    const response = await api.post('/api/ai/recommendation', {
       event_id: eventId,
-      vendor_type: vendorType,
-      query,
+      query: searchQuery,
       radius
     });
-    return response.data;
+    // Map the response to expected vendor format
+    const data = response.data;
+    return {
+      vendors: data.places.map((place: any) => ({
+        place_id: place.place_id,
+        name: place.name,
+        address: place.address,
+        rating: place.rating,
+        total_ratings: place.total_ratings,
+        price_level: place.price_level,
+        photos: [],
+        is_open: place.opening_hours === 'Open now'
+      })),
+      message: data.message,
+      total_found: data.total_found
+    };
   },
 
   broadcast: async (eventId: string, message: string, messageType: string = 'announcement') => {
@@ -472,6 +493,25 @@ export const attendanceAPI = {
 
   revokeInviteLink: async (eventId: string, token: string) => {
     const response = await api.delete(`/api/events/${eventId}/invite-link/${token}`);
+    return response.data;
+  },
+
+  // Co-host management
+  addCoHost: async (eventId: string, email: string, permissions?: string) => {
+    const response = await api.post(`/api/events/${eventId}/cohosts`, {
+      email,
+      permissions: permissions || 'edit_facts'
+    });
+    return response.data;
+  },
+
+  getCohosts: async (eventId: string) => {
+    const response = await api.get(`/api/events/${eventId}/cohosts`);
+    return response.data;
+  },
+
+  removeCoHost: async (eventId: string, userId: string) => {
+    const response = await api.delete(`/api/events/${eventId}/cohosts/${userId}`);
     return response.data;
   },
 };

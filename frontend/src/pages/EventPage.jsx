@@ -22,7 +22,8 @@ import {
   Settings2
 } from 'lucide-react';
 import { toast } from 'sonner';
-import { eventsAPI, messagesAPI, groundTruthAPI, aiAPI } from '../utils/api.ts';
+import { eventsAPI, messagesAPI, groundTruthAPI, aiAPI, photosAPI, documentsAPI, attendanceAPI } from '../utils/api.ts';
+import { API_URL } from '../config/api';
 import { shareEvent, isNative } from '../utils/native';
 
 function EventPage() {
@@ -171,16 +172,8 @@ function EventPage() {
     const file = e.target.files[0];
     if (!file) return;
 
-    const formData = new FormData();
-    formData.append('photo', file);
-    formData.append('uploadedBy', user.id);
-    formData.append('uploaderName', user.name);
-
     try {
-      await axios.post(`http://localhost:3000/api/events/${id}/photos`, formData, {
-        headers: { 'Content-Type': 'multipart/form-data' }
-      });
-
+      await photosAPI.upload(id, file);
       toast.success('Photo uploaded!');
       fetchPhotos();
     } catch (error) {
@@ -192,16 +185,8 @@ function EventPage() {
     const file = e.target.files[0];
     if (!file) return;
 
-    const formData = new FormData();
-    formData.append('document', file);
-    formData.append('uploadedBy', user.id);
-    formData.append('uploaderName', user.name);
-
     try {
-      await axios.post(`http://localhost:3000/api/events/${id}/documents`, formData, {
-        headers: { 'Content-Type': 'multipart/form-data' }
-      });
-
+      await documentsAPI.upload(id, file);
       toast.success('Document uploaded!');
       fetchEvent();
     } catch (error) {
@@ -211,31 +196,14 @@ function EventPage() {
 
   const handleAddTodo = async (text = newTodo) => {
     if (!text.trim()) return;
-
-    try {
-      await axios.post(`http://localhost:3000/api/events/${id}/todos`, {
-        text,
-        createdBy: user.id
-      });
-
-      setNewTodo('');
-      fetchEvent();
-      toast.success('Todo added!');
-    } catch (error) {
-      toast.error('Failed to add todo');
-    }
+    // TODO: Implement todos API endpoint
+    toast.info('Todos feature coming soon!');
+    setNewTodo('');
   };
 
   const handleToggleTodo = async (todoId, completed) => {
-    try {
-      await axios.patch(`http://localhost:3000/api/events/${id}/todos/${todoId}`, {
-        completed: !completed
-      });
-
-      fetchEvent();
-    } catch (error) {
-      toast.error('Failed to update todo');
-    }
+    // TODO: Implement todos API endpoint
+    toast.info('Todos feature coming soon!');
   };
 
   const handleAddCoHost = async () => {
@@ -243,13 +211,8 @@ function EventPage() {
     if (!email) return;
 
     try {
-      await axios.post(`http://localhost:3000/api/events/${id}/cohost`, {
-        userId: 'temp-id',
-        userEmail: email,
-        userName: email
-      });
-
-      toast.success('Co-host added!');
+      await attendanceAPI.addCoHost(id, email);
+      toast.success('Co-host invited!');
       fetchEvent();
     } catch (error) {
       toast.error('Failed to add co-host');
