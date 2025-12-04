@@ -29,7 +29,9 @@ import {
   Copy,
   Check,
   RefreshCw,
-  Archive
+  Archive,
+  Crown,
+  ShieldCheck
 } from 'lucide-react';
 import { toast } from 'sonner';
 import { eventsAPI, messagesAPI, aiAPI, attendanceAPI, documentsAPI, photosAPI, groupsAPI } from '../utils/api.ts';
@@ -69,6 +71,7 @@ function HostInterfaceEnhanced() {
   const [newContactEmail, setNewContactEmail] = useState('');
   const [attendees, setAttendees] = useState([]);
   const [invitees, setInvitees] = useState([]);
+  const [cohosts, setCohosts] = useState([]);
   const [uploadingDocument, setUploadingDocument] = useState(false);
   const [selectedMode, setSelectedMode] = useState(null);
   const [lastUsedMode, setLastUsedMode] = useState(null); // Track last used mode for follow-up questions
@@ -120,6 +123,7 @@ function HostInterfaceEnhanced() {
     fetchGroups();
     fetchAttendees();
     fetchInvitees();
+    fetchCohosts();
     fetchPhotos();
   }, [id]);
 
@@ -196,6 +200,44 @@ function HostInterfaceEnhanced() {
     } catch (error) {
       console.error('Failed to revoke invitation:', error);
       toast.error('Failed to revoke invitation');
+    }
+  };
+
+  const fetchCohosts = async () => {
+    try {
+      const data = await attendanceAPI.getCohosts(id);
+      setCohosts(data || []);
+    } catch (error) {
+      console.error('Failed to fetch co-hosts:', error);
+      setCohosts([]);
+    }
+  };
+
+  const handleMakeCoHost = async (email, name) => {
+    if (!confirm(`Make ${name || email} a co-host? They will be able to edit event details.`)) {
+      return;
+    }
+    try {
+      await attendanceAPI.addCoHost(id, email, 'edit_facts');
+      toast.success(`${name || email} is now a co-host!`);
+      fetchCohosts();
+    } catch (error) {
+      console.error('Failed to add co-host:', error);
+      toast.error(error.response?.data?.detail || 'Failed to add co-host');
+    }
+  };
+
+  const handleRemoveCoHost = async (userId, name) => {
+    if (!confirm(`Remove ${name} as co-host? They will lose editing privileges.`)) {
+      return;
+    }
+    try {
+      await attendanceAPI.removeCoHost(id, userId);
+      toast.success(`${name} is no longer a co-host`);
+      fetchCohosts();
+    } catch (error) {
+      console.error('Failed to remove co-host:', error);
+      toast.error(error.response?.data?.detail || 'Failed to remove co-host');
     }
   };
 
@@ -1666,6 +1708,43 @@ function HostInterfaceEnhanced() {
                 </div>
               </div>
 
+              {/* Co-Hosts */}
+              <div className="bg-dark-700/30 border border-primary-500/20 rounded-xl p-4">
+                <h3 className="text-white font-semibold mb-4 flex items-center gap-2">
+                  <Crown className="w-5 h-5 text-yellow-400" />
+                  Co-Hosts ({cohosts.length})
+                </h3>
+                {cohosts.length > 0 ? (
+                  <div className="space-y-2">
+                    {cohosts.map((cohost) => (
+                      <div
+                        key={cohost.user_id}
+                        className="bg-dark-700/50 border border-yellow-500/20 rounded-lg p-3"
+                      >
+                        <div className="flex items-center justify-between">
+                          <div className="flex items-center gap-2">
+                            <Crown className="w-4 h-4 text-yellow-400" />
+                            <div>
+                              <p className="text-white font-semibold">{cohost.name}</p>
+                              <p className="text-sm text-gray-400">{cohost.email}</p>
+                            </div>
+                          </div>
+                          <button
+                            onClick={() => handleRemoveCoHost(cohost.user_id, cohost.name)}
+                            className="p-1.5 text-gray-400 hover:text-red-400 hover:bg-red-500/10 rounded transition"
+                            title="Remove co-host"
+                          >
+                            <Trash2 className="w-4 h-4" />
+                          </button>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                ) : (
+                  <p className="text-gray-400 text-center py-4">No co-hosts yet. Promote confirmed guests below.</p>
+                )}
+              </div>
+
               {/* All Invitations */}
               <div className="bg-dark-700/30 border border-primary-500/20 rounded-xl p-4">
                 <h3 className="text-white font-semibold mb-4 flex items-center gap-2">
@@ -1674,57 +1753,73 @@ function HostInterfaceEnhanced() {
                 </h3>
                 {invitees.length > 0 ? (
                   <div className="space-y-2">
-                    {invitees.map((invitee) => (
-                      <div
-                        key={invitee.id}
-                        className="bg-dark-700/50 border border-primary-500/20 rounded-lg p-3"
-                      >
-                        <div className="flex items-center justify-between">
-                          <div>
-                            <p className="text-white font-semibold">
-                              {invitee.name || invitee.email || 'Unknown'}
-                              {!invitee.is_registered && (
-                                <span className="ml-2 text-xs text-gray-500">(not registered)</span>
-                              )}
-                            </p>
-                            {invitee.name && invitee.email && (
-                              <p className="text-sm text-gray-400">{invitee.email}</p>
-                            )}
-                            {invitee.plus_ones > 0 && (
-                              <p className="text-sm text-accent-400 mt-1">
-                                +{invitee.plus_ones} guest{invitee.plus_ones > 1 ? 's' : ''}
+                    {invitees.map((invitee) => {
+                      const isCoHost = cohosts.some(c => c.user_id === invitee.user_id);
+                      return (
+                        <div
+                          key={invitee.id}
+                          className="bg-dark-700/50 border border-primary-500/20 rounded-lg p-3"
+                        >
+                          <div className="flex items-center justify-between">
+                            <div>
+                              <p className="text-white font-semibold">
+                                {invitee.name || invitee.email || 'Unknown'}
+                                {!invitee.is_registered && (
+                                  <span className="ml-2 text-xs text-gray-500">(not registered)</span>
+                                )}
+                                {isCoHost && (
+                                  <Crown className="inline w-4 h-4 text-yellow-400 ml-2" title="Co-Host" />
+                                )}
                               </p>
-                            )}
-                            {invitee.rsvp_notes && (
-                              <p className="text-sm text-gray-400 mt-1 italic">"{invitee.rsvp_notes}"</p>
-                            )}
-                          </div>
-                          <div className="flex items-center gap-2">
-                            <div className={`px-3 py-1 rounded-full text-xs font-semibold ${
-                              invitee.rsvp_status === 'yes'
-                                ? 'bg-green-500/20 text-green-400'
-                                : invitee.rsvp_status === 'no'
-                                ? 'bg-red-500/20 text-red-400'
-                                : invitee.rsvp_status === 'maybe'
-                                ? 'bg-yellow-500/20 text-yellow-400'
-                                : 'bg-gray-500/20 text-gray-400'
-                            }`}>
-                              {invitee.rsvp_status === 'yes' ? 'Confirmed'
-                                : invitee.rsvp_status === 'no' ? 'Declined'
-                                : invitee.rsvp_status === 'maybe' ? 'Maybe'
-                                : 'Pending'}
+                              {invitee.name && invitee.email && (
+                                <p className="text-sm text-gray-400">{invitee.email}</p>
+                              )}
+                              {invitee.plus_ones > 0 && (
+                                <p className="text-sm text-accent-400 mt-1">
+                                  +{invitee.plus_ones} guest{invitee.plus_ones > 1 ? 's' : ''}
+                                </p>
+                              )}
+                              {invitee.rsvp_notes && (
+                                <p className="text-sm text-gray-400 mt-1 italic">"{invitee.rsvp_notes}"</p>
+                              )}
                             </div>
-                            <button
-                              onClick={() => handleRevokeInvitation(invitee.id, invitee.email || invitee.name)}
-                              className="p-1.5 text-gray-400 hover:text-red-400 hover:bg-red-500/10 rounded transition"
-                              title="Revoke invitation"
-                            >
-                              <Trash2 className="w-4 h-4" />
-                            </button>
+                            <div className="flex items-center gap-2">
+                              <div className={`px-3 py-1 rounded-full text-xs font-semibold ${
+                                invitee.rsvp_status === 'yes'
+                                  ? 'bg-green-500/20 text-green-400'
+                                  : invitee.rsvp_status === 'no'
+                                  ? 'bg-red-500/20 text-red-400'
+                                  : invitee.rsvp_status === 'maybe'
+                                  ? 'bg-yellow-500/20 text-yellow-400'
+                                  : 'bg-gray-500/20 text-gray-400'
+                              }`}>
+                                {invitee.rsvp_status === 'yes' ? 'Confirmed'
+                                  : invitee.rsvp_status === 'no' ? 'Declined'
+                                  : invitee.rsvp_status === 'maybe' ? 'Maybe'
+                                  : 'Pending'}
+                              </div>
+                              {/* Make Co-Host button - only for confirmed, registered users who aren't already co-hosts */}
+                              {invitee.rsvp_status === 'yes' && invitee.is_registered && invitee.email && !isCoHost && (
+                                <button
+                                  onClick={() => handleMakeCoHost(invitee.email, invitee.name)}
+                                  className="p-1.5 text-gray-400 hover:text-yellow-400 hover:bg-yellow-500/10 rounded transition"
+                                  title="Make co-host"
+                                >
+                                  <Crown className="w-4 h-4" />
+                                </button>
+                              )}
+                              <button
+                                onClick={() => handleRevokeInvitation(invitee.id, invitee.email || invitee.name)}
+                                className="p-1.5 text-gray-400 hover:text-red-400 hover:bg-red-500/10 rounded transition"
+                                title="Revoke invitation"
+                              >
+                                <Trash2 className="w-4 h-4" />
+                              </button>
+                            </div>
                           </div>
                         </div>
-                      </div>
-                    ))}
+                      );
+                    })}
                   </div>
                 ) : (
                   <p className="text-gray-400 text-center py-4">No invitations sent yet</p>
