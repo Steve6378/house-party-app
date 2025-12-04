@@ -53,6 +53,24 @@ def list_events(
     - **status**: Filter by status (default: active)
     - **event_type**: Filter by type (optional)
     """
+    # Auto-archive events that are 7+ days past their event date
+    from datetime import date, timedelta
+    cutoff_date = date.today() - timedelta(days=7)
+
+    stale_events = db.query(Event).filter(
+        Event.status == "active",
+        Event.date < cutoff_date
+    ).all()
+
+    for event in stale_events:
+        # Only auto-archive if user is the host (to avoid side effects)
+        if event.main_host_id == current_user.id:
+            event.status = "archived"
+            event.archived_at = datetime.utcnow()
+
+    if stale_events:
+        db.commit()
+
     # Get all events user has access to (with filters applied)
     accessible_events = get_user_events(current_user, db, status=status, event_type=event_type)
 
@@ -446,47 +464,6 @@ def archive_event(
         "message": "Event archived successfully",
         "event_id": event_id,
         "archived_at": event.archived_at
-    }
-
-
-@router.post("/{event_id}/unarchive")
-def unarchive_event(
-    event_id: str,
-    current_user: User = Depends(get_current_user),
-    db: Session = Depends(get_db)
-):
-    """
-    Unarchive/reactivate an archived event.
-
-    **Authentication required.**
-
-    Only the host and co-hosts with edit_all permissions can unarchive events.
-
-    Sets status back to 'active'.
-    """
-    event = db.query(Event).filter(Event.id == event_id).first()
-
-    if not event:
-        raise HTTPException(status_code=404, detail="Event not found")
-
-    # Check if user has permission to edit
-    require_event_access(current_user, event, db, action="edit")
-
-    if event.status != "archived":
-        raise HTTPException(
-            status_code=400,
-            detail="Only archived events can be unarchived"
-        )
-
-    # Reactivate
-    event.status = "active"
-    event.archived_at = None
-
-    db.commit()
-
-    return {
-        "message": "Event reactivated successfully",
-        "event_id": event_id
     }
 
 

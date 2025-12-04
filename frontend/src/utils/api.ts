@@ -169,11 +169,6 @@ export const eventsAPI = {
     return response.data;
   },
 
-  unarchive: async (eventId: string) => {
-    const response = await api.post(`/api/events/${eventId}/unarchive`);
-    return response.data;
-  },
-
   discoverPublic: async (params?: {
     skip?: number;
     limit?: number;
