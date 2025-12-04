@@ -360,6 +360,15 @@ export const aiAPI = {
     });
     return response.data;
   },
+
+  executeAction: async (eventId: string, functionName: string, args: Record<string, any>) => {
+    const response = await api.post('/api/ai/execute-action', {
+      event_id: eventId,
+      function: functionName,
+      args
+    });
+    return response.data;
+  },
 };
 
 // Documents API (PDF extraction for AI context)
