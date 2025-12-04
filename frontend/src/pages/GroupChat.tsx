@@ -56,6 +56,13 @@ interface FAQ {
   frequency: number;
 }
 
+interface AIMessage {
+  id: string;
+  role: 'user' | 'assistant';
+  content: string;
+  timestamp: Date;
+}
+
 const GroupChat: React.FC = () => {
   const { id: eventId } = useParams<{ id: string }>();
   const { user } = useAuth();
@@ -68,8 +75,9 @@ const GroupChat: React.FC = () => {
   const [uploadingPhoto, setUploadingPhoto] = useState(false);
   const [showAIPanel, setShowAIPanel] = useState(false);
   const [aiQuery, setAiQuery] = useState('');
-  const [aiResponse, setAiResponse] = useState('');
+  const [aiMessages, setAiMessages] = useState<AIMessage[]>([]);
   const [aiLoading, setAiLoading] = useState(false);
+  const aiMessagesEndRef = useRef<HTMLDivElement>(null);
   const [showVendorSearch, setShowVendorSearch] = useState(false);
   const [vendorType, setVendorType] = useState('restaurant');
   const [vendors, setVendors] = useState<Vendor[]>([]);
@@ -128,6 +136,31 @@ const GroupChat: React.FC = () => {
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages]);
+
+  // Load AI chat history from localStorage
+  useEffect(() => {
+    if (!eventId) return;
+    const saved = localStorage.getItem(`ai-chat-${eventId}`);
+    if (saved) {
+      try {
+        const parsed = JSON.parse(saved);
+        setAiMessages(parsed.map((m: any) => ({ ...m, timestamp: new Date(m.timestamp) })));
+      } catch (e) {
+        console.error('Failed to load AI chat history:', e);
+      }
+    }
+  }, [eventId]);
+
+  // Save AI chat history to localStorage
+  useEffect(() => {
+    if (!eventId || aiMessages.length === 0) return;
+    localStorage.setItem(`ai-chat-${eventId}`, JSON.stringify(aiMessages));
+  }, [eventId, aiMessages]);
+
+  // Scroll AI messages to bottom
+  useEffect(() => {
+    aiMessagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+  }, [aiMessages]);
 
   const handleSendMessage = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -197,13 +230,34 @@ const GroupChat: React.FC = () => {
   const handleAIQuery = async () => {
     if (!aiQuery.trim() || !eventId || aiLoading) return;
 
+    const userMessage: AIMessage = {
+      id: Date.now().toString(),
+      role: 'user',
+      content: aiQuery.trim(),
+      timestamp: new Date()
+    };
+    setAiMessages(prev => [...prev, userMessage]);
+    setAiQuery('');
     setAiLoading(true);
+
     try {
-      const result = await aiAPI.guestQuery(eventId, aiQuery);
-      setAiResponse(result.answer);
+      const result = await aiAPI.guestQuery(eventId, userMessage.content);
+      const assistantMessage: AIMessage = {
+        id: (Date.now() + 1).toString(),
+        role: 'assistant',
+        content: result.answer,
+        timestamp: new Date()
+      };
+      setAiMessages(prev => [...prev, assistantMessage]);
     } catch (error) {
       console.error('AI query failed:', error);
-      setAiResponse('Sorry, I could not process your question. Please try again.');
+      const errorMessage: AIMessage = {
+        id: (Date.now() + 1).toString(),
+        role: 'assistant',
+        content: 'Sorry, I could not process your question. Please try again.',
+        timestamp: new Date()
+      };
+      setAiMessages(prev => [...prev, errorMessage]);
     } finally {
       setAiLoading(false);
     }
@@ -482,41 +536,82 @@ const GroupChat: React.FC = () => {
         {/* AI Panel */}
         {showAIPanel && (
           <div className="w-96 border-l border-dark-700/50 bg-dark-900/80 backdrop-blur-xl flex flex-col">
-            <div className="p-4 border-b border-dark-700/50">
-              <div className="flex items-center justify-between mb-4">
+            {/* AI Header */}
+            <div className="p-4 border-b border-dark-700/50 flex-shrink-0">
+              <div className="flex items-center justify-between">
                 <h3 className="text-lg font-semibold bg-gradient-to-r from-primary-400 to-secondary-400 bg-clip-text text-transparent flex items-center gap-2">
                   <SparklesIcon className="h-5 w-5 text-primary-400" />
                   AI Assistant
                 </h3>
-                <button onClick={() => setShowAIPanel(false)} className="text-dark-400 hover:text-dark-200">
-                  <XIcon className="h-5 w-5" />
-                </button>
-              </div>
-
-              {/* AI Query */}
-              <div className="space-y-3">
-                <div className="flex gap-2">
-                  <input
-                    type="text"
-                    value={aiQuery}
-                    onChange={e => setAiQuery(e.target.value)}
-                    placeholder="Ask about the event..."
-                    className="flex-1 py-2 px-3 bg-dark-800 border border-dark-700 rounded-lg text-sm text-dark-100 placeholder-dark-500 focus:outline-none focus:ring-2 focus:ring-primary-500/50"
-                    onKeyDown={e => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); handleAIQuery(); } }}
-                  />
-                  <button
-                    onClick={handleAIQuery}
-                    disabled={aiLoading}
-                    className="px-3 py-2 bg-primary-600 text-white rounded-lg text-sm hover:bg-primary-500 disabled:opacity-50"
-                  >
-                    {aiLoading ? <Loader2Icon className="h-4 w-4 animate-spin" /> : 'Ask'}
+                <div className="flex items-center gap-2">
+                  {aiMessages.length > 0 && (
+                    <button
+                      onClick={() => {
+                        setAiMessages([]);
+                        if (eventId) localStorage.removeItem(`ai-chat-${eventId}`);
+                      }}
+                      className="text-xs text-dark-500 hover:text-dark-300"
+                      title="Clear history"
+                    >
+                      Clear
+                    </button>
+                  )}
+                  <button onClick={() => setShowAIPanel(false)} className="text-dark-400 hover:text-dark-200">
+                    <XIcon className="h-5 w-5" />
                   </button>
                 </div>
-                {aiResponse && (
-                  <div className="p-3 bg-dark-800/50 rounded-lg border border-dark-700 text-sm text-dark-200">
-                    {aiResponse}
+              </div>
+            </div>
+
+            {/* AI Chat Messages */}
+            <div className="flex-1 overflow-y-auto p-4 space-y-3 min-h-0">
+              {aiMessages.length === 0 ? (
+                <div className="text-center text-dark-500 text-sm py-8">
+                  <BotIcon className="h-8 w-8 mx-auto mb-2 opacity-50" />
+                  <p>Ask me anything about this event!</p>
+                  <p className="text-xs mt-1">I can help with details, schedules, and more.</p>
+                </div>
+              ) : (
+                aiMessages.map(msg => (
+                  <div key={msg.id} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
+                    <div className={`max-w-[85%] px-3 py-2 rounded-xl text-sm ${
+                      msg.role === 'user'
+                        ? 'bg-primary-600 text-white'
+                        : 'bg-dark-800/80 border border-dark-700 text-dark-200'
+                    }`}>
+                      {msg.content}
+                    </div>
                   </div>
-                )}
+                ))
+              )}
+              {aiLoading && (
+                <div className="flex justify-start">
+                  <div className="px-3 py-2 rounded-xl bg-dark-800/80 border border-dark-700">
+                    <Loader2Icon className="h-4 w-4 animate-spin text-primary-400" />
+                  </div>
+                </div>
+              )}
+              <div ref={aiMessagesEndRef} />
+            </div>
+
+            {/* AI Input */}
+            <div className="p-3 border-t border-dark-700/50 flex-shrink-0">
+              <div className="flex gap-2">
+                <input
+                  type="text"
+                  value={aiQuery}
+                  onChange={e => setAiQuery(e.target.value)}
+                  placeholder="Ask about the event..."
+                  className="flex-1 py-2 px-3 bg-dark-800 border border-dark-700 rounded-lg text-sm text-dark-100 placeholder-dark-500 focus:outline-none focus:ring-2 focus:ring-primary-500/50"
+                  onKeyDown={e => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); handleAIQuery(); } }}
+                />
+                <button
+                  onClick={handleAIQuery}
+                  disabled={aiLoading || !aiQuery.trim()}
+                  className="px-3 py-2 bg-primary-600 text-white rounded-lg text-sm hover:bg-primary-500 disabled:opacity-50"
+                >
+                  <SendIcon className="h-4 w-4" />
+                </button>
               </div>
             </div>
 
