@@ -199,8 +199,15 @@ export const eventsAPI = {
     return response.data;
   },
 
-  generateCoverImage: async (eventId: string) => {
-    const response = await api.post(`/api/events/${eventId}/cover-image/generate`);
+  generateCoverImage: async (eventId: string, preview: boolean = false) => {
+    const response = await api.post(`/api/events/${eventId}/cover-image/generate?preview=${preview}`);
+    return response.data;
+  },
+
+  applyCoverImage: async (eventId: string, coverImageUrl: string) => {
+    const response = await api.post(`/api/events/${eventId}/cover-image/apply`, {
+      cover_image_url: coverImageUrl
+    });
     return response.data;
   },
 

@@ -742,6 +742,7 @@ async def get_cover_image(
 @router.post("/{event_id}/cover-image/generate")
 async def generate_cover_image(
     event_id: str,
+    preview: bool = False,
     current_user: User = Depends(get_current_user),
     db: Session = Depends(get_db)
 ):
@@ -752,6 +753,8 @@ async def generate_cover_image(
 
     Only the host and co-hosts can generate cover images.
     Uses OpenAI DALL-E to generate an event-appropriate image.
+
+    If preview=true, only generates and returns the URL without saving.
     """
     # Get the event
     event = db.query(Event).filter(Event.id == event_id).first()
@@ -800,17 +803,19 @@ async def generate_cover_image(
         # Get the generated image URL
         generated_url = response.data[0].url
 
-        # Update event with the generated image URL
-        event.cover_image_url = generated_url
-        event.cover_image_type = "ai_generated"
-        event.cover_image_path = None  # No local path for AI-generated images
-
-        db.commit()
+        # Only save if not preview mode
+        if not preview:
+            # Update event with the generated image URL
+            event.cover_image_url = generated_url
+            event.cover_image_type = "ai_generated"
+            event.cover_image_path = None  # No local path for AI-generated images
+            db.commit()
 
         return {
-            "message": "Cover image generated successfully",
+            "message": "Cover image generated successfully" if not preview else "Cover image preview generated",
             "cover_image_url": generated_url,
-            "cover_image_type": "ai_generated"
+            "cover_image_type": "ai_generated",
+            "preview": preview
         }
 
     except Exception as e:
@@ -819,6 +824,46 @@ async def generate_cover_image(
             status_code=500,
             detail="Failed to generate cover image. Please try again or upload an image manually."
         )
+
+
+class ApplyCoverImageRequest(BaseModel):
+    """Request to apply an existing URL as cover image"""
+    cover_image_url: str
+
+
+@router.post("/{event_id}/cover-image/apply")
+async def apply_cover_image(
+    event_id: str,
+    request: ApplyCoverImageRequest,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    """
+    Apply an existing image URL as the event's cover image.
+
+    **Authentication required.**
+
+    Used to confirm a preview-generated cover image.
+    """
+    # Get the event
+    event = db.query(Event).filter(Event.id == event_id).first()
+    if not event:
+        raise HTTPException(status_code=404, detail="Event not found")
+
+    # Check if user has permission to edit
+    require_event_access(current_user, event, db, action="edit")
+
+    # Update event with the image URL
+    event.cover_image_url = request.cover_image_url
+    event.cover_image_type = "ai_generated"
+    event.cover_image_path = None
+
+    db.commit()
+
+    return {
+        "message": "Cover image applied successfully",
+        "cover_image_url": request.cover_image_url
+    }
 
 
 @router.delete("/{event_id}/cover-image")

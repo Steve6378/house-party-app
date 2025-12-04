@@ -506,27 +506,21 @@ function HostInterfaceEnhanced() {
       setAiLoading(true);
 
       try {
-        // Call the DALL-E cover image generation endpoint
-        const response = await eventsAPI.generateCoverImage(id);
+        // Call the DALL-E cover image generation endpoint with preview=true
+        const response = await eventsAPI.generateCoverImage(id, true);
 
-        let content = '✨ AI invitation image generated successfully!\n\n';
-        content += 'Your new event cover image has been created using DALL-E and is now set as the event\'s cover image.\n\n';
-
-        if (response.cover_image_url) {
-          content += 'You can view it on your event page or share it with guests.';
-        }
+        let content = '✨ AI invitation image generated!\n\n';
+        content += 'Here\'s a preview of your generated cover image. Click "Apply as Cover" below to set it as your event\'s cover image.';
 
         const aiMessage = {
           role: 'assistant',
           content: content,
           timestamp: new Date(),
-          coverImageUrl: response.cover_image_url
+          coverImageUrl: response.cover_image_url,
+          pendingCoverImage: true  // Flag to show apply button
         };
         setAiConversation(prev => [...prev, aiMessage]);
         setLastUsedMode('create');
-
-        // Refresh event data to show the new cover image
-        fetchEvent();
       } catch (error) {
         console.error('Create invitation error:', error);
         const errorMessage = {
@@ -1137,6 +1131,27 @@ function HostInterfaceEnhanced() {
                                   onClick={() => window.open(msg.coverImageUrl, '_blank')}
                                 />
                               </div>
+                              {msg.pendingCoverImage && (
+                                <button
+                                  onClick={async () => {
+                                    try {
+                                      await eventsAPI.applyCoverImage(id, msg.coverImageUrl);
+                                      toast.success('Cover image applied successfully!');
+                                      // Update the message to remove pending state
+                                      setAiConversation(prev => prev.map(m =>
+                                        m === msg ? { ...m, pendingCoverImage: false } : m
+                                      ));
+                                      fetchEvent();
+                                    } catch (error) {
+                                      toast.error('Failed to apply cover image');
+                                    }
+                                  }}
+                                  className="mt-3 px-4 py-2 bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-500 hover:to-purple-500 text-white rounded-lg text-sm font-medium transition-all flex items-center gap-2"
+                                >
+                                  <Palette className="w-4 h-4" />
+                                  Apply as Cover Image
+                                </button>
+                              )}
                             </div>
                           )}
 
