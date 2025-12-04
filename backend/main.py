@@ -22,6 +22,21 @@ app = FastAPI(
     description="Yorru - AI-assisted night event planning platform"
 )
 
+# CORS middleware for frontend - MUST be added before routes
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=[
+        "http://localhost:5173",
+        "http://localhost:3000",
+        "https://yorru.net",
+        "https://www.yorru.net",
+        "https://yorru-production.up.railway.app",
+    ],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 # Register routers
 # IMPORTANT: Register more specific routes before generic ones to avoid path conflicts
 app.include_router(auth_router, prefix="/api")
@@ -37,15 +52,6 @@ app.include_router(questionnaire_router, prefix="/api")  # Questionnaire: /api/e
 app.include_router(photos_router, prefix="/api")  # Photos: /api/events/{id}/photos
 app.include_router(groups_router, prefix="/api")  # Group management: /api/groups
 app.include_router(invite_router, prefix="/api")  # Public invite links: /api/invite/{token}
-
-# CORS middleware for frontend
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["*"],  # In production, restrict this to your frontend domain
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
 
 @app.get("/")
 def root():
