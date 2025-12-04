@@ -33,8 +33,10 @@ app.add_middleware(
         "https://yorru-production.up.railway.app",
         # Capacitor mobile origins
         "capacitor://localhost",  # iOS
-        "http://localhost",       # Android
+        "http://localhost",       # Android WebView
+        "https://localhost",      # Android WebView (HTTPS)
     ],
+    allow_origin_regex=r"https?://localhost(:\d+)?",  # Match any localhost with any port
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
