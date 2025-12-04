@@ -147,8 +147,16 @@ function JoinEventPage() {
 
   const formatTime = (timeStr) => {
     if (!timeStr) return null;
-    const [hours, minutes] = timeStr.split(':');
-    const hour = parseInt(hours);
+    // If already has AM/PM, return as-is
+    if (timeStr.toLowerCase().includes('am') || timeStr.toLowerCase().includes('pm')) {
+      return timeStr;
+    }
+    // Otherwise convert from 24-hour format
+    const parts = timeStr.split(':');
+    if (parts.length < 2) return timeStr;
+    const hour = parseInt(parts[0]);
+    const minutes = parts[1];
+    if (isNaN(hour)) return timeStr;
     const ampm = hour >= 12 ? 'PM' : 'AM';
     const hour12 = hour % 12 || 12;
     return `${hour12}:${minutes} ${ampm}`;
