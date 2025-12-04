@@ -65,9 +65,36 @@ def list_events(
     # Apply pagination manually
     paginated_events = accessible_events[skip:skip + limit]
 
+    # Convert to response format with attendees explicitly included
+    events_data = []
+    for event in paginated_events:
+        event_dict = {
+            "id": event.id,
+            "name": event.name,
+            "event_type": event.event_type,
+            "date": event.date,
+            "time": event.time,
+            "address": event.address,
+            "status": event.status,
+            "visibility": event.visibility,
+            "is_online": event.is_online,
+            "is_paid": event.is_paid,
+            "ticket_price": event.ticket_price,
+            "main_host_id": event.main_host_id,
+            "created_at": event.created_at,
+            "expected_guests": event.expected_guests,
+            "cover_image_url": event.cover_image_url,
+            "cover_image_type": event.cover_image_type,
+            "attendees": [
+                {"user_id": a.user_id, "rsvp_status": a.rsvp_status}
+                for a in event.attendees
+            ] if event.attendees else []
+        }
+        events_data.append(event_dict)
+
     return {
         "total": total,
-        "events": paginated_events,
+        "events": events_data,
         "skip": skip,
         "limit": limit
     }
