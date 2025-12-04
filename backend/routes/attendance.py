@@ -519,9 +519,9 @@ async def create_event_invite_link(
     db.commit()
     db.refresh(invite_link)
 
-    # Build full URL
-    base_url = str(req.base_url).rstrip("/")
-    url = f"{base_url}/invite/{token}"
+    # Build full URL - use frontend URL, not backend
+    frontend_url = "https://www.yorru.net"
+    url = f"{frontend_url}/invite/{token}"
 
     response = InviteLinkResponse.model_validate(invite_link)
     response.url = url
