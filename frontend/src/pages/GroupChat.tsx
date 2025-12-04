@@ -564,7 +564,7 @@ const GroupChat: React.FC = () => {
             </div>
 
             {/* AI Chat Messages */}
-            <div className="flex-1 overflow-y-auto p-4 space-y-3 min-h-0">
+            <div className="flex-1 overflow-y-auto p-4 space-y-3 min-h-0 scrollbar-thin">
               {aiMessages.length === 0 ? (
                 <div className="text-center text-dark-500 text-sm py-8">
                   <BotIcon className="h-8 w-8 mx-auto mb-2 opacity-50" />
