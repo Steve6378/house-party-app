@@ -483,6 +483,16 @@ export const attendanceAPI = {
     return response.data;
   },
 
+  getInvitees: async (eventId: string) => {
+    const response = await api.get(`/api/events/${eventId}/invitees`);
+    return response.data;
+  },
+
+  revokeInvitation: async (eventId: string, attendanceId: string) => {
+    const response = await api.delete(`/api/events/${eventId}/invite/${attendanceId}`);
+    return response.data;
+  },
+
   // Invite link methods
   createInviteLink: async (eventId: string, options?: {
     role?: 'attendee' | 'cohost';

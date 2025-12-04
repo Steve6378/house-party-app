@@ -241,6 +241,110 @@ async def get_event_attendees(
     return attendees
 
 
+@router.get("/{event_id}/invitees", response_model=List[dict])
+async def get_event_invitees(
+    event_id: str,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    """
+    Get all invitations for an event (all statuses).
+
+    **Authentication required. Must be host or co-host.**
+
+    Returns list of all invitees with their RSVP status.
+    """
+    # Get the event
+    event = db.query(Event).filter(Event.id == event_id).first()
+    if not event:
+        raise HTTPException(status_code=404, detail="Event not found")
+
+    # Check if user has edit permission (host/co-host only)
+    require_event_access(current_user, event, db, action="edit")
+
+    # Get all attendance records for this event
+    attendances = db.query(EventAttendance).filter(
+        EventAttendance.event_id == event_id
+    ).all()
+
+    invitees = []
+    for attendance in attendances:
+        if attendance.user_id:
+            # Registered user
+            user = db.query(User).filter(User.id == attendance.user_id).first()
+            if user:
+                invitees.append({
+                    "id": attendance.id,
+                    "user_id": user.id,
+                    "name": user.name,
+                    "email": user.email,
+                    "rsvp_status": attendance.rsvp_status,
+                    "plus_ones": attendance.plus_ones,
+                    "rsvp_notes": attendance.rsvp_notes,
+                    "is_registered": True,
+                    "created_at": attendance.created_at
+                })
+        else:
+            # Pending email invitation (unregistered user)
+            email = None
+            if attendance.rsvp_notes and attendance.rsvp_notes.startswith("PENDING_EMAIL:"):
+                email = attendance.rsvp_notes.replace("PENDING_EMAIL:", "")
+            invitees.append({
+                "id": attendance.id,
+                "user_id": None,
+                "name": None,
+                "email": email,
+                "rsvp_status": attendance.rsvp_status,
+                "plus_ones": attendance.plus_ones,
+                "rsvp_notes": None,  # Don't expose internal format
+                "is_registered": False,
+                "created_at": attendance.created_at
+            })
+
+    return invitees
+
+
+@router.delete("/{event_id}/invite/{attendance_id}")
+async def revoke_invitation(
+    event_id: str,
+    attendance_id: str,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    """
+    Revoke/cancel an invitation.
+
+    **Authentication required. Must be host or co-host.**
+
+    Removes the attendance record, effectively canceling the invitation.
+    """
+    # Get the event
+    event = db.query(Event).filter(Event.id == event_id).first()
+    if not event:
+        raise HTTPException(status_code=404, detail="Event not found")
+
+    # Check if user has edit permission (host/co-host only)
+    require_event_access(current_user, event, db, action="edit")
+
+    # Get the attendance record
+    attendance = db.query(EventAttendance).filter(
+        EventAttendance.id == attendance_id,
+        EventAttendance.event_id == event_id
+    ).first()
+
+    if not attendance:
+        raise HTTPException(status_code=404, detail="Invitation not found")
+
+    # Can't remove the main host
+    if attendance.user_id == event.main_host_id:
+        raise HTTPException(status_code=400, detail="Cannot remove the event host")
+
+    db.delete(attendance)
+    db.commit()
+
+    return {"message": "Invitation revoked", "attendance_id": attendance_id}
+
+
 # ============================================
 # Co-Host Management Routes
 # ============================================

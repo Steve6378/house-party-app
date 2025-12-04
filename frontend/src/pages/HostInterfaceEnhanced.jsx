@@ -67,6 +67,7 @@ function HostInterfaceEnhanced() {
   const [selectedGroup, setSelectedGroup] = useState(null);
   const [newContactEmail, setNewContactEmail] = useState('');
   const [attendees, setAttendees] = useState([]);
+  const [invitees, setInvitees] = useState([]);
   const [uploadingDocument, setUploadingDocument] = useState(false);
   const [selectedMode, setSelectedMode] = useState(null);
   const [lastUsedMode, setLastUsedMode] = useState(null); // Track last used mode for follow-up questions
@@ -115,6 +116,7 @@ function HostInterfaceEnhanced() {
     fetchContacts();
     fetchGroups();
     fetchAttendees();
+    fetchInvitees();
     fetchPhotos();
   }, [id]);
 
@@ -166,6 +168,31 @@ function HostInterfaceEnhanced() {
       setAttendees(data);
     } catch (error) {
       console.error('Failed to fetch attendees:', error);
+    }
+  };
+
+  const fetchInvitees = async () => {
+    try {
+      const data = await attendanceAPI.getInvitees(id);
+      setInvitees(data || []);
+    } catch (error) {
+      console.error('Failed to fetch invitees:', error);
+      setInvitees([]);
+    }
+  };
+
+  const handleRevokeInvitation = async (attendanceId, email) => {
+    if (!confirm(`Are you sure you want to revoke the invitation for ${email}?`)) {
+      return;
+    }
+    try {
+      await attendanceAPI.revokeInvitation(id, attendanceId);
+      toast.success(`Invitation revoked for ${email}`);
+      fetchInvitees();
+      fetchAttendees();
+    } catch (error) {
+      console.error('Failed to revoke invitation:', error);
+      toast.error('Failed to revoke invitation');
     }
   };
 
@@ -686,6 +713,7 @@ function HostInterfaceEnhanced() {
       toast.success(`Invitation sent to ${newContactEmail}`);
       setNewContactEmail('');
       fetchAttendees();
+      fetchInvitees();
     } catch (error) {
       toast.error(error.response?.data?.detail || 'Failed to send invitation');
     }
@@ -1561,41 +1589,68 @@ function HostInterfaceEnhanced() {
                 </div>
               </div>
 
-              {/* Confirmed Attendees */}
+              {/* All Invitations */}
               <div className="bg-dark-700/30 border border-primary-500/20 rounded-xl p-4">
                 <h3 className="text-white font-semibold mb-4 flex items-center gap-2">
-                  <Users className="w-5 h-5 text-accent-400" />
-                  Confirmed Attendees ({attendees.length})
+                  <UserPlus className="w-5 h-5 text-accent-400" />
+                  All Invitations ({invitees.length})
                 </h3>
-                {attendees.length > 0 ? (
+                {invitees.length > 0 ? (
                   <div className="space-y-2">
-                    {attendees.map((attendee) => (
+                    {invitees.map((invitee) => (
                       <div
-                        key={attendee.user_id}
+                        key={invitee.id}
                         className="bg-dark-700/50 border border-primary-500/20 rounded-lg p-3"
                       >
                         <div className="flex items-center justify-between">
                           <div>
-                            <p className="text-white font-semibold">{attendee.name}</p>
-                            <p className="text-sm text-gray-400">{attendee.email}</p>
-                            {attendee.plus_ones > 0 && (
+                            <p className="text-white font-semibold">
+                              {invitee.name || invitee.email || 'Unknown'}
+                              {!invitee.is_registered && (
+                                <span className="ml-2 text-xs text-gray-500">(not registered)</span>
+                              )}
+                            </p>
+                            {invitee.name && invitee.email && (
+                              <p className="text-sm text-gray-400">{invitee.email}</p>
+                            )}
+                            {invitee.plus_ones > 0 && (
                               <p className="text-sm text-accent-400 mt-1">
-                                +{attendee.plus_ones} guest{attendee.plus_ones > 1 ? 's' : ''}
+                                +{invitee.plus_ones} guest{invitee.plus_ones > 1 ? 's' : ''}
                               </p>
                             )}
-                            {attendee.rsvp_notes && (
-                              <p className="text-sm text-gray-400 mt-1 italic">"{attendee.rsvp_notes}"</p>
+                            {invitee.rsvp_notes && (
+                              <p className="text-sm text-gray-400 mt-1 italic">"{invitee.rsvp_notes}"</p>
                             )}
                           </div>
-                          <div className="bg-green-500/20 text-green-400 px-3 py-1 rounded-full text-xs font-semibold">
-                            Confirmed
+                          <div className="flex items-center gap-2">
+                            <div className={`px-3 py-1 rounded-full text-xs font-semibold ${
+                              invitee.rsvp_status === 'yes'
+                                ? 'bg-green-500/20 text-green-400'
+                                : invitee.rsvp_status === 'no'
+                                ? 'bg-red-500/20 text-red-400'
+                                : invitee.rsvp_status === 'maybe'
+                                ? 'bg-yellow-500/20 text-yellow-400'
+                                : 'bg-gray-500/20 text-gray-400'
+                            }`}>
+                              {invitee.rsvp_status === 'yes' ? 'Confirmed'
+                                : invitee.rsvp_status === 'no' ? 'Declined'
+                                : invitee.rsvp_status === 'maybe' ? 'Maybe'
+                                : 'Pending'}
+                            </div>
+                            <button
+                              onClick={() => handleRevokeInvitation(invitee.id, invitee.email || invitee.name)}
+                              className="p-1.5 text-gray-400 hover:text-red-400 hover:bg-red-500/10 rounded transition"
+                              title="Revoke invitation"
+                            >
+                              <Trash2 className="w-4 h-4" />
+                            </button>
                           </div>
                         </div>
                       </div>
                     ))}
                   </div>
                 ) : (
-                  <p className="text-gray-400 text-center py-4">No confirmed attendees yet</p>
+                  <p className="text-gray-400 text-center py-4">No invitations sent yet</p>
                 )}
               </div>
 
