@@ -31,6 +31,9 @@ app.add_middleware(
         "https://yorru.net",
         "https://www.yorru.net",
         "https://yorru-production.up.railway.app",
+        # Capacitor mobile origins
+        "capacitor://localhost",  # iOS
+        "http://localhost",       # Android
     ],
     allow_credentials=True,
     allow_methods=["*"],
