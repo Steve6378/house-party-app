@@ -5,6 +5,7 @@ interface User {
   id: string;
   email: string;
   name: string;
+  username?: string;
   phone?: string;
   age?: string;
   bio?: string;

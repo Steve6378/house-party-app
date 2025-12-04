@@ -63,16 +63,26 @@ def register(user_data: UserRegister, db: Session = Depends(get_db)):
             status_code=status.HTTP_400_BAD_REQUEST,
             detail="Email already registered"
         )
-    
+
+    # Check if username already exists (if provided)
+    if user_data.username:
+        existing_username = db.query(User).filter(User.username == user_data.username.lower()).first()
+        if existing_username:
+            raise HTTPException(
+                status_code=status.HTTP_400_BAD_REQUEST,
+                detail="Username already taken"
+            )
+
     # Generate user ID
     user_id = f"user-{uuid.uuid4()}"
-    
+
     # Hash password
     hashed_password = hash_password(user_data.password)
 
     # Sanitize user inputs
     sanitized_name = sanitize_text(user_data.name, allow_basic_formatting=False)
     sanitized_phone = sanitize_text(user_data.phone, allow_basic_formatting=False) if user_data.phone else None
+    sanitized_username = user_data.username.lower() if user_data.username else None
 
     # Create user
     new_user = User(
@@ -80,6 +90,7 @@ def register(user_data: UserRegister, db: Session = Depends(get_db)):
         email=user_data.email,
         password_hash=hashed_password,
         name=sanitized_name,
+        username=sanitized_username,
         phone=sanitized_phone,
         status="active",
         email_verified=False  # TODO: Add email verification flow
@@ -112,7 +123,8 @@ def register(user_data: UserRegister, db: Session = Depends(get_db)):
         "token_type": "bearer",
         "user_id": new_user.id,
         "email": new_user.email,
-        "name": new_user.name
+        "name": new_user.name,
+        "username": new_user.username
     }
 
 
@@ -150,13 +162,14 @@ def login(credentials: UserLogin, db: Session = Depends(get_db)):
     
     # Create access token
     access_token = create_access_token(data={"sub": user.id})
-    
+
     return {
         "access_token": access_token,
         "token_type": "bearer",
         "user_id": user.id,
         "email": user.email,
-        "name": user.name
+        "name": user.name,
+        "username": user.username
     }
 
 
@@ -256,6 +269,19 @@ def update_profile(
     # Update fields if provided
     if user_data.name is not None:
         current_user.name = sanitize_text(user_data.name, allow_basic_formatting=False)
+    if user_data.username is not None:
+        # Check if username is already taken by another user
+        new_username = user_data.username.lower()
+        existing = db.query(User).filter(
+            User.username == new_username,
+            User.id != current_user.id
+        ).first()
+        if existing:
+            raise HTTPException(
+                status_code=status.HTTP_400_BAD_REQUEST,
+                detail="Username already taken"
+            )
+        current_user.username = new_username
     if user_data.phone is not None:
         current_user.phone = sanitize_text(user_data.phone, allow_basic_formatting=False)
     if user_data.age is not None:

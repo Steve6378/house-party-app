@@ -48,9 +48,10 @@ class User(Base, TimestampMixin):
     
     # Primary key
     id = Column(String, primary_key=True)
-    
+
     # Profile
     name = Column(String, nullable=False)
+    username = Column(String, unique=True, nullable=True)  # Optional unique username (e.g., @johndoe)
     email = Column(String, unique=True, nullable=False)
     phone = Column(String)
     age = Column(String)  # Stored as string for flexibility
