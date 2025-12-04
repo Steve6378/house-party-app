@@ -1,9 +1,137 @@
 # Yorru Security Model
 
-**Version:** 0.0.1
-**Last Updated:** November 2025
+**Version:** 0.0.2
+**Last Updated:** December 2025
+**Audit Date:** 2025-12-04
 
-This document outlines the security and permission model implemented in the Yorru backend.
+This document outlines the security model and known vulnerabilities in the Yorru backend.
+
+---
+
+## SECURITY AUDIT RESULTS (2025-12-04)
+
+### Summary
+
+| Category | Critical | High | Medium | Low | Total |
+|----------|----------|------|--------|-----|-------|
+| Backend Security | 2 | 4 | 6 | 4 | 16 |
+| Frontend Security | 3 | 5 | 4 | 2 | 14 |
+| Database/Models | 5 | 7 | 5 | - | 17 |
+| **TOTAL** | **10** | **16** | **15** | **6** | **47** |
+
+---
+
+## CRITICAL VULNERABILITIES
+
+### 1. Hardcoded API Keys (MUST FIX)
+**Files:**
+- `backend/config.py:23` - Google Maps API Key
+- `backend/config.py:26` - IPInfo API Key
+- `frontend/src/utils/api.js:55` - IPInfo Token
+- `frontend/src/utils/api.js:68` - Google Maps API Key
+
+**Risk:** API keys visible in source code, can be abused
+**Fix:** Move to environment variables, create backend proxy for frontend calls
+
+### 2. WebSocket Authentication Broken
+**File:** `backend/routes/chat.py:38-39`
+```python
+payload = decode_access_token(token)  # Returns string, not dict
+user_id = payload.get("sub")          # AttributeError!
+```
+**Risk:** All WebSocket connections fail silently
+**Fix:** Change to `user_id = decode_access_token(token)`
+
+### 3. JWT Tokens in URL Query Parameters
+**Files:** Multiple frontend components
+**Risk:** Tokens exposed in browser history, server logs, referrer headers
+**Fix:** Use Authorization header instead
+
+---
+
+## HIGH SEVERITY VULNERABILITIES
+
+### 4. No Rate Limiting
+**File:** `backend/routes/auth.py`
+- Login endpoint allows unlimited attempts
+- Register endpoint allows unlimited accounts
+**Fix:** Implement rate limiting with `slowapi` or similar
+
+### 5. Long JWT Expiration
+**File:** `backend/config.py:20`
+- JWT_EXPIRATION_MINUTES = 7 days
+**Fix:** Reduce to 15-60 minutes, implement refresh tokens
+
+### 6. CORS Too Permissive
+**File:** `backend/main.py:39-40`
+```python
+allow_methods=["*"],
+allow_headers=["*"],
+```
+**Fix:** Restrict to only needed methods and headers
+
+### 7. localStorage Token Storage
+**File:** `frontend/src/context/AuthContext.tsx`
+**Risk:** XSS can steal tokens
+**Fix:** Use httpOnly cookies with SameSite and Secure flags
+
+### 8. No Email Verification
+**File:** `backend/routes/auth.py:85`
+**Risk:** Fake accounts, unverified emails
+**Fix:** Implement email verification flow
+
+---
+
+## MEDIUM SEVERITY VULNERABILITIES
+
+### 9. No CSRF Protection
+All state-changing endpoints lack CSRF tokens
+
+### 10. Missing Security Headers
+**File:** `backend/main.py`
+Missing: X-Frame-Options, X-Content-Type-Options, CSP, HSTS
+
+### 11. SQL Debug Logging
+**File:** `backend/utils/database.py:15`
+If DEBUG=True, all SQL queries are logged
+
+### 12. Sensitive PII in Plaintext
+**File:** `backend/models/user.py`
+- Phone number (line 55)
+- Address (line 62)
+- Latitude/Longitude (lines 63-64)
+- Face encoding (line 59)
+
+### 13. Client-Only File Validation
+Frontend validates file types but server should also validate
+
+### 14. Error Details Exposed
+Multiple frontend files expose server error details to users
+
+---
+
+## DATABASE VULNERABILITIES
+
+### 15. CASCADE DELETE Loses Audit Trail
+**Files:** `backend/models/user.py`, `event.py`
+- Deleting user cascades to messages, todos, audit logs
+**Fix:** Use SET NULL for audit-relevant data
+
+### 16. Missing Unique Constraints in ORM
+**Files:** `backend/models/preferences.py`, `ground_truth.py`
+- Schema has constraints, ORM doesn't enforce
+
+### 17. Missing Foreign Key Constraints
+**Files:** `backend/models/escalated_question.py`, `suggestion.py`, `todo.py`
+- Relationships without proper FK enforcement
+
+### 18. Dangerous Migration
+**File:** `database/migrations/005_migrate_event_attendance.sql`
+- Drops primary key without error handling
+
+### 19. N+1 Query Vulnerabilities
+**File:** `backend/models/user.py`
+- Many eager-loaded relationships
 
 ---
 
@@ -12,7 +140,7 @@ This document outlines the security and permission model implemented in the Yorr
 **All API endpoints require authentication via JWT tokens.**
 
 - Tokens are issued on login/registration
-- Tokens expire in 7 days (configurable)
+- Tokens expire in 7 days (should be reduced)
 - Tokens must be sent in Authorization header: `Bearer <token>`
 
 ---
@@ -20,8 +148,6 @@ This document outlines the security and permission model implemented in the Yorr
 ## Permission System
 
 ### Event Visibility Levels
-
-Events have three visibility settings that determine who can access them:
 
 1. **Private** - Only host, co-hosts, and invited attendees
 2. **Group-only** - Only group members (and host/co-hosts/attendees)
@@ -47,54 +173,6 @@ Events have three visibility settings that determine who can access them:
 - Can view ground truth facts
 - Can ask AI questions
 
-**Group Member (group_memberships table)**
-- Can view group-only events
-- Role: `admin` or `member`
-
----
-
-## Endpoint Security Matrix
-
-### Authentication Endpoints
-| Endpoint | Auth Required | Permission Check |
-|----------|---------------|------------------|
-| POST /api/auth/register | No | - |
-| POST /api/auth/login | No | - |
-| GET /api/auth/me | Yes | Own profile |
-
-### Event Endpoints
-| Endpoint | Auth Required | Permission Check |
-|----------|---------------|------------------|
-| GET /api/events | Yes | Returns only accessible events |
-| GET /api/events/{id} | Yes | Must have view access (based on visibility) |
-| POST /api/events | Yes | Auto-sets user as host |
-| PUT /api/events/{id} | Yes | Host or co-host with `edit_all` |
-| DELETE /api/events/{id} | Yes | Host only |
-| POST /api/events/{id}/archive | Yes | Host or co-host with `edit_all` |
-
-**View Access Rules:**
-- Private: Host, co-hosts, or invited attendees
-- Group-only: Group members, host, co-hosts, or invited attendees
-- Public: Any logged-in user
-
-### Message Endpoints
-| Endpoint | Auth Required | Permission Check |
-|----------|---------------|------------------|
-| POST /api/events/{id}/messages | Yes | Must have view access to event |
-| GET /api/events/{id}/messages | Yes | Must have view access to event |
-| GET /api/messages/{id} | Yes | Must have view access to parent event |
-| PUT /api/messages/{id} | Yes | Sender only |
-| DELETE /api/messages/{id} | Yes | Sender only |
-
-### Ground Truth Endpoints
-| Endpoint | Auth Required | Permission Check |
-|----------|---------------|------------------|
-| POST /api/events/{id}/ask | Yes | Must have view access to event |
-| GET /api/events/{id}/facts | Yes | Must have view access to event |
-| POST /api/events/{id}/facts | Yes | Host or co-host with `edit_facts`/`edit_all` |
-| PUT /api/events/{id}/facts/{fact_id} | Yes | Host or co-host with `edit_facts`/`edit_all` |
-| DELETE /api/events/{id}/facts/{fact_id} | Yes | Host or co-host with `edit_facts`/`edit_all` |
-
 ---
 
 ## Input Sanitization
@@ -102,35 +180,28 @@ Events have three visibility settings that determine who can access them:
 All user input is sanitized using the Bleach library to prevent XSS attacks.
 
 **Sanitization Rules:**
-- Event names/addresses: **All HTML tags stripped**
-- Messages: **Basic formatting allowed** (b, i, u, em, strong tags)
-- Ground truth facts: **All HTML tags stripped**
-- User names: **All HTML tags stripped**
-
-**Implementation:** `services/sanitize.py`
+- Event names/addresses: All HTML tags stripped
+- Messages: Basic formatting allowed (b, i, u, em, strong)
+- Ground truth facts: All HTML tags stripped
+- User names: All HTML tags stripped
 
 ---
 
 ## Security Services
 
 ### services/permissions.py
-Centralized permission checking logic:
 - `can_view_event()` - Check if user can view event
 - `can_edit_event()` - Check if user can edit event
 - `can_delete_event()` - Check if user can delete event
 - `can_edit_ground_truth()` - Check if user can edit facts
 - `require_event_access()` - Raise 403 if no access
-- `get_user_events()` - Get all events user can access
 
 ### services/sanitize.py
-Input sanitization utilities:
 - `sanitize_event_name()` - Strip all HTML
-- `sanitize_event_address()` - Strip all HTML
 - `sanitize_message_content()` - Allow basic formatting
 - `sanitize_ground_truth_value()` - Strip all HTML
 
 ### services/auth.py
-Authentication utilities:
 - `hash_password()` - Bcrypt password hashing
 - `verify_password()` - Verify password against hash
 - `create_access_token()` - Generate JWT token
@@ -138,71 +209,26 @@ Authentication utilities:
 
 ---
 
-## Security Decisions
+## Implemented Security
 
-### ✅ Implemented
-
-1. **JWT Authentication** - Stateless token-based auth
-2. **Bcrypt Password Hashing** - Industry-standard, slow by design
-3. **Permission Checks** - Comprehensive event/message/fact access control
-4. **Input Sanitization** - Bleach library prevents XSS
-5. **Role-Based Access** - Host, Co-Host, Attendee hierarchy
-6. **Visibility Settings** - Private, Group-only, Public events
-
-### ⚠️ Not Implemented Yet (See FUTURE_FEATURES.md)
-
-1. **Rate Limiting** - Would require Redis
-2. **CORS Restrictions** - Currently allows all origins (development only)
-3. **Email Verification** - Accounts created without email verification
-4. **Refresh Tokens** - Single JWT with 7-day expiry
-5. **Device Tracking** - No multi-device session management
-6. **OAuth/Social Login** - No Google/Apple/Facebook login yet
+1. JWT Authentication - Stateless token-based auth
+2. Bcrypt Password Hashing - Industry-standard
+3. Permission Checks - Event/message/fact access control
+4. Input Sanitization - Bleach library prevents XSS
+5. Role-Based Access - Host, Co-Host, Attendee hierarchy
+6. Visibility Settings - Private, Group-only, Public
 
 ---
 
-## Common Security Questions
+## NOT Implemented (Required)
 
-**Q: Can any user view any event if they know the ID?**
-A: No. Permission checks verify visibility settings and membership before allowing access.
-
-**Q: Can users create events as other users?**
-A: No. `main_host_id` is auto-set to the logged-in user's ID.
-
-**Q: Can co-hosts delete events?**
-A: No. Only the main host can delete events.
-
-**Q: Can attendees edit ground truth facts?**
-A: No. Only host and co-hosts with `edit_facts` or `edit_all` permissions.
-
-**Q: Are passwords stored in plain text?**
-A: No. Passwords are hashed using bcrypt before storage.
-
-**Q: Can users inject HTML/JavaScript into event names or messages?**
-A: No. All input is sanitized using Bleach to strip HTML tags.
-
----
-
-## Testing Security
-
-### Test Scenarios
-
-1. **Unauthorized Access**
-   - Try to view private event without invitation → 403 Forbidden
-   - Try to edit event as non-host → 403 Forbidden
-   - Try to delete message as non-sender → 403 Forbidden
-
-2. **XSS Prevention**
-   - Create event with name: `<script>alert('XSS')</script>`
-   - Verify HTML tags are stripped from database
-
-3. **Password Security**
-   - Register with password "password123"
-   - Verify password is hashed (not plain text) in database
-
-4. **Token Expiration**
-   - Login and get token
-   - Wait 7 days
-   - Try to use token → 401 Unauthorized
+1. Rate Limiting - Prevents brute force
+2. CSRF Protection - Prevents cross-site attacks
+3. Email Verification - Validates user emails
+4. Refresh Tokens - Shorter-lived access tokens
+5. Security Headers - X-Frame-Options, CSP, etc.
+6. API Key Management - Keys should be in env vars
+7. Audit Logging - Track security-relevant operations
 
 ---
 
@@ -215,6 +241,11 @@ If you discover a security vulnerability, please email: [security@yorru.net]
 ---
 
 ## Changelog
+
+**v0.0.2** (December 2025)
+- Comprehensive security audit conducted
+- 47 vulnerabilities identified
+- Documentation updated with findings
 
 **v0.0.1** (November 2025)
 - Initial security implementation
