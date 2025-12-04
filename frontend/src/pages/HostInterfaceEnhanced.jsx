@@ -23,7 +23,11 @@ import {
   Palette,
   X,
   ZoomIn,
-  Camera
+  Camera,
+  Share2,
+  Link,
+  Copy,
+  Check
 } from 'lucide-react';
 import { toast } from 'sonner';
 import { eventsAPI, messagesAPI, aiAPI, attendanceAPI, documentsAPI, photosAPI, groupsAPI } from '../utils/api.ts';
@@ -61,6 +65,10 @@ function HostInterfaceEnhanced() {
   const [uploadingPhoto, setUploadingPhoto] = useState(false);
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
   const [deleting, setDeleting] = useState(false);
+  const [showShareModal, setShowShareModal] = useState(false);
+  const [inviteLink, setInviteLink] = useState(null);
+  const [generatingLink, setGeneratingLink] = useState(false);
+  const [linkCopied, setLinkCopied] = useState(false);
 
   const fileInputRef = useRef(null);
   const photoInputRef = useRef(null);
@@ -629,6 +637,48 @@ function HostInterfaceEnhanced() {
     }
   };
 
+  const handleGenerateInviteLink = async () => {
+    setGeneratingLink(true);
+    try {
+      const result = await attendanceAPI.createInviteLink(id, { role: 'attendee' });
+      setInviteLink(result.url);
+      setLinkCopied(false);
+    } catch (error) {
+      console.error('Failed to generate invite link:', error);
+      toast.error('Failed to generate invite link');
+    } finally {
+      setGeneratingLink(false);
+    }
+  };
+
+  const handleCopyLink = async () => {
+    if (!inviteLink) return;
+    try {
+      await navigator.clipboard.writeText(inviteLink);
+      setLinkCopied(true);
+      toast.success('Link copied to clipboard!');
+      setTimeout(() => setLinkCopied(false), 3000);
+    } catch (error) {
+      toast.error('Failed to copy link');
+    }
+  };
+
+  const handleShareNative = async () => {
+    if (!inviteLink || !navigator.share) return;
+    try {
+      await navigator.share({
+        title: `Join ${event.name}`,
+        text: `You're invited to ${event.name}!`,
+        url: inviteLink
+      });
+    } catch (error) {
+      // User cancelled or share failed
+      if (error.name !== 'AbortError') {
+        handleCopyLink(); // Fallback to copy
+      }
+    }
+  };
+
   const handleDeleteEvent = async () => {
     setDeleting(true);
     try {
@@ -684,13 +734,22 @@ function HostInterfaceEnhanced() {
                 {event.date} {event.time && `at ${event.time}`} • {event.address || 'Location TBD'}
               </p>
             </div>
-            <button
-              onClick={() => setShowDeleteConfirm(true)}
-              className="text-red-400 hover:text-red-300 hover:bg-red-500/10 p-2 rounded-lg transition flex items-center gap-2"
-              title="Delete Event"
-            >
-              <Trash2 className="w-5 h-5" />
-            </button>
+            <div className="flex items-center gap-2">
+              <button
+                onClick={() => setShowShareModal(true)}
+                className="text-primary-400 hover:text-primary-300 hover:bg-primary-500/10 p-2 rounded-lg transition flex items-center gap-2"
+                title="Share Event"
+              >
+                <Share2 className="w-5 h-5" />
+              </button>
+              <button
+                onClick={() => setShowDeleteConfirm(true)}
+                className="text-red-400 hover:text-red-300 hover:bg-red-500/10 p-2 rounded-lg transition flex items-center gap-2"
+                title="Delete Event"
+              >
+                <Trash2 className="w-5 h-5" />
+              </button>
+            </div>
           </div>
         </div>
 
@@ -728,6 +787,98 @@ function HostInterfaceEnhanced() {
                   )}
                 </button>
               </div>
+            </div>
+          </div>
+        )}
+
+        {/* Share Modal */}
+        {showShareModal && (
+          <div className="fixed inset-0 z-50 bg-black/70 flex items-center justify-center p-4">
+            <div className="bg-dark-800 border border-primary-500/30 rounded-2xl p-6 max-w-md w-full">
+              <div className="flex justify-between items-center mb-6">
+                <h3 className="text-xl font-bold text-white">Share Event</h3>
+                <button
+                  onClick={() => {
+                    setShowShareModal(false);
+                    setInviteLink(null);
+                  }}
+                  className="text-gray-400 hover:text-white"
+                >
+                  <X className="w-5 h-5" />
+                </button>
+              </div>
+
+              {!inviteLink ? (
+                <div className="text-center py-6">
+                  <Share2 className="w-12 h-12 text-primary-400 mx-auto mb-4" />
+                  <p className="text-gray-300 mb-6">
+                    Generate a shareable invite link for "{event.name}"
+                  </p>
+                  <button
+                    onClick={handleGenerateInviteLink}
+                    disabled={generatingLink}
+                    className="bg-gradient-to-r from-primary-600 to-secondary-600 hover:from-primary-700 hover:to-secondary-700 text-white px-6 py-3 rounded-lg font-semibold transition disabled:opacity-50 flex items-center justify-center gap-2 mx-auto"
+                  >
+                    {generatingLink ? (
+                      <>
+                        <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
+                        Generating...
+                      </>
+                    ) : (
+                      <>
+                        <Link className="w-4 h-4" />
+                        Generate Invite Link
+                      </>
+                    )}
+                  </button>
+                </div>
+              ) : (
+                <div>
+                  <p className="text-gray-400 text-sm mb-2">Invite Link:</p>
+                  <div className="bg-dark-700 rounded-lg p-3 mb-4 flex items-center gap-2">
+                    <input
+                      type="text"
+                      value={inviteLink}
+                      readOnly
+                      className="flex-1 bg-transparent text-white text-sm outline-none"
+                    />
+                    <button
+                      onClick={handleCopyLink}
+                      className="text-primary-400 hover:text-primary-300 p-2 rounded-lg hover:bg-primary-500/10 transition"
+                      title="Copy link"
+                    >
+                      {linkCopied ? (
+                        <Check className="w-5 h-5 text-green-400" />
+                      ) : (
+                        <Copy className="w-5 h-5" />
+                      )}
+                    </button>
+                  </div>
+
+                  <div className="flex gap-3">
+                    <button
+                      onClick={handleCopyLink}
+                      className="flex-1 bg-dark-700 hover:bg-dark-600 text-white py-3 rounded-lg font-semibold transition flex items-center justify-center gap-2"
+                    >
+                      <Copy className="w-4 h-4" />
+                      {linkCopied ? 'Copied!' : 'Copy Link'}
+                    </button>
+                    {navigator.share && (
+                      <button
+                        onClick={handleShareNative}
+                        className="flex-1 bg-gradient-to-r from-primary-600 to-secondary-600 hover:from-primary-700 hover:to-secondary-700 text-white py-3 rounded-lg font-semibold transition flex items-center justify-center gap-2"
+                      >
+                        <Share2 className="w-4 h-4" />
+                        Share
+                      </button>
+                    )}
+                  </div>
+
+                  <p className="text-gray-500 text-xs mt-4 text-center">
+                    Anyone with this link can join as an attendee
+                  </p>
+                </div>
+              )}
             </div>
           </div>
         )}
