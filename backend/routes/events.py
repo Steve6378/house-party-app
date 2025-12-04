@@ -380,6 +380,7 @@ def delete_event(
     **Authentication required.**
 
     Only the main host can delete events.
+    Events must be archived first before they can be deleted.
 
     Sets status to 'deleted' and records deletion timestamp.
     Data is preserved in database.
@@ -391,6 +392,13 @@ def delete_event(
 
     # Check if user has permission to delete (host only)
     require_event_access(current_user, event, db, action="delete")
+
+    # Events must be archived before deletion
+    if event.status != "archived":
+        raise HTTPException(
+            status_code=400,
+            detail="Event must be archived before it can be deleted. Archive the event first."
+        )
 
     # Soft delete
     event.status = "deleted"
@@ -438,6 +446,47 @@ def archive_event(
         "message": "Event archived successfully",
         "event_id": event_id,
         "archived_at": event.archived_at
+    }
+
+
+@router.post("/{event_id}/unarchive")
+def unarchive_event(
+    event_id: str,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    """
+    Unarchive/reactivate an archived event.
+
+    **Authentication required.**
+
+    Only the host and co-hosts with edit_all permissions can unarchive events.
+
+    Sets status back to 'active'.
+    """
+    event = db.query(Event).filter(Event.id == event_id).first()
+
+    if not event:
+        raise HTTPException(status_code=404, detail="Event not found")
+
+    # Check if user has permission to edit
+    require_event_access(current_user, event, db, action="edit")
+
+    if event.status != "archived":
+        raise HTTPException(
+            status_code=400,
+            detail="Only archived events can be unarchived"
+        )
+
+    # Reactivate
+    event.status = "active"
+    event.archived_at = None
+
+    db.commit()
+
+    return {
+        "message": "Event reactivated successfully",
+        "event_id": event_id
     }
 
 

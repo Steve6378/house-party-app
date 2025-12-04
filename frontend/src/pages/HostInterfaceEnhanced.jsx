@@ -28,7 +28,9 @@ import {
   Link,
   Copy,
   Check,
-  RefreshCw
+  RefreshCw,
+  Archive,
+  RotateCcw
 } from 'lucide-react';
 import { toast } from 'sonner';
 import { eventsAPI, messagesAPI, aiAPI, attendanceAPI, documentsAPI, photosAPI, groupsAPI } from '../utils/api.ts';
@@ -75,7 +77,9 @@ function HostInterfaceEnhanced() {
   const [selectedPhoto, setSelectedPhoto] = useState(null);
   const [uploadingPhoto, setUploadingPhoto] = useState(false);
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
+  const [showArchiveConfirm, setShowArchiveConfirm] = useState(false);
   const [deleting, setDeleting] = useState(false);
+  const [archiving, setArchiving] = useState(false);
   const [showShareModal, setShowShareModal] = useState(false);
   const [inviteLink, setInviteLink] = useState(null);
   const [generatingLink, setGeneratingLink] = useState(false);
@@ -785,6 +789,39 @@ function HostInterfaceEnhanced() {
     }
   };
 
+  const handleArchiveEvent = async () => {
+    setArchiving(true);
+    try {
+      await eventsAPI.archive(id);
+      toast.success('Event archived successfully');
+      // Refresh event data
+      const data = await eventsAPI.get(id);
+      setEvent(data);
+    } catch (error) {
+      console.error('Failed to archive event:', error);
+      toast.error(error.response?.data?.detail || 'Failed to archive event');
+    } finally {
+      setArchiving(false);
+      setShowArchiveConfirm(false);
+    }
+  };
+
+  const handleUnarchiveEvent = async () => {
+    setArchiving(true);
+    try {
+      await eventsAPI.unarchive(id);
+      toast.success('Event reactivated successfully');
+      // Refresh event data
+      const data = await eventsAPI.get(id);
+      setEvent(data);
+    } catch (error) {
+      console.error('Failed to unarchive event:', error);
+      toast.error(error.response?.data?.detail || 'Failed to reactivate event');
+    } finally {
+      setArchiving(false);
+    }
+  };
+
   if (loading) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-dark-900 via-primary-900 to-secondary-900 flex items-center justify-center">
@@ -826,6 +863,12 @@ function HostInterfaceEnhanced() {
               </p>
             </div>
             <div className="flex items-center gap-2">
+              {/* Status badge */}
+              {event.status === 'archived' && (
+                <span className="px-3 py-1 bg-gray-500/20 text-gray-400 rounded-full text-xs font-semibold">
+                  Archived
+                </span>
+              )}
               <button
                 onClick={() => setShowShareModal(true)}
                 className="text-primary-400 hover:text-primary-300 hover:bg-primary-500/10 p-2 rounded-lg transition flex items-center gap-2"
@@ -833,13 +876,36 @@ function HostInterfaceEnhanced() {
               >
                 <Share2 className="w-5 h-5" />
               </button>
-              <button
-                onClick={() => setShowDeleteConfirm(true)}
-                className="text-red-400 hover:text-red-300 hover:bg-red-500/10 p-2 rounded-lg transition flex items-center gap-2"
-                title="Delete Event"
-              >
-                <Trash2 className="w-5 h-5" />
-              </button>
+              {event.status === 'archived' ? (
+                <>
+                  {/* Unarchive button for archived events */}
+                  <button
+                    onClick={handleUnarchiveEvent}
+                    disabled={archiving}
+                    className="text-green-400 hover:text-green-300 hover:bg-green-500/10 p-2 rounded-lg transition flex items-center gap-2 disabled:opacity-50"
+                    title="Reactivate Event"
+                  >
+                    <RotateCcw className={`w-5 h-5 ${archiving ? 'animate-spin' : ''}`} />
+                  </button>
+                  {/* Delete button only for archived events */}
+                  <button
+                    onClick={() => setShowDeleteConfirm(true)}
+                    className="text-red-400 hover:text-red-300 hover:bg-red-500/10 p-2 rounded-lg transition flex items-center gap-2"
+                    title="Delete Event"
+                  >
+                    <Trash2 className="w-5 h-5" />
+                  </button>
+                </>
+              ) : (
+                /* Archive button for active events */
+                <button
+                  onClick={() => setShowArchiveConfirm(true)}
+                  className="text-yellow-400 hover:text-yellow-300 hover:bg-yellow-500/10 p-2 rounded-lg transition flex items-center gap-2"
+                  title="Archive Event"
+                >
+                  <Archive className="w-5 h-5" />
+                </button>
+              )}
             </div>
           </div>
         </div>
@@ -874,6 +940,45 @@ function HostInterfaceEnhanced() {
                     <>
                       <Trash2 className="w-4 h-4" />
                       Delete Event
+                    </>
+                  )}
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Archive Confirmation Modal */}
+        {showArchiveConfirm && (
+          <div className="fixed inset-0 z-50 bg-black/70 flex items-center justify-center p-4">
+            <div className="bg-dark-800 border border-yellow-500/30 rounded-2xl p-6 max-w-md w-full">
+              <h3 className="text-xl font-bold text-white mb-4">Archive Event</h3>
+              <p className="text-gray-300 mb-6">
+                Are you sure you want to archive "<span className="text-white font-semibold">{event.name}</span>"?
+                The event will be moved to your archived events and can be reactivated later.
+              </p>
+              <div className="flex gap-3 justify-end">
+                <button
+                  onClick={() => setShowArchiveConfirm(false)}
+                  disabled={archiving}
+                  className="px-4 py-2 bg-dark-700 text-gray-300 rounded-lg hover:bg-dark-600 transition disabled:opacity-50"
+                >
+                  Cancel
+                </button>
+                <button
+                  onClick={handleArchiveEvent}
+                  disabled={archiving}
+                  className="px-4 py-2 bg-yellow-600 text-white rounded-lg hover:bg-yellow-700 transition flex items-center gap-2 disabled:opacity-50"
+                >
+                  {archiving ? (
+                    <>
+                      <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
+                      Archiving...
+                    </>
+                  ) : (
+                    <>
+                      <Archive className="w-4 h-4" />
+                      Archive Event
                     </>
                   )}
                 </button>
