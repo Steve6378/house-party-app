@@ -43,13 +43,22 @@ function HostInterfaceEnhanced() {
   const [activeTab, setActiveTab] = useState('ai');
   const [message, setMessage] = useState('');
   const [aiRequest, setAiRequest] = useState('');
-  const [aiConversation, setAiConversation] = useState([
-    {
+  const [aiConversation, setAiConversation] = useState(() => {
+    // Try to load from localStorage on init
+    const saved = localStorage.getItem(`ai-host-chat-${id}`);
+    if (saved) {
+      try {
+        return JSON.parse(saved).map(m => ({ ...m, timestamp: new Date(m.timestamp) }));
+      } catch (e) {
+        console.error('Failed to load AI chat history:', e);
+      }
+    }
+    return [{
       role: 'assistant',
       content: "Hi! I'm your AI host assistant. I can help with event planning, recommendations, broadcasting messages, and more. Use hashtags like #recommendation, #broadcast, or #create to access specific features!",
       timestamp: new Date()
-    }
-  ]);
+    }];
+  });
   const [aiLoading, setAiLoading] = useState(false);
   const [documents, setDocuments] = useState([]);
   const [contacts, setContacts] = useState([]);
@@ -80,6 +89,12 @@ function HostInterfaceEnhanced() {
   useEffect(() => {
     aiMessagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [aiConversation]);
+
+  // Save AI chat history to localStorage
+  useEffect(() => {
+    if (!id || aiConversation.length <= 1) return; // Don't save just the greeting
+    localStorage.setItem(`ai-host-chat-${id}`, JSON.stringify(aiConversation));
+  }, [id, aiConversation]);
 
   // AI Mode options for hosts (includes #broadcast and #create)
   const aiModes = [

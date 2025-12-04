@@ -35,7 +35,18 @@ function GuestInterfaceEnhanced() {
   const [event, setEvent] = useState(null);
   const [loading, setLoading] = useState(true);
   const [aiQuestion, setAiQuestion] = useState('');
-  const [conversation, setConversation] = useState([]);
+  const [conversation, setConversation] = useState(() => {
+    // Try to load from localStorage on init
+    const saved = localStorage.getItem(`ai-guest-chat-${id}`);
+    if (saved) {
+      try {
+        return JSON.parse(saved).map(m => ({ ...m, timestamp: new Date(m.timestamp) }));
+      } catch (e) {
+        console.error('Failed to load AI chat history:', e);
+      }
+    }
+    return [];
+  });
   const [aiLoading, setAiLoading] = useState(false);
   const [selectedMode, setSelectedMode] = useState(null);
   const [lastUsedMode, setLastUsedMode] = useState(null); // Track last used mode for follow-up questions
@@ -162,6 +173,12 @@ function GuestInterfaceEnhanced() {
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [conversation]);
+
+  // Save AI chat history to localStorage
+  useEffect(() => {
+    if (!id || conversation.length === 0) return;
+    localStorage.setItem(`ai-guest-chat-${id}`, JSON.stringify(conversation));
+  }, [id, conversation]);
 
   const fetchEvent = async () => {
     try {
