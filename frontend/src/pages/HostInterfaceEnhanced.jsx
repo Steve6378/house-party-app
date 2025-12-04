@@ -1108,13 +1108,13 @@ function HostInterfaceEnhanced() {
                                 <span className="text-xs text-gray-400">Found Photos</span>
                               </div>
                               <div className="grid grid-cols-2 gap-2">
-                                {msg.photos.map((photoId) => (
-                                  <div key={photoId} className="relative group">
+                                {msg.photos.map((photo) => (
+                                  <div key={photo.id || photo} className="relative group">
                                     <img
-                                      src={`${API_URL}/api/events/photos/${photoId}/file?token=${token}`}
+                                      src={`${API_URL}/api/events/photos/${photo.id || photo}/file?token=${token}`}
                                       alt="Event photo"
                                       className="w-full h-24 object-cover rounded-lg border border-dark-600 hover:border-primary-500 transition-colors cursor-pointer"
-                                      onClick={() => window.open(`${API_URL}/api/events/photos/${photoId}/file?token=${token}`, '_blank')}
+                                      onClick={() => window.open(`${API_URL}/api/events/photos/${photo.id || photo}/file?token=${token}`, '_blank')}
                                     />
                                   </div>
                                 ))}
