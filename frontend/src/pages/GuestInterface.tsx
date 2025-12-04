@@ -71,7 +71,7 @@ const GuestInterface: React.FC = () => {
     const messageToSend = customMessage || message;
     if (messageToSend.trim() === '') return;
     const newMessage: Message = {
-      id: Date.now().toString(),
+      id: crypto.randomUUID(),
       content: messageToSend,
       sender: {
         id: user?.id || 'guest',
@@ -95,7 +95,7 @@ const GuestInterface: React.FC = () => {
       } else {
         aiResponse = "I'm not sure about that. Would you like me to ask the host for you?";
         setMessages(prev => [...prev, {
-          id: (Date.now() + 1).toString(),
+          id: crypto.randomUUID(),
           content: aiResponse,
           sender: {
             id: 'ai',
@@ -108,7 +108,7 @@ const GuestInterface: React.FC = () => {
         return;
       }
       setMessages(prev => [...prev, {
-        id: (Date.now() + 1).toString(),
+        id: crypto.randomUUID(),
         content: aiResponse,
         sender: {
           id: 'ai',

@@ -55,7 +55,7 @@ const CreateEvent: React.FC = () => {
     e.preventDefault();
     if (message.trim() === '') return;
     const newMessage: Message = {
-      id: Date.now().toString(),
+      id: crypto.randomUUID(),
       content: message,
       sender: {
         id: user?.id || 'host',
@@ -91,7 +91,7 @@ const CreateEvent: React.FC = () => {
         setIsComplete(true);
       }
       const aiResponse: Message = {
-        id: (Date.now() + 1).toString(),
+        id: crypto.randomUUID(),
         content: aiContent,
         sender: {
           id: 'ai',
@@ -105,7 +105,7 @@ const CreateEvent: React.FC = () => {
   };
   const handleCreateEvent = () => {
     const newEvent = {
-      id: Date.now().toString(),
+      id: crypto.randomUUID(),
       title: eventData.title,
       date: eventData.date,
       time: '4:00 PM',

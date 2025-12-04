@@ -45,7 +45,7 @@ const Photos: React.FC = () => {
       const reader = new FileReader();
       reader.onload = event => {
         const newPhoto: Photo = {
-          id: Date.now().toString() + Math.random(),
+          id: crypto.randomUUID(),
           url: event.target?.result as string,
           eventId: selectedEvent,
           uploadedBy: 'You',

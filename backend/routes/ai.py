@@ -45,9 +45,134 @@ class HostAssistRequest(BaseModel):
     conversation_history: Optional[List[ConversationMessage]] = None
 
 
+class ProposedAction(BaseModel):
+    """An action the AI wants to perform, requiring user confirmation"""
+    function: str
+    args: dict
+    description: str  # Human-readable description of what will happen
+
+
 class HostAssistResponse(BaseModel):
     """Response schema for host assist"""
     response: str
+    proposed_action: Optional[ProposedAction] = None
+
+
+# Define OpenAI tools for event modifications
+EVENT_MODIFICATION_TOOLS = [
+    {
+        "type": "function",
+        "function": {
+            "name": "update_event_name",
+            "description": "Update the name/title of the event",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "name": {"type": "string", "description": "The new event name"}
+                },
+                "required": ["name"]
+            }
+        }
+    },
+    {
+        "type": "function",
+        "function": {
+            "name": "update_event_date",
+            "description": "Update the event date",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "date": {"type": "string", "description": "The new date in YYYY-MM-DD format"}
+                },
+                "required": ["date"]
+            }
+        }
+    },
+    {
+        "type": "function",
+        "function": {
+            "name": "update_event_time",
+            "description": "Update the event start time",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "time": {"type": "string", "description": "The new time in HH:MM format (24-hour)"}
+                },
+                "required": ["time"]
+            }
+        }
+    },
+    {
+        "type": "function",
+        "function": {
+            "name": "update_event_location",
+            "description": "Update the event address/location",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "address": {"type": "string", "description": "The new address or location"}
+                },
+                "required": ["address"]
+            }
+        }
+    },
+    {
+        "type": "function",
+        "function": {
+            "name": "update_event_description",
+            "description": "Update the event description",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "description": {"type": "string", "description": "The new event description"}
+                },
+                "required": ["description"]
+            }
+        }
+    },
+    {
+        "type": "function",
+        "function": {
+            "name": "update_expected_guests",
+            "description": "Update the expected number of guests",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "expected_guests": {"type": "integer", "description": "The expected number of guests"}
+                },
+                "required": ["expected_guests"]
+            }
+        }
+    },
+    {
+        "type": "function",
+        "function": {
+            "name": "update_budget",
+            "description": "Update the budget per person",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "budget_per_person": {"type": "number", "description": "The budget per person in dollars"}
+                },
+                "required": ["budget_per_person"]
+            }
+        }
+    }
+]
+
+
+def get_action_description(function_name: str, args: dict) -> str:
+    """Generate human-readable description of an action"""
+    descriptions = {
+        "update_event_name": f"Change event name to \"{args.get('name')}\"",
+        "update_event_date": f"Change event date to {args.get('date')}",
+        "update_event_time": f"Change event time to {args.get('time')}",
+        "update_event_location": f"Change location to \"{args.get('address')}\"",
+        "update_event_description": f"Update event description",
+        "update_expected_guests": f"Set expected guests to {args.get('expected_guests')}",
+        "update_budget": f"Set budget to ${args.get('budget_per_person')} per person"
+    }
+    return descriptions.get(function_name, f"Execute {function_name}")
 
 
 class GuestQueryRequest(BaseModel):
@@ -164,7 +289,11 @@ User Request: {request.task}
         messages = [
             {
                 "role": "system",
-                "content": "You are a helpful event planning assistant. Help the host plan and organize their event. Be concise, practical, and actionable. Provide specific suggestions based on the event details. When there's conversation history, use it to understand follow-up questions and maintain context."
+                "content": """You are a helpful event planning assistant. Help the host plan and organize their event. Be concise, practical, and actionable. Provide specific suggestions based on the event details.
+
+When the user asks to UPDATE or CHANGE event details (like date, time, location, name, description, budget, or expected guests), use the appropriate tool to make that change. Only use tools when the user explicitly wants to make a change.
+
+When there's conversation history, use it to understand follow-up questions and maintain context."""
             }
         ]
 
@@ -182,23 +311,121 @@ User Request: {request.task}
             "content": event_context
         })
 
-        # Call OpenAI API
+        # Call OpenAI API with tools for event modifications
         response = openai.chat.completions.create(
             model="gpt-4o-mini",
             messages=messages,
+            tools=EVENT_MODIFICATION_TOOLS,
+            tool_choice="auto",  # Let AI decide when to use tools
             temperature=0.7,
             max_tokens=500
         )
 
-        ai_response = response.choices[0].message.content
+        # Safety check for empty response
+        if not response.choices or len(response.choices) == 0:
+            raise HTTPException(status_code=500, detail="AI returned empty response")
 
-        return HostAssistResponse(response=ai_response)
+        message = response.choices[0].message
+
+        # Check if AI wants to call a tool (modify event)
+        if message.tool_calls:
+            tool_call = message.tool_calls[0]
+            function_name = tool_call.function.name
+            function_args = json.loads(tool_call.function.arguments)
+
+            # Return proposed action for user confirmation
+            return HostAssistResponse(
+                response=message.content or f"I'll help you {get_action_description(function_name, function_args).lower()}. Please confirm this change.",
+                proposed_action=ProposedAction(
+                    function=function_name,
+                    args=function_args,
+                    description=get_action_description(function_name, function_args)
+                )
+            )
+
+        # No tool call - just a regular response
+        return HostAssistResponse(response=message.content)
 
     except Exception as e:
         print(f"OpenAI API error: {e}")
         raise HTTPException(
             status_code=500,
             detail="Failed to generate AI response. Please try again."
+        )
+
+
+class ExecuteActionRequest(BaseModel):
+    """Request to execute a confirmed AI action"""
+    event_id: str
+    function: str
+    args: dict
+
+
+class ExecuteActionResponse(BaseModel):
+    """Response after executing an action"""
+    success: bool
+    message: str
+
+
+@router.post("/execute-action", response_model=ExecuteActionResponse)
+async def execute_ai_action(
+    request: ExecuteActionRequest,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    """
+    Execute a confirmed AI action to modify event details.
+
+    **Authentication required. Host/co-host only.**
+
+    This endpoint executes actions that were proposed by the AI assistant
+    and confirmed by the user.
+    """
+    # Get the event
+    event = db.query(Event).filter(Event.id == request.event_id).first()
+
+    if not event:
+        raise HTTPException(status_code=404, detail="Event not found")
+
+    # Check if user has permission (must be host or co-host)
+    require_event_access(current_user, event, db, action="edit")
+
+    # Map function names to event fields
+    field_mapping = {
+        "update_event_name": ("name", "name"),
+        "update_event_date": ("date", "date"),
+        "update_event_time": ("time", "time"),
+        "update_event_location": ("address", "address"),
+        "update_event_description": ("description", "description"),
+        "update_expected_guests": ("expected_guests", "expected_guests"),
+        "update_budget": ("budget_per_person", "budget_per_person")
+    }
+
+    if request.function not in field_mapping:
+        raise HTTPException(status_code=400, detail=f"Unknown function: {request.function}")
+
+    field_name, arg_key = field_mapping[request.function]
+
+    if arg_key not in request.args:
+        raise HTTPException(status_code=400, detail=f"Missing required argument: {arg_key}")
+
+    try:
+        # Update the event field
+        new_value = request.args[arg_key]
+        setattr(event, field_name, new_value)
+        db.commit()
+
+        return ExecuteActionResponse(
+            success=True,
+            message=f"Successfully updated {field_name.replace('_', ' ')}"
+        )
+
+    except Exception as e:
+        db.rollback()
+        print(f"Error executing AI action: {e}")
+        raise HTTPException(
+            status_code=500,
+            detail="Failed to execute action. Please try again."
         )
 
 
@@ -333,6 +560,10 @@ async def general_query(
             temperature=0.7,
             max_tokens=500
         )
+
+        # Safety check for empty response
+        if not response.choices or len(response.choices) == 0:
+            raise HTTPException(status_code=500, detail="AI returned empty response")
 
         return GeneralQueryResponse(answer=response.choices[0].message.content)
 
@@ -682,6 +913,10 @@ Write only the description, no quotes or additional text."""
             temperature=0.7,
             max_tokens=200
         )
+
+        # Safety check for empty response
+        if not response.choices or len(response.choices) == 0:
+            raise HTTPException(status_code=500, detail="AI returned empty response")
 
         description = response.choices[0].message.content.strip()
         # Remove any surrounding quotes if present

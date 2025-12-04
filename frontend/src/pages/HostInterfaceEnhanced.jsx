@@ -69,6 +69,8 @@ function HostInterfaceEnhanced() {
   const [inviteLink, setInviteLink] = useState(null);
   const [generatingLink, setGeneratingLink] = useState(false);
   const [linkCopied, setLinkCopied] = useState(false);
+  const [pendingAction, setPendingAction] = useState(null); // AI proposed action awaiting confirmation
+  const [executingAction, setExecutingAction] = useState(false);
 
   const fileInputRef = useRef(null);
   const photoInputRef = useRef(null);
@@ -556,10 +558,17 @@ function HostInterfaceEnhanced() {
         responseText = responseText.replace(/\[PHOTOS:[^\]]+\]/, '').trim();
       }
 
+      // Check if AI wants to perform an action
+      if (response.proposed_action) {
+        setPendingAction(response.proposed_action);
+        responseText = responseText || `I'd like to: ${response.proposed_action.description}`;
+      }
+
       const aiMessage = {
         role: 'assistant',
         content: responseText,
         photos: photoIds,
+        proposedAction: response.proposed_action || null,
         timestamp: new Date()
       };
       setAiConversation(prev => [...prev, aiMessage]);
@@ -575,6 +584,50 @@ function HostInterfaceEnhanced() {
     } finally {
       setAiLoading(false);
     }
+  };
+
+  // Handle AI action confirmation
+  const handleConfirmAction = async () => {
+    if (!pendingAction) return;
+
+    setExecutingAction(true);
+    try {
+      const result = await aiAPI.executeAction(id, pendingAction.function, pendingAction.args);
+
+      // Add confirmation message to chat
+      const confirmMessage = {
+        role: 'assistant',
+        content: `✅ Done! ${result.message}`,
+        timestamp: new Date()
+      };
+      setAiConversation(prev => [...prev, confirmMessage]);
+
+      // Refresh event data to show updated values
+      fetchEvent();
+      toast.success(result.message);
+    } catch (error) {
+      console.error('Failed to execute action:', error);
+      const errorMessage = {
+        role: 'assistant',
+        content: '❌ Failed to make that change. Please try again.',
+        timestamp: new Date()
+      };
+      setAiConversation(prev => [...prev, errorMessage]);
+      toast.error('Failed to execute action');
+    } finally {
+      setPendingAction(null);
+      setExecutingAction(false);
+    }
+  };
+
+  const handleCancelAction = () => {
+    const cancelMessage = {
+      role: 'assistant',
+      content: '↩️ Okay, I won\'t make that change.',
+      timestamp: new Date()
+    };
+    setAiConversation(prev => [...prev, cancelMessage]);
+    setPendingAction(null);
   };
 
   const handleDocumentUpload = async (e) => {
@@ -1078,6 +1131,46 @@ function HostInterfaceEnhanced() {
                         </div>
                       </div>
                     ))}
+
+                    {/* Pending Action Confirmation */}
+                    {pendingAction && (
+                      <div className="flex justify-start">
+                        <div className="max-w-[80%] p-4 rounded-xl bg-gradient-to-r from-amber-900/50 to-orange-900/50 border border-amber-500/40">
+                          <div className="flex items-center gap-2 mb-3">
+                            <Settings className="w-4 h-4 text-amber-400 animate-pulse" />
+                            <span className="text-sm font-semibold text-amber-400">Confirm Action</span>
+                          </div>
+                          <p className="text-white mb-4">{pendingAction.description}</p>
+                          <div className="flex gap-2">
+                            <button
+                              onClick={handleConfirmAction}
+                              disabled={executingAction}
+                              className="px-4 py-2 bg-green-600 hover:bg-green-500 text-white rounded-lg text-sm font-medium transition-colors disabled:opacity-50 flex items-center gap-2"
+                            >
+                              {executingAction ? (
+                                <>
+                                  <div className="animate-spin rounded-full h-3 w-3 border-b-2 border-white"></div>
+                                  Applying...
+                                </>
+                              ) : (
+                                <>
+                                  <Check className="w-4 h-4" />
+                                  Confirm
+                                </>
+                              )}
+                            </button>
+                            <button
+                              onClick={handleCancelAction}
+                              disabled={executingAction}
+                              className="px-4 py-2 bg-dark-600 hover:bg-dark-500 text-white rounded-lg text-sm font-medium transition-colors disabled:opacity-50 flex items-center gap-2"
+                            >
+                              <X className="w-4 h-4" />
+                              Cancel
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    )}
                     {aiLoading && (
                       <div className="flex justify-start">
                         <div className="bg-dark-700/50 border border-primary-500/20 p-4 rounded-xl">

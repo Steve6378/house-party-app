@@ -616,8 +616,12 @@ async def auto_locate(
             lat, lng = None, None
             if loc and "," in loc:
                 parts = loc.split(",")
-                lat = float(parts[0])
-                lng = float(parts[1])
+                if len(parts) >= 2:
+                    try:
+                        lat = float(parts[0])
+                        lng = float(parts[1])
+                    except (ValueError, TypeError):
+                        lat, lng = None, None
 
             city = data.get("city", "")
             region = data.get("region", "")

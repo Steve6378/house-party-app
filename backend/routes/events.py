@@ -724,7 +724,9 @@ async def get_cover_image(
         raise HTTPException(status_code=404, detail="Cover image file not found")
 
     # Determine content type from path
-    file_ext = event.cover_image_path.split(".")[-1].lower()
+    file_ext = ""
+    if "." in event.cover_image_path:
+        file_ext = event.cover_image_path.split(".")[-1].lower()
     content_type_map = {
         "jpg": "image/jpeg",
         "jpeg": "image/jpeg",

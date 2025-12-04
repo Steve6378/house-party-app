@@ -107,7 +107,7 @@ const Chat: React.FC = () => {
     if (message.trim() === '') return;
     // Add user message
     const newUserMessage: Message = {
-      id: Date.now().toString(),
+      id: crypto.randomUUID(),
       content: message,
       sender: {
         id: user?.id || 'current-user',
@@ -133,7 +133,7 @@ const Chat: React.FC = () => {
         aiResponse = "I'm not sure about that. Would you like me to ask the host?";
       }
       const newAiMessage: Message = {
-        id: Date.now().toString(),
+        id: crypto.randomUUID(),
         content: aiResponse,
         sender: {
           id: 'ai',

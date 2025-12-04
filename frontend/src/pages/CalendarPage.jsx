@@ -37,7 +37,15 @@ function CalendarPage() {
       // Convert to calendar events format
       const formattedEvents = allEvents.map(event => {
         const timeStr = event.time || '18:00';
-        const startDate = moment(`${event.date} ${timeStr}`, 'YYYY-MM-DD HH:mm').toDate();
+        // Support multiple time formats: HH:mm, H:mm, h:mm A, h:mm a
+        const startDate = moment(`${event.date} ${timeStr}`, [
+          'YYYY-MM-DD HH:mm',
+          'YYYY-MM-DD H:mm',
+          'YYYY-MM-DD h:mm A',
+          'YYYY-MM-DD h:mm a',
+          'YYYY-MM-DD h:mmA',
+          'YYYY-MM-DD h:mma'
+        ]).toDate();
         const endDate = moment(startDate).add(2, 'hours').toDate(); // Default 2 hour duration
 
         return {
