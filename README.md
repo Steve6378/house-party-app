@@ -220,11 +220,7 @@ psql yorru_dev < database/seed_data_comprehensive.sql
 
 ### **Database**
 - **13 tables**: users, groups, events, ground_truth_facts, messages, etc.
-- **2,100+ lines** of seed data
-- **16 events** spanning 6 months
-- **100+ ground truth facts**
-- **50+ chat messages**
-- **14 users** (6 core + 8 peripheral)
+- **comprehensive seed data for testing**
 
 ### **Code**
 - **2,000+ lines** of Python (ground truth query, embeddings, tests)
@@ -286,37 +282,17 @@ Guest: "Is there a gift registry?"
 - [x] User can create account and log in
 - [x] Database schema supports all features
 - [x] Ground truth query system works (keyword + semantic)
-- [ ] User can create event
-- [ ] Guest can ask questions and get answers
+- [x] User can create event
+- [x] Guest can ask questions and get answers
 - [ ] AI escalates unknown questions
-- [ ] Group chat extracts preferences
-- [ ] Host can view dashboard
-- [ ] UI looks professional
+- [x] Group chat extracts preferences
+- [x] Host can view dashboard
+- [x] UI looks professional
+
 
 ---
 
-## Contributing
-
-This is a solo project for now, but patterns are documented for future contributors.
-
----
-
-## License
-
-MIT (or your choice)
-
----
-
-## Next Steps
-
-**Phase 1**: Follow `/IMPLEMENTATION_GUIDE.md` Phase 1
-
-**Phase 2-4**: Build backend API, WebSocket chat, Frontend
-
-All foundation work is done. Follow the guide step-by-step.
-
----
 
 ## Contact
 
-[Your contact info]
+fwoixeee@yorru.net
