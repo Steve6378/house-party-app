@@ -325,8 +325,6 @@ MIT (or your choice)
 
 ## 📬 **Contact**
 
-[Your contact info]
+yorru.net
 
----
 
-Built with ❤️ using Claude Code
