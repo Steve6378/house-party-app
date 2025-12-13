@@ -234,7 +234,7 @@ All user input is sanitized using the Bleach library to prevent XSS attacks.
 
 ## Reporting Security Issues
 
-If you discover a security vulnerability, please email: [security@yorru.net]
+If you discover a security vulnerability, please email: [fwoxieee@yorru.net]
 
 **Do not** create public GitHub issues for security vulnerabilities.
 
