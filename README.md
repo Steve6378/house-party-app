@@ -1,4 +1,4 @@
-# 🌙 Yorru - Night Event Planning with AI
+# Yorru - Night Event Planning with AI
 
 [![Status](https://img.shields.io/badge/status-railway_deployed-brightgreen)]()
 [![Phase](https://img.shields.io/badge/phase-backend_deployed-blue)]()
@@ -8,33 +8,33 @@
 
 ---
 
-## 🚀 **Current Status: Backend Deployed on Railway ✅**
+## Current Status: Backend Deployed on Railway
 
-### ✅ **Phase 1: Repository & Deployment (DONE)**
-- ✅ Repository restructured (clean paths: backend/, database/, docs/)
-- ✅ Python 3.12, environment-based config
-- ✅ **Railway backend deployed** (FastAPI + Dockerfile)
-- ✅ **Railway database deployed** (PostgreSQL + pgvector-pg17)
-- ✅ **Database schema loaded** (production-ready)
-- ✅ **Environment variables configured**
-- ✅ **Dockerfile optimized** (layer caching for fast rebuilds)
+### Phase 1: Repository & Deployment (DONE)
+- [x] Repository restructured (clean paths: backend/, database/, docs/)
+- [x] Python 3.12, environment-based config
+- [x] Railway backend deployed (FastAPI + Dockerfile)
+- [x] Railway database deployed (PostgreSQL + pgvector-pg17)
+- [x] Database schema loaded (production-ready)
+- [x] Environment variables configured
+- [x] Dockerfile optimized (layer caching for fast rebuilds)
 
-### ⏳ **Phase 2: Frontend Development** (Next Up)
-- ⬜ Initialize Next.js 14 + TypeScript project
-- ⬜ Configure NextAuth.js (JWT integration)
-- ⬜ Build core pages (login, events, chat, dashboard)
-- ⬜ Integrate Socket.io for real-time chat
-- ⬜ Deploy to Vercel
+### Phase 2: Frontend Development (Next Up)
+- [ ] Initialize Next.js 14 + TypeScript project
+- [ ] Configure NextAuth.js (JWT integration)
+- [ ] Build core pages (login, events, chat, dashboard)
+- [ ] Integrate Socket.io for real-time chat
+- [ ] Deploy to Vercel
 
-### 🔜 **Phase 3-4: Features & Launch**
-- ⬜ WebSocket chat implementation (Socket.io)
-- ⬜ Photo storage (Cloudflare R2 / Firebase / MongoDB)
-- ⬜ Testing & polish
-- ⬜ Public launch
+### Phase 3-4: Features & Launch
+- [ ] WebSocket chat implementation (Socket.io)
+- [ ] Photo storage (Cloudflare R2 / Firebase / MongoDB)
+- [ ] Testing & polish
+- [ ] Public launch
 
 ---
 
-## 📂 **Project Structure**
+## Project Structure
 
 ```
 yorru/
@@ -72,7 +72,7 @@ yorru/
 
 ---
 
-## 🎯 **Core Features**
+## Core Features
 
 ### **Three Interaction Modes**
 
@@ -92,7 +92,7 @@ yorru/
    - Respond to escalated questions
    - Track to-dos and change log
 
-### **Ground Truth Query System** ⭐
+### Ground Truth Query System
 
 Two-tier approach for answering guest questions:
 
@@ -117,7 +117,7 @@ Embedding similarity search with pgvector
 
 ---
 
-## 🛠️ **Tech Stack**
+## Tech Stack
 
 | Layer | Technology | Why |
 |-------|-----------|-----|
@@ -134,7 +134,7 @@ Embedding similarity search with pgvector
 
 ---
 
-## 📖 **Documentation**
+## Documentation
 
 ### **Start Here** (In Order)
 1. **`/IMPLEMENTATION_GUIDE.md`** - Full guide with 150 tasks + code examples
@@ -143,13 +143,7 @@ Embedding similarity search with pgvector
 4. **`/dev/tasks.md`** - Task breakdown (150 tasks)
 5. **`/database/SEED_DATA_SUMMARY.md`** - Test data overview
 
-### **Skills** (Auto-activated)
-- **`/.claude/skills/python-rag-patterns/SKILL.md`** - pgvector queries, embeddings, ground truth
-- **`/.claude/skills/fastapi-patterns/SKILL.md`** - SQLAlchemy, Pydantic, auth, CRUD
-
----
-
-## 🚀 **Deployment**
+## Deployment
 
 ### **Current Deployment (Railway)**
 
@@ -222,7 +216,7 @@ psql yorru_dev < database/seed_data_comprehensive.sql
 
 ---
 
-## 📊 **What's Built (Statistics)**
+## What's Built (Statistics)
 
 ### **Database**
 - **13 tables**: users, groups, events, ground_truth_facts, messages, etc.
@@ -243,11 +237,11 @@ psql yorru_dev < database/seed_data_comprehensive.sql
 - **1,176 lines** implementation guide
 - **900+ lines** of skill documentation
 
-**Total: ~9,000 lines of foundation work! ✅**
+**Total: ~9,000 lines of foundation work**
 
 ---
 
-## 🎨 **Example Use Case (From Seed Data)**
+## Example Use Case (From Seed Data)
 
 ### **Event: Thanksgiving Potluck**
 - **Host**: Amane (main) + Mahiru (co-host)
@@ -287,46 +281,42 @@ Guest: "Is there a gift registry?"
 
 ---
 
-## 🎯 **Success Criteria**
+## Success Criteria
 
-- ✅ User can create account and log in
-- ✅ Database schema supports all features
-- ✅ Ground truth query system works (keyword + semantic)
-- ⬜ User can create event
-- ⬜ Guest can ask questions and get answers
-- ⬜ AI escalates unknown questions
-- ⬜ Group chat extracts preferences
-- ⬜ Host can view dashboard
-- ⬜ UI looks professional
+- [x] User can create account and log in
+- [x] Database schema supports all features
+- [x] Ground truth query system works (keyword + semantic)
+- [ ] User can create event
+- [ ] Guest can ask questions and get answers
+- [ ] AI escalates unknown questions
+- [ ] Group chat extracts preferences
+- [ ] Host can view dashboard
+- [ ] UI looks professional
 
 ---
 
-## 🤝 **Contributing**
+## Contributing
 
 This is a solo project for now, but patterns are documented for future contributors.
 
 ---
 
-## 📝 **License**
+## License
 
 MIT (or your choice)
 
 ---
 
-## 🔥 **Next Steps**
+## Next Steps
 
-**Tomorrow (Day 1)**: Follow `/IMPLEMENTATION_GUIDE.md` Phase 1
+**Phase 1**: Follow `/IMPLEMENTATION_GUIDE.md` Phase 1
 
-**Days 2-12**: Build backend API → WebSocket chat → Frontend
+**Phase 2-4**: Build backend API, WebSocket chat, Frontend
 
-**Ready to go!** All foundation work is done. Just follow the guide step-by-step. 🚀
+All foundation work is done. Follow the guide step-by-step.
 
 ---
 
-## 📬 **Contact**
+## Contact
 
 [Your contact info]
-
----
-
-Built with ❤️ using Claude Code

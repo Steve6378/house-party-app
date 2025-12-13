@@ -7,7 +7,7 @@
 
 ---
 
-## 📊 What's Included
+## What's Included
 
 ### **14 Users**
 - **6 Core Members** (Friend Group 6):
@@ -178,7 +178,7 @@ Shows:
 
 ---
 
-## 🎯 Key Patterns Demonstrated
+## Key Patterns Demonstrated
 
 ### **1. Group Evolution**
 - **Nov**: Small hangouts (coffee, movie night)
@@ -214,7 +214,7 @@ Shows:
 
 ---
 
-## 📈 Statistics
+## Statistics
 
 | Metric | Count |
 |--------|-------|
@@ -232,7 +232,7 @@ Shows:
 
 ---
 
-## 🚀 What This Enables Testing
+## What This Enables Testing
 
 ### **Ground Truth System**
 - Keyword matching ("what's the address?" → instant match)
@@ -273,7 +273,7 @@ Shows:
 
 ---
 
-## 📝 How to Use This Data
+## How to Use This Data
 
 ### **Load into Database**
 ```bash
@@ -314,7 +314,7 @@ query_ground_truth("Can I bring my dog?", event_id="event001-...")
 
 ---
 
-## 🎨 Story Beats (Emotional Arc)
+## Story Beats (Emotional Arc)
 
 1. **Nov 10 (Event 1)**: New friends meet for coffee study
 2. **Nov 17 (Event 2)**: First hangout at Amane's place (bonding)
@@ -325,7 +325,7 @@ query_ground_truth("Can I bring my dog?", event_id="event001-...")
 7. **Dec 31 (Event 7)**: Epic NYE (group going big!)
 8. **Jan 18 (Event 8)**: Chill game night (friendship maintenance)
 9. **Feb 1 (Event 9)**: Beach adventure (new experiences)
-10. **Feb 14 (Event 10)**: 💕 **RELATIONSHIP MILESTONE** - Amane + Mahiru officially co-host as couple
+10. **Feb 14 (Event 10)**: **RELATIONSHIP MILESTONE** - Amane + Mahiru officially co-host as couple
 11. **Feb 28 (Event 11)**: Tanya's big birthday (supporting friends)
 12. **Mar 15 (Event 12)**: Study grind (back to reality)
 13. **Mar 28 (Event 13)**: Spring break fun (deserved break!)
@@ -337,7 +337,7 @@ query_ground_truth("Can I bring my dog?", event_id="event001-...")
 
 ---
 
-## ✅ Ready for Implementation
+## Ready for Implementation
 
 This seed data gives you **realistic, comprehensive test data** for:
 - Backend API development
@@ -352,7 +352,7 @@ This seed data gives you **realistic, comprehensive test data** for:
 
 ---
 
-## 🔥 Next Steps
+## Next Steps
 
 1. **Test database schema** with this data
 2. **Generate embeddings** for ground truth facts
@@ -360,5 +360,3 @@ This seed data gives you **realistic, comprehensive test data** for:
 4. **Test ground truth query system** with real questions
 5. **Build chat backend** to process these messages
 6. **Create frontend** to display this rich data
-
-Everything is ready to go! 🚀

@@ -1,12 +1,12 @@
 # Pull Request: Enhanced Features for Yorru
 
-## 🎯 Overview
+## Overview
 This PR adds three major features to improve the Yorru event planning platform:
 1. **Invite Unregistered Users** - Allow hosts to invite people who haven't signed up yet
 2. **Ground Truth Auto-Sync** - Automatically sync ground truth facts when AI modifies event details
 3. **Group Broadcasting** - Enable messages to be broadcast to both event chat and group chat using `##` prefix
 
-## ✨ Features Added
+## Features Added
 
 ### 1. Invite Unregistered Users
 **Problem Solved:** Previously, hosts could only invite users who were already registered. This limited the ability to invite friends who hadn't signed up yet.
@@ -65,7 +65,7 @@ CREATE UNIQUE INDEX event_attendance_unique_idx ON event_attendance (event_id, u
 - `backend/routes/chat.py:82-139` (WebSocket)
 - `backend/routes/chat.py:196-252` (HTTP)
 
-## 🐛 Bug Fixes
+## Bug Fixes
 
 ### Route Ordering Issue
 **Issue:** `/api/events/invitations` was being matched as `/api/events/{event_id}` causing 404 errors
@@ -83,7 +83,7 @@ CREATE UNIQUE INDEX event_attendance_unique_idx ON event_attendance (event_id, u
 **Affected Files:**
 - `backend/main.py:63-70`
 
-## 📁 Files Changed
+## Files Changed
 
 ### Backend
 - `backend/models/attendance.py` - Database model changes
@@ -102,26 +102,26 @@ CREATE UNIQUE INDEX event_attendance_unique_idx ON event_attendance (event_id, u
 - `DEPLOYMENT_GUIDE.md` - Complete deployment instructions
 - `PULL_REQUEST.md` - This document
 
-## 🧪 Testing
+## Testing
 
 ### Invite Unregistered Users
-1. ✅ Invite a non-existent email address
-2. ✅ User registers with that email
-3. ✅ Invitation appears in user's pending invitations
-4. ✅ User can accept/decline invitation
+1. [x] Invite a non-existent email address
+2. [x] User registers with that email
+3. [x] Invitation appears in user's pending invitations
+4. [x] User can accept/decline invitation
 
 ### Ground Truth Sync
-1. ✅ AI modifies event time via host interface
-2. ✅ Ground truth `event_time` fact updates automatically
-3. ✅ Works with and without pgvector extension
+1. [x] AI modifies event time via host interface
+2. [x] Ground truth `event_time` fact updates automatically
+3. [x] Works with and without pgvector extension
 
 ### Group Broadcasting
-1. ✅ Send message with `##hello world` in event chat
-2. ✅ Message appears in event chat as "hello world"
-3. ✅ Message appears in group chat as "[From EventName] hello world"
-4. ✅ Works in both WebSocket and HTTP modes
+1. [x] Send message with `##hello world` in event chat
+2. [x] Message appears in event chat as "hello world"
+3. [x] Message appears in group chat as "[From EventName] hello world"
+4. [x] Works in both WebSocket and HTTP modes
 
-## 🚀 Deployment Notes
+## Deployment Notes
 
 ### Database Migration
 After merging, run the database migration script to update the schema:
@@ -135,14 +135,14 @@ Or manually execute the SQL migration (see Database Migration Required section a
 No new environment variables required. Existing setup works as-is.
 
 ### Deployment Compatibility
-- ✅ Backend: Compatible with existing Railway deployment
-- ✅ Frontend: Ready for Vercel deployment with production backend URL
-- ✅ Database: Requires one-time migration
+- Backend: Compatible with existing Railway deployment
+- Frontend: Ready for Vercel deployment with production backend URL
+- Database: Requires one-time migration
 
-## 📊 Impact
+## Impact
 
 ### Breaking Changes
-⚠️ **Database schema change required** - The `event_attendance` table structure changes from composite primary key to single `id` primary key. Existing data will be preserved but requires migration.
+**Database schema change required** - The `event_attendance` table structure changes from composite primary key to single `id` primary key. Existing data will be preserved but requires migration.
 
 ### Performance Impact
 - Minimal impact on existing endpoints
@@ -150,25 +150,25 @@ No new environment variables required. Existing setup works as-is.
 - Group broadcasting adds one additional database write per `##` message
 
 ### Backwards Compatibility
-- ✅ All existing API endpoints remain unchanged
-- ✅ Existing invitations continue to work
-- ✅ No frontend breaking changes
+- All existing API endpoints remain unchanged
+- Existing invitations continue to work
+- No frontend breaking changes
 
-## 🔗 Related Issues
+## Related Issues
 - Fixes: Users unable to invite unregistered friends
 - Fixes: Ground truth facts out of sync with AI-modified events
 - Fixes: No way to broadcast messages to group from event chat
 
-## 👥 Reviewers
+## Reviewers
 Please review:
 - Database schema changes in `backend/models/attendance.py`
 - Route ordering change in `backend/main.py`
 - Ground truth sync logic in `backend/routes/events.py`
 
-## 📸 Screenshots
+## Screenshots
 (Add screenshots of the features in action if available)
 
-## ✅ Checklist
+## Checklist
 - [x] Code follows project style guidelines
 - [x] Self-review completed
 - [x] Comments added for complex logic

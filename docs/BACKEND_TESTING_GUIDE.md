@@ -8,10 +8,10 @@
 
 ## Prerequisites
 
-✅ Backend deployed to Railway
-✅ Database deployed to Railway
-✅ You have the Railway DATABASE_PUBLIC_URL
-✅ You have the Railway backend URL (e.g., `https://yorru-production.up.railway.app`)
+- Backend deployed to Railway
+- Database deployed to Railway
+- You have the Railway DATABASE_PUBLIC_URL
+- You have the Railway backend URL (e.g., `https://yorru-production.up.railway.app`)
 
 ---
 
@@ -134,7 +134,7 @@ Example: `https://yorru-production.up.railway.app/docs`
 }
 ```
 
-**✅ IMPORTANT:** Copy the `access_token` value! You'll need it for all authenticated requests.
+**IMPORTANT:** Copy the `access_token` value! You'll need it for all authenticated requests.
 
 **Common Errors:**
 - `Email already registered` → Change email to `test2@example.com`
@@ -178,7 +178,7 @@ Example: `https://yorru-production.up.railway.app/docs`
 **Before testing authenticated endpoints, you MUST authorize:**
 
 1. Look at the top right of Swagger UI
-2. Click the **"Authorize"** button (or 🔓 lock icon)
+2. Click the **"Authorize"** button (lock icon)
 3. Paste your `access_token` in the "Value" field
 4. Click "Authorize"
 5. Click "Close"
@@ -275,7 +275,7 @@ Example: `https://yorru-production.up.railway.app/docs`
 }
 ```
 
-**✅ IMPORTANT:** Copy the `id` (group_id)! You'll need it.
+**IMPORTANT:** Copy the `id` (group_id)! You'll need it.
 
 **Notice:** `member_count` is 1 because you (the creator) are auto-added as admin.
 
@@ -372,7 +372,7 @@ Example: `https://yorru-production.up.railway.app/docs`
 }
 ```
 
-**✅ KEY POINT:** `group_id` is set, `event_id` is null → This is a group general chat message!
+**KEY POINT:** `group_id` is set, `event_id` is null - This is a group general chat message!
 
 **Common Errors:**
 - `403 Forbidden` → Not a group member (shouldn't happen if you created it)
@@ -456,7 +456,7 @@ Example: `https://yorru-production.up.railway.app/docs`
 }
 ```
 
-**✅ IMPORTANT:** Copy the event `id`! You'll need it.
+**IMPORTANT:** Copy the event `id`! You'll need it.
 
 **Notice:**
 - `main_host_id` is automatically set to YOU (the logged-in user)
@@ -494,7 +494,7 @@ Example: `https://yorru-production.up.railway.app/docs`
 }
 ```
 
-**✅ KEY POINT:** `event_id` is set, `group_id` is null → This is an event-specific message!
+**KEY POINT:** `event_id` is set, `group_id` is null - This is an event-specific message!
 
 ---
 
@@ -545,14 +545,14 @@ GET /api/events/{event_id}/messages
 
 **Should return:** Only the "Hey, what should I bring to the party?" message
 
-**✅ SUCCESS CRITERIA:**
+**SUCCESS CRITERIA:**
 - Group chat has 1 message (general chat message)
 - Event chat has 1 message (event message)
 - They are DIFFERENT messages
 - No overlap!
 
 **If you see the same messages in both:**
-- ❌ Migration 003 didn't work properly
+- Migration 003 didn't work properly
 - Check database: `psql "YOUR_DB_URL" -c "SELECT event_id, group_id FROM messages;"`
 - One should have `event_id` set, one should have `group_id` set
 
@@ -565,11 +565,11 @@ GET /api/events/{event_id}/messages
 You now have:
 ```
 Test Group
-├─ 💬 General Chat (1 message)
+├─ General Chat (1 message)
 │  └─ "Hello everyone in general chat!"
 │
 └─ Events:
-   └─ 🎉 Test Party (1 message)
+   └─ Test Party (1 message)
       └─ "Hey, what should I bring to the party?"
 ```
 
@@ -703,7 +703,7 @@ psql "YOUR_DB_URL" -f database/migrations/003_add_group_chat_support.sql
 Copy this checklist and check off as you test:
 
 ```
-✅ Migrations Run:
+Migrations Run:
   [ ] Migration 001 - status columns
   [ ] Migration 002 - table fixes
   [ ] Migration 003 - group chat support
@@ -711,20 +711,20 @@ Copy this checklist and check off as you test:
   [ ] Migration 005 - event attendance PK change
   [ ] Migration 006 - document tables
 
-✅ Authentication:
+Authentication:
   [ ] Can register new user
   [ ] Can login
   [ ] Can get current user profile
   [ ] Can update profile picture URL
 
-✅ Groups:
+Groups:
   [ ] Can create group
   [ ] Can list my groups
   [ ] Can get group details
   [ ] Can add member to group
   [ ] Can remove member from group
 
-✅ Multi-Room Chat:
+Multi-Room Chat:
   [ ] Can send message to group general chat
   [ ] Can get group general chat messages
   [ ] Can create event in group
@@ -732,14 +732,14 @@ Copy this checklist and check off as you test:
   [ ] Can get event chat messages
   [ ] Group chat and event chat are SEPARATE
 
-✅ Events:
+Events:
   [ ] Can create event (with/without group)
   [ ] Can list events
   [ ] Can get event details
   [ ] Can update event
   [ ] Can add cover image URL
 
-✅ Permissions:
+Permissions:
   [ ] Non-members can't see group chat
   [ ] Non-members can't see private events
   [ ] Can only edit own messages
@@ -773,6 +773,6 @@ Once all tests pass:
 
 ---
 
-**Testing Complete!** 🎉
+**Testing Complete!**
 
 If all tests pass, your backend is ready for frontend development!

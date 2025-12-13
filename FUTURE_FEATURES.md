@@ -293,7 +293,7 @@ response.headers["Content-Security-Policy"] = "default-src 'self'"
 **For Yorru:**
 - Event names, addresses: Strip all HTML
 - User messages: Allow basic formatting? Or strip all?
-- SQL injection: Already protected (SQLAlchemy uses parameterized queries ✓)
+- SQL injection: Already protected (SQLAlchemy uses parameterized queries)
 
 ---
 
@@ -373,13 +373,13 @@ def seed_database():
 **Status:** Planned for later
 **Priority:** Medium-Low
 
-### ✅ Completed
+### Completed
 - Events (CRUD with auth)
 - Messages/Chat (just completed!)
 - Authentication (register, login, get user)
 - Ground truth (unprotected - needs fixing)
 
-### ❌ Still Needed
+### Still Needed
 
 **1. Todos**
 - POST /api/events/{id}/todos - Create todo

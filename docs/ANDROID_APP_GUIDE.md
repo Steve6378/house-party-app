@@ -555,4 +555,4 @@ frontend/
 5. Write store description
 6. Submit to Play Store
 
-Good luck! 🚀
+Good luck!
