@@ -38,12 +38,12 @@ ai_response = requests.post(
     json=test_request
 )
 
-print(f"\n📥 Response status: {ai_response.status_code}")
+print(f"\n Response status: {ai_response.status_code}")
 
 if ai_response.status_code == 200:
     print("[OK] AI host assistant is working!")
     response_data = ai_response.json()
-    print(f"\n🤖 AI Response:")
+    print(f"\n AI Response:")
     print(response_data.get("response", "No response"))
 else:
     print(f"[FAIL] AI host assistant failed!")
