@@ -84,7 +84,7 @@ def migrate():
 
             trans.commit()
             print("\n" + "=" * 60)
-            print("✓ Migration completed successfully!")
+            print("[OK] Migration completed successfully!")
             print("=" * 60)
             print("\nChanges:")
             print("  - Added 'id' column as primary key")

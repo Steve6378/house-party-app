@@ -29,7 +29,7 @@ def main():
             result = conn.execute(text("SELECT COUNT(*) FROM events"))
             event_count = result.scalar()
             
-            print(f"✅ Database connected! Found {event_count} events.")
+            print(f"[OK] Database connected! Found {event_count} events.")
             
             # Get first 3 event names
             result = conn.execute(text("SELECT name FROM events ORDER BY date LIMIT 3"))
@@ -40,7 +40,7 @@ def main():
                 print(f"  - {event[0]}")
                 
     except Exception as e:
-        print(f"❌ Database connection failed: {e}")
+        print(f"[FAIL] Database connection failed: {e}")
         sys.exit(1)
 
 if __name__ == "__main__":

@@ -45,7 +45,7 @@ def main():
         total = len(facts)
         
         if total == 0:
-            print("✅ All facts already have embeddings!")
+            print("[OK] All facts already have embeddings!")
             return
         
         print(f"Found {total} facts to embed...")
@@ -71,9 +71,9 @@ def main():
             
             # Show progress
             truncated_key = key[:50] + '...' if len(key) > 50 else key
-            print(f"✅ [{i}/{total}] Embedded: {truncated_key}")
+            print(f"[OK] [{i}/{total}] Embedded: {truncated_key}")
         
-        print(f"\n🎉 Done! Generated {total} embeddings.")
+        print(f"\n[SUCCESS] Done! Generated {total} embeddings.")
 
 if __name__ == "__main__":
     main()

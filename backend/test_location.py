@@ -38,10 +38,10 @@ def test_places_autocomplete():
             print(f"\nFound {len(data.get('predictions', []))} predictions:")
             for i, pred in enumerate(data.get('predictions', [])[:5]):
                 print(f"  {i+1}. {pred.get('description')}")
-            print("\n✅ Google Places API is working correctly!")
+            print("\n[OK] Google Places API is working correctly!")
             return True
         elif data.get('status') == 'REQUEST_DENIED':
-            print(f"\n❌ API Request Denied!")
+            print(f"\n[FAIL] API Request Denied!")
             print(f"Error message: {data.get('error_message', 'No error message')}")
             print("\nPossible causes:")
             print("  1. API key is invalid or expired")
@@ -50,15 +50,15 @@ def test_places_autocomplete():
             print("  4. API key restrictions are blocking the request")
             return False
         elif data.get('status') == 'ZERO_RESULTS':
-            print("\n⚠️ No results found, but API is working")
+            print("\n[WARN] No results found, but API is working")
             return True
         else:
-            print(f"\n❌ Unexpected status: {data.get('status')}")
+            print(f"\n[FAIL] Unexpected status: {data.get('status')}")
             print(f"Error message: {data.get('error_message', 'No error message')}")
             return False
 
     except Exception as e:
-        print(f"\n❌ Error making request: {e}")
+        print(f"\n[FAIL] Error making request: {e}")
         return False
 
 
@@ -91,14 +91,14 @@ def test_geocoding():
             print(f"Formatted address: {result.get('formatted_address')}")
             location = result.get('geometry', {}).get('location', {})
             print(f"Coordinates: {location.get('lat')}, {location.get('lng')}")
-            print("\n✅ Geocoding API is working!")
+            print("\n[OK] Geocoding API is working!")
             return True
         else:
-            print(f"❌ Geocoding failed: {data.get('error_message', 'Unknown error')}")
+            print(f"[FAIL] Geocoding failed: {data.get('error_message', 'Unknown error')}")
             return False
 
     except Exception as e:
-        print(f"❌ Error: {e}")
+        print(f"[FAIL] Error: {e}")
         return False
 
 
@@ -112,12 +112,12 @@ if __name__ == "__main__":
 
     print("\n" + "=" * 60)
     print("Summary:")
-    print(f"  Places Autocomplete: {'✅ OK' if places_ok else '❌ FAILED'}")
-    print(f"  Geocoding: {'✅ OK' if geocoding_ok else '❌ FAILED'}")
+    print(f"  Places Autocomplete: {'[OK] OK' if places_ok else '[FAIL] FAILED'}")
+    print(f"  Geocoding: {'[OK] OK' if geocoding_ok else '[FAIL] FAILED'}")
     print("=" * 60)
 
     if not places_ok:
-        print("\n⚠️ To fix Places API issues:")
+        print("\n[WARN] To fix Places API issues:")
         print("1. Go to https://console.cloud.google.com/apis/library")
         print("2. Search for 'Places API' and enable it")
         print("3. Make sure billing is enabled for the project")

@@ -30,10 +30,10 @@ def test_openai_connection():
             max_tokens=20
         )
         result = response.choices[0].message.content
-        print(f"✅ OpenAI Response: {result}")
+        print(f"[OK] OpenAI Response: {result}")
         return True
     except Exception as e:
-        print(f"❌ OpenAI Error: {e}")
+        print(f"[FAIL] OpenAI Error: {e}")
         return False
 
 
@@ -91,14 +91,14 @@ Examples:
         json_match = re.search(r'\{.*\}', result, re.DOTALL)
         if json_match:
             parsed = json.loads(json_match.group())
-            print(f"✅ Parsed intent: {json.dumps(parsed, indent=2)}")
+            print(f"[OK] Parsed intent: {json.dumps(parsed, indent=2)}")
             return parsed
         else:
-            print("❌ No JSON found in response")
+            print("[FAIL] No JSON found in response")
             return None
 
     except Exception as e:
-        print(f"❌ Error: {e}")
+        print(f"[FAIL] Error: {e}")
         return None
 
 
@@ -141,14 +141,14 @@ Examples:
         json_match = re.search(r'\{.*\}', result, re.DOTALL)
         if json_match:
             parsed = json.loads(json_match.group())
-            print(f"✅ Parsed: {json.dumps(parsed, indent=2)}")
+            print(f"[OK] Parsed: {json.dumps(parsed, indent=2)}")
             return parsed
         else:
-            print("❌ No JSON found")
+            print("[FAIL] No JSON found")
             return None
 
     except Exception as e:
-        print(f"❌ Error: {e}")
+        print(f"[FAIL] Error: {e}")
         return None
 
 
@@ -177,15 +177,15 @@ def test_google_places_api():
 
         if data.get("status") == "OK":
             results = data.get("results", [])[:5]
-            print(f"✅ Legacy API works! Found {len(data.get('results', []))} restaurants. Top 5:")
+            print(f"[OK] Legacy API works! Found {len(data.get('results', []))} restaurants. Top 5:")
             for r in results:
                 print(f"   - {r['name']} ({r.get('rating', 'N/A')} stars)")
                 print(f"     📍 {r.get('vicinity', 'N/A')}")
             return "legacy"
         else:
-            print(f"❌ Legacy API Error: {data.get('status')} - {data.get('error_message', 'Unknown')}")
+            print(f"[FAIL] Legacy API Error: {data.get('status')} - {data.get('error_message', 'Unknown')}")
     except Exception as e:
-        print(f"❌ Legacy API Error: {e}")
+        print(f"[FAIL] Legacy API Error: {e}")
 
     # Try the new Nearby Search API (New)
     print("\n=== TEST: Google Places API (New - Nearby Search) ===")
@@ -217,7 +217,7 @@ def test_google_places_api():
 
         if "places" in data:
             places = data.get("places", [])
-            print(f"✅ Nearby Search API works! Found {len(places)} restaurants. Results:")
+            print(f"[OK] Nearby Search API works! Found {len(places)} restaurants. Results:")
             for p in places:
                 name = p.get("displayName", {}).get("text", "Unknown")
                 rating = p.get("rating", "N/A")
@@ -226,9 +226,9 @@ def test_google_places_api():
                 print(f"     📍 {address}")
             return "new"
         else:
-            print(f"❌ Nearby Search API Error: {json.dumps(data, indent=2)}")
+            print(f"[FAIL] Nearby Search API Error: {json.dumps(data, indent=2)}")
     except Exception as e:
-        print(f"❌ Nearby Search API Error: {e}")
+        print(f"[FAIL] Nearby Search API Error: {e}")
 
     return None
 
@@ -240,7 +240,7 @@ if __name__ == "__main__":
 
     # Test 1: OpenAI connection
     if not test_openai_connection():
-        print("\n❌ OpenAI is not working! Check API key.")
+        print("\n[FAIL] OpenAI is not working! Check API key.")
         sys.exit(1)
 
     # Test 2: Host intent detection for vendor queries
@@ -262,9 +262,9 @@ if __name__ == "__main__":
     for q in vendor_questions:
         result = test_intent_detection(q)
         if result and result.get("intent") == "vendor":
-            print(f"   ✅ Correctly identified as VENDOR query")
+            print(f"   [OK] Correctly identified as VENDOR query")
         else:
-            print(f"   ❌ WRONG! Should be vendor, got: {result}")
+            print(f"   [FAIL] WRONG! Should be vendor, got: {result}")
 
     # Test 3: Guest vendor intent detection
     print("\n" + "=" * 60)
@@ -274,9 +274,9 @@ if __name__ == "__main__":
     for q in vendor_questions:
         result = test_guest_vendor_intent(q)
         if result and result.get("is_vendor_query"):
-            print(f"   ✅ Correctly identified as vendor query")
+            print(f"   [OK] Correctly identified as vendor query")
         else:
-            print(f"   ❌ WRONG! Should be vendor, got: {result}")
+            print(f"   [FAIL] WRONG! Should be vendor, got: {result}")
 
     # Test 4: Google Places API
     print("\n" + "=" * 60)

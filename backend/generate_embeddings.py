@@ -50,9 +50,9 @@ def main():
 
             conn.commit()
 
-            print(f"✅ [{i}/{total}] Embedded: {key[:50]}...")
+            print(f"[OK] [{i}/{total}] Embedded: {key[:50]}...")
 
-        print(f"\n🎉 Done! Generated {total} embeddings.")
+        print(f"\n[SUCCESS] Done! Generated {total} embeddings.")
 
         # Verify
         result = conn.execute(text("""
@@ -61,7 +61,7 @@ def main():
             WHERE embedding IS NOT NULL
         """))
         count = result.scalar()
-        print(f"✅ Total facts with embeddings: {count}")
+        print(f"[OK] Total facts with embeddings: {count}")
 
 if __name__ == "__main__":
     main()

@@ -10,7 +10,7 @@ engine = create_engine(DATABASE_URL)
 with engine.connect() as conn:
     result = conn.execute(text("SELECT COUNT(*) FROM events"))
     count = result.scalar()
-    print(f"✅ Database connected! Found {count} events.")
+    print(f"[OK] Database connected! Found {count} events.")
     
     result = conn.execute(text("SELECT name FROM events LIMIT 3"))
     events = result.fetchall()

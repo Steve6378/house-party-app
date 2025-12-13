@@ -46,14 +46,14 @@ def semantic_search(question: str, event_id: str, limit: int = 3):
         return result.fetchall()
 
 # Test queries
-print("🔍 Testing Semantic Search\n")
+print("[SEARCH] Testing Semantic Search\n")
 
 # Test 1: Find address for Event 1
 print("Question: 'Where is the coffee meetup?'")
 print("Event: Coffee Study Session\n")
 results = semantic_search("Where is the coffee meetup?", "event001-0001-0001-0001-000000000001")
 for key, value, distance in results:
-    print(f"  ✅ {key}: {value}")
+    print(f"  [OK] {key}: {value}")
     print(f"     Distance: {distance:.4f}\n")
 
 print("-" * 60 + "\n")
@@ -63,7 +63,7 @@ print("Question: 'How do I park my car?'")
 print("Event: New Year's Eve Bash\n")
 results = semantic_search("How do I park my car?", "event007-0007-0007-0007-000000000007")
 for key, value, distance in results:
-    print(f"  ✅ {key}: {value}")
+    print(f"  [OK] {key}: {value}")
     print(f"     Distance: {distance:.4f}\n")
 
 print("-" * 60 + "\n")
@@ -73,5 +73,5 @@ print("Question: 'What should I wear?'")
 print("Event: USC Spring Gala\n")
 results = semantic_search("What should I wear?", "event015-0015-0015-0015-000000000015")
 for key, value, distance in results:
-    print(f"  ✅ {key}: {value}")
+    print(f"  [OK] {key}: {value}")
     print(f"     Distance: {distance:.4f}\n")

@@ -75,7 +75,7 @@ def escape_sql_string(s):
 
 def main():
     # Fetch the JSON file from GitHub
-    url = 'https://raw.githubusercontent.com/Steve6378/yorru/claude/house-party-app-011CUr8tqsUczbJkyzjdwrKc/synthetic_chat.json'
+    url = 'https://raw.githubusercontent.com/Steve6378/yorru/main/synthetic_chat.json'
 
     print(f"Fetching messages from GitHub...")
     response = requests.get(url)
@@ -123,7 +123,7 @@ def main():
             f.write(',\n'.join(values))
             f.write(';\n\n')
 
-    print(f"\n✅ SQL file created: {sql_file}")
+    print(f"\n[OK] SQL file created: {sql_file}")
     print(f"\nTo import into database:")
     print(f"psql -U yorru_dev -d yorru_dev -h localhost -f {sql_file}")
 

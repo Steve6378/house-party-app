@@ -58,7 +58,7 @@ def semantic_search(question: str, event_id: str, limit: int = 3):
 
 def main():
     """Test semantic search with sample questions"""
-    print("🔍 Testing Semantic Search\n")
+    print("[SEARCH] Testing Semantic Search\n")
     
     # Get first event
     with engine.connect() as conn:
@@ -79,7 +79,7 @@ def main():
         results = semantic_search(question, event_id)
         
         for key, value, distance in results:
-            print(f"  ✅ {key}: {value}")
+            print(f"  [OK] {key}: {value}")
             print(f"     Distance: {distance:.4f}\n")
         
         print("-" * 60 + "\n")

@@ -30,7 +30,7 @@ def add_face_recognition_columns():
                 ALTER TABLE users
                 ADD COLUMN IF NOT EXISTS face_encoding TEXT
             """))
-            print("✓ Added face_encoding column to users table")
+            print("[OK] Added face_encoding column to users table")
         except Exception as e:
             print(f"Note: face_encoding column may already exist: {e}")
 
@@ -40,12 +40,12 @@ def add_face_recognition_columns():
                 ALTER TABLE event_photos
                 ADD COLUMN IF NOT EXISTS face_encodings TEXT
             """))
-            print("✓ Added face_encodings column to event_photos table")
+            print("[OK] Added face_encodings column to event_photos table")
         except Exception as e:
             print(f"Note: face_encodings column may already exist: {e}")
 
         conn.commit()
-        print("\n✅ Face recognition columns migration complete!")
+        print("\n[OK] Face recognition columns migration complete!")
         print("\nTo enable face recognition:")
         print("1. Install face_recognition: pip install face_recognition")
         print("2. Restart the backend server")

@@ -16,7 +16,7 @@ if login_response.status_code != 200:
     exit(1)
 
 token = login_response.json()["access_token"]
-print(f"✅ Login successful, got token: {token[:20]}...")
+print(f"[OK] Login successful, got token: {token[:20]}...")
 
 # Test AI host assist endpoint
 headers = {
@@ -29,7 +29,7 @@ test_request = {
     "task": "Help me plan a shopping list for a birthday party with 20 guests"
 }
 
-print(f"\n📤 Testing AI host assistant with request:")
+print(f"\n[OUT] Testing AI host assistant with request:")
 print(json.dumps(test_request, indent=2))
 
 ai_response = requests.post(
@@ -41,10 +41,10 @@ ai_response = requests.post(
 print(f"\n📥 Response status: {ai_response.status_code}")
 
 if ai_response.status_code == 200:
-    print("✅ AI host assistant is working!")
+    print("[OK] AI host assistant is working!")
     response_data = ai_response.json()
     print(f"\n🤖 AI Response:")
     print(response_data.get("response", "No response"))
 else:
-    print(f"❌ AI host assistant failed!")
+    print(f"[FAIL] AI host assistant failed!")
     print(f"Error: {ai_response.text}")

@@ -254,7 +254,7 @@ def get_weather_emoji(condition: str) -> str:
     elif "cloud" in condition_lower and "part" in condition_lower:
         return "⛅"
     elif "cloud" in condition_lower:
-        return "☁️"
+        return ""
     elif "rain" in condition_lower:
         return "🌧️"
     elif "thunder" in condition_lower or "storm" in condition_lower:
@@ -266,7 +266,7 @@ def get_weather_emoji(condition: str) -> str:
     elif "wind" in condition_lower:
         return "💨"
     else:
-        return "🌤️"
+        return ""
 
 
 def format_directions_response(directions_data: dict, mode: str) -> str:
@@ -289,7 +289,7 @@ def format_directions_response(directions_data: dict, mode: str) -> str:
 
     response = f"{mode_emoji} **Directions** ({mode.title()})\n\n"
     response += f"📍 From: {route['start_address']}\n"
-    response += f"🎯 To: {route['end_address']}\n\n"
+    response += f"[TARGET] To: {route['end_address']}\n\n"
     response += f"**Distance:** {route['distance']}\n"
     response += f"**Travel Time:** {route['duration']}\n"
 
@@ -299,7 +299,7 @@ def format_directions_response(directions_data: dict, mode: str) -> str:
     # Add alternative routes if available
     alternatives = directions_data.get("alternative_routes", [])
     if alternatives:
-        response += f"\n📌 **Alternative Routes:**\n"
+        response += f"\n[PIN] **Alternative Routes:**\n"
         for i, alt in enumerate(alternatives[:2], 1):
             response += f"{i}. {alt['duration']} ({alt['distance']}) via {alt.get('summary', 'alternate route')}\n"
 
