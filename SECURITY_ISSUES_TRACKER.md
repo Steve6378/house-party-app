@@ -2,17 +2,19 @@
 
 Quick reference for all identified vulnerabilities. Use this to track remediation progress.
 
+**Last Dynamic Test:** 2025-12-16 (see DYNAMIC_SECURITY_TESTING_REPORT.md)
+
 ---
 
 ## Summary
 
-| Severity | Count | Fixed |
-|----------|-------|-------|
-| Critical | 4 | 0 |
-| High | 7 | 0 |
-| Medium | 8 | 0 |
-| Low | 4 | 0 |
-| **Total** | **23** | **0** |
+| Severity | Count | Fixed | Verified Open |
+|----------|-------|-------|---------------|
+| Critical | 4 | 0 | 2 (C2, C3) |
+| High | 7 | 1 | 4 (H1, H5, H6, H7) |
+| Medium | 8 | 0 | 1 (M6-partial) |
+| Low | 4 | 0 | 1 (N1-new) |
+| **Total** | **23** | **1** | **8** |
 
 ---
 
@@ -42,11 +44,12 @@ IPINFO_API_KEY: str       # Required from environment
 ### C2. No Rate Limiting on Auth
 | | |
 |---|---|
-| **Status** | [ ] Open |
+| **Status** | [ ] Open - **VERIFIED 2025-12-16** |
 | **File** | `backend/routes/auth.py` (login, register) |
 | **Issue** | Unlimited login/register attempts allowed |
 | **Risk** | Brute force, credential stuffing, DoS |
 | **Fix** | Implement slowapi rate limiting |
+| **Test** | 11+ rapid login attempts, no 429 response |
 
 ```python
 # Add to routes/auth.py:
@@ -69,11 +72,12 @@ def register(...):
 ### C3. JWT Tokens in URL Parameters
 | | |
 |---|---|
-| **Status** | [ ] Open |
+| **Status** | [ ] Open - **VERIFIED 2025-12-16** |
 | **Files** | `backend/routes/auth.py:368`, `photos.py:306`, `events.py:680`, `chat.py:26` |
 | **Issue** | Tokens passed as `?token=...` query parameter |
 | **Risk** | Tokens logged in server logs, browser history, Referer leaks |
 | **Fix** | Use Authorization header, or signed short-lived URLs |
+| **Test** | Photo endpoint accepts `?token=` parameter (confirmed via OpenAPI spec) |
 
 Affected endpoints:
 - `GET /api/auth/me/photo?token=...`
@@ -99,20 +103,22 @@ Affected endpoints:
 ### H1. Excessive JWT Expiration
 | | |
 |---|---|
-| **Status** | [ ] Open |
+| **Status** | [ ] Open - **VERIFIED 2025-12-16** |
 | **File** | `backend/config.py:20` |
 | **Issue** | Tokens valid for 7 days (10,080 minutes) |
 | **Fix** | Reduce to 15-60 minutes, implement refresh tokens |
+| **Test** | Decoded JWT: exp=2025-12-23 (7 days from issue) |
 
 ---
 
 ### H2. Overly Permissive CORS
 | | |
 |---|---|
-| **Status** | [ ] Open |
+| **Status** | [x] **FIXED** - Verified 2025-12-16 |
 | **File** | `backend/main.py:41-42` |
 | **Issue** | `allow_methods=["*"]`, `allow_headers=["*"]` |
 | **Fix** | Explicitly list allowed methods and headers |
+| **Test** | Malicious origin `https://evil.com` returns "Disallowed CORS origin" |
 
 ```python
 allow_methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"],
@@ -144,10 +150,11 @@ allow_headers=["Authorization", "Content-Type", "Accept"],
 ### H5. Unsanitized Chat Messages
 | | |
 |---|---|
-| **Status** | [ ] Open |
+| **Status** | [ ] **PARTIAL** - Verified 2025-12-16 |
 | **File** | `backend/routes/chat.py:79-92` |
 | **Issue** | Raw user input stored and broadcast |
 | **Fix** | Apply `sanitize_text()` before storing |
+| **Test** | Event name: `<script>` tags stripped. Event description: `<img onerror>` **NOT** sanitized - stored XSS possible |
 
 ```python
 from services.sanitize import sanitize_text
@@ -159,10 +166,11 @@ content = sanitize_text(content, allow_basic_formatting=True)
 ### H6. Missing Security Headers
 | | |
 |---|---|
-| **Status** | [ ] Open |
+| **Status** | [ ] **PARTIAL** - Verified 2025-12-16 |
 | **File** | `backend/main.py` |
 | **Issue** | No CSP, X-Frame-Options, HSTS, etc. |
 | **Fix** | Add security headers middleware |
+| **Test** | Frontend has HSTS. Backend missing: CSP, X-Frame-Options, X-Content-Type-Options, Referrer-Policy |
 
 ```python
 @app.middleware("http")
@@ -181,10 +189,11 @@ async def add_security_headers(request, call_next):
 ### H7. No Email Verification
 | | |
 |---|---|
-| **Status** | [ ] Open |
+| **Status** | [ ] Open - **VERIFIED 2025-12-16** |
 | **File** | `backend/routes/auth.py:85` |
 | **Issue** | `email_verified=False` with no verification flow |
 | **Fix** | Implement email verification on registration |
+| **Test** | Registered account, `email_verified: false` in response, full access granted |
 
 ---
 
@@ -325,6 +334,17 @@ class EventCreate(BaseModel):
 | **File** | User model |
 | **Issue** | Biometric data stored without explicit consent/policy |
 | **Fix** | Add privacy policy, consent flow, data retention policy |
+
+---
+
+### L5. OpenAPI Specification Publicly Exposed (NEW)
+| | |
+|---|---|
+| **Status** | [ ] Open - **FOUND 2025-12-16** |
+| **Endpoint** | `/openapi.json` |
+| **Issue** | Full API specification accessible without authentication |
+| **Risk** | Information disclosure helps attackers map attack surface |
+| **Fix** | Disable OpenAPI in production or require authentication |
 
 ---
 
