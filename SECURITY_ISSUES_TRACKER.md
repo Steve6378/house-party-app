@@ -8,13 +8,14 @@ Quick reference for all identified vulnerabilities. Use this to track remediatio
 
 ## Summary
 
-| Severity | Count | Fixed | Verified Open |
-|----------|-------|-------|---------------|
-| Critical | 4 | 0 | 2 (C2, C3) |
-| High | 7 | 1 | 4 (H1, H5, H6, H7) |
-| Medium | 8 | 0 | 1 (M6-partial) |
-| Low | 4 | 0 | 1 (N1-new) |
-| **Total** | **23** | **1** | **8** |
+| Severity | Count | Fixed | Verified Open | Protected |
+|----------|-------|-------|---------------|-----------|
+| Critical | 4 | 0 | 2 (C2, C3) | 0 |
+| High | 7 | 1 | 3 (H1, H5-partial, H6, H7) | 1 (H3) |
+| Medium | 8 | 1 | 1 (M5) | 2 (M3, M4) |
+| Low | 5 | 0 | 1 (L5) | 0 |
+| New | 2 | 0 | 2 (N2, N3) | 0 |
+| **Total** | **26** | **2** | **9** | **3** |
 
 ---
 
@@ -130,10 +131,13 @@ allow_headers=["Authorization", "Content-Type", "Accept"],
 ### H3. WebSocket Auth via URL
 | | |
 |---|---|
-| **Status** | [ ] Open |
+| **Status** | [~] **PROTECTED** - Verified 2025-12-16 |
 | **File** | `backend/routes/chat.py:26` |
 | **Issue** | WebSocket token in query param |
 | **Fix** | Authenticate via first message after connection |
+| **Test** | No token/invalid token/attacker token all rejected with WebSocketBadStatusException |
+
+Note: While token is still in URL (not ideal), auth is properly enforced.
 
 ---
 
@@ -230,30 +234,35 @@ detail="Account is not available"
 ### M3. Prompt Injection Risk
 | | |
 |---|---|
-| **Status** | [ ] Open |
+| **Status** | [~] **PROTECTED** - Verified 2025-12-16 |
 | **File** | `backend/routes/ai.py:246-257` |
 | **Issue** | User input embedded directly in AI prompts |
 | **Fix** | Structured prompts, input validation, output filtering |
+| **Test** | Injection attempts return semantic search results, not LLM-generated content |
+
+Note: /ask endpoint uses embedding-based semantic search, not direct LLM generation.
 
 ---
 
 ### M4. Path Traversal Reliance on DB
 | | |
 |---|---|
-| **Status** | [ ] Open |
+| **Status** | [~] **PROTECTED** - Verified 2025-12-16 |
 | **File** | `backend/routes/photos.py:347-351` |
 | **Issue** | Path check assumes DB values are trustworthy |
 | **Fix** | Additional validation, don't store full paths |
+| **Test** | Traversal patterns (../, encoded variants) all returned 404/Not Found |
 
 ---
 
 ### M5. Short Invite Tokens
 | | |
 |---|---|
-| **Status** | [ ] Open |
+| **Status** | [ ] Open - **VERIFIED 2025-12-16** |
 | **File** | `backend/routes/attendance.py:457` |
 | **Issue** | 8-character tokens (~48 bits entropy) |
 | **Fix** | Increase to 16+ characters |
+| **Test** | Generated 5 tokens: f7dhbK_h, nfT3p_tn, HOf5PDXK, anCqUsgn, NDrJhRis (all 8 chars) |
 
 ```python
 def generate_token(length: int = 16) -> str:  # Changed from 8
@@ -275,10 +284,11 @@ def generate_token(length: int = 16) -> str:  # Changed from 8
 ### M7. No Input Length Validation
 | | |
 |---|---|
-| **Status** | [ ] Open |
+| **Status** | [x] **FIXED** - Verified 2025-12-16 |
 | **File** | Various Pydantic schemas |
 | **Issue** | No max length on strings |
 | **Fix** | Add `max_length` constraints |
+| **Test** | Event name: 255 max (1000 chars rejected). Description: ~2000-2500 max (5000 chars rejected) |
 
 ```python
 class EventCreate(BaseModel):
@@ -345,6 +355,34 @@ class EventCreate(BaseModel):
 | **Issue** | Full API specification accessible without authentication |
 | **Risk** | Information disclosure helps attackers map attack surface |
 | **Fix** | Disable OpenAPI in production or require authentication |
+
+---
+
+## New Findings (Round 2 Testing)
+
+### N2. Account Enumeration on Registration
+| | |
+|---|---|
+| **Status** | [ ] Open - **FOUND 2025-12-16** |
+| **Severity** | Medium |
+| **Endpoint** | `POST /api/auth/register` |
+| **Issue** | Returns "Email already registered" for existing accounts |
+| **Risk** | Attackers can enumerate valid accounts for targeted attacks |
+| **Fix** | Return generic error or use email verification flow |
+| **Test** | Existing email returns "Email already registered", new email creates account |
+
+---
+
+### N3. File Content Not Validated
+| | |
+|---|---|
+| **Status** | [ ] Open - **FOUND 2025-12-16** |
+| **Severity** | Medium |
+| **Endpoint** | File upload endpoints |
+| **Issue** | PHP/script content accepted if file has image extension |
+| **Risk** | If files served from same domain, potential XSS or code execution |
+| **Fix** | Validate file magic bytes match extension, serve from separate domain |
+| **Test** | PHP payload in .jpg file accepted and stored |
 
 ---
 
