@@ -1,0 +1,353 @@
+# Security Issues Tracker
+
+Quick reference for all identified vulnerabilities. Use this to track remediation progress.
+
+---
+
+## Summary
+
+| Severity | Count | Fixed |
+|----------|-------|-------|
+| Critical | 4 | 0 |
+| High | 7 | 0 |
+| Medium | 8 | 0 |
+| Low | 4 | 0 |
+| **Total** | **23** | **0** |
+
+---
+
+## Critical Issues
+
+### C1. Hardcoded API Keys
+| | |
+|---|---|
+| **Status** | [ ] Open |
+| **File** | `backend/config.py:23-26` |
+| **Issue** | Google Maps and IPInfo API keys hardcoded in source |
+| **Risk** | Key theft, billing abuse, committed to git history |
+| **Fix** | Remove defaults, load from env vars only, rotate keys |
+
+```python
+# Current (BAD):
+GOOGLE_MAPS_API_KEY: str = "AIzaSyArl429AzBBxRq75I44ql0B7U56Gx0dMCo"
+IPINFO_API_KEY: str = "66e8a1256f48d9"
+
+# Fixed (GOOD):
+GOOGLE_MAPS_API_KEY: str  # Required from environment
+IPINFO_API_KEY: str       # Required from environment
+```
+
+---
+
+### C2. No Rate Limiting on Auth
+| | |
+|---|---|
+| **Status** | [ ] Open |
+| **File** | `backend/routes/auth.py` (login, register) |
+| **Issue** | Unlimited login/register attempts allowed |
+| **Risk** | Brute force, credential stuffing, DoS |
+| **Fix** | Implement slowapi rate limiting |
+
+```python
+# Add to routes/auth.py:
+from slowapi import Limiter
+from slowapi.util import get_remote_address
+
+limiter = Limiter(key_func=get_remote_address)
+
+@router.post("/login")
+@limiter.limit("5/minute")
+def login(...):
+
+@router.post("/register")
+@limiter.limit("3/minute")
+def register(...):
+```
+
+---
+
+### C3. JWT Tokens in URL Parameters
+| | |
+|---|---|
+| **Status** | [ ] Open |
+| **Files** | `backend/routes/auth.py:368`, `photos.py:306`, `events.py:680`, `chat.py:26` |
+| **Issue** | Tokens passed as `?token=...` query parameter |
+| **Risk** | Tokens logged in server logs, browser history, Referer leaks |
+| **Fix** | Use Authorization header, or signed short-lived URLs |
+
+Affected endpoints:
+- `GET /api/auth/me/photo?token=...`
+- `GET /api/events/photos/{id}/file?token=...`
+- `GET /api/events/{id}/cover-image?token=...`
+- `WS /api/events/{id}/ws?token=...`
+
+---
+
+### C4. localStorage Token Storage
+| | |
+|---|---|
+| **Status** | [ ] Open |
+| **File** | `frontend/src/stores/authStore.ts:35-37` |
+| **Issue** | JWT stored in localStorage, accessible to JavaScript |
+| **Risk** | Any XSS = full account takeover |
+| **Fix** | Use httpOnly cookies with SameSite=Strict |
+
+---
+
+## High Issues
+
+### H1. Excessive JWT Expiration
+| | |
+|---|---|
+| **Status** | [ ] Open |
+| **File** | `backend/config.py:20` |
+| **Issue** | Tokens valid for 7 days (10,080 minutes) |
+| **Fix** | Reduce to 15-60 minutes, implement refresh tokens |
+
+---
+
+### H2. Overly Permissive CORS
+| | |
+|---|---|
+| **Status** | [ ] Open |
+| **File** | `backend/main.py:41-42` |
+| **Issue** | `allow_methods=["*"]`, `allow_headers=["*"]` |
+| **Fix** | Explicitly list allowed methods and headers |
+
+```python
+allow_methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+allow_headers=["Authorization", "Content-Type", "Accept"],
+```
+
+---
+
+### H3. WebSocket Auth via URL
+| | |
+|---|---|
+| **Status** | [ ] Open |
+| **File** | `backend/routes/chat.py:26` |
+| **Issue** | WebSocket token in query param |
+| **Fix** | Authenticate via first message after connection |
+
+---
+
+### H4. No CSRF Protection
+| | |
+|---|---|
+| **Status** | [ ] Open |
+| **File** | Entire backend |
+| **Issue** | No CSRF tokens on state-changing requests |
+| **Fix** | Implement CSRF protection (needed if using cookies) |
+
+---
+
+### H5. Unsanitized Chat Messages
+| | |
+|---|---|
+| **Status** | [ ] Open |
+| **File** | `backend/routes/chat.py:79-92` |
+| **Issue** | Raw user input stored and broadcast |
+| **Fix** | Apply `sanitize_text()` before storing |
+
+```python
+from services.sanitize import sanitize_text
+content = sanitize_text(content, allow_basic_formatting=True)
+```
+
+---
+
+### H6. Missing Security Headers
+| | |
+|---|---|
+| **Status** | [ ] Open |
+| **File** | `backend/main.py` |
+| **Issue** | No CSP, X-Frame-Options, HSTS, etc. |
+| **Fix** | Add security headers middleware |
+
+```python
+@app.middleware("http")
+async def add_security_headers(request, call_next):
+    response = await call_next(request)
+    response.headers["X-Content-Type-Options"] = "nosniff"
+    response.headers["X-Frame-Options"] = "DENY"
+    response.headers["Strict-Transport-Security"] = "max-age=31536000; includeSubDomains"
+    response.headers["Referrer-Policy"] = "strict-origin-when-cross-origin"
+    response.headers["Permissions-Policy"] = "geolocation=(self)"
+    return response
+```
+
+---
+
+### H7. No Email Verification
+| | |
+|---|---|
+| **Status** | [ ] Open |
+| **File** | `backend/routes/auth.py:85` |
+| **Issue** | `email_verified=False` with no verification flow |
+| **Fix** | Implement email verification on registration |
+
+---
+
+## Medium Issues
+
+### M1. Account Status Information Disclosure
+| | |
+|---|---|
+| **Status** | [ ] Open |
+| **File** | `backend/routes/auth.py:148` |
+| **Issue** | Error reveals account status (suspended, deleted, etc.) |
+| **Fix** | Generic error message |
+
+```python
+# Current:
+detail=f"Account is {user.status}"
+
+# Fixed:
+detail="Account is not available"
+```
+
+---
+
+### M2. SQL-like Pattern in FAQ Search
+| | |
+|---|---|
+| **Status** | [ ] Open |
+| **File** | `backend/routes/ai.py:768` |
+| **Issue** | `ilike(f"%{normalized_question}%")` - special chars not escaped |
+| **Fix** | Escape `%` and `_` in user input |
+
+---
+
+### M3. Prompt Injection Risk
+| | |
+|---|---|
+| **Status** | [ ] Open |
+| **File** | `backend/routes/ai.py:246-257` |
+| **Issue** | User input embedded directly in AI prompts |
+| **Fix** | Structured prompts, input validation, output filtering |
+
+---
+
+### M4. Path Traversal Reliance on DB
+| | |
+|---|---|
+| **Status** | [ ] Open |
+| **File** | `backend/routes/photos.py:347-351` |
+| **Issue** | Path check assumes DB values are trustworthy |
+| **Fix** | Additional validation, don't store full paths |
+
+---
+
+### M5. Short Invite Tokens
+| | |
+|---|---|
+| **Status** | [ ] Open |
+| **File** | `backend/routes/attendance.py:457` |
+| **Issue** | 8-character tokens (~48 bits entropy) |
+| **Fix** | Increase to 16+ characters |
+
+```python
+def generate_token(length: int = 16) -> str:  # Changed from 8
+    return secrets.token_urlsafe(length)
+```
+
+---
+
+### M6. Error Details Exposed
+| | |
+|---|---|
+| **Status** | [ ] Open |
+| **File** | Multiple exception handlers |
+| **Issue** | `detail=str(e)` exposes internal errors |
+| **Fix** | Generic errors in production, log details server-side |
+
+---
+
+### M7. No Input Length Validation
+| | |
+|---|---|
+| **Status** | [ ] Open |
+| **File** | Various Pydantic schemas |
+| **Issue** | No max length on strings |
+| **Fix** | Add `max_length` constraints |
+
+```python
+class EventCreate(BaseModel):
+    name: str = Field(..., max_length=200)
+    description: Optional[str] = Field(None, max_length=5000)
+```
+
+---
+
+### M8. Frontend API Key Risk
+| | |
+|---|---|
+| **Status** | [ ] Open |
+| **File** | `frontend/src/config/api.ts` |
+| **Issue** | `VITE_OPENAI_API_KEY` could expose key in browser |
+| **Fix** | Never use OpenAI key in frontend, proxy through backend |
+
+---
+
+## Low Issues
+
+### L1. Debug Mode Default
+| | |
+|---|---|
+| **Status** | [ ] Open |
+| **File** | `backend/config.py:37` |
+| **Issue** | `DEBUG: bool = True` default |
+| **Fix** | Default to False |
+
+---
+
+### L2. OAuth Redirect Validation (Future)
+| | |
+|---|---|
+| **Status** | [ ] Open |
+| **File** | OAuth implementation (when completed) |
+| **Issue** | Ensure redirect URIs validated against allowlist |
+
+---
+
+### L3. Database URL Logging
+| | |
+|---|---|
+| **Status** | [ ] Open |
+| **Issue** | Ensure DATABASE_URL never logged |
+
+---
+
+### L4. Face Encoding Privacy
+| | |
+|---|---|
+| **Status** | [ ] Open |
+| **File** | User model |
+| **Issue** | Biometric data stored without explicit consent/policy |
+| **Fix** | Add privacy policy, consent flow, data retention policy |
+
+---
+
+## Remediation Priority
+
+### Immediate (24-48h)
+1. C1 - Rotate and externalize API keys
+2. C2 - Add rate limiting to auth
+
+### This Week
+3. C3 - Move tokens from URLs to headers
+4. C4 - Implement httpOnly cookie auth
+5. H5 - Sanitize chat messages
+6. H6 - Add security headers
+
+### Next Week
+7. H1 - Reduce JWT expiration
+8. H2 - Fix CORS configuration
+9. H4 - Add CSRF protection
+10. M5 - Increase invite token length
+
+### This Month
+11. H7 - Email verification
+12. M3 - Harden AI prompts
+13. M7 - Input length validation
+14. Remaining medium/low issues
