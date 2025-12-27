@@ -10,12 +10,12 @@ Quick reference for all identified vulnerabilities. Use this to track remediatio
 
 | Severity | Count | Fixed | Verified Open | Protected |
 |----------|-------|-------|---------------|-----------|
-| Critical | 4 | 0 | 2 (C2, C3) | 0 |
-| High | 7 | 1 | 3 (H1, H5-partial, H6, H7) | 1 (H3) |
-| Medium | 8 | 1 | 2 (M3, M5) | 1 (M4) |
+| Critical | 4 | 1 (C2) | 1 (C3) | 0 |
+| High | 7 | 2 (H2, H5) | 2 (H1, H6, H7) | 1 (H3) |
+| Medium | 8 | 2 (M3, M7) | 1 (M5) | 1 (M4) |
 | Low | 5 | 0 | 1 (L5) | 0 |
-| New | 2 | 0 | 2 (N2, N3) | 0 |
-| **Total** | **26** | **2** | **10** | **2** |
+| New | 2 | 1 (N3) | 1 (N2) | 0 |
+| **Total** | **26** | **6** | **6** | **2** |
 
 ---
 
@@ -45,12 +45,12 @@ IPINFO_API_KEY: str       # Required from environment
 ### C2. No Rate Limiting on Auth
 | | |
 |---|---|
-| **Status** | [ ] Open - **VERIFIED 2025-12-27** |
+| **Status** | [x] **FIXED** - 2025-12-27 |
 | **File** | `backend/routes/auth.py` (login, register) |
 | **Issue** | Unlimited login/register attempts allowed |
 | **Risk** | Brute force, credential stuffing, DoS |
-| **Fix** | Implement slowapi rate limiting |
-| **Test** | 12 rapid login attempts, all returned 401 (no 429 rate limit) |
+| **Fix** | Implemented slowapi rate limiting: login 5/min, register 3/min |
+| **Commit** | b4bf485 - Added slowapi limiter with 429 responses |
 
 ```python
 # Add to routes/auth.py:
@@ -154,11 +154,11 @@ Note: While token is still in URL (not ideal), auth is properly enforced.
 ### H5. Unsanitized Chat Messages
 | | |
 |---|---|
-| **Status** | [ ] **PARTIAL** - Verified 2025-12-27 |
-| **File** | `backend/routes/chat.py:79-92` |
+| **Status** | [x] **FIXED** - 2025-12-27 |
+| **File** | `backend/routes/events.py` |
 | **Issue** | Raw user input stored and broadcast |
-| **Fix** | Apply `sanitize_text()` before storing |
-| **Test** | Event name: `<script>alert(1)</script>` stripped to `alert(1)`. Event description: `<img src=x onerror=alert(1)>` stored as-is - **STORED XSS CONFIRMED** |
+| **Fix** | Added `sanitize_text()` to event description in create/update |
+| **Commit** | b4bf485 - Description now sanitized with allow_basic_formatting=True |
 
 ```python
 from services.sanitize import sanitize_text
@@ -234,11 +234,11 @@ detail="Account is not available"
 ### M3. Prompt Injection Risk
 | | |
 |---|---|
-| **Status** | [ ] **VULNERABLE** - Verified 2025-12-27 |
-| **File** | `backend/routes/ai.py:246-257` |
+| **Status** | [x] **FIXED** - 2025-12-27 |
+| **File** | `backend/routes/ai.py` (generate-description) |
 | **Issue** | User input embedded directly in AI prompts |
-| **Fix** | Structured prompts, input validation, output filtering |
-| **Test** | Multiple AI endpoints tested - generate-description CONFIRMED VULNERABLE |
+| **Fix** | Input sanitization, structured [EVENT DATA] boundaries, security rules in system prompt |
+| **Commit** | b4bf485 - Strips newlines, limits length, clear data/instruction separation |
 
 **Detailed Testing Results (2025-12-27):**
 | Endpoint | Result |
@@ -399,13 +399,13 @@ class EventCreate(BaseModel):
 ### N3. File Content Not Validated
 | | |
 |---|---|
-| **Status** | [ ] Open - **VERIFIED 2025-12-27** |
+| **Status** | [x] **FIXED** - 2025-12-27 |
 | **Severity** | Medium |
-| **Endpoint** | `POST /api/events/{id}/photos` |
+| **Endpoint** | `POST /api/events/{id}/photos`, `POST /api/auth/me/photo` |
 | **Issue** | PHP/script content accepted if file has image extension |
 | **Risk** | If files served from same domain, potential XSS or code execution |
-| **Fix** | Validate file magic bytes match extension, serve from separate domain |
-| **Test** | PHP payload `<?php system($_GET["cmd"]); ?>` in shell.jpg uploaded successfully (31 bytes) |
+| **Fix** | Added magic byte validation to verify file content matches extension |
+| **Commit** | b4bf485 - validate_image_content() checks JPEG/PNG/GIF/WebP signatures |
 
 ---
 
