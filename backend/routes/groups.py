@@ -567,8 +567,8 @@ def send_group_message(
 # Group Invite Link Routes
 # ============================================
 
-def generate_token(length: int = 8) -> str:
-    """Generate a short, URL-safe token."""
+def generate_token(length: int = 16) -> str:
+    """Generate a secure, URL-safe token (16 chars = ~96 bits entropy)."""
     return secrets.token_urlsafe(length)[:length]
 
 

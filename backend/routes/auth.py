@@ -65,11 +65,12 @@ def register(request: Request, user_data: UserRegister, db: Session = Depends(ge
     - Name is required
     """
     # Check if email already exists
+    # Use generic error to prevent account enumeration attacks
     existing_user = db.query(User).filter(User.email == user_data.email).first()
     if existing_user:
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
-            detail="Email already registered"
+            detail="Registration failed. Please try again or use a different email."
         )
     
     # Generate user ID

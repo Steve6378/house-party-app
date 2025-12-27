@@ -23,15 +23,48 @@ from routes.documents import router as documents_router
 from routes.questionnaire import router as questionnaire_router
 from routes.photos import router as photos_router
 
-app = FastAPI(
-    title="Yorru API",
-    version="0.0.1",
-    description="Yorru - AI-assisted night event planning platform"
-)
+# Disable OpenAPI/docs in production to prevent information disclosure
+if settings.ENVIRONMENT == "production":
+    app = FastAPI(
+        title="Yorru API",
+        version="0.0.1",
+        description="Yorru - AI-assisted night event planning platform",
+        docs_url=None,      # Disable /docs
+        redoc_url=None,     # Disable /redoc
+        openapi_url=None    # Disable /openapi.json
+    )
+else:
+    app = FastAPI(
+        title="Yorru API",
+        version="0.0.1",
+        description="Yorru - AI-assisted night event planning platform"
+    )
 
 # Rate limiter setup
 app.state.limiter = limiter
 app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)
+
+
+# Security headers middleware
+@app.middleware("http")
+async def add_security_headers(request: Request, call_next):
+    """Add security headers to all responses"""
+    response = await call_next(request)
+    # Prevent MIME type sniffing
+    response.headers["X-Content-Type-Options"] = "nosniff"
+    # Prevent clickjacking
+    response.headers["X-Frame-Options"] = "DENY"
+    # Enable XSS filter in browsers
+    response.headers["X-XSS-Protection"] = "1; mode=block"
+    # Control referrer information
+    response.headers["Referrer-Policy"] = "strict-origin-when-cross-origin"
+    # Restrict browser features
+    response.headers["Permissions-Policy"] = "geolocation=(self), microphone=(), camera=()"
+    # HSTS - only in production
+    if settings.ENVIRONMENT == "production":
+        response.headers["Strict-Transport-Security"] = "max-age=31536000; includeSubDomains"
+    return response
+
 
 # CORS middleware for frontend - MUST be added before routes
 app.add_middleware(

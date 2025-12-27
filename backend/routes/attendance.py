@@ -453,8 +453,8 @@ async def remove_cohost(
 # Invite Link Routes (Events)
 # ============================================
 
-def generate_token(length: int = 8) -> str:
-    """Generate a short, URL-safe token."""
+def generate_token(length: int = 16) -> str:
+    """Generate a secure, URL-safe token (16 chars = ~96 bits entropy)."""
     return secrets.token_urlsafe(length)[:length]
 
 
