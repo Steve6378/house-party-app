@@ -21,12 +21,26 @@ class UserLogin(BaseModel):
 
 
 class Token(BaseModel):
-    """Schema for token response"""
+    """Schema for token response (includes refresh token)"""
     access_token: str
+    refresh_token: str
     token_type: str = "bearer"
+    expires_in: int = 900  # Access token expires in 15 min (900 seconds)
     user_id: str
     email: str
     name: str
+
+
+class RefreshRequest(BaseModel):
+    """Schema for token refresh request"""
+    refresh_token: str
+
+
+class RefreshResponse(BaseModel):
+    """Schema for token refresh response"""
+    access_token: str
+    token_type: str = "bearer"
+    expires_in: int = 900  # 15 minutes in seconds
 
 
 class UserResponse(BaseModel):

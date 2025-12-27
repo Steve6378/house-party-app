@@ -17,7 +17,8 @@ class Settings(BaseSettings):
     OPENAI_API_KEY: str
     JWT_SECRET_KEY: str
     JWT_ALGORITHM: str = "HS256"
-    JWT_EXPIRATION_MINUTES: int = 60 * 24 * 7  # 7 days
+    JWT_EXPIRATION_MINUTES: int = 15  # Short-lived access token (was 7 days)
+    REFRESH_TOKEN_EXPIRATION_DAYS: int = 7  # Long-lived refresh token
 
     # Google Maps API for vendor recommendations
     GOOGLE_MAPS_API_KEY: str = "AIzaSyArl429AzBBxRq75I44ql0B7U56Gx0dMCo"

@@ -11,11 +11,11 @@ Quick reference for all identified vulnerabilities. Use this to track remediatio
 | Severity | Count | Fixed | Verified Open | Protected |
 |----------|-------|-------|---------------|-----------|
 | Critical | 4 | 1 (C2) | 1 (C3) | 0 |
-| High | 7 | 3 (H2, H5, H6) | 2 (H1, H7) | 1 (H3) |
+| High | 7 | 4 (H1, H2, H5, H6) | 1 (H7) | 1 (H3) |
 | Medium | 8 | 3 (M3, M5, M7) | 0 | 1 (M4) |
 | Low | 5 | 1 (L5) | 0 | 0 |
 | New | 2 | 2 (N2, N3) | 0 | 0 |
-| **Total** | **26** | **10** | **3** | **2** |
+| **Total** | **26** | **11** | **2** | **2** |
 
 ---
 
@@ -104,11 +104,11 @@ Affected endpoints:
 ### H1. Excessive JWT Expiration
 | | |
 |---|---|
-| **Status** | [ ] Open - **VERIFIED 2025-12-27** |
-| **File** | `backend/config.py:20` |
+| **Status** | [x] **FIXED** - 2025-12-27 |
+| **File** | `backend/config.py`, `backend/services/auth.py`, `backend/routes/auth.py` |
 | **Issue** | Tokens valid for 7 days (10,080 minutes) |
-| **Fix** | Reduce to 15-60 minutes, implement refresh tokens |
-| **Test** | Decoded JWT: exp=2026-01-03 (7 days from issue on 2025-12-27) |
+| **Fix** | Implemented 15-minute access tokens + 7-day refresh tokens |
+| **Details** | Access token: 15 min, Refresh token: 7 days, New `/api/auth/refresh` endpoint |
 
 ---
 

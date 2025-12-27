@@ -13,8 +13,8 @@ import io
 
 from models.user import User
 from models.attendance import EventAttendance
-from schemas.auth import UserRegister, UserLogin, Token, UserResponse, UserUpdate
-from services.auth import hash_password, verify_password, create_access_token, decode_access_token
+from schemas.auth import UserRegister, UserLogin, Token, UserResponse, UserUpdate, RefreshRequest, RefreshResponse
+from services.auth import hash_password, verify_password, create_access_token, create_refresh_token, decode_access_token, decode_refresh_token
 from services.sanitize import sanitize_text
 from services.r2_storage import r2_storage
 from utils.database import get_db
@@ -113,12 +113,15 @@ def register(request: Request, user_data: UserRegister, db: Session = Depends(ge
     if pending_invites:
         db.commit()
 
-    # Create access token
+    # Create access and refresh tokens
     access_token = create_access_token(data={"sub": new_user.id})
+    refresh_token = create_refresh_token(data={"sub": new_user.id})
 
     return {
         "access_token": access_token,
+        "refresh_token": refresh_token,
         "token_type": "bearer",
+        "expires_in": 900,  # 15 minutes
         "user_id": new_user.id,
         "email": new_user.email,
         "name": new_user.name
@@ -160,15 +163,63 @@ def login(request: Request, credentials: UserLogin, db: Session = Depends(get_db
             detail=f"Account is {user.status}"
         )
     
-    # Create access token
+    # Create access and refresh tokens
     access_token = create_access_token(data={"sub": user.id})
-    
+    refresh_token = create_refresh_token(data={"sub": user.id})
+
     return {
         "access_token": access_token,
+        "refresh_token": refresh_token,
         "token_type": "bearer",
+        "expires_in": 900,  # 15 minutes
         "user_id": user.id,
         "email": user.email,
         "name": user.name
+    }
+
+
+@router.post("/refresh", response_model=RefreshResponse)
+@limiter.limit("10/minute")
+def refresh_tokens(request: Request, refresh_request: RefreshRequest, db: Session = Depends(get_db)):
+    """
+    Get a new access token using a refresh token.
+
+    Rate limited: 10 requests per minute per IP.
+
+    Use this endpoint when your access token expires (after 15 minutes).
+    The refresh token is valid for 7 days.
+    """
+    # Decode and validate the refresh token
+    user_id = decode_refresh_token(refresh_request.refresh_token)
+
+    if not user_id:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Invalid or expired refresh token"
+        )
+
+    # Verify user still exists and is active
+    user = db.query(User).filter(User.id == user_id).first()
+
+    if not user:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="User not found"
+        )
+
+    if user.status != "active":
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Account is not active"
+        )
+
+    # Create new access token
+    new_access_token = create_access_token(data={"sub": user.id})
+
+    return {
+        "access_token": new_access_token,
+        "token_type": "bearer",
+        "expires_in": 900  # 15 minutes
     }
 
 
