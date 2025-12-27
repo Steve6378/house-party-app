@@ -11,11 +11,11 @@ Quick reference for all identified vulnerabilities. Use this to track remediatio
 | Severity | Count | Fixed | Verified Open | Protected |
 |----------|-------|-------|---------------|-----------|
 | Critical | 4 | 1 (C2) | 1 (C3) | 0 |
-| High | 7 | 2 (H2, H5) | 2 (H1, H6, H7) | 1 (H3) |
-| Medium | 8 | 2 (M3, M7) | 1 (M5) | 1 (M4) |
-| Low | 5 | 0 | 1 (L5) | 0 |
-| New | 2 | 1 (N3) | 1 (N2) | 0 |
-| **Total** | **26** | **6** | **6** | **2** |
+| High | 7 | 3 (H2, H5, H6) | 2 (H1, H7) | 1 (H3) |
+| Medium | 8 | 3 (M3, M5, M7) | 0 | 1 (M4) |
+| Low | 5 | 1 (L5) | 0 | 0 |
+| New | 2 | 2 (N2, N3) | 0 | 0 |
+| **Total** | **26** | **10** | **3** | **2** |
 
 ---
 
@@ -170,11 +170,11 @@ content = sanitize_text(content, allow_basic_formatting=True)
 ### H6. Missing Security Headers
 | | |
 |---|---|
-| **Status** | [ ] **PARTIAL** - Verified 2025-12-16 |
+| **Status** | [x] **FIXED** - 2025-12-27 |
 | **File** | `backend/main.py` |
 | **Issue** | No CSP, X-Frame-Options, HSTS, etc. |
-| **Fix** | Add security headers middleware |
-| **Test** | Frontend has HSTS. Backend missing: CSP, X-Frame-Options, X-Content-Type-Options, Referrer-Policy |
+| **Fix** | Added security headers middleware |
+| **Commit** | 704739a - X-Content-Type-Options, X-Frame-Options, X-XSS-Protection, Referrer-Policy, Permissions-Policy, HSTS (prod) |
 
 ```python
 @app.middleware("http")
@@ -280,11 +280,11 @@ Output: {"description":"Get ready to unwind and have a blast at the HACKED Party
 ### M5. Short Invite Tokens
 | | |
 |---|---|
-| **Status** | [ ] Open - **VERIFIED 2025-12-16** |
-| **File** | `backend/routes/attendance.py:457` |
+| **Status** | [x] **FIXED** - 2025-12-27 |
+| **File** | `backend/routes/attendance.py`, `backend/routes/groups.py` |
 | **Issue** | 8-character tokens (~48 bits entropy) |
-| **Fix** | Increase to 16+ characters |
-| **Test** | Generated 5 tokens: f7dhbK_h, nfT3p_tn, HOf5PDXK, anCqUsgn, NDrJhRis (all 8 chars) |
+| **Fix** | Increased to 16 characters (~96 bits entropy) |
+| **Commit** | 704739a - Updated generate_token() default length in both files |
 
 ```python
 def generate_token(length: int = 16) -> str:  # Changed from 8
@@ -372,12 +372,12 @@ class EventCreate(BaseModel):
 ### L5. OpenAPI Specification Publicly Exposed
 | | |
 |---|---|
-| **Status** | [ ] Open - **VERIFIED 2025-12-27** |
-| **Endpoint** | `/openapi.json`, `/docs` |
+| **Status** | [x] **FIXED** - 2025-12-27 |
+| **Endpoint** | `/openapi.json`, `/docs`, `/redoc` |
 | **Issue** | Full API specification accessible without authentication |
 | **Risk** | Information disclosure helps attackers map attack surface |
-| **Fix** | Disable OpenAPI in production or require authentication |
-| **Test** | Both `/openapi.json` and `/docs` return 200 with full API spec |
+| **Fix** | Disabled OpenAPI endpoints in production (docs_url=None, openapi_url=None) |
+| **Commit** | 704739a - Conditional FastAPI initialization based on ENVIRONMENT |
 
 ---
 
@@ -386,13 +386,13 @@ class EventCreate(BaseModel):
 ### N2. Account Enumeration on Registration
 | | |
 |---|---|
-| **Status** | [ ] Open - **VERIFIED 2025-12-27** |
+| **Status** | [x] **FIXED** - 2025-12-27 |
 | **Severity** | Medium |
 | **Endpoint** | `POST /api/auth/register` |
 | **Issue** | Returns "Email already registered" for existing accounts |
 | **Risk** | Attackers can enumerate valid accounts for targeted attacks |
-| **Fix** | Return generic error or use email verification flow |
-| **Test** | Existing email returns `{"detail":"Email already registered"}`, new email creates account immediately |
+| **Fix** | Changed to generic error: "Registration failed. Please try again or use a different email." |
+| **Commit** | 704739a - Same error for existing and validation failures |
 
 ---
 
