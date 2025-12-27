@@ -1,7 +1,7 @@
 # Yorru - Photo Routes
 # Version: 0.0.1
 
-from fastapi import APIRouter, Depends, HTTPException, UploadFile, File, Form, Query
+from fastapi import APIRouter, Depends, HTTPException, UploadFile, File, Form
 from fastapi.responses import FileResponse, Response
 from sqlalchemy.orm import Session
 from sqlalchemy import text
@@ -22,7 +22,6 @@ from schemas.photo import PhotoResponse, PhotoUploadResponse, PhotoSearchRequest
 from utils.database import get_db
 from routes.auth import get_current_user
 from services.permissions import require_event_access
-from services.auth import decode_access_token
 from services.r2_storage import r2_storage
 from config import settings
 
@@ -350,29 +349,16 @@ async def get_event_photos(
 @router.get("/photos/{photo_id}/file")
 async def get_photo_file(
     photo_id: str,
-    token: Optional[str] = Query(None, description="JWT token for image tag authentication"),
+    current_user: User = Depends(get_current_user),
     db: Session = Depends(get_db)
 ):
     """
     Get the actual photo file.
 
-    **Authentication required via query param or header.**
+    **Authentication required via httpOnly cookie or Authorization header.**
 
-    Supports token as query parameter for use in img tags.
     Fetches from R2 or local storage based on configuration.
     """
-    # Validate token from query parameter
-    if not token:
-        raise HTTPException(status_code=401, detail="Token required")
-
-    user_id = decode_access_token(token)
-    if not user_id:
-        raise HTTPException(status_code=401, detail="Invalid or expired token")
-
-    current_user = db.query(User).filter(User.id == user_id).first()
-    if not current_user:
-        raise HTTPException(status_code=401, detail="User not found")
-
     # Get photo
     photo = db.query(EventPhoto).filter(EventPhoto.id == photo_id).first()
     if not photo:

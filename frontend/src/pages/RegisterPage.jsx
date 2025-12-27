@@ -33,11 +33,9 @@ function RegisterPage() {
     try {
       const response = await authAPI.register({ name, email, password });
 
-      // FastAPI returns: { access_token, token_type, user_id, email, name }
-      login(
-        { id: response.user_id, email: response.email, name: response.name },
-        response.access_token
-      );
+      // Auth token is now stored in httpOnly cookie automatically
+      // Just update the user state
+      login({ id: response.user_id, email: response.email, name: response.name });
       toast.success('Account created successfully!');
       navigate('/dashboard');
     } catch (error) {

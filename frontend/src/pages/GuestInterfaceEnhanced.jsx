@@ -559,7 +559,7 @@ function GuestInterfaceEnhanced() {
                   onClick={() => setSelectedPhoto(photo)}
                 >
                   <img
-                    src={photo.url || `${API_URL}/api/events/photos/${photo.id}/file?token=${token}`}
+                    src={photo.url || `${API_URL}/api/events/photos/${photo.id}/file`}
                     alt={photo.caption || 'Event photo'}
                     className="w-full h-full object-cover transition group-hover:scale-105"
                   />
@@ -591,7 +591,7 @@ function GuestInterfaceEnhanced() {
               <X className="w-8 h-8" />
             </button>
             <img
-              src={selectedPhoto.url || `${API_URL}/api/events/photos/${selectedPhoto.id}/file?token=${token}`}
+              src={selectedPhoto.url || `${API_URL}/api/events/photos/${selectedPhoto.id}/file`}
               alt={selectedPhoto.caption || 'Event photo'}
               className="max-w-full max-h-[90vh] object-contain rounded-lg"
               onClick={(e) => e.stopPropagation()}
@@ -692,12 +692,12 @@ function GuestInterfaceEnhanced() {
                             className="relative cursor-pointer group"
                             onClick={() => {
                               // Open photo in modal or lightbox
-                              const photoUrl = `${API_URL}${photo.file_path}?token=${token}`;
+                              const photoUrl = `${API_URL}${photo.file_path}`;
                               window.open(photoUrl, '_blank');
                             }}
                           >
                             <img
-                              src={`${API_URL}${photo.file_path}?token=${token}`}
+                              src={`${API_URL}${photo.file_path}`}
                               alt={photo.description || 'Event photo'}
                               className="w-full h-24 object-cover rounded-lg border border-primary-500/20 hover:border-accent-400 transition"
                             />

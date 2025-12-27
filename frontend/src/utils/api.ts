@@ -1,27 +1,29 @@
 import axios from 'axios';
 import { API_URL } from '../config/api';
 
+// Helper to get CSRF token from cookie
+function getCsrfToken(): string | null {
+  const match = document.cookie.match(/csrf_token=([^;]+)/);
+  return match ? match[1] : null;
+}
+
 // Create axios instance with base config
 const api = axios.create({
   baseURL: API_URL,
   headers: {
     'Content-Type': 'application/json',
   },
+  withCredentials: true,  // Send cookies with requests
 });
 
-// Add request interceptor to attach auth token
+// Add request interceptor to attach CSRF token
 api.interceptors.request.use(
   (config) => {
-    const authStorage = localStorage.getItem('auth-storage');
-    if (authStorage) {
-      try {
-        const authData = JSON.parse(authStorage);
-        const token = authData.state?.token;
-        if (token) {
-          config.headers.Authorization = `Bearer ${token}`;
-        }
-      } catch (error) {
-        console.error('Error parsing auth storage:', error);
+    // Add CSRF token to state-changing requests
+    if (config.method && ['post', 'put', 'delete', 'patch'].includes(config.method.toLowerCase())) {
+      const csrfToken = getCsrfToken();
+      if (csrfToken) {
+        config.headers['X-CSRF-Token'] = csrfToken;
       }
     }
     return config;
@@ -34,11 +36,17 @@ api.interceptors.request.use(
 // Add response interceptor to handle errors
 api.interceptors.response.use(
   (response) => response,
-  (error) => {
+  async (error) => {
     if (error.response?.status === 401) {
-      // Token expired or invalid - clear auth state
-      // ProtectedRoute will handle redirect to login (no page reload needed)
-      localStorage.removeItem('auth-storage');
+      // Token expired - try to refresh
+      try {
+        await api.post('/api/auth/refresh');
+        // Retry the original request
+        return api.request(error.config);
+      } catch (refreshError) {
+        // Refresh failed - clear auth state
+        localStorage.removeItem('auth-storage');
+      }
     }
     return Promise.reject(error);
   }
@@ -78,19 +86,19 @@ export const authAPI = {
   },
 
   getProfilePhotoUrl: () => {
-    const authStorage = localStorage.getItem('auth-storage');
-    if (authStorage) {
-      try {
-        const authData = JSON.parse(authStorage);
-        const token = authData.state?.token;
-        if (token) {
-          return `${API_URL}/api/auth/me/photo?token=${token}`;
-        }
-      } catch (error) {
-        console.error('Error parsing auth storage:', error);
-      }
-    }
-    return null;
+    // Photo URLs now use cookie auth, no token needed
+    return `${API_URL}/api/auth/me/photo`;
+  },
+
+  getUserPhotoUrl: (userId: string) => {
+    // User photo URLs now use cookie auth, no token needed
+    return `${API_URL}/api/auth/users/${userId}/photo`;
+  },
+
+  logout: async () => {
+    const response = await api.post('/api/auth/logout');
+    localStorage.removeItem('auth-storage');
+    return response.data;
   },
 
   refreshFaceEncoding: async () => {
@@ -207,6 +215,11 @@ export const eventsAPI = {
   deleteCoverImage: async (eventId: string) => {
     const response = await api.delete(`/api/events/${eventId}/cover-image`);
     return response.data;
+  },
+
+  getCoverImageUrl: (eventId: string) => {
+    // Cover image URLs now use cookie auth, no token needed
+    return `${API_URL}/api/events/${eventId}/cover-image`;
   },
 };
 
@@ -442,6 +455,11 @@ export const photosAPI = {
       responseType: 'blob',
     });
     return response.data;
+  },
+
+  getPhotoUrl: (photoId: string) => {
+    // Photo URLs now use cookie auth, no token needed
+    return `${API_URL}/api/events/photos/${photoId}/file`;
   },
 
   delete: async (eventId: string, photoId: string) => {

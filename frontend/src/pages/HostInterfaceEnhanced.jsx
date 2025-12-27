@@ -1096,10 +1096,10 @@ function HostInterfaceEnhanced() {
                                 {msg.photos.map((photoId) => (
                                   <div key={photoId} className="relative group">
                                     <img
-                                      src={`${API_URL}/api/events/photos/${photoId}/file?token=${token}`}
+                                      src={`${API_URL}/api/events/photos/${photoId}/file`}
                                       alt="Event photo"
                                       className="w-full h-24 object-cover rounded-lg border border-dark-600 hover:border-primary-500 transition-colors cursor-pointer"
-                                      onClick={() => window.open(`${API_URL}/api/events/photos/${photoId}/file?token=${token}`, '_blank')}
+                                      onClick={() => window.open(`${API_URL}/api/events/photos/${photoId}/file`, '_blank')}
                                     />
                                   </div>
                                 ))}
@@ -1347,7 +1347,7 @@ function HostInterfaceEnhanced() {
                     onClick={() => setSelectedPhoto(photo)}
                   >
                     <img
-                      src={photo.url || `${API_URL}/api/events/photos/${photo.id}/file?token=${token}`}
+                      src={photo.url || `${API_URL}/api/events/photos/${photo.id}/file`}
                       alt={photo.caption || 'Event photo'}
                       className="w-full h-full object-cover transition group-hover:scale-105"
                     />
@@ -1402,7 +1402,7 @@ function HostInterfaceEnhanced() {
               <X className="w-8 h-8" />
             </button>
             <img
-              src={selectedPhoto.url || `${API_URL}/api/events/photos/${selectedPhoto.id}/file?token=${token}`}
+              src={selectedPhoto.url || `${API_URL}/api/events/photos/${selectedPhoto.id}/file`}
               alt={selectedPhoto.caption || 'Event photo'}
               className="max-w-full max-h-[90vh] object-contain rounded-lg"
               onClick={(e) => e.stopPropagation()}

@@ -416,7 +416,7 @@ function GroupChatWorking() {
                           {!isOwnMessage && (
                             msg.sender_profile_photo ? (
                               <img
-                                src={`${import.meta.env.VITE_API_URL || 'http://localhost:8000'}${msg.sender_profile_photo}?token=${token}`}
+                                src={`${import.meta.env.VITE_API_URL || 'http://localhost:8000'}${msg.sender_profile_photo}`}
                                 alt={msg.sender_name || 'User'}
                                 className="flex-shrink-0 w-8 h-8 rounded-full object-cover"
                                 onError={(e) => {
@@ -451,7 +451,7 @@ function GroupChatWorking() {
                           {isOwnMessage && (
                             user?.profile_photo ? (
                               <img
-                                src={`${import.meta.env.VITE_API_URL || 'http://localhost:8000'}/api/auth/me/photo?token=${token}`}
+                                src={`${import.meta.env.VITE_API_URL || 'http://localhost:8000'}/api/auth/me/photo`}
                                 alt={user?.name || 'You'}
                                 className="flex-shrink-0 w-8 h-8 rounded-full object-cover"
                                 onError={(e) => {
@@ -495,7 +495,7 @@ function GroupChatWorking() {
                           {!isOwnPhoto && (
                             photo.uploaded_by_profile_photo ? (
                               <img
-                                src={`${import.meta.env.VITE_API_URL || 'http://localhost:8000'}${photo.uploaded_by_profile_photo}?token=${token}`}
+                                src={`${import.meta.env.VITE_API_URL || 'http://localhost:8000'}${photo.uploaded_by_profile_photo}`}
                                 alt={photo.uploaded_by_name || 'User'}
                                 className="flex-shrink-0 w-8 h-8 rounded-full object-cover"
                                 onError={(e) => {
@@ -526,10 +526,10 @@ function GroupChatWorking() {
                               </div>
                             )}
                             <img
-                              src={`${import.meta.env.VITE_API_URL || 'http://localhost:8000'}/api/events/photos/${photo.id}/file?token=${token}`}
+                              src={`${import.meta.env.VITE_API_URL || 'http://localhost:8000'}/api/events/photos/${photo.id}/file`}
                               alt={photo.caption || 'Shared photo'}
                               className="max-w-full max-h-64 object-contain cursor-pointer"
-                              onClick={() => window.open(`${import.meta.env.VITE_API_URL || 'http://localhost:8000'}/api/events/photos/${photo.id}/file?token=${token}`, '_blank')}
+                              onClick={() => window.open(`${import.meta.env.VITE_API_URL || 'http://localhost:8000'}/api/events/photos/${photo.id}/file`, '_blank')}
                             />
                             {photo.caption && (
                               <p className={`text-sm px-4 py-2 ${isOwnPhoto ? 'text-white' : 'text-gray-200'}`}>
@@ -540,7 +540,7 @@ function GroupChatWorking() {
                           {isOwnPhoto && (
                             user?.profile_photo ? (
                               <img
-                                src={`${import.meta.env.VITE_API_URL || 'http://localhost:8000'}/api/auth/me/photo?token=${token}`}
+                                src={`${import.meta.env.VITE_API_URL || 'http://localhost:8000'}/api/auth/me/photo`}
                                 alt={user?.name || 'You'}
                                 className="flex-shrink-0 w-8 h-8 rounded-full object-cover"
                                 onError={(e) => {

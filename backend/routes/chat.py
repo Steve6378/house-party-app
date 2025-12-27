@@ -3,7 +3,7 @@
 
 from fastapi import APIRouter, Depends, HTTPException, WebSocket, WebSocketDisconnect, Query
 from sqlalchemy.orm import Session
-from typing import List
+from typing import List, Optional
 import uuid
 from datetime import datetime
 
@@ -15,6 +15,7 @@ from utils.database import get_db
 from routes.auth import get_current_user
 from services.permissions import require_event_access
 from services.websocket_manager import manager
+from services.auth import decode_access_token
 
 router = APIRouter(prefix="/events", tags=["chat"])
 
@@ -23,19 +24,28 @@ router = APIRouter(prefix="/events", tags=["chat"])
 async def websocket_endpoint(
     websocket: WebSocket,
     event_id: str,
-    token: str = Query(...),
+    token: Optional[str] = Query(None),
     db: Session = Depends(get_db)
 ):
     """
     WebSocket endpoint for real-time event chat.
 
-    Clients connect with their JWT token as a query parameter.
+    Clients connect via:
+    1. httpOnly cookie (preferred for web clients)
+    2. Query parameter token (fallback for mobile clients)
+
     All messages are isolated to the specific event room.
     """
+    # Try to get token from cookie first, then query parameter
+    auth_token = websocket.cookies.get("access_token") or token
+
     # Validate token and get user
     try:
-        from services.auth import decode_access_token
-        user_id = decode_access_token(token)  # Returns user_id string or None
+        if not auth_token:
+            await websocket.close(code=1008, reason="Authentication required")
+            return
+
+        user_id = decode_access_token(auth_token)
         if not user_id:
             await websocket.close(code=1008, reason="Invalid token")
             return

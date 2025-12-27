@@ -12,6 +12,8 @@ from slowapi.util import get_remote_address
 from slowapi.errors import RateLimitExceeded
 from utils.database import get_db
 from config import settings
+import secrets
+import hmac
 
 # Rate limiter instance - use IP address as key
 limiter = Limiter(key_func=get_remote_address)
@@ -43,6 +45,65 @@ else:
 # Rate limiter setup
 app.state.limiter = limiter
 app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)
+
+
+# CSRF protection - exempt paths that don't need it
+CSRF_EXEMPT_PATHS = {
+    "/api/auth/login",
+    "/api/auth/register",
+    "/api/auth/refresh",
+    "/api/invite",  # Public invite acceptance
+    "/health",
+    "/",
+}
+
+
+def generate_csrf_token() -> str:
+    """Generate a cryptographically secure CSRF token."""
+    return secrets.token_urlsafe(32)
+
+
+def verify_csrf_token(request: Request) -> bool:
+    """
+    Verify CSRF token using double-submit cookie pattern.
+    Returns True if valid, False otherwise.
+    """
+    csrf_cookie = request.cookies.get("csrf_token")
+    csrf_header = request.headers.get("X-CSRF-Token")
+
+    if not csrf_cookie or not csrf_header:
+        return False
+
+    # Constant-time comparison to prevent timing attacks
+    return hmac.compare_digest(csrf_cookie, csrf_header)
+
+
+@app.middleware("http")
+async def csrf_protection(request: Request, call_next):
+    """
+    CSRF protection middleware using double-submit cookie pattern.
+
+    - GET/HEAD/OPTIONS requests are exempt (read-only)
+    - Certain paths are exempt (login, register, etc.)
+    - All other state-changing requests must include matching CSRF token
+    """
+    # Skip CSRF for safe methods
+    if request.method in ("GET", "HEAD", "OPTIONS"):
+        return await call_next(request)
+
+    # Skip CSRF for exempt paths
+    path = request.url.path
+    if any(path.startswith(exempt) for exempt in CSRF_EXEMPT_PATHS):
+        return await call_next(request)
+
+    # Verify CSRF token
+    if not verify_csrf_token(request):
+        return JSONResponse(
+            status_code=403,
+            content={"detail": "CSRF token missing or invalid"}
+        )
+
+    return await call_next(request)
 
 
 # Security headers middleware

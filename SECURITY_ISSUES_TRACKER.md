@@ -10,12 +10,12 @@ Quick reference for all identified vulnerabilities. Use this to track remediatio
 
 | Severity | Count | Fixed | Verified Open | Protected |
 |----------|-------|-------|---------------|-----------|
-| Critical | 4 | 1 (C2) | 1 (C3) | 0 |
-| High | 7 | 4 (H1, H2, H5, H6) | 1 (H7) | 1 (H3) |
+| Critical | 4 | 3 (C2, C3, C4) | 0 | 0 |
+| High | 7 | 5 (H1, H2, H4, H5, H6) | 1 (H7) | 1 (H3) |
 | Medium | 8 | 3 (M3, M5, M7) | 0 | 1 (M4) |
 | Low | 5 | 1 (L5) | 0 | 0 |
 | New | 2 | 2 (N2, N3) | 0 | 0 |
-| **Total** | **26** | **11** | **2** | **2** |
+| **Total** | **26** | **14** | **1** | **2** |
 
 ---
 
@@ -73,29 +73,36 @@ def register(...):
 ### C3. JWT Tokens in URL Parameters
 | | |
 |---|---|
-| **Status** | [ ] Open - **VERIFIED 2025-12-16** |
-| **Files** | `backend/routes/auth.py:368`, `photos.py:306`, `events.py:680`, `chat.py:26` |
+| **Status** | [x] **FIXED** - 2025-12-27 |
+| **Files** | `backend/routes/auth.py`, `photos.py`, `events.py`, `chat.py`, frontend JSX files |
 | **Issue** | Tokens passed as `?token=...` query parameter |
 | **Risk** | Tokens logged in server logs, browser history, Referer leaks |
-| **Fix** | Use Authorization header, or signed short-lived URLs |
-| **Test** | Photo endpoint accepts `?token=` parameter (confirmed via OpenAPI spec) |
+| **Fix** | Migrated to httpOnly cookie authentication. All `?token=` query params removed. |
+| **Details** | Cookies sent automatically with credentials: 'include'. WebSocket falls back to cookie first. |
 
-Affected endpoints:
-- `GET /api/auth/me/photo?token=...`
-- `GET /api/events/photos/{id}/file?token=...`
-- `GET /api/events/{id}/cover-image?token=...`
-- `WS /api/events/{id}/ws?token=...`
+Previously affected (now fixed):
+- `GET /api/auth/me/photo` - Now uses cookie auth
+- `GET /api/events/photos/{id}/file` - Now uses cookie auth
+- `GET /api/events/{id}/cover-image` - Now uses cookie auth
+- `WS /api/events/{id}/ws` - Now reads from cookie first, query param fallback for mobile
 
 ---
 
 ### C4. localStorage Token Storage
 | | |
 |---|---|
-| **Status** | [ ] Open |
-| **File** | `frontend/src/stores/authStore.ts:35-37` |
+| **Status** | [x] **FIXED** - 2025-12-27 |
+| **Files** | `backend/config.py`, `backend/routes/auth.py`, `frontend/src/stores/authStore.ts`, `frontend/src/utils/api.ts` |
 | **Issue** | JWT stored in localStorage, accessible to JavaScript |
 | **Risk** | Any XSS = full account takeover |
-| **Fix** | Use httpOnly cookies with SameSite=Strict |
+| **Fix** | Implemented httpOnly cookie authentication |
+| **Details** | Access token: httpOnly cookie (15 min). Refresh token: httpOnly cookie (7 days, /api/auth path only). CSRF token: readable cookie for double-submit pattern. |
+
+Implementation:
+- `access_token`: httpOnly=True, Secure=True (prod), SameSite=lax
+- `refresh_token`: httpOnly=True, path=/api/auth only
+- `csrf_token`: httpOnly=False (needed for JS to read and send in header)
+- Frontend uses `withCredentials: true` to send cookies automatically
 
 ---
 
@@ -131,23 +138,31 @@ allow_headers=["Authorization", "Content-Type", "Accept"],
 ### H3. WebSocket Auth via URL
 | | |
 |---|---|
-| **Status** | [~] **PROTECTED** - Verified 2025-12-16 |
-| **File** | `backend/routes/chat.py:26` |
+| **Status** | [~] **IMPROVED** - 2025-12-27 |
+| **File** | `backend/routes/chat.py` |
 | **Issue** | WebSocket token in query param |
-| **Fix** | Authenticate via first message after connection |
+| **Fix** | Now reads from httpOnly cookie first, falls back to query param for mobile app compatibility |
 | **Test** | No token/invalid token/attacker token all rejected with WebSocketBadStatusException |
 
-Note: While token is still in URL (not ideal), auth is properly enforced.
+Note: Cookie auth is now primary. Query param fallback maintained for mobile apps that can't send cookies with WebSocket connections.
 
 ---
 
 ### H4. No CSRF Protection
 | | |
 |---|---|
-| **Status** | [ ] Open |
-| **File** | Entire backend |
+| **Status** | [x] **FIXED** - 2025-12-27 |
+| **Files** | `backend/main.py`, `backend/config.py`, `frontend/src/utils/api.ts` |
 | **Issue** | No CSRF tokens on state-changing requests |
-| **Fix** | Implement CSRF protection (needed if using cookies) |
+| **Fix** | Implemented double-submit cookie pattern for CSRF protection |
+| **Details** | CSRF middleware validates token on all POST/PUT/DELETE requests. Exempt paths: login, register, refresh, invite acceptance. |
+
+Implementation:
+- Backend: `csrf_protection` middleware in main.py
+- `csrf_token` cookie set on login/register (readable by JS)
+- Frontend: Reads cookie and sends as `X-CSRF-Token` header
+- Uses `hmac.compare_digest()` for timing-safe comparison
+- Returns 403 "CSRF token missing or invalid" on failure
 
 ---
 
@@ -428,24 +443,27 @@ The following security controls are working correctly:
 
 ## Remediation Priority
 
-### Immediate (24-48h)
-1. C1 - Rotate and externalize API keys
-2. C2 - Add rate limiting to auth
+### Completed (2025-12-27)
+- [x] C2 - Rate limiting on auth (5/min login, 3/min register)
+- [x] C3 - Tokens moved from URLs to httpOnly cookies
+- [x] C4 - Implemented httpOnly cookie auth with refresh tokens
+- [x] H1 - JWT expiration reduced (15 min access, 7 day refresh)
+- [x] H2 - CORS configuration fixed (explicit origins)
+- [x] H4 - CSRF protection added (double-submit cookie)
+- [x] H5 - Chat messages sanitized
+- [x] H6 - Security headers added
+- [x] M3 - AI prompt injection mitigated
+- [x] M5 - Invite tokens increased (16 chars, ~96 bits)
+- [x] M7 - Input length validation added
+- [x] L5 - OpenAPI disabled in production
+- [x] N2 - Account enumeration fixed
+- [x] N3 - File content validation added
 
-### This Week
-3. C3 - Move tokens from URLs to headers
-4. C4 - Implement httpOnly cookie auth
-5. H5 - Sanitize chat messages
-6. H6 - Add security headers
-
-### Next Week
-7. H1 - Reduce JWT expiration
-8. H2 - Fix CORS configuration
-9. H4 - Add CSRF protection
-10. M5 - Increase invite token length
-
-### This Month
-11. H7 - Email verification
-12. M3 - Harden AI prompts
-13. M7 - Input length validation
-14. Remaining medium/low issues
+### Remaining Priority
+1. **C1** - Rotate and externalize API keys (CRITICAL - keys in git history)
+2. **H7** - Email verification flow
+3. **M1** - Account status information disclosure
+4. **M2** - SQL pattern escaping in FAQ search
+5. **M6** - Error details exposure
+6. **M8** - Frontend API key risk
+7. **L1-L4** - Debug mode, OAuth validation, DB URL logging, face encoding privacy

@@ -70,7 +70,7 @@ function ProfilePage() {
       });
       // Set photo preview from user's profile_photo if it exists
       if (user.profile_photo && token) {
-        setPhotoPreview(`${API_URL}/api/auth/me/photo?token=${token}&t=${Date.now()}`);
+        setPhotoPreview(`${API_URL}/api/auth/me/photo?t=${Date.now()}`);
       }
     }
   }, [isAuthenticated, user, token, navigate]);
@@ -128,7 +128,7 @@ function ProfilePage() {
       toast.error('Failed to upload photo');
       // Revert preview on error
       if (user?.profile_photo) {
-        setPhotoPreview(`${API_URL}/api/auth/me/photo?token=${token}&t=${Date.now()}`);
+        setPhotoPreview(`${API_URL}/api/auth/me/photo?t=${Date.now()}`);
       } else {
         setPhotoPreview(null);
       }

@@ -1,15 +1,16 @@
 # Yorru - Auth Routes
 # Version: 0.0.1
 
-from fastapi import APIRouter, Depends, HTTPException, status, UploadFile, File, Query, Request
+from fastapi import APIRouter, Depends, HTTPException, status, UploadFile, File, Query, Request, Cookie
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
-from fastapi.responses import Response
+from fastapi.responses import Response, JSONResponse
 from sqlalchemy.orm import Session
 from sqlalchemy import text
 from typing import Optional
 import uuid
 import os
 import io
+import secrets
 
 from models.user import User
 from models.attendance import EventAttendance
@@ -18,6 +19,7 @@ from services.auth import hash_password, verify_password, create_access_token, c
 from services.sanitize import sanitize_text
 from services.r2_storage import r2_storage
 from utils.database import get_db
+from config import settings
 
 # Import limiter from main - need to avoid circular import
 from slowapi import Limiter
@@ -25,7 +27,53 @@ from slowapi.util import get_remote_address
 limiter = Limiter(key_func=get_remote_address)
 
 router = APIRouter(prefix="/auth", tags=["authentication"])
-security = HTTPBearer()
+security = HTTPBearer(auto_error=False)  # Don't auto-error, we'll check cookies first
+
+
+def set_auth_cookies(response: Response, access_token: str, refresh_token: str, csrf_token: str):
+    """Set httpOnly cookies for authentication."""
+    # Access token cookie - httpOnly, secure, short-lived
+    response.set_cookie(
+        key="access_token",
+        value=access_token,
+        httponly=True,
+        secure=settings.COOKIE_SECURE,
+        samesite=settings.COOKIE_SAMESITE,
+        path=settings.COOKIE_PATH,
+        max_age=settings.JWT_EXPIRATION_MINUTES * 60,  # Convert to seconds
+        domain=settings.COOKIE_DOMAIN,
+    )
+
+    # Refresh token cookie - httpOnly, secure, long-lived
+    response.set_cookie(
+        key="refresh_token",
+        value=refresh_token,
+        httponly=True,
+        secure=settings.COOKIE_SECURE,
+        samesite=settings.COOKIE_SAMESITE,
+        path="/api/auth",  # Only sent to auth endpoints
+        max_age=settings.REFRESH_TOKEN_EXPIRATION_DAYS * 24 * 60 * 60,
+        domain=settings.COOKIE_DOMAIN,
+    )
+
+    # CSRF token cookie - NOT httpOnly (JavaScript needs to read it)
+    response.set_cookie(
+        key="csrf_token",
+        value=csrf_token,
+        httponly=False,  # JavaScript needs to read this
+        secure=settings.COOKIE_SECURE,
+        samesite=settings.COOKIE_SAMESITE,
+        path=settings.COOKIE_PATH,
+        max_age=settings.REFRESH_TOKEN_EXPIRATION_DAYS * 24 * 60 * 60,
+        domain=settings.COOKIE_DOMAIN,
+    )
+
+
+def clear_auth_cookies(response: Response):
+    """Clear all auth cookies on logout."""
+    response.delete_cookie(key="access_token", path=settings.COOKIE_PATH, domain=settings.COOKIE_DOMAIN)
+    response.delete_cookie(key="refresh_token", path="/api/auth", domain=settings.COOKIE_DOMAIN)
+    response.delete_cookie(key="csrf_token", path=settings.COOKIE_PATH, domain=settings.COOKIE_DOMAIN)
 
 
 def user_to_response(user: User) -> dict:
@@ -116,8 +164,10 @@ def register(request: Request, user_data: UserRegister, db: Session = Depends(ge
     # Create access and refresh tokens
     access_token = create_access_token(data={"sub": new_user.id})
     refresh_token = create_refresh_token(data={"sub": new_user.id})
+    csrf_token = secrets.token_urlsafe(32)
 
-    return {
+    # Create response with cookies
+    response_data = {
         "access_token": access_token,
         "refresh_token": refresh_token,
         "token_type": "bearer",
@@ -127,47 +177,53 @@ def register(request: Request, user_data: UserRegister, db: Session = Depends(ge
         "name": new_user.name
     }
 
+    response = JSONResponse(content=response_data, status_code=201)
+    set_auth_cookies(response, access_token, refresh_token, csrf_token)
 
-@router.post("/login", response_model=Token)
+    return response
+
+
+@router.post("/login")
 @limiter.limit("5/minute")
 def login(request: Request, credentials: UserLogin, db: Session = Depends(get_db)):
     """
     Login with email and password.
 
-    Returns a JWT token for authenticated requests.
+    Returns JWT tokens and sets httpOnly cookies for web clients.
+    Mobile clients can use the returned tokens directly.
 
     Rate limited: 5 requests per minute per IP.
-
-    Token expires in 7 days by default.
     """
     # Find user by email
     user = db.query(User).filter(User.email == credentials.email).first()
-    
+
     if not user:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="Invalid email or password"
         )
-    
+
     # Verify password
     if not verify_password(credentials.password, user.password_hash):
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="Invalid email or password"
         )
-    
+
     # Check if account is active
     if user.status != "active":
         raise HTTPException(
             status_code=status.HTTP_403_FORBIDDEN,
-            detail=f"Account is {user.status}"
+            detail="Account is not available"  # Generic message (M1 fix)
         )
-    
+
     # Create access and refresh tokens
     access_token = create_access_token(data={"sub": user.id})
     refresh_token = create_refresh_token(data={"sub": user.id})
+    csrf_token = secrets.token_urlsafe(32)
 
-    return {
+    # Create response with cookies
+    response_data = {
         "access_token": access_token,
         "refresh_token": refresh_token,
         "token_type": "bearer",
@@ -177,20 +233,45 @@ def login(request: Request, credentials: UserLogin, db: Session = Depends(get_db
         "name": user.name
     }
 
+    response = JSONResponse(content=response_data)
+    set_auth_cookies(response, access_token, refresh_token, csrf_token)
 
-@router.post("/refresh", response_model=RefreshResponse)
+    return response
+
+
+@router.post("/refresh")
 @limiter.limit("10/minute")
-def refresh_tokens(request: Request, refresh_request: RefreshRequest, db: Session = Depends(get_db)):
+def refresh_tokens(
+    request: Request,
+    refresh_request: Optional[RefreshRequest] = None,
+    refresh_token_cookie: Optional[str] = Cookie(None, alias="refresh_token"),
+    db: Session = Depends(get_db)
+):
     """
     Get a new access token using a refresh token.
 
     Rate limited: 10 requests per minute per IP.
 
+    Accepts refresh token from:
+    1. Cookie (preferred for web clients)
+    2. Request body (for mobile clients)
+
     Use this endpoint when your access token expires (after 15 minutes).
     The refresh token is valid for 7 days.
     """
+    # Get refresh token from cookie or request body
+    token = refresh_token_cookie
+    if not token and refresh_request:
+        token = refresh_request.refresh_token
+
+    if not token:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Refresh token required"
+        )
+
     # Decode and validate the refresh token
-    user_id = decode_refresh_token(refresh_request.refresh_token)
+    user_id = decode_refresh_token(token)
 
     if not user_id:
         raise HTTPException(
@@ -216,72 +297,124 @@ def refresh_tokens(request: Request, refresh_request: RefreshRequest, db: Sessio
     # Create new access token
     new_access_token = create_access_token(data={"sub": user.id})
 
-    return {
+    # Create response with updated access token cookie
+    response_data = {
         "access_token": new_access_token,
         "token_type": "bearer",
         "expires_in": 900  # 15 minutes
     }
 
+    response = JSONResponse(content=response_data)
+
+    # Update the access token cookie
+    response.set_cookie(
+        key="access_token",
+        value=new_access_token,
+        httponly=True,
+        secure=settings.COOKIE_SECURE,
+        samesite=settings.COOKIE_SAMESITE,
+        path=settings.COOKIE_PATH,
+        max_age=settings.JWT_EXPIRATION_MINUTES * 60,
+        domain=settings.COOKIE_DOMAIN,
+    )
+
+    return response
+
+
+@router.post("/logout")
+def logout(request: Request):
+    """
+    Logout the current user.
+
+    Clears all authentication cookies.
+    """
+    response = JSONResponse(content={"message": "Logged out successfully"})
+    clear_auth_cookies(response)
+    return response
+
 
 def get_current_user(
-    credentials: HTTPAuthorizationCredentials = Depends(security),
+    request: Request,
+    credentials: Optional[HTTPAuthorizationCredentials] = Depends(security),
+    access_token_cookie: Optional[str] = Cookie(None, alias="access_token"),
     db: Session = Depends(get_db)
 ) -> User:
     """
     Dependency to get the current authenticated user.
-    
+
+    Checks for token in this order:
+    1. httpOnly cookie (preferred for web clients)
+    2. Authorization header (for mobile clients)
+
     Usage in endpoints:
         @router.get("/protected")
         def protected_route(current_user: User = Depends(get_current_user)):
             return {"user_id": current_user.id}
-    
+
     Raises 401 if token is invalid or user doesn't exist.
     """
-    token = credentials.credentials
+    # Try cookie first, then Authorization header
+    token = access_token_cookie
+    if not token and credentials:
+        token = credentials.credentials
+
+    if not token:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Authentication required",
+            headers={"WWW-Authenticate": "Bearer"}
+        )
+
     user_id = decode_access_token(token)
-    
+
     if not user_id:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="Invalid or expired token",
             headers={"WWW-Authenticate": "Bearer"}
         )
-    
+
     user = db.query(User).filter(User.id == user_id).first()
-    
+
     if not user:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="User not found",
             headers={"WWW-Authenticate": "Bearer"}
         )
-    
+
     if user.status != "active":
         raise HTTPException(
             status_code=status.HTTP_403_FORBIDDEN,
-            detail=f"Account is {user.status}"
+            detail="Account is not available"  # Generic message (M1 fix)
         )
-    
+
     return user
 
 
-# Optional security (doesn't fail if no token provided)
-security_optional = HTTPBearer(auto_error=False)
-
-
 def get_current_user_optional(
-    credentials: Optional[HTTPAuthorizationCredentials] = Depends(security_optional),
+    request: Request,
+    credentials: Optional[HTTPAuthorizationCredentials] = Depends(security),
+    access_token_cookie: Optional[str] = Cookie(None, alias="access_token"),
     db: Session = Depends(get_db)
 ) -> Optional[User]:
     """
     Dependency to get the current user if authenticated, or None if not.
 
+    Checks for token in this order:
+    1. httpOnly cookie (preferred for web clients)
+    2. Authorization header (for mobile clients)
+
     Useful for endpoints that work for both authenticated and anonymous users.
     """
-    if not credentials:
+    # Try cookie first, then Authorization header
+    token = access_token_cookie
+    if not token and credentials:
+        token = credentials.credentials
+
+    if not token:
         return None
 
-    token = credentials.credentials
     user_id = decode_access_token(token)
 
     if not user_id:
@@ -456,25 +589,14 @@ async def upload_profile_photo(
 
 @router.get("/me/photo")
 async def get_profile_photo(
-    token: Optional[str] = Query(None, description="JWT token for img tag authentication"),
+    current_user: User = Depends(get_current_user),
     db: Session = Depends(get_db)
 ):
     """
     Get the current user's profile photo.
 
-    Supports token as query parameter for use in img tags.
+    Authentication via httpOnly cookie or Authorization header.
     """
-    # Validate token from query parameter
-    if not token:
-        raise HTTPException(status_code=401, detail="Token required")
-
-    user_id = decode_access_token(token)
-    if not user_id:
-        raise HTTPException(status_code=401, detail="Invalid or expired token")
-
-    current_user = db.query(User).filter(User.id == user_id).first()
-    if not current_user:
-        raise HTTPException(status_code=401, detail="User not found")
 
     if not current_user.profile_photo:
         raise HTTPException(status_code=404, detail="No profile photo set")
@@ -596,23 +718,15 @@ async def disable_face_recognition(
 @router.get("/users/{user_id}/photo")
 async def get_user_photo_by_id(
     user_id: str,
-    token: Optional[str] = Query(None, description="JWT token for img tag authentication"),
+    current_user: User = Depends(get_current_user),
     db: Session = Depends(get_db)
 ):
     """
     Get a user's profile photo by their user ID.
 
-    Supports token as query parameter for use in img tags.
+    Authentication via httpOnly cookie or Authorization header.
     Requires authentication to view other users' photos.
     """
-    # Validate token from query parameter
-    if not token:
-        raise HTTPException(status_code=401, detail="Token required")
-
-    requesting_user_id = decode_access_token(token)
-    if not requesting_user_id:
-        raise HTTPException(status_code=401, detail="Invalid or expired token")
-
     # Get the user whose photo is being requested
     target_user = db.query(User).filter(User.id == user_id).first()
     if not target_user:

@@ -112,7 +112,7 @@ function DashboardPage() {
           {event.cover_image_url ? (
             <img
               src={event.cover_image_url.startsWith('/api/')
-                ? `${API_URL}${event.cover_image_url}${token ? `?token=${token}` : ''}`
+                ? `${API_URL}${event.cover_image_url}`
                 : event.cover_image_url}
               alt={event.name}
               className="w-full h-full object-cover"
@@ -223,7 +223,7 @@ function DashboardPage() {
                 >
                   {user?.profile_photo ? (
                     <img
-                      src={`${API_URL}/api/auth/me/photo?token=${token}`}
+                      src={`${API_URL}/api/auth/me/photo`}
                       alt={user?.name}
                       className="w-8 h-8 rounded-full object-cover"
                       onError={(e) => {

@@ -14,22 +14,27 @@ interface User {
 
 interface AuthState {
   user: User | null;
-  token: string | null;
   isAuthenticated: boolean;
-  login: (userData: User, token: string) => void;
+  login: (userData: User) => void;
   logout: () => void;
   updateUser: (userData: Partial<User>) => void;
 }
 
+/**
+ * Auth store for user state.
+ *
+ * Note: Auth tokens are now stored in httpOnly cookies, not in this store.
+ * This store only persists user info for UI display.
+ * Actual authentication is handled by cookies automatically.
+ */
 export const useAuthStore = create<AuthState>()(
   persist(
     (set) => ({
       user: null,
-      token: null,
       isAuthenticated: false,
 
-      login: (userData, token) => set({ user: userData, token, isAuthenticated: true }),
-      logout: () => set({ user: null, token: null, isAuthenticated: false }),
+      login: (userData) => set({ user: userData, isAuthenticated: true }),
+      logout: () => set({ user: null, isAuthenticated: false }),
       updateUser: (userData) => set((state) => ({ user: state.user ? { ...state.user, ...userData } : null })),
     }),
     {

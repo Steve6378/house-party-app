@@ -20,11 +20,9 @@ function LoginPage() {
     try {
       const response = await authAPI.login({ email, password });
 
-      // FastAPI returns: { access_token, token_type, user_id, email, name }
-      login(
-        { id: response.user_id, email: response.email, name: response.name },
-        response.access_token
-      );
+      // Auth token is now stored in httpOnly cookie automatically
+      // Just update the user state
+      login({ id: response.user_id, email: response.email, name: response.name });
       toast.success('Welcome back!');
       navigate('/dashboard');
     } catch (error) {

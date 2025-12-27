@@ -37,6 +37,15 @@ class Settings(BaseSettings):
     ENVIRONMENT: str = "development"  # development, staging, production
     DEBUG: bool = True
 
+    # Cookie settings for httpOnly auth
+    COOKIE_DOMAIN: Optional[str] = None  # None = current domain only
+    COOKIE_SECURE: bool = True  # Always use Secure in production (HTTPS only)
+    COOKIE_SAMESITE: str = "lax"  # "lax" allows top-level navigations, "strict" is more secure
+    COOKIE_PATH: str = "/"
+
+    # CSRF protection
+    CSRF_SECRET_KEY: Optional[str] = None  # Falls back to JWT_SECRET_KEY if not set
+
     class Config:
         # Look for .env in parent directory (yorru/.env)
         # Override with ENV_FILE environment variable for staging/testing
@@ -46,6 +55,13 @@ class Settings(BaseSettings):
 
 settings = Settings()
 
-# Auto-adjust DEBUG based on ENVIRONMENT
+# Auto-adjust settings based on ENVIRONMENT
 if settings.ENVIRONMENT == "production":
     settings.DEBUG = False
+else:
+    # In development, allow non-HTTPS cookies
+    settings.COOKIE_SECURE = False
+
+# CSRF key fallback
+if not settings.CSRF_SECRET_KEY:
+    settings.CSRF_SECRET_KEY = settings.JWT_SECRET_KEY

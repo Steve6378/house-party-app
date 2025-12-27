@@ -1,7 +1,7 @@
 # Yorru - Event Routes
 # Version: 0.0.1
 
-from fastapi import APIRouter, Depends, HTTPException, Query, UploadFile, File
+from fastapi import APIRouter, Depends, HTTPException, Query, UploadFile, File, Cookie
 from fastapi.responses import Response
 from sqlalchemy.orm import Session
 from sqlalchemy import text as sql_text
@@ -19,11 +19,12 @@ from models.message import Message
 from models.ground_truth import GroundTruthFact
 from schemas.event import EventCreate, EventUpdate, EventResponse, EventListResponse, EventListItem
 from utils.database import get_db
-from routes.auth import get_current_user
+from routes.auth import get_current_user, get_current_user_optional
 from services.permissions import get_user_events, require_event_access
 from services.sanitize import sanitize_event_name, sanitize_event_address, sanitize_text
 from services.embeddings import embed_text
 from services.websocket_manager import manager
+from services.auth import decode_access_token
 
 router = APIRouter(prefix="/events", tags=["events"])
 
@@ -680,7 +681,7 @@ async def upload_cover_image(
 @router.get("/{event_id}/cover-image")
 async def get_cover_image(
     event_id: str,
-    token: Optional[str] = Query(None),
+    access_token_cookie: Optional[str] = Cookie(None, alias="access_token"),
     db: Session = Depends(get_db)
 ):
     """
@@ -689,10 +690,9 @@ async def get_cover_image(
     Returns the image file directly.
 
     - Public events: No auth required
-    - Private events: Requires token query param with valid JWT
+    - Private events: Requires httpOnly cookie authentication
     """
     from services.r2_storage import R2Storage
-    from services.auth import decode_access_token
 
     # Get the event
     event = db.query(Event).filter(Event.id == event_id).first()
@@ -701,10 +701,10 @@ async def get_cover_image(
 
     # Check access for private events
     if event.visibility == "private":
-        if not token:
+        if not access_token_cookie:
             raise HTTPException(status_code=401, detail="Authentication required for private event")
         try:
-            user_id = decode_access_token(token)
+            user_id = decode_access_token(access_token_cookie)
             if not user_id:
                 raise HTTPException(status_code=401, detail="Invalid token")
             user = db.query(User).filter(User.id == user_id).first()
