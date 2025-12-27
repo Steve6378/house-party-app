@@ -41,6 +41,45 @@ MAX_FILE_SIZE = 20 * 1024 * 1024
 # Allowed image types
 ALLOWED_EXTENSIONS = {".jpg", ".jpeg", ".png", ".gif", ".webp"}
 
+# Magic bytes for image file validation
+IMAGE_MAGIC_BYTES = {
+    ".jpg": [b'\xff\xd8\xff'],
+    ".jpeg": [b'\xff\xd8\xff'],
+    ".png": [b'\x89PNG\r\n\x1a\n'],
+    ".gif": [b'GIF87a', b'GIF89a'],
+    ".webp": [b'RIFF'],  # WebP starts with RIFF, then has WEBP at offset 8
+}
+
+
+def validate_image_content(file_content: bytes, file_ext: str) -> bool:
+    """
+    Validate that file content matches the expected image type based on magic bytes.
+
+    This prevents uploading malicious files (like PHP) with image extensions.
+
+    Args:
+        file_content: Raw file bytes
+        file_ext: File extension (lowercase, with dot)
+
+    Returns:
+        True if content matches expected image type, False otherwise
+    """
+    if file_ext not in IMAGE_MAGIC_BYTES:
+        return False
+
+    valid_signatures = IMAGE_MAGIC_BYTES[file_ext]
+
+    for signature in valid_signatures:
+        if file_content.startswith(signature):
+            # Additional check for WebP - must have WEBP at offset 8
+            if file_ext == ".webp":
+                if len(file_content) >= 12 and file_content[8:12] == b'WEBP':
+                    return True
+            else:
+                return True
+
+    return False
+
 
 def generate_photo_description(image_data: bytes, file_ext: str) -> dict:
     """
@@ -191,6 +230,14 @@ async def upload_photo(
 
     # Read file contents
     file_contents = await file.read()
+
+    # Validate file content matches the claimed file type (magic byte check)
+    # This prevents uploading malicious files (like PHP/scripts) with image extensions
+    if not validate_image_content(file_contents, file_ext):
+        raise HTTPException(
+            status_code=400,
+            detail=f"Invalid file content. File does not appear to be a valid {file_ext} image."
+        )
 
     # Skip AI processing for fast upload - use defaults
     # AI processing can be done async/background later if needed

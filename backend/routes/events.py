@@ -21,7 +21,7 @@ from schemas.event import EventCreate, EventUpdate, EventResponse, EventListResp
 from utils.database import get_db
 from routes.auth import get_current_user
 from services.permissions import get_user_events, require_event_access
-from services.sanitize import sanitize_event_name, sanitize_event_address
+from services.sanitize import sanitize_event_name, sanitize_event_address, sanitize_text
 from services.embeddings import embed_text
 from services.websocket_manager import manager
 
@@ -148,6 +148,7 @@ def create_event(
     # Sanitize inputs to prevent XSS
     sanitized_name = sanitize_event_name(event_data.name)
     sanitized_address = sanitize_event_address(event_data.address) if event_data.address else None
+    sanitized_description = sanitize_text(event_data.description, allow_basic_formatting=True) if event_data.description else None
 
     # Convert topics list to JSON string for storage
     topics_json = json.dumps(event_data.topics) if event_data.topics else None
@@ -167,7 +168,7 @@ def create_event(
         status="active",
         visibility=event_data.visibility,
         # Description and topics
-        description=event_data.description,
+        description=sanitized_description,
         topics=topics_json,
         # Online/Offline
         is_online=event_data.is_online or False,
@@ -219,6 +220,8 @@ async def update_event(
         update_data["name"] = sanitize_event_name(update_data["name"])
     if "address" in update_data and update_data["address"]:
         update_data["address"] = sanitize_event_address(update_data["address"])
+    if "description" in update_data and update_data["description"]:
+        update_data["description"] = sanitize_text(update_data["description"], allow_basic_formatting=True)
 
     # Parse date string to date object if provided
     if "date" in update_data and update_data["date"]:

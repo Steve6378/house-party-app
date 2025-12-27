@@ -2,12 +2,19 @@
 # Version: 0.0.1
 # Yorru (夜 - "yoru" meaning night in Japanese) - Night Event Planning Platform
 
-from fastapi import FastAPI, Depends
+from fastapi import FastAPI, Depends, Request
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import JSONResponse
 from sqlalchemy.orm import Session
 from sqlalchemy import text
+from slowapi import Limiter, _rate_limit_exceeded_handler
+from slowapi.util import get_remote_address
+from slowapi.errors import RateLimitExceeded
 from utils.database import get_db
 from config import settings
+
+# Rate limiter instance - use IP address as key
+limiter = Limiter(key_func=get_remote_address)
 from routes import events_router, ground_truth_router, auth_router, messages_router, message_router, groups_router
 from routes.ai import router as ai_router
 from routes.attendance import router as attendance_router, invite_router
@@ -21,6 +28,10 @@ app = FastAPI(
     version="0.0.1",
     description="Yorru - AI-assisted night event planning platform"
 )
+
+# Rate limiter setup
+app.state.limiter = limiter
+app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)
 
 # CORS middleware for frontend - MUST be added before routes
 app.add_middleware(

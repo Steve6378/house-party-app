@@ -19,6 +19,11 @@ from services.sanitize import sanitize_text
 from services.r2_storage import r2_storage
 from utils.database import get_db
 
+# Import limiter from main - need to avoid circular import
+from slowapi import Limiter
+from slowapi.util import get_remote_address
+limiter = Limiter(key_func=get_remote_address)
+
 router = APIRouter(prefix="/auth", tags=["authentication"])
 security = HTTPBearer()
 
@@ -44,13 +49,16 @@ def user_to_response(user: User) -> dict:
 
 
 @router.post("/register", response_model=Token, status_code=201)
-def register(user_data: UserRegister, db: Session = Depends(get_db)):
+@limiter.limit("3/minute")
+def register(request: Request, user_data: UserRegister, db: Session = Depends(get_db)):
     """
     Register a new user.
-    
+
     Creates a new user account with email/password authentication.
     Returns a JWT token for immediate login.
-    
+
+    Rate limited: 3 requests per minute per IP.
+
     Requirements:
     - Email must be unique
     - Password must be at least 8 characters
@@ -117,12 +125,15 @@ def register(user_data: UserRegister, db: Session = Depends(get_db)):
 
 
 @router.post("/login", response_model=Token)
-def login(credentials: UserLogin, db: Session = Depends(get_db)):
+@limiter.limit("5/minute")
+def login(request: Request, credentials: UserLogin, db: Session = Depends(get_db)):
     """
     Login with email and password.
-    
+
     Returns a JWT token for authenticated requests.
-    
+
+    Rate limited: 5 requests per minute per IP.
+
     Token expires in 7 days by default.
     """
     # Find user by email
@@ -279,6 +290,27 @@ def update_profile(
 MAX_PROFILE_PHOTO_SIZE = 5 * 1024 * 1024
 ALLOWED_EXTENSIONS = {".jpg", ".jpeg", ".png", ".gif", ".webp"}
 
+# Magic bytes for image file validation
+IMAGE_MAGIC_BYTES = {
+    ".jpg": [b'\xff\xd8\xff'],
+    ".jpeg": [b'\xff\xd8\xff'],
+    ".png": [b'\x89PNG\r\n\x1a\n'],
+    ".gif": [b'GIF87a', b'GIF89a'],
+    ".webp": [b'RIFF'],
+}
+
+
+def validate_image_content(file_content: bytes, file_ext: str) -> bool:
+    """Validate file content matches expected image type via magic bytes."""
+    if file_ext not in IMAGE_MAGIC_BYTES:
+        return False
+    for signature in IMAGE_MAGIC_BYTES[file_ext]:
+        if file_content.startswith(signature):
+            if file_ext == ".webp":
+                return len(file_content) >= 12 and file_content[8:12] == b'WEBP'
+            return True
+    return False
+
 
 @router.post("/me/photo", response_model=UserResponse)
 async def upload_profile_photo(
@@ -313,6 +345,13 @@ async def upload_profile_photo(
 
     # Read file contents
     file_contents = await file.read()
+
+    # Validate file content matches the claimed file type (magic byte check)
+    if not validate_image_content(file_contents, file_ext):
+        raise HTTPException(
+            status_code=400,
+            detail=f"Invalid file content. File does not appear to be a valid {file_ext} image."
+        )
 
     # Extract face encoding for face recognition
     face_encoding_json = None
