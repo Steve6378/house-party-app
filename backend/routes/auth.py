@@ -291,7 +291,7 @@ def refresh_tokens(
     if user.status != "active":
         raise HTTPException(
             status_code=status.HTTP_403_FORBIDDEN,
-            detail="Account is not active"
+            detail="Account is not available"
         )
 
     # Create new access token

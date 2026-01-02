@@ -12,10 +12,10 @@ Quick reference for all identified vulnerabilities. Use this to track remediatio
 |----------|-------|-------|---------------|-----------|
 | Critical | 4 | 3 (C2, C3, C4) | 0 | 0 |
 | High | 7 | 5 (H1, H2, H4, H5, H6) | 1 (H7) | 1 (H3) |
-| Medium | 8 | 3 (M3, M5, M7) | 0 | 1 (M4) |
-| Low | 5 | 1 (L5) | 0 | 0 |
+| Medium | 8 | 4 (M1, M3, M5, M7) | 0 | 1 (M4) |
+| Low | 5 | 2 (L1, L5) | 0 | 0 |
 | New | 2 | 2 (N2, N3) | 0 | 0 |
-| **Total** | **26** | **14** | **1** | **2** |
+| **Total** | **26** | **16** | **1** | **2** |
 
 ---
 
@@ -221,10 +221,10 @@ async def add_security_headers(request, call_next):
 ### M1. Account Status Information Disclosure
 | | |
 |---|---|
-| **Status** | [ ] Open |
-| **File** | `backend/routes/auth.py:148` |
+| **Status** | [x] **FIXED** - 2025-12-27 |
+| **File** | `backend/routes/auth.py` |
 | **Issue** | Error reveals account status (suspended, deleted, etc.) |
-| **Fix** | Generic error message |
+| **Fix** | All status checks now return generic "Account is not available" message |
 
 ```python
 # Current:
@@ -350,10 +350,10 @@ class EventCreate(BaseModel):
 ### L1. Debug Mode Default
 | | |
 |---|---|
-| **Status** | [ ] Open |
-| **File** | `backend/config.py:37` |
+| **Status** | [x] **FIXED** - 2025-12-27 |
+| **File** | `backend/config.py:38` |
 | **Issue** | `DEBUG: bool = True` default |
-| **Fix** | Default to False |
+| **Fix** | Changed to `DEBUG: bool = False` - must explicitly enable in .env |
 
 ---
 
@@ -452,9 +452,11 @@ The following security controls are working correctly:
 - [x] H4 - CSRF protection added (double-submit cookie)
 - [x] H5 - Chat messages sanitized
 - [x] H6 - Security headers added
+- [x] M1 - Account status info disclosure fixed (generic message)
 - [x] M3 - AI prompt injection mitigated
 - [x] M5 - Invite tokens increased (16 chars, ~96 bits)
 - [x] M7 - Input length validation added
+- [x] L1 - Debug mode defaults to False
 - [x] L5 - OpenAPI disabled in production
 - [x] N2 - Account enumeration fixed
 - [x] N3 - File content validation added
@@ -462,8 +464,7 @@ The following security controls are working correctly:
 ### Remaining Priority
 1. **C1** - Rotate and externalize API keys (CRITICAL - keys in git history)
 2. **H7** - Email verification flow
-3. **M1** - Account status information disclosure
-4. **M2** - SQL pattern escaping in FAQ search
-5. **M6** - Error details exposure
-6. **M8** - Frontend API key risk
-7. **L1-L4** - Debug mode, OAuth validation, DB URL logging, face encoding privacy
+3. **M2** - SQL pattern escaping in FAQ search
+4. **M6** - Error details exposure
+5. **M8** - Frontend API key risk
+6. **L2-L4** - OAuth validation, DB URL logging, face encoding privacy

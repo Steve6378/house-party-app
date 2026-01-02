@@ -35,7 +35,7 @@ class Settings(BaseSettings):
     R2_PUBLIC_URL: Optional[str] = None  # Your R2 public bucket URL or custom domain
 
     ENVIRONMENT: str = "development"  # development, staging, production
-    DEBUG: bool = True
+    DEBUG: bool = False  # Must explicitly enable in .env for development
 
     # Cookie settings for httpOnly auth
     COOKIE_DOMAIN: Optional[str] = None  # None = current domain only
